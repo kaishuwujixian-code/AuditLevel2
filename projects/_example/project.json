@@ -1,0 +1,29 @@
+{
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Opportunities": [
+        "Hydronic balancing review"
+      ],
+      "Safety Hazards": [
+        "No storage in boiler room"
+      ]
+    }
+  },
+  "notes": {
+    "comfort_complaints_reported": [],
+    "general_site_notes": "",
+    "maintenance_issues_observed": [],
+    "safety_hazards_observed": []
+  },
+  "project_info": {
+    "building_name": "Example Building",
+    "client_name": "Example Client",
+    "prepared_by": "Example Engineer",
+    "report_date": "2026-01-13",
+    "site_address": "123 Main St"
+  },
+  "selected_measures": [
+    "BAS Upgrade",
+    "Condensing Boiler Retrofit"
+  ]
+}
