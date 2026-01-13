@@ -8,7 +8,6 @@ import json
 import os
 
 
-
 # -------------------- Measure templates -------------------- #
 
 
@@ -1651,3 +1650,19 @@ if __name__ == "__main__":
 
     app = MeasureToWordApp(root)
     root.mainloop()
+
+
+
+def generate_level1_report(
+    project_json_path: str,
+    template_json_path: str,
+    docx_template_path: str,
+    out_path: str,
+) -> str:
+    """
+    Headless entrypoint (no Tkinter).
+    Loads project.json + template.level1.json,
+    resolves selected_measures, and calls insert_measures_into_docx.
+    Returns out_path.
+    """
+
