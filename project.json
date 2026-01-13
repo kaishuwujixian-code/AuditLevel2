@@ -1,95 +1,19 @@
 {
-  "template_meta": {
-    "template_name": "Level 1 Walkthrough Report Template",
-    "template_version": "0.1",
-    "purpose": "Level 1 audit (walkthrough) write-up only; no calculations. Select onsite findings/opportunities and generate a Word walkthrough report.",
-    "source": "Extracted from current Python generator (MEASURE_TEMPLATES / MEASURE_SUMMARIES / categories / placeholders)."
+  "project_info": {
+    "client_name": "Demo Client",
+    "site_address": "123 Main St",
+    "building_name": "Demo Building",
+    "report_date": "2026-01-13",
+    "prepared_by": "Ken"
   },
-  "word_template_requirements": {
-    "docx_placeholders": {
-      "measure_block_paragraph": "{MEASURE_BLOCK}",
-      "measure_summary_table_row": "{MEASURE_SUMMARY_ROW}"
-    },
-    "expected_summary_table_columns": [
-      "Description of Measure",
-      "Estimated Utility / Cost Savings"
-    ],
-    "styles": {
-      "measure_title_style": "heanding 2",
-      "section_subtitle_style": "Normal",
-      "body_style": "Normal"
-    },
-    "section_headings": {
-      "existing_conditions_heading": "Existing Conditions",
-      "retrofit_conditions_heading": "Retrofit Conditions"
-    },
-    "pagination": {
-      "page_break_between_measures": true,
-      "no_page_break_after_last_measure": true
-    }
-  },
-  "ui_categories": [
-    { "tab_title": "BAS / Controls", "code": "bas" },
-    { "tab_title": "Boiler / Plant", "code": "boiler" },
-    { "tab_title": "MUA / Ventilation", "code": "mua" },
-    { "tab_title": "Hydronic Loops", "code": "loop" },
-    { "tab_title": "Lighting", "code": "lighting" },
-    { "tab_title": "Building Envelope", "code": "envelope" },
-    { "tab_title": "Water & DHW", "code": "water" },
-    { "tab_title": "Pumps / Power / PF", "code": "pumps" },
-    { "tab_title": "Other / Misc", "code": "other" }
+  "selected_measures": [
+    "BAS Upgrade",
+    "Condensing Boiler Retrofit"
   ],
-  "report_inputs": {
-    "project_info": {
-      "client_name": "",
-      "site_address": "",
-      "building_name": "",
-      "report_date": "",
-      "prepared_by": ""
-    },
-    "selected_measures": [],
-    "notes": {
-      "general_site_notes": "",
-      "safety_hazards_observed": [],
-      "maintenance_issues_observed": [],
-      "comfort_complaints_reported": []
-    }
-  },
-  "measures": {
-    "BAS Upgrade": {
-      "category": "bas",
-      "name": "Building Automation System Upgrade",
-      "summary": "Upgrade legacy local controls to a modern integrated BAS, enabling central scheduling, reset strategies and fault monitoring to reduce energy use and improve comfort.",
-      "existing": "The building’s mechanical systems are currently controlled by a combination of local thermostats and standalone unit controllers. There is limited central monitoring of setpoints, schedules, or alarms. Occupancy patterns have changed since the original systems were installed, and equipment is often left running at full capacity during evenings and weekends.",
-      "retrofit": "Mann recommends upgrading to a modern Building Automation System (BAS) that integrates the boiler plant, make-up air units, pumps and exhaust fans. The BAS will provide central scheduling, outdoor-reset control, supply-air temperature reset and alarm monitoring. This will allow operators to implement unoccupied setbacks, improve temperature control and identify equipment faults more quickly.\n\nWith proper programming, the BAS will optimise equipment sequencing so that the most efficient boilers and pumps are operated first, and ventilation rates can be reduced when spaces are unoccupied. This measure improves comfort, reduces natural-gas and electricity consumption, and provides a platform for future energy-saving strategies."
-    },
-    "Condensing Boiler Retrofit": {
-      "category": "boiler",
-      "name": "Condensing Boiler Retrofit",
-      "summary": "Replace aging near-condensing boilers with high-efficiency condensing units and improved piping to enable true condensing operation, lowering gas consumption and extending plant life.",
-      "existing": "The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\n\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\n\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.",
-      "retrofit": "Mann recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\n\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\n\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions. Piping would be reconfigured to reduce standby losses and protect the boilers from thermal shock."
-    }
-  },
-  "category_by_measure_overrides": {
-    "BAS Upgrade": "bas",
-    "Existing BAS Upgrade": "bas",
-    "BAS Install": "bas",
-    "BAS Recommission – Valves": "bas",
-    "Outdoor Reset for Hydronic Heating": "bas",
-    "Condensing Boiler Retrofit": "boiler",
-    "DHW Condensing Boiler Replacement": "boiler",
-    "DHW Repiping for Condensing Boilers": "boiler",
-    "MUA Hydronic Conversion": "mua",
-    "MUA Hydronic + BAS + VFD": "mua",
-    "MUA VFD Retrofit": "mua",
-    "Packaged Heating/Cooling MUA": "mua",
-    "Primary-Secondary Boiler and DHW Piping": "loop",
-    "Common Area Lighting Retrofit": "lighting",
-    "Window Caulking Upgrade": "envelope",
-    "Solar Preheat – DHW": "water",
-    "Cooling Tower Fan VFD": "pumps",
-    "Booster Pump VFD": "pumps",
-    "Investigate Electric Heating": "other"
+  "notes": {
+    "general_site_notes": "",
+    "safety_hazards_observed": [],
+    "maintenance_issues_observed": [],
+    "comfort_complaints_reported": []
   }
 }
