@@ -64,6 +64,7 @@ Create a project file interactively:
 ```bash
 python tools/new_project.py
 ```
+Use flags like `--template`, `--out`, `--no-measures`, or `--no-checklists` to customize the prompt flow.
 
 Generate a report from the new project:
 ```bash
