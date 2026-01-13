@@ -4,6 +4,7 @@ from docx import Document
 from docx.enum.text import WD_BREAK
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
+import json
 import os
 
 
@@ -1148,6 +1149,133 @@ STYLE_MEASURE_TITLE = "heanding 2"  # 这是你模板里的名字就行
 STYLE_SECTION_SUB   = "Normal"
 STYLE_BODY          = "Normal"
 
+DEFAULT_MEASURE_TEMPLATES = {key: dict(value) for key, value in MEASURE_TEMPLATES.items()}
+DEFAULT_CATEGORIES = list(CATEGORIES)
+DEFAULT_CATEGORY_BY_MEASURE = dict(CATEGORY_BY_MEASURE)
+DEFAULT_STYLES = {
+    "measure_title_style": STYLE_MEASURE_TITLE,
+    "section_subtitle_style": STYLE_SECTION_SUB,
+    "body_style": STYLE_BODY,
+}
+
+DEFAULT_PLACEHOLDERS = {
+    "measure_block_paragraph": "{MEASURE_BLOCK}",
+    "measure_summary_table_row": "{MEASURE_SUMMARY_ROW}",
+}
+DEFAULT_SECTION_HEADINGS = {
+    "existing_conditions_heading": "Existing Conditions",
+    "retrofit_conditions_heading": "Retrofit Conditions",
+}
+DEFAULT_PAGINATION = {
+    "page_break_between_measures": True,
+    "no_page_break_after_last_measure": True,
+}
+
+DEFAULT_TEMPLATE_JSON_PATH = os.path.join(
+    os.path.dirname(__file__),
+    "..",
+    "templates",
+    "template.level1.json",
+)
+
+
+def load_level1_template(json_path):
+    with open(json_path, "r", encoding="utf-8") as handle:
+        data = json.load(handle)
+
+    for key in ("word_template_requirements", "ui_categories", "measures"):
+        if key not in data:
+            raise ValueError(f"Missing required field: {key}")
+
+    requirements = data["word_template_requirements"]
+    placeholders = requirements.get("docx_placeholders")
+    styles = requirements.get("styles")
+    section_headings = requirements.get("section_headings")
+    pagination = requirements.get("pagination", {})
+
+    if not isinstance(placeholders, dict):
+        raise ValueError("Missing docx_placeholders configuration.")
+    if not isinstance(styles, dict):
+        raise ValueError("Missing styles configuration.")
+    if not isinstance(section_headings, dict):
+        raise ValueError("Missing section_headings configuration.")
+
+    for key in ("measure_block_paragraph", "measure_summary_table_row"):
+        if key not in placeholders:
+            raise ValueError(f"Missing placeholder: {key}")
+    for key in ("measure_title_style", "section_subtitle_style", "body_style"):
+        if key not in styles:
+            raise ValueError(f"Missing style definition: {key}")
+    for key in ("existing_conditions_heading", "retrofit_conditions_heading"):
+        if key not in section_headings:
+            raise ValueError(f"Missing section heading: {key}")
+
+    measures = {}
+    for key, measure in data["measures"].items():
+        if not isinstance(measure, dict):
+            raise ValueError(f"Invalid measure definition for {key}")
+        for field in ("category", "name", "existing", "retrofit"):
+            if field not in measure:
+                raise ValueError(f"Measure {key} missing field: {field}")
+        measures[key] = {
+            "category": measure["category"],
+            "name": measure["name"],
+            "summary": measure.get("summary", ""),
+            "existing": measure["existing"],
+            "retrofit": measure["retrofit"],
+        }
+
+    categories = []
+    for item in data["ui_categories"]:
+        if not isinstance(item, dict) or "tab_title" not in item or "code" not in item:
+            raise ValueError("Invalid ui_categories entry.")
+        categories.append((item["tab_title"], item["code"]))
+
+    category_by_measure = {key: measure["category"] for key, measure in measures.items()}
+    overrides = data.get("category_by_measure_overrides", {})
+    if overrides:
+        if not isinstance(overrides, dict):
+            raise ValueError("category_by_measure_overrides must be a mapping.")
+        category_by_measure.update(overrides)
+
+    return {
+        "measures": measures,
+        "categories": categories,
+        "category_by_measure": category_by_measure,
+        "styles": styles,
+        "placeholders": placeholders,
+        "section_headings": section_headings,
+        "pagination": pagination,
+    }
+
+
+def _load_fallback_template_config():
+    return {
+        "measures": {key: dict(value) for key, value in DEFAULT_MEASURE_TEMPLATES.items()},
+        "categories": list(DEFAULT_CATEGORIES),
+        "category_by_measure": dict(DEFAULT_CATEGORY_BY_MEASURE),
+        "styles": dict(DEFAULT_STYLES),
+        "placeholders": dict(DEFAULT_PLACEHOLDERS),
+        "section_headings": dict(DEFAULT_SECTION_HEADINGS),
+        "pagination": dict(DEFAULT_PAGINATION),
+    }
+
+
+try:
+    _TEMPLATE_CONFIG = load_level1_template(DEFAULT_TEMPLATE_JSON_PATH)
+except (OSError, ValueError, json.JSONDecodeError):
+    _TEMPLATE_CONFIG = _load_fallback_template_config()
+
+MEASURE_TEMPLATES = _TEMPLATE_CONFIG["measures"]
+CATEGORIES = _TEMPLATE_CONFIG["categories"]
+CATEGORY_BY_MEASURE = _TEMPLATE_CONFIG["category_by_measure"]
+PLACEHOLDERS = _TEMPLATE_CONFIG["placeholders"]
+SECTION_HEADINGS = _TEMPLATE_CONFIG["section_headings"]
+PAGINATION = _TEMPLATE_CONFIG["pagination"]
+STYLE_MEASURE_TITLE = _TEMPLATE_CONFIG["styles"].get("measure_title_style", STYLE_MEASURE_TITLE)
+STYLE_SECTION_SUB = _TEMPLATE_CONFIG["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
+STYLE_BODY = _TEMPLATE_CONFIG["styles"].get("body_style", STYLE_BODY)
+
 
 # -------------------- Word helpers -------------------- #
 def add_paragraph_after(paragraph, text="", style=None, bold=False):
@@ -1184,7 +1312,10 @@ def fill_measure_summary_table(doc, selected_keys):
         第 2 列：Estimated Utility / Cost Savings
     - 这一行的第 1 个单元格内容是 {MEASURE_SUMMARY_ROW}
     """
-    placeholder = "{MEASURE_SUMMARY_ROW}"
+    placeholder = PLACEHOLDERS.get(
+        "measure_summary_table_row",
+        DEFAULT_PLACEHOLDERS["measure_summary_table_row"],
+    )
     target_table = None
     target_row = None
 
@@ -1228,8 +1359,8 @@ def fill_measure_summary_table(doc, selected_keys):
         row.cells[1].text = summary
 
     # 确保占位符被清掉
-    if "{MEASURE_SUMMARY_ROW}" in row.cells[0].text:
-        row.cells[0].text = row.cells[0].text.replace("{MEASURE_SUMMARY_ROW}", "")
+    if placeholder in row.cells[0].text:
+        row.cells[0].text = row.cells[0].text.replace(placeholder, "")
 
 # -------------------- Measure insert -------------------- #
 def insert_measures_into_docx(template_path, output_path, selected_keys):
@@ -1250,7 +1381,10 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
     fill_measure_summary_table(doc, selected_keys)
 
     # 1. 找到占位符段落
-    placeholder = "{MEASURE_BLOCK}"
+    placeholder = PLACEHOLDERS.get(
+        "measure_block_paragraph",
+        DEFAULT_PLACEHOLDERS["measure_block_paragraph"],
+    )
     anchor_idx = None
     for i, para in enumerate(doc.paragraphs):
         if placeholder in para.text:
@@ -1288,9 +1422,13 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
         # run_title.bold = True
 
         # ---------- 2.2 Existing Conditions 小标题 ----------
+        exist_heading = SECTION_HEADINGS.get(
+            "existing_conditions_heading",
+            DEFAULT_SECTION_HEADINGS["existing_conditions_heading"],
+        )
         exist_sub = add_paragraph_after(
             current_para,
-            "Existing Conditions",
+            exist_heading,
             STYLE_SECTION_SUB,
             bold=True
         )
@@ -1307,9 +1445,13 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
         blank1 = add_paragraph_after(exist_body, "", STYLE_BODY)
 
         # ---------- 2.4 Retrofit Conditions 小标题 ----------
+        retrofit_heading = SECTION_HEADINGS.get(
+            "retrofit_conditions_heading",
+            DEFAULT_SECTION_HEADINGS["retrofit_conditions_heading"],
+        )
         retro_sub = add_paragraph_after(
             blank1,
-            "Retrofit Conditions",
+            retrofit_heading,
             STYLE_SECTION_SUB,
             bold=True
         )
@@ -1327,7 +1469,9 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
         current_para = end_blank
 
         # ---------- 2.6 除最后一条外，插入分页符 ----------
-        if idx != total:
+        should_page_break = PAGINATION.get("page_break_between_measures", True)
+        no_break_after_last = PAGINATION.get("no_page_break_after_last_measure", True)
+        if should_page_break and not (no_break_after_last and idx == total):
             pb_para = add_paragraph_after(current_para, "", STYLE_BODY)
             run_pb = pb_para.add_run()
             run_pb.add_break(WD_BREAK.PAGE)
@@ -1447,13 +1591,22 @@ class MeasureToWordApp:
             self.preview_text.insert(tk.END, "No measures selected.\n")
             return
 
+        existing_heading = SECTION_HEADINGS.get(
+            "existing_conditions_heading",
+            DEFAULT_SECTION_HEADINGS["existing_conditions_heading"],
+        )
+        retrofit_heading = SECTION_HEADINGS.get(
+            "retrofit_conditions_heading",
+            DEFAULT_SECTION_HEADINGS["retrofit_conditions_heading"],
+        )
+
         idx = 1
         for key in selected:
             tpl = MEASURE_TEMPLATES[key]
             self.preview_text.insert(tk.END, f"3.{idx} Measure – {tpl['name']}\n\n")
-            self.preview_text.insert(tk.END, "Existing Conditions\n")
+            self.preview_text.insert(tk.END, f"{existing_heading}\n")
             self.preview_text.insert(tk.END, tpl["existing"] + "\n\n")
-            self.preview_text.insert(tk.END, "Retrofit Conditions\n")
+            self.preview_text.insert(tk.END, f"{retrofit_heading}\n")
             self.preview_text.insert(tk.END, tpl["retrofit"] + "\n\n")
             self.preview_text.insert(tk.END, "-" * 70 + "\n\n")
             idx += 1
