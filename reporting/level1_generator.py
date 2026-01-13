@@ -1665,4 +1665,28 @@ def generate_level1_report(
     resolves selected_measures, and calls insert_measures_into_docx.
     Returns out_path.
     """
+    with open(project_json_path, "r", encoding="utf-8") as handle:
+        project_data = json.load(handle)
+
+    selected_measures = project_data.get("selected_measures")
+    if not isinstance(selected_measures, list):
+        raise ValueError("project.json must contain a selected_measures list.")
+
+    template_config = load_level1_template(template_json_path)
+
+    global MEASURE_TEMPLATES, CATEGORIES, CATEGORY_BY_MEASURE, PLACEHOLDERS
+    global SECTION_HEADINGS, PAGINATION, STYLE_MEASURE_TITLE, STYLE_SECTION_SUB, STYLE_BODY
+
+    MEASURE_TEMPLATES = template_config["measures"]
+    CATEGORIES = template_config["categories"]
+    CATEGORY_BY_MEASURE = template_config["category_by_measure"]
+    PLACEHOLDERS = template_config["placeholders"]
+    SECTION_HEADINGS = template_config["section_headings"]
+    PAGINATION = template_config["pagination"]
+    STYLE_MEASURE_TITLE = template_config["styles"].get("measure_title_style", STYLE_MEASURE_TITLE)
+    STYLE_SECTION_SUB = template_config["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
+    STYLE_BODY = template_config["styles"].get("body_style", STYLE_BODY)
+
+    insert_measures_into_docx(docx_template_path, out_path, selected_measures)
+    return out_path
 
