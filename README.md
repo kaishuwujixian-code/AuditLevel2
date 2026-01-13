@@ -2,6 +2,11 @@
 
 ## Quick Start
 
+### Run Desktop App
+```bash
+python app.py
+```
+
 ### Generate a report
 Windows (PowerShell/CMD):
 ```bash

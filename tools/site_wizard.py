@@ -474,15 +474,7 @@ def _run_reuse(args: argparse.Namespace, template_data: dict) -> dict:
     return project_data
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
-    parser = build_parser()
-    args = parser.parse_args(argv)
-
-    if not args.new and not args.clone and not args.reuse:
-        args.new = True
-
-    template_data = _load_json(args.template)
-
+def _build_project_data(args: argparse.Namespace, template_data: dict) -> dict:
     if args.new:
         project_data = _run_new(args, template_data)
     elif args.clone:
@@ -492,12 +484,94 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     overrides = _parse_overrides(args.set_values)
     _apply_overrides(project_data["project_info"], project_data["notes"], overrides)
+    return project_data
 
+
+def _finalize_project(project_data: dict, args: argparse.Namespace) -> str:
     output_path = args.out or _default_output_path(
         project_data["project_info"], slug_override=args.slug
     )
     _ensure_output_dir(output_path)
     _write_project(output_path, project_data)
+    return output_path
+
+
+def create_new_project_interactive(
+    template_path: str = DEFAULT_TEMPLATE_PATH,
+    out_path: str = "",
+    slug: str = "",
+) -> str:
+    template_data = _load_json(template_path)
+    args = argparse.Namespace(
+        new=True,
+        clone=None,
+        reuse=None,
+        template=template_path,
+        out=out_path,
+        slug=slug,
+        non_interactive=False,
+        set_values=None,
+        no_checklists=False,
+        no_measures=False,
+    )
+    project_data = _build_project_data(args, template_data)
+    return _finalize_project(project_data, args)
+
+
+def clone_project_interactive(
+    existing_project_path: str,
+    template_path: str = DEFAULT_TEMPLATE_PATH,
+    out_path: str = "",
+) -> str:
+    template_data = _load_json(template_path)
+    args = argparse.Namespace(
+        new=False,
+        clone=existing_project_path,
+        reuse=None,
+        template=template_path,
+        out=out_path,
+        slug="",
+        non_interactive=False,
+        set_values=None,
+        no_checklists=False,
+        no_measures=False,
+    )
+    project_data = _build_project_data(args, template_data)
+    return _finalize_project(project_data, args)
+
+
+def reuse_project_interactive(
+    existing_project_path: str,
+    template_path: str = DEFAULT_TEMPLATE_PATH,
+    out_path: str = "",
+) -> str:
+    template_data = _load_json(template_path)
+    args = argparse.Namespace(
+        new=False,
+        clone=None,
+        reuse=existing_project_path,
+        template=template_path,
+        out=out_path,
+        slug="",
+        non_interactive=False,
+        set_values=None,
+        no_checklists=False,
+        no_measures=False,
+    )
+    project_data = _build_project_data(args, template_data)
+    return _finalize_project(project_data, args)
+
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+
+    if not args.new and not args.clone and not args.reuse:
+        args.new = True
+
+    template_data = _load_json(args.template)
+    project_data = _build_project_data(args, template_data)
+    output_path = _finalize_project(project_data, args)
     print(f"Created: {output_path}")
     return 0
 
