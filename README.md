@@ -62,9 +62,24 @@ In the Word template, place the placeholder where findings should appear:
 
 Create a project file interactively:
 ```bash
-python tools/new_project.py
+python tools/site_wizard.py --new
 ```
 Use flags like `--template`, `--out`, `--no-measures`, or `--no-checklists` to customize the prompt flow.
+
+Clone an existing project file:
+```bash
+python tools/site_wizard.py --clone projects/2255_victoria_park/project.json
+```
+
+Reuse selections from an existing project file:
+```bash
+python tools/site_wizard.py --reuse projects/2255_victoria_park/project.json
+```
+
+Non-interactive example:
+```bash
+python tools/site_wizard.py --new --non-interactive --set project_info.client_name="ABC" --set project_info.site_address="123 Main" --set project_info.report_date="2026-01-13" --out projects/abc_123/project.json
+```
 
 Generate a report from the new project:
 ```bash
