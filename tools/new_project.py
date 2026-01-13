@@ -9,6 +9,8 @@ DEFAULT_TEMPLATE_PATH = os.path.join("templates", "template.level1.json")
 
 
 def _load_template(path: str) -> dict:
+    if not os.path.isfile(path):
+        raise FileNotFoundError(f"Template not found: {path}")
     with open(path, "r", encoding="utf-8") as handle:
         data = json.load(handle)
     if not isinstance(data, dict):
@@ -92,13 +94,13 @@ def _select_checklists(template_data: dict) -> dict:
     if not isinstance(checklists, dict):
         raise ValueError("Template JSON checklists must be an object.")
     selections = {}
-    for group_name in checklists:
+    for group_name in sorted(checklists.keys()):
         categories = checklists[group_name]
         if not isinstance(categories, dict):
             continue
         group_selection = {}
         print(f"\nChecklist group: {group_name}")
-        for category_name in categories:
+        for category_name in sorted(categories.keys()):
             items = categories[category_name]
             if not isinstance(items, list):
                 continue
