@@ -1,5 +1,7 @@
 import argparse
+import json
 import os
+import sys
 
 from reporting.level1_generator import generate_level1_report
 
@@ -7,6 +9,17 @@ from reporting.level1_generator import generate_level1_report
 def _ensure_file(path: str, label: str) -> None:
     if not os.path.isfile(path):
         raise FileNotFoundError(f"{label} not found: {path}")
+
+
+def _load_json(path: str, label: str) -> dict:
+    with open(path, "r", encoding="utf-8") as handle:
+        try:
+            data = json.load(handle)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"{label} is not valid JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise ValueError(f"{label} must be a JSON object.")
+    return data
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -27,30 +40,100 @@ def build_parser() -> argparse.ArgumentParser:
         default="output/level1_walkthrough.docx",
         help="Output path for the generated Word report",
     )
+    parser.add_argument(
+        "--list-measures",
+        action="store_true",
+        help="List all available measure keys from the template and exit",
+    )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Validate inputs only without generating the report",
+    )
     return parser
+
+
+def _list_measures(template_path: str) -> int:
+    _ensure_file(template_path, "Template JSON file")
+    template_data = _load_json(template_path, "Template JSON file")
+    measures = template_data.get("measures")
+    if not isinstance(measures, dict):
+        raise ValueError("Template JSON must contain a measures object.")
+    for key in sorted(measures.keys()):
+        print(key)
+    return 0
+
+
+def _validate_inputs(project_path: str, template_path: str, docx_template_path: str) -> int:
+    _ensure_file(project_path, "Project file")
+    _ensure_file(template_path, "Template JSON file")
+    _ensure_file(docx_template_path, "Docx template file")
+
+    project_data = _load_json(project_path, "Project JSON file")
+    template_data = _load_json(template_path, "Template JSON file")
+
+    selected_measures = project_data.get("selected_measures", [])
+    if selected_measures is None:
+        selected_measures = []
+    if not isinstance(selected_measures, list):
+        raise ValueError("project.json selected_measures must be a list.")
+    if not all(isinstance(item, str) for item in selected_measures):
+        raise ValueError("project.json selected_measures must contain only strings.")
+
+    measures = template_data.get("measures")
+    if not isinstance(measures, dict):
+        raise ValueError("Template JSON must contain a measures object.")
+    overrides = template_data.get("category_by_measure_overrides", {})
+    if overrides is None:
+        overrides = {}
+    if not isinstance(overrides, dict):
+        raise ValueError("Template JSON category_by_measure_overrides must be an object.")
+
+    missing = sorted(
+        {
+            key
+            for key in selected_measures
+            if key not in measures and key not in overrides
+        }
+    )
+    if missing:
+        missing_list = ", ".join(missing)
+        raise ValueError(f"Missing measures in template: {missing_list}")
+
+    print("OK")
+    return 0
 
 
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
 
-    _ensure_file(args.project, "Project file")
-    _ensure_file(args.template, "Template JSON file")
-    _ensure_file(args.docx_template, "Docx template file")
+    try:
+        if args.list_measures:
+            return _list_measures(args.template)
+        if args.validate:
+            return _validate_inputs(args.project, args.template, args.docx_template)
 
-    output_dir = os.path.dirname(args.out)
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
+        _ensure_file(args.project, "Project file")
+        _ensure_file(args.template, "Template JSON file")
+        _ensure_file(args.docx_template, "Docx template file")
 
-    generate_level1_report(
-        project_json_path=args.project,
-        template_json_path=args.template,
-        docx_template_path=args.docx_template,
-        out_path=args.out,
-    )
+        output_dir = os.path.dirname(args.out)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
 
-    print(f"Generated: {args.out}")
-    return 0
+        generate_level1_report(
+            project_json_path=args.project,
+            template_json_path=args.template,
+            docx_template_path=args.docx_template,
+            out_path=args.out,
+        )
+
+        print(f"Generated: {args.out}")
+        return 0
+    except (OSError, ValueError) as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
