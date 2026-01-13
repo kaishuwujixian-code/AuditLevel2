@@ -5,6 +5,25 @@
     "purpose": "Level 1 audit (walkthrough) write-up only; no calculations. Select onsite findings/opportunities and generate a Word walkthrough report.",
     "source": "Extracted from current Python generator (MEASURE_TEMPLATES / MEASURE_SUMMARIES / categories / placeholders)."
   },
+  "checklists": {
+    "Walkthrough Findings": {
+      "Safety Hazards": [
+        "Combustion air openings unobstructed",
+        "No storage in boiler room",
+        "Flue venting appears intact"
+      ],
+      "Operations & Maintenance": [
+        "Schedules verified with staff",
+        "Setpoints reasonable",
+        "No overrides left in hand"
+      ],
+      "Opportunities": [
+        "BAS scheduling optimization",
+        "VFD potential on pumps/fans",
+        "Hydronic balancing review"
+      ]
+    }
+  },
   "word_template_requirements": {
     "docx_placeholders": {
       "measure_block_paragraph": "{MEASURE_BLOCK}",

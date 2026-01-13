@@ -1161,6 +1161,7 @@ DEFAULT_PLACEHOLDERS = {
     "measure_block_paragraph": "{MEASURE_BLOCK}",
     "measure_summary_table_row": "{MEASURE_SUMMARY_ROW}",
 }
+FINDINGS_PLACEHOLDER = "{FINDINGS_BLOCK}"
 DEFAULT_SECTION_HEADINGS = {
     "existing_conditions_heading": "Existing Conditions",
     "retrofit_conditions_heading": "Retrofit Conditions",
@@ -1237,6 +1238,12 @@ def load_level1_template(json_path):
             raise ValueError("category_by_measure_overrides must be a mapping.")
         category_by_measure.update(overrides)
 
+    checklists = data.get("checklists", {})
+    if checklists is None:
+        checklists = {}
+    if not isinstance(checklists, dict):
+        raise ValueError("checklists must be a mapping if provided.")
+
     return {
         "measures": measures,
         "categories": categories,
@@ -1245,6 +1252,7 @@ def load_level1_template(json_path):
         "placeholders": placeholders,
         "section_headings": section_headings,
         "pagination": pagination,
+        "checklists": checklists,
     }
 
 
@@ -1257,6 +1265,7 @@ def _load_fallback_template_config():
         "placeholders": dict(DEFAULT_PLACEHOLDERS),
         "section_headings": dict(DEFAULT_SECTION_HEADINGS),
         "pagination": dict(DEFAULT_PAGINATION),
+        "checklists": {},
     }
 
 
@@ -1274,6 +1283,7 @@ PAGINATION = _TEMPLATE_CONFIG["pagination"]
 STYLE_MEASURE_TITLE = _TEMPLATE_CONFIG["styles"].get("measure_title_style", STYLE_MEASURE_TITLE)
 STYLE_SECTION_SUB = _TEMPLATE_CONFIG["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
 STYLE_BODY = _TEMPLATE_CONFIG["styles"].get("body_style", STYLE_BODY)
+CHECKLIST_SELECTIONS = {}
 
 
 # -------------------- Word helpers -------------------- #
@@ -1297,6 +1307,16 @@ def add_paragraph_after(paragraph, text="", style=None, bold=False):
         # 没有文字但需要加粗其实没意义，这里就不处理 bold 了
         pass
 
+    return new_p
+
+
+def add_paragraph_after_safe(paragraph, text="", style=None, bold=False):
+    new_p = add_paragraph_after(paragraph, text, None, bold)
+    if style:
+        try:
+            new_p.style = style
+        except KeyError:
+            pass
     return new_p
 
 #-----------填 summary 表格的函数-------------------#
@@ -1477,7 +1497,63 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
             current_para = pb_para
 
     # 3. 保存
+    insert_findings_into_docx(doc, CHECKLIST_SELECTIONS)
     doc.save(output_path)
+
+
+def insert_findings_into_docx(doc, findings, placeholder=FINDINGS_PLACEHOLDER):
+    if not findings:
+        return
+
+    anchor_para = None
+    for para in doc.paragraphs:
+        if para.text == placeholder:
+            anchor_para = para
+            break
+
+    if anchor_para is None:
+        anchor_para = doc.add_paragraph("")
+    else:
+        anchor_para.text = ""
+
+    current_para = anchor_para
+    first_group = True
+
+    for group_name, categories in findings.items():
+        if not isinstance(categories, dict):
+            continue
+
+        if first_group:
+            if STYLE_MEASURE_TITLE:
+                try:
+                    current_para.style = STYLE_MEASURE_TITLE
+                except KeyError:
+                    pass
+            current_para.add_run(group_name)
+            first_group = False
+        else:
+            current_para = add_paragraph_after_safe(current_para, "", STYLE_BODY)
+            current_para = add_paragraph_after_safe(current_para, group_name, STYLE_MEASURE_TITLE)
+
+        for category_name, items in categories.items():
+            if not items or not isinstance(items, list):
+                continue
+            category_para = add_paragraph_after_safe(
+                current_para,
+                category_name,
+                STYLE_SECTION_SUB,
+                bold=True,
+            )
+            current_para = category_para
+            for item in items:
+                bullet_para = add_paragraph_after_safe(
+                    current_para,
+                    item,
+                    "List Bullet",
+                )
+                current_para = bullet_para
+
+        current_para = add_paragraph_after_safe(current_para, "", STYLE_BODY)
 
 
 
@@ -1665,4 +1741,30 @@ def generate_level1_report(
     resolves selected_measures, and calls insert_measures_into_docx.
     Returns out_path.
     """
+    with open(project_json_path, "r", encoding="utf-8") as handle:
+        project_data = json.load(handle)
+
+    selected_measures = project_data.get("selected_measures")
+    if not isinstance(selected_measures, list):
+        raise ValueError("project.json must contain a selected_measures list.")
+
+    template_config = load_level1_template(template_json_path)
+
+    global MEASURE_TEMPLATES, CATEGORIES, CATEGORY_BY_MEASURE, PLACEHOLDERS
+    global SECTION_HEADINGS, PAGINATION, STYLE_MEASURE_TITLE, STYLE_SECTION_SUB, STYLE_BODY
+    global CHECKLIST_SELECTIONS
+
+    MEASURE_TEMPLATES = template_config["measures"]
+    CATEGORIES = template_config["categories"]
+    CATEGORY_BY_MEASURE = template_config["category_by_measure"]
+    PLACEHOLDERS = template_config["placeholders"]
+    SECTION_HEADINGS = template_config["section_headings"]
+    PAGINATION = template_config["pagination"]
+    STYLE_MEASURE_TITLE = template_config["styles"].get("measure_title_style", STYLE_MEASURE_TITLE)
+    STYLE_SECTION_SUB = template_config["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
+    STYLE_BODY = template_config["styles"].get("body_style", STYLE_BODY)
+    CHECKLIST_SELECTIONS = project_data.get("checklist_selections") or {}
+
+    insert_measures_into_docx(docx_template_path, out_path, selected_measures)
+    return out_path
 
