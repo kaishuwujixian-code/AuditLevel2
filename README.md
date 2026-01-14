@@ -12,6 +12,14 @@ python app.py
 python app_retscreen.py
 ```
 
+### Commit 1 - Extract placeholders
+Extract placeholders from the single source of truth Word template:
+```bash
+python tools/extract_placeholders.py --template templates/level1.docx --out schemas/placeholders.level1.json
+```
+
+If `--out` is omitted, JSON is printed to stdout.
+
 ### Questionnaire Schema
 Regenerate the schema from the Word template:
 ```bash
@@ -24,11 +32,6 @@ python tools/validate_questionnaire_schema.py --schema schemas/level1_questionna
 ```
 
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
-
-To pick a template interactively when extracting placeholders:
-```bash
-python tools/extract_placeholders.py --ui
-```
 
 ### Desktop App Smoke-Test Checklist
 1. Run `python app.py` and confirm the window opens.
