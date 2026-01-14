@@ -7,6 +7,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Dict, Iterable, List, Optional, Set, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 if REPO_ROOT not in sys.path:
@@ -311,6 +312,16 @@ def generate_schema(
         section_id = question_data.get("section_id") or "facility"
         if question_id not in sections[section_id]:
             sections[section_id].append(question_id)
+def generate_schema(template_path: str, mapping_path: str, out_path: str) -> dict:
+    placeholders_data = extract_placeholders(template_path)
+    placeholders = placeholders_data["placeholders"]
+
+    mapping = _load_json(mapping_path)
+    rules = mapping.get("rules", [])
+    option_sets = mapping.get("option_sets", {})
+
+    questions_by_id: Dict[str, dict] = {}
+    sections: Dict[str, List[dict]] = defaultdict(list)
 
     for placeholder in placeholders:
         matched_rule: Optional[dict] = None
@@ -331,6 +342,40 @@ def generate_schema(
                 {
                     "id": question_id,
                     "title": placeholder.strip("{}").strip() or placeholder,
+
+        if matched_rule:
+            question_data = matched_rule.get("question", {})
+            question_id = question_data.get("id")
+            if not question_id:
+                raise ValueError("Mapping rule is missing question id.")
+            options: List[dict] = question_data.get("options", [])
+            options_ref = question_data.get("options_ref")
+            if options_ref:
+                options = option_sets.get(options_ref, [])
+            question = _normalize_question(
+                {
+                    **question_data,
+                    "options": options,
+                    "placeholder_targets": [placeholder],
+                }
+            )
+            if question_id in questions_by_id:
+                questions_by_id[question_id] = _merge_question(
+                    questions_by_id[question_id], question
+                )
+            else:
+                questions_by_id[question_id] = question
+            section_id = question_data.get("section_id") or _resolve_section_id(placeholder)
+            sections[section_id].append(questions_by_id[question_id])
+        else:
+            inner = placeholder.strip("{}").strip()
+            question_id = re.sub(r"[^a-z0-9]+", "_", inner.lower()).strip("_")
+            if not question_id:
+                question_id = "unmapped_placeholder"
+            question = _normalize_question(
+                {
+                    "id": question_id,
+                    "title": inner or placeholder,
                     "type": "text",
                     "options": [],
                     "placeholder_targets": [placeholder],
@@ -366,6 +411,26 @@ def generate_schema(
     for section_id in sorted(sections.keys()):
         question_ids = sorted(set(sections[section_id]))
         ordered_questions = [questions_by_id[qid] for qid in question_ids]
+            if question_id in questions_by_id:
+                questions_by_id[question_id] = _merge_question(
+                    questions_by_id[question_id], question
+                )
+            else:
+                questions_by_id[question_id] = question
+            sections["unmapped"].append(questions_by_id[question_id])
+
+    findings_questions = _build_findings_questions(placeholders)
+    sections["findings"].extend(findings_questions)
+
+    measure_options = _load_measure_options("templates/template.level1.json")
+    measures_questions = _build_measure_questions(measure_options, placeholders)
+    sections["measures"].extend(measures_questions)
+
+    serialized_sections = []
+    for section_id in sorted(sections.keys()):
+        questions = sections[section_id]
+        deduped = {question["id"]: question for question in questions}.values()
+        ordered_questions = sorted(deduped, key=lambda item: item["id"])
         serialized_sections.append(
             {
                 "id": section_id,
@@ -395,6 +460,10 @@ def generate_schema(
     }
 
     with open(resolved_out, "w", encoding="utf-8") as handle:
+        "sections": serialized_sections,
+    }
+
+    with open(out_path, "w", encoding="utf-8") as handle:
         json.dump(schema, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
@@ -431,6 +500,7 @@ def main() -> int:
     args = parser.parse_args()
     measure_catalog = args.measure_catalog or None
     generate_schema(args.template, args.mapping, args.out, measure_catalog)
+    generate_schema(args.template, args.mapping, args.out)
     return 0
 
 

@@ -33,6 +33,8 @@ def _ensure_sorted(items: List[str], label: str) -> None:
 def validate_schema(schema_path: str, template_path: str) -> None:
     schema = _load_json(_resolve_path(schema_path))
     placeholders = extract_placeholders(_resolve_path(template_path))["placeholders"]
+    schema = _load_json(schema_path)
+    placeholders = extract_placeholders(template_path)["placeholders"]
     placeholder_set: Set[str] = set(placeholders)
 
     sections = schema.get("sections", [])

@@ -2,6 +2,7 @@
   "version": "1.0",
   "source_template": "templates/level1.docx",
   "generated_at": "2026-01-14T18:47:20+00:00",
+  "generated_at": "2026-01-14T18:20:15+00:00",
   "placeholders": [
     "{Architectural Condition}",
     "{Central Heating/Cooling Systems block}",
@@ -134,6 +135,8 @@
         }
       ]
     },
+    {
+  "sections": [
     {
       "id": "dhw",
       "title": "Domestic Hot Water",
@@ -562,6 +565,7 @@
       "questions": [
         {
           "id": "architectural_condition_8fc86f",
+          "id": "architectural_condition",
           "title": "Architectural Condition",
           "type": "text",
           "options": [],
@@ -575,6 +579,7 @@
         },
         {
           "id": "city_6d78a7",
+          "id": "city",
           "title": "City",
           "type": "text",
           "options": [],
@@ -588,6 +593,7 @@
         },
         {
           "id": "clientname_2709d3",
+          "id": "clientname",
           "title": "ClientName",
           "type": "text",
           "options": [],
@@ -601,6 +607,7 @@
         },
         {
           "id": "date_constructed_7fe749",
+          "id": "date_constructed",
           "title": "Date Constructed",
           "type": "text",
           "options": [],
@@ -614,6 +621,7 @@
         },
         {
           "id": "datedocument_539224",
+          "id": "datedocument",
           "title": "DateDocument",
           "type": "text",
           "options": [],
@@ -627,6 +635,7 @@
         },
         {
           "id": "district_50b69d",
+          "id": "district",
           "title": "District",
           "type": "text",
           "options": [],
@@ -640,6 +649,7 @@
         },
         {
           "id": "measure_block_2f07ad",
+          "id": "measure_block",
           "title": "MEASURE_BLOCK",
           "type": "text",
           "options": [],
@@ -653,6 +663,7 @@
         },
         {
           "id": "measure_summary_row_857c4f",
+          "id": "measure_summary_row",
           "title": "MEASURE_SUMMARY_ROW",
           "type": "text",
           "options": [],
@@ -666,6 +677,7 @@
         },
         {
           "id": "miscellaneous_block_79c82c",
+          "id": "miscellaneous_block",
           "title": "Miscellaneous Block",
           "type": "text",
           "options": [],
@@ -679,6 +691,7 @@
         },
         {
           "id": "number_of_floors_a322f9",
+          "id": "number_of_floors",
           "title": "Number of Floors",
           "type": "text",
           "options": [],
@@ -692,6 +705,7 @@
         },
         {
           "id": "number_of_suites_cd26ba",
+          "id": "number_of_suites",
           "title": "Number of Suites",
           "type": "text",
           "options": [],
@@ -705,6 +719,7 @@
         },
         {
           "id": "post_code_4398cf",
+          "id": "post_code",
           "title": "Post Code",
           "type": "text",
           "options": [],
@@ -718,6 +733,7 @@
         },
         {
           "id": "property_address1_ec55f3",
+          "id": "property_address1",
           "title": "Property Address1",
           "type": "text",
           "options": [],
@@ -736,6 +752,12 @@
           "options": [],
           "placeholder_targets": [
             "{Province Abbreviation}"
+          "id": "province",
+          "title": "Province",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province}"
           ],
           "default": null,
           "required": false,
@@ -749,6 +771,12 @@
           "options": [],
           "placeholder_targets": [
             "{Province}"
+          "id": "province_abbreviation",
+          "title": "Province Abbreviation",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province Abbreviation}"
           ],
           "default": null,
           "required": false,
@@ -757,6 +785,7 @@
         },
         {
           "id": "report_date_a67e32",
+          "id": "report_date",
           "title": "Report Date",
           "type": "text",
           "options": [],
@@ -770,6 +799,7 @@
         },
         {
           "id": "suite_types_805dfb",
+          "id": "suite_types",
           "title": "Suite Types",
           "type": "text",
           "options": [],

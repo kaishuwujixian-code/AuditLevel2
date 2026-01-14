@@ -7,6 +7,11 @@
 python app.py
 ```
 
+### Run RETScreen-style Desktop App
+```bash
+python app_retscreen.py
+```
+
 ### Questionnaire Schema
 Regenerate the schema from the Word template:
 ```bash
@@ -33,6 +38,7 @@ python tools/extract_placeholders.py --ui
 5. Edit a field and Save, confirm the JSON updates and unknown keys remain.
 6. Tools → Validate Project (expect OK or warnings dialog).
 7. Report → Generate Level 1 and confirm output in `output/`.
+Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets. Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
 ### Generate a report
 Windows (PowerShell/CMD):
