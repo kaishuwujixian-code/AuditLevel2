@@ -1,0 +1,827 @@
+{
+  "version": "1.0",
+  "source_template": "templates/level1.docx",
+  "generated_at": "2026-01-14T18:47:20+00:00",
+  "placeholders": [
+    "{Architectural Condition}",
+    "{Central Heating/Cooling Systems block}",
+    "{Central Ventilation System Block}",
+    "{City}",
+    "{ClientName}",
+    "{DHW System Block}",
+    "{Date Constructed}",
+    "{DateDocument}",
+    "{District}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
+    "{Number of Floors}",
+    "{Number of Suites}",
+    "{Post Code}",
+    "{Property Address1}",
+    "{Province Abbreviation}",
+    "{Province}",
+    "{Report Date}",
+    "{Suite Types}"
+  ],
+  "unmapped_placeholders": [
+    "{Architectural Condition}",
+    "{City}",
+    "{ClientName}",
+    "{Date Constructed}",
+    "{DateDocument}",
+    "{District}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
+    "{Number of Floors}",
+    "{Number of Suites}",
+    "{Post Code}",
+    "{Property Address1}",
+    "{Province Abbreviation}",
+    "{Province}",
+    "{Report Date}",
+    "{Suite Types}"
+  ],
+  "warnings": [
+    "No placeholders matched rule for question: bas_level"
+  ],
+  "stats": {
+    "placeholder_count": 20,
+    "mapped_placeholders_count": 3,
+    "unmapped_placeholders_count": 17,
+    "question_count": 29,
+    "section_count": 8
+  },
+  "sections": [
+    {
+      "id": "controls",
+      "title": "Controls",
+      "questions": [
+        {
+          "id": "bas_level",
+          "title": "BAS level",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Standalone (no BAS)",
+              "value": "standalone"
+            },
+            {
+              "label": "Partial BAS (some systems)",
+              "value": "partial_bas"
+            },
+            {
+              "label": "Full BAS (centralized)",
+              "value": "full_bas"
+            },
+            {
+              "label": "Unknown",
+              "value": "unknown"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling",
+      "questions": [
+        {
+          "id": "cooling_system_type",
+          "title": "Cooling system type",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Chiller (air-cooled)",
+              "value": "chiller_air"
+            },
+            {
+              "label": "Chiller (water-cooled)",
+              "value": "chiller_water"
+            },
+            {
+              "label": "WSHP loop provides cooling",
+              "value": "wshp_cooling"
+            },
+            {
+              "label": "Split DX",
+              "value": "split_dx"
+            },
+            {
+              "label": "PTAC/through-wall",
+              "value": "ptac"
+            },
+            {
+              "label": "No central cooling",
+              "value": "none"
+            },
+            {
+              "label": "Other / unknown",
+              "value": "other_unknown"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "dhw",
+      "title": "Domestic Hot Water",
+      "questions": [
+        {
+          "id": "dhw_system_type",
+          "title": "DHW system type",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Heat exchanger off heating loop (P/S)",
+              "value": "hx_from_heating_ps"
+            },
+            {
+              "label": "Dedicated DHW boilers (condensing)",
+              "value": "dhw_boiler_condensing"
+            },
+            {
+              "label": "Dedicated DHW boilers (atmospheric)",
+              "value": "dhw_boiler_atmospheric"
+            },
+            {
+              "label": "Electric DHW",
+              "value": "dhw_electric"
+            },
+            {
+              "label": "Other / unknown",
+              "value": "dhw_other_unknown"
+            }
+          ],
+          "placeholder_targets": [
+            "{DHW System Block}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "findings",
+      "title": "Checklist / Findings",
+      "questions": [
+        {
+          "id": "building_condition_overall",
+          "title": "Overall building condition",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Good",
+              "value": "good"
+            },
+            {
+              "label": "Average",
+              "value": "average"
+            },
+            {
+              "label": "Poor",
+              "value": "poor"
+            },
+            {
+              "label": "Unknown",
+              "value": "unknown"
+            }
+          ],
+          "placeholder_targets": [
+            "{Architectural Condition}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "General impression of the building condition.",
+          "rules": []
+        },
+        {
+          "id": "notes",
+          "title": "Notes",
+          "type": "notes",
+          "options": [],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "Additional findings or checklist notes.",
+          "rules": []
+        },
+        {
+          "id": "o_and_m_gaps",
+          "title": "Operations and maintenance gaps",
+          "type": "multi_select",
+          "options": [
+            {
+              "label": "No schedules",
+              "value": "no_schedules"
+            },
+            {
+              "label": "No setbacks",
+              "value": "no_setbacks"
+            },
+            {
+              "label": "No VFD control",
+              "value": "no_vfd_control"
+            },
+            {
+              "label": "Sensors failed",
+              "value": "sensors_failed"
+            },
+            {
+              "label": "Overrides",
+              "value": "overrides"
+            },
+            {
+              "label": "Other",
+              "value": "other"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "Record any O&M gaps found during walkthrough.",
+          "rules": []
+        },
+        {
+          "id": "photos",
+          "title": "Photos",
+          "type": "image_list",
+          "options": [],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "Attach relevant photos.",
+          "rules": []
+        },
+        {
+          "id": "safety_issues",
+          "title": "Safety issues observed",
+          "type": "multi_select",
+          "options": [
+            {
+              "label": "Gas leak",
+              "value": "gas_leak"
+            },
+            {
+              "label": "Combustion air",
+              "value": "combustion_air"
+            },
+            {
+              "label": "Electrical",
+              "value": "electrical"
+            },
+            {
+              "label": "Asbestos suspected",
+              "value": "asbestos_suspected"
+            },
+            {
+              "label": "Mold",
+              "value": "mold"
+            },
+            {
+              "label": "Trip hazard",
+              "value": "trip_hazard"
+            },
+            {
+              "label": "Other",
+              "value": "other"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "Document any safety hazards.",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating",
+      "questions": [
+        {
+          "id": "heating_system_type",
+          "title": "Heating system type",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Atmospheric boiler",
+              "value": "atmospheric_boiler"
+            },
+            {
+              "label": "Condensing boiler",
+              "value": "condensing_boiler"
+            },
+            {
+              "label": "Electric resistance",
+              "value": "electric_resistance"
+            },
+            {
+              "label": "Air-source heat pump",
+              "value": "ashp"
+            },
+            {
+              "label": "Water-source heat pump (central)",
+              "value": "wshp_central"
+            },
+            {
+              "label": "Other / unknown",
+              "value": "other_unknown"
+            }
+          ],
+          "placeholder_targets": [
+            "{Central Heating/Cooling Systems block}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "measures",
+      "title": "Measures",
+      "questions": [
+        {
+          "id": "measure_notes",
+          "title": "Measure notes",
+          "type": "notes",
+          "options": [],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "Additional measure-specific notes.",
+          "rules": []
+        },
+        {
+          "id": "selected_measures",
+          "title": "Selected measures",
+          "type": "multi_select",
+          "options": [
+            {
+              "label": "Adding a Heat Exchanger to Isolate the Glycol Tower Loop from the Building Loop",
+              "value": "Adding a Heat Exchanger to Isolate the Glycol Tower Loop from the Building Loop"
+            },
+            {
+              "label": "BAS Install",
+              "value": "BAS Install"
+            },
+            {
+              "label": "BAS Recommission – Valves",
+              "value": "BAS Recommission – Valves"
+            },
+            {
+              "label": "BAS Upgrade",
+              "value": "BAS Upgrade"
+            },
+            {
+              "label": "Booster Pump VFD",
+              "value": "Booster Pump VFD"
+            },
+            {
+              "label": "Common Area Lighting Retrofit",
+              "value": "Common Area Lighting Retrofit"
+            },
+            {
+              "label": "Common Area Occupancy Sensors",
+              "value": "Common Area Occupancy Sensors"
+            },
+            {
+              "label": "Condensing Boiler Retrofit",
+              "value": "Condensing Boiler Retrofit"
+            },
+            {
+              "label": "Cooling Tower Fan VFD",
+              "value": "Cooling Tower Fan VFD"
+            },
+            {
+              "label": "DHW Condensing Boiler Replacement",
+              "value": "DHW Condensing Boiler Replacement"
+            },
+            {
+              "label": "DHW Repiping for Condensing Boilers",
+              "value": "DHW Repiping for Condensing Boilers"
+            },
+            {
+              "label": "DHW retrofit + plate and frame HX + mixing valve",
+              "value": "DHW retrofit + plate and frame HX + mixing valve"
+            },
+            {
+              "label": "Dry-O-Tron Pool Unit",
+              "value": "Dry-O-Tron Pool Unit"
+            },
+            {
+              "label": "EV Charging Stations",
+              "value": "EV Charging Stations"
+            },
+            {
+              "label": "Enbridge Gas Boiler Optimization Pilot Program",
+              "value": "Enbridge Gas Boiler Optimization Pilot Program"
+            },
+            {
+              "label": "Existing BAS Upgrade",
+              "value": "Existing BAS Upgrade"
+            },
+            {
+              "label": "Fan Coil Unit Retrofit",
+              "value": "Fan Coil Unit Retrofit"
+            },
+            {
+              "label": "Fan Coil to WSHP",
+              "value": "Fan Coil to WSHP"
+            },
+            {
+              "label": "Fancoil to WSHP(short term)",
+              "value": "Fancoil to WSHP(short term)"
+            },
+            {
+              "label": "Garage CO Sensors",
+              "value": "Garage CO Sensors"
+            },
+            {
+              "label": "Gas Co-Generation (CHP)",
+              "value": "Gas Co-Generation (CHP)"
+            },
+            {
+              "label": "Gas Dryer Replacement",
+              "value": "Gas Dryer Replacement"
+            },
+            {
+              "label": "Gas Unit Heaters – Space Heating",
+              "value": "Gas Unit Heaters – Space Heating"
+            },
+            {
+              "label": "Geothermal Upgrade",
+              "value": "Geothermal Upgrade"
+            },
+            {
+              "label": "Heating System Recommissioning",
+              "value": "Heating System Recommissioning"
+            },
+            {
+              "label": "Investigate Electric Heating",
+              "value": "Investigate Electric Heating"
+            },
+            {
+              "label": "MUA Hydronic + BAS + VFD",
+              "value": "MUA Hydronic + BAS + VFD"
+            },
+            {
+              "label": "MUA Hydronic Conversion",
+              "value": "MUA Hydronic Conversion"
+            },
+            {
+              "label": "MUA VFD Retrofit",
+              "value": "MUA VFD Retrofit"
+            },
+            {
+              "label": "Misc Maintenance Upgrades",
+              "value": "Misc Maintenance Upgrades"
+            },
+            {
+              "label": "New Chiller Replacement",
+              "value": "New Chiller Replacement"
+            },
+            {
+              "label": "Outdoor Reset for Hydronic Heating",
+              "value": "Outdoor Reset for Hydronic Heating"
+            },
+            {
+              "label": "Packaged Heating/Cooling MUA",
+              "value": "Packaged Heating/Cooling MUA"
+            },
+            {
+              "label": "Power Factor Correction",
+              "value": "Power Factor Correction"
+            },
+            {
+              "label": "Primary-Secondary Boiler and DHW Piping",
+              "value": "Primary-Secondary Boiler and DHW Piping"
+            },
+            {
+              "label": "Roof MUA Heat Recovery",
+              "value": "Roof MUA Heat Recovery"
+            },
+            {
+              "label": "Separate Garage Exhaust from Cooling Tower",
+              "value": "Separate Garage Exhaust from Cooling Tower"
+            },
+            {
+              "label": "Solar Preheat – DHW",
+              "value": "Solar Preheat – DHW"
+            },
+            {
+              "label": "Solar Preheat – Upper MUA",
+              "value": "Solar Preheat – Upper MUA"
+            },
+            {
+              "label": "Sub-metering",
+              "value": "Sub-metering"
+            },
+            {
+              "label": "Upper MUA Hydronic Conversion",
+              "value": "Upper MUA Hydronic Conversion"
+            },
+            {
+              "label": "Window Caulking Upgrade",
+              "value": "Window Caulking Upgrade"
+            },
+            {
+              "label": "Window Retrofit",
+              "value": "Window Retrofit"
+            }
+          ],
+          "placeholder_targets": [
+            "{MEASURE_BLOCK}",
+            "{MEASURE_SUMMARY_ROW}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Select applicable measures.",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "unmapped",
+      "title": "Unmapped placeholders",
+      "questions": [
+        {
+          "id": "architectural_condition_8fc86f",
+          "title": "Architectural Condition",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Architectural Condition}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "city_6d78a7",
+          "title": "City",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{City}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "clientname_2709d3",
+          "title": "ClientName",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{ClientName}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "date_constructed_7fe749",
+          "title": "Date Constructed",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Date Constructed}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "datedocument_539224",
+          "title": "DateDocument",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{DateDocument}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "district_50b69d",
+          "title": "District",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{District}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "measure_block_2f07ad",
+          "title": "MEASURE_BLOCK",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{MEASURE_BLOCK}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "measure_summary_row_857c4f",
+          "title": "MEASURE_SUMMARY_ROW",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{MEASURE_SUMMARY_ROW}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "miscellaneous_block_79c82c",
+          "title": "Miscellaneous Block",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Miscellaneous Block}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "number_of_floors_a322f9",
+          "title": "Number of Floors",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Number of Floors}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "number_of_suites_cd26ba",
+          "title": "Number of Suites",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Number of Suites}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "post_code_4398cf",
+          "title": "Post Code",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Post Code}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "property_address1_ec55f3",
+          "title": "Property Address1",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Property Address1}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "province_abbreviation_ff26b8",
+          "title": "Province Abbreviation",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province Abbreviation}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "province_f41967",
+          "title": "Province",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "report_date_a67e32",
+          "title": "Report Date",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Report Date}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        },
+        {
+          "id": "suite_types_805dfb",
+          "title": "Suite Types",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Suite Types}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "Unmapped placeholder.",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "ventilation",
+      "title": "Ventilation",
+      "questions": [
+        {
+          "id": "ventilation_system_type",
+          "title": "Ventilation system type",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Central MAU/MUA to corridors",
+              "value": "mua_corridor"
+            },
+            {
+              "label": "DOAS",
+              "value": "doas"
+            },
+            {
+              "label": "Suite ERVs/HRVs",
+              "value": "suite_erv_hrv"
+            },
+            {
+              "label": "Exhaust only (no tempered make-up)",
+              "value": "exhaust_only"
+            },
+            {
+              "label": "Mixed / unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "placeholder_targets": [
+            "{Central Ventilation System Block}"
+          ],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    }
+  ]
+}
