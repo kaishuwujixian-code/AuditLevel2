@@ -23,6 +23,21 @@ Validate the generated schema:
 python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --template templates/level1.docx
 ```
 
+Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
+
+To pick a template interactively when extracting placeholders:
+```bash
+python tools/extract_placeholders.py --ui
+```
+
+### Desktop App Smoke-Test Checklist
+1. Run `python app.py` and confirm the window opens.
+2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
+3. File → Save As, confirm it writes to `projects/<slug>/project.json`.
+4. File → Open an existing project.json and confirm fields load.
+5. Edit a field and Save, confirm the JSON updates and unknown keys remain.
+6. Tools → Validate Project (expect OK or warnings dialog).
+7. Report → Generate Level 1 and confirm output in `output/`.
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets. Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
 ### Generate a report

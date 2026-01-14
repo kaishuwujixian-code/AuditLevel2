@@ -1,3 +1,18 @@
+import argparse
+import json
+import os
+import re
+import sys
+import zipfile
+from typing import List, Set
+from xml.etree import ElementTree
+
+import tkinter as tk
+from tkinter import filedialog
+
+
+PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
+WORD_NAMESPACE = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
 import json
 import re
 import sys
@@ -86,6 +101,45 @@ def extract_placeholders(docx_path: str) -> dict:
         raise ValueError(f"No placeholders found in {docx_path}.")
 
     sorted_placeholders = sorted(placeholders)
+    return {"placeholders": sorted_placeholders}
+
+
+def _select_docx_path(default_dir: str) -> str:
+    root = tk.Tk()
+    root.withdraw()
+    path = filedialog.askopenfilename(
+        title="Select Word template",
+        initialdir=default_dir,
+        filetypes=[("Word document", "*.docx")],
+    )
+    root.destroy()
+    return path
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Extract placeholders from a Word template.")
+    parser.add_argument(
+        "--docx",
+        default="templates/level1.docx",
+        help="Path to the Word template",
+    )
+    parser.add_argument(
+        "--ui",
+        action="store_true",
+        help="Open a file dialog to select the Word template",
+    )
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    docx_path = args.docx
+    if args.ui:
+        selected = _select_docx_path(os.path.dirname(docx_path) or ".")
+        if not selected:
+            raise SystemExit("No template selected.")
+        docx_path = selected
     blocks = sorted(set(_block_placeholders(sorted_placeholders)))
     return {"placeholders": sorted_placeholders, "blocks": blocks}
 

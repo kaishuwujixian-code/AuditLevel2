@@ -1,6 +1,7 @@
 {
   "version": "1.0",
   "source_template": "templates/level1.docx",
+  "generated_at": "2026-01-14T18:47:20+00:00",
   "generated_at": "2026-01-14T18:20:15+00:00",
   "placeholders": [
     "{Architectural Condition}",
@@ -24,6 +25,117 @@
     "{Report Date}",
     "{Suite Types}"
   ],
+  "unmapped_placeholders": [
+    "{Architectural Condition}",
+    "{City}",
+    "{ClientName}",
+    "{Date Constructed}",
+    "{DateDocument}",
+    "{District}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
+    "{Number of Floors}",
+    "{Number of Suites}",
+    "{Post Code}",
+    "{Property Address1}",
+    "{Province Abbreviation}",
+    "{Province}",
+    "{Report Date}",
+    "{Suite Types}"
+  ],
+  "warnings": [
+    "No placeholders matched rule for question: bas_level"
+  ],
+  "stats": {
+    "placeholder_count": 20,
+    "mapped_placeholders_count": 3,
+    "unmapped_placeholders_count": 17,
+    "question_count": 29,
+    "section_count": 8
+  },
+  "sections": [
+    {
+      "id": "controls",
+      "title": "Controls",
+      "questions": [
+        {
+          "id": "bas_level",
+          "title": "BAS level",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Standalone (no BAS)",
+              "value": "standalone"
+            },
+            {
+              "label": "Partial BAS (some systems)",
+              "value": "partial_bas"
+            },
+            {
+              "label": "Full BAS (centralized)",
+              "value": "full_bas"
+            },
+            {
+              "label": "Unknown",
+              "value": "unknown"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling",
+      "questions": [
+        {
+          "id": "cooling_system_type",
+          "title": "Cooling system type",
+          "type": "single_select",
+          "options": [
+            {
+              "label": "Chiller (air-cooled)",
+              "value": "chiller_air"
+            },
+            {
+              "label": "Chiller (water-cooled)",
+              "value": "chiller_water"
+            },
+            {
+              "label": "WSHP loop provides cooling",
+              "value": "wshp_cooling"
+            },
+            {
+              "label": "Split DX",
+              "value": "split_dx"
+            },
+            {
+              "label": "PTAC/through-wall",
+              "value": "ptac"
+            },
+            {
+              "label": "No central cooling",
+              "value": "none"
+            },
+            {
+              "label": "Other / unknown",
+              "value": "other_unknown"
+            }
+          ],
+          "placeholder_targets": [],
+          "default": null,
+          "required": false,
+          "help": "",
+          "rules": []
+        }
+      ]
+    },
+    {
   "sections": [
     {
       "id": "dhw",
@@ -452,6 +564,7 @@
       "title": "Unmapped placeholders",
       "questions": [
         {
+          "id": "architectural_condition_8fc86f",
           "id": "architectural_condition",
           "title": "Architectural Condition",
           "type": "text",
@@ -465,6 +578,7 @@
           "rules": []
         },
         {
+          "id": "city_6d78a7",
           "id": "city",
           "title": "City",
           "type": "text",
@@ -478,6 +592,7 @@
           "rules": []
         },
         {
+          "id": "clientname_2709d3",
           "id": "clientname",
           "title": "ClientName",
           "type": "text",
@@ -491,6 +606,7 @@
           "rules": []
         },
         {
+          "id": "date_constructed_7fe749",
           "id": "date_constructed",
           "title": "Date Constructed",
           "type": "text",
@@ -504,6 +620,7 @@
           "rules": []
         },
         {
+          "id": "datedocument_539224",
           "id": "datedocument",
           "title": "DateDocument",
           "type": "text",
@@ -517,6 +634,7 @@
           "rules": []
         },
         {
+          "id": "district_50b69d",
           "id": "district",
           "title": "District",
           "type": "text",
@@ -530,6 +648,7 @@
           "rules": []
         },
         {
+          "id": "measure_block_2f07ad",
           "id": "measure_block",
           "title": "MEASURE_BLOCK",
           "type": "text",
@@ -543,6 +662,7 @@
           "rules": []
         },
         {
+          "id": "measure_summary_row_857c4f",
           "id": "measure_summary_row",
           "title": "MEASURE_SUMMARY_ROW",
           "type": "text",
@@ -556,6 +676,7 @@
           "rules": []
         },
         {
+          "id": "miscellaneous_block_79c82c",
           "id": "miscellaneous_block",
           "title": "Miscellaneous Block",
           "type": "text",
@@ -569,6 +690,7 @@
           "rules": []
         },
         {
+          "id": "number_of_floors_a322f9",
           "id": "number_of_floors",
           "title": "Number of Floors",
           "type": "text",
@@ -582,6 +704,7 @@
           "rules": []
         },
         {
+          "id": "number_of_suites_cd26ba",
           "id": "number_of_suites",
           "title": "Number of Suites",
           "type": "text",
@@ -595,6 +718,7 @@
           "rules": []
         },
         {
+          "id": "post_code_4398cf",
           "id": "post_code",
           "title": "Post Code",
           "type": "text",
@@ -608,6 +732,7 @@
           "rules": []
         },
         {
+          "id": "property_address1_ec55f3",
           "id": "property_address1",
           "title": "Property Address1",
           "type": "text",
@@ -621,6 +746,12 @@
           "rules": []
         },
         {
+          "id": "province_abbreviation_ff26b8",
+          "title": "Province Abbreviation",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province Abbreviation}"
           "id": "province",
           "title": "Province",
           "type": "text",
@@ -634,6 +765,12 @@
           "rules": []
         },
         {
+          "id": "province_f41967",
+          "title": "Province",
+          "type": "text",
+          "options": [],
+          "placeholder_targets": [
+            "{Province}"
           "id": "province_abbreviation",
           "title": "Province Abbreviation",
           "type": "text",
@@ -647,6 +784,7 @@
           "rules": []
         },
         {
+          "id": "report_date_a67e32",
           "id": "report_date",
           "title": "Report Date",
           "type": "text",
@@ -660,6 +798,7 @@
           "rules": []
         },
         {
+          "id": "suite_types_805dfb",
           "id": "suite_types",
           "title": "Suite Types",
           "type": "text",

@@ -1,4 +1,5 @@
 {
+  "measure_catalog_path": "templates/template.level1.json",
   "rules": [
     {
       "match": {"type": "regex", "pattern": "\\{.*Heating.*\\}"},

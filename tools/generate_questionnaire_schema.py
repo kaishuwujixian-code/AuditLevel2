@@ -1,10 +1,12 @@
 import argparse
+import hashlib
 import json
 import os
 import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from typing import Dict, Iterable, List, Optional, Set, Tuple
 from typing import Dict, Iterable, List, Optional, Tuple
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -56,6 +58,12 @@ def _match_rule(placeholder: str, rule: dict) -> bool:
     return False
 
 
+def _resolve_path(path: str) -> str:
+    if os.path.isabs(path):
+        return path
+    return os.path.join(REPO_ROOT, path)
+
+
 def _resolve_section_id(placeholder: str) -> str:
     inner = placeholder.strip("{}").lower()
     if "heat" in inner:
@@ -103,6 +111,13 @@ def _merge_question(existing: dict, incoming: dict) -> dict:
     if not merged.get("options") and incoming.get("options"):
         merged["options"] = incoming["options"]
     return merged
+
+
+def _make_unmapped_id(placeholder: str) -> str:
+    inner = placeholder.strip("{}").strip()
+    base = re.sub(r"[^a-z0-9]+", "_", inner.lower()).strip("_") or "unmapped"
+    digest = hashlib.sha1(placeholder.encode("utf-8")).hexdigest()[:6]
+    return f"{base}_{digest}"
 
 
 def _keyword_placeholders(placeholders: Iterable[str], keywords: Iterable[str]) -> List[str]:
@@ -247,6 +262,56 @@ def _load_measure_options(template_json_path: str) -> List[dict]:
     ]
 
 
+def generate_schema(
+    template_path: str,
+    mapping_path: str,
+    out_path: str,
+    measure_catalog_path: Optional[str] = None,
+) -> dict:
+    resolved_template = _resolve_path(template_path)
+    resolved_mapping = _resolve_path(mapping_path)
+    resolved_out = _resolve_path(out_path)
+    placeholders = extract_placeholders(resolved_template)["placeholders"]
+
+    mapping = _load_json(resolved_mapping)
+    rules = mapping.get("rules", [])
+    option_sets = mapping.get("option_sets", {})
+    measure_catalog = measure_catalog_path or mapping.get(
+        "measure_catalog_path", "templates/template.level1.json"
+    )
+
+    questions_by_id: Dict[str, dict] = {}
+    sections: Dict[str, List[str]] = defaultdict(list)
+    warnings: List[str] = []
+    mapped_placeholders: Set[str] = set()
+
+    for rule in rules:
+        question_data = rule.get("question", {})
+        question_id = question_data.get("id")
+        if not question_id:
+            raise ValueError("Mapping rule is missing question id.")
+        options: List[dict] = question_data.get("options", [])
+        options_ref = question_data.get("options_ref")
+        if options_ref:
+            if options_ref not in option_sets:
+                warnings.append(f"options_ref not found: {options_ref}")
+            options = option_sets.get(options_ref, [])
+        question = _normalize_question(
+            {
+                **question_data,
+                "options": options,
+                "placeholder_targets": [],
+            }
+        )
+        if question_id in questions_by_id:
+            questions_by_id[question_id] = _merge_question(
+                questions_by_id[question_id], question
+            )
+        else:
+            questions_by_id[question_id] = question
+        section_id = question_data.get("section_id") or "facility"
+        if question_id not in sections[section_id]:
+            sections[section_id].append(question_id)
 def generate_schema(template_path: str, mapping_path: str, out_path: str) -> dict:
     placeholders_data = extract_placeholders(template_path)
     placeholders = placeholders_data["placeholders"]
@@ -264,6 +329,19 @@ def generate_schema(template_path: str, mapping_path: str, out_path: str) -> dic
             if _match_rule(placeholder, rule):
                 matched_rule = rule
                 break
+        if matched_rule:
+            question_id = matched_rule["question"]["id"]
+            questions_by_id[question_id] = _merge_question(
+                questions_by_id[question_id],
+                {"placeholder_targets": [placeholder], "options": []},
+            )
+            mapped_placeholders.add(placeholder)
+        else:
+            question_id = _make_unmapped_id(placeholder)
+            question = _normalize_question(
+                {
+                    "id": question_id,
+                    "title": placeholder.strip("{}").strip() or placeholder,
 
         if matched_rule:
             question_data = matched_rule.get("question", {})
@@ -307,6 +385,32 @@ def generate_schema(template_path: str, mapping_path: str, out_path: str) -> dic
                     "rules": [],
                 }
             )
+            questions_by_id[question_id] = question
+            sections["unmapped"].append(question_id)
+
+    for rule in rules:
+        matched = any(_match_rule(placeholder, rule) for placeholder in placeholders)
+        if not matched:
+            question_id = rule.get("question", {}).get("id", "unknown")
+            warnings.append(f"No placeholders matched rule for question: {question_id}")
+
+    findings_questions = _build_findings_questions(placeholders)
+    for question in findings_questions:
+        question_id = question["id"]
+        questions_by_id[question_id] = question
+        sections["findings"].append(question_id)
+
+    measure_options = _load_measure_options(_resolve_path(measure_catalog))
+    measures_questions = _build_measure_questions(measure_options, placeholders)
+    for question in measures_questions:
+        question_id = question["id"]
+        questions_by_id[question_id] = question
+        sections["measures"].append(question_id)
+
+    serialized_sections = []
+    for section_id in sorted(sections.keys()):
+        question_ids = sorted(set(sections[section_id]))
+        ordered_questions = [questions_by_id[qid] for qid in question_ids]
             if question_id in questions_by_id:
                 questions_by_id[question_id] = _merge_question(
                     questions_by_id[question_id], question
@@ -335,11 +439,27 @@ def generate_schema(template_path: str, mapping_path: str, out_path: str) -> dic
             }
         )
 
+    unmapped_placeholders = sorted(set(placeholders) - mapped_placeholders)
+    stats = {
+        "placeholder_count": len(placeholders),
+        "mapped_placeholders_count": len(mapped_placeholders),
+        "unmapped_placeholders_count": len(unmapped_placeholders),
+        "question_count": len({q["id"] for q in questions_by_id.values()}),
+        "section_count": len(serialized_sections),
+    }
+
     schema = {
         "version": "1.0",
         "source_template": template_path,
         "generated_at": _iso_timestamp(),
         "placeholders": placeholders,
+        "unmapped_placeholders": unmapped_placeholders,
+        "warnings": warnings,
+        "stats": stats,
+        "sections": serialized_sections,
+    }
+
+    with open(resolved_out, "w", encoding="utf-8") as handle:
         "sections": serialized_sections,
     }
 
@@ -367,12 +487,19 @@ def build_parser() -> argparse.ArgumentParser:
         default="schemas/level1_questionnaire.schema.json",
         help="Output schema path",
     )
+    parser.add_argument(
+        "--measure-catalog",
+        default="",
+        help="Path to template.level1.json for measure options",
+    )
     return parser
 
 
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+    measure_catalog = args.measure_catalog or None
+    generate_schema(args.template, args.mapping, args.out, measure_catalog)
     generate_schema(args.template, args.mapping, args.out)
     return 0
 
