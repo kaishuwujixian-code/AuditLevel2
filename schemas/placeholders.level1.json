@@ -1,0 +1,38 @@
+{
+  "blocks": [
+    "{Central Heating/Cooling Systems block}",
+    "{Central Ventilation System Block}",
+    "{DHW System Block}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}"
+  ],
+  "generated_at": "2026-01-14T19:34:25.986160+00:00",
+  "placeholders": [
+    "{Architectural Condition}",
+    "{Central Heating/Cooling Systems block}",
+    "{Central Ventilation System Block}",
+    "{City}",
+    "{ClientName}",
+    "{DHW System Block}",
+    "{Date Constructed}",
+    "{DateDocument}",
+    "{District}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
+    "{Number of Floors}",
+    "{Number of Suites}",
+    "{Post Code}",
+    "{Property Address1}",
+    "{Province Abbreviation}",
+    "{Province}",
+    "{Report Date}",
+    "{Suite Types}"
+  ],
+  "stats": {
+    "blocks": 6,
+    "total": 20
+  },
+  "template": "templates/level1.docx"
+}

@@ -1,73 +1,79 @@
+#!/usr/bin/env python3
 import argparse
 import json
-import os
 import re
 import sys
 import zipfile
-from typing import List, Set
-from xml.etree import ElementTree
-
-import tkinter as tk
-from tkinter import filedialog
-
-
-PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
-WORD_NAMESPACE = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-import json
-import re
-import sys
-import zipfile
+from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import Iterable, List, Set
 from xml.etree import ElementTree
 
-
 PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 WORD_NAMESPACE = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-from typing import Iterable, List, Set
-
-from docx import Document
 
 
-PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
+@dataclass(frozen=True)
+class PlaceholderReport:
+    template: str
+    generated_at: str
+    placeholders: List[str]
+    blocks: List[str]
+
+    @property
+    def stats(self) -> dict:
+        return {"total": len(self.placeholders), "blocks": len(self.blocks)}
+
+    def to_dict(self) -> dict:
+        return {
+            "template": self.template,
+            "generated_at": self.generated_at,
+            "placeholders": self.placeholders,
+            "blocks": self.blocks,
+            "stats": self.stats,
+        }
 
 
-def _extract_from_text(text: str) -> List[str]:
+def _extract_placeholders_from_text(text: str) -> List[str]:
     return PLACEHOLDER_PATTERN.findall(text)
 
 
-def _extract_from_xml(xml_bytes: bytes) -> List[str]:
-    placeholders: List[str] = []
-    root = ElementTree.fromstring(xml_bytes)
+def _extract_text_from_paragraphs(root: ElementTree.Element) -> List[str]:
+    texts: List[str] = []
     for paragraph in root.findall(".//w:p", WORD_NAMESPACE):
-        text_parts = [node.text or "" for node in paragraph.findall(".//w:t", WORD_NAMESPACE)]
-        if not text_parts:
-            continue
-        text = "".join(text_parts)
-def _extract_from_paragraphs(paragraphs: Iterable) -> List[str]:
+        runs = [node.text or "" for node in paragraph.findall(".//w:t", WORD_NAMESPACE)]
+        if runs:
+            texts.append("".join(runs))
+        else:
+            texts.append("")
+    return texts
+
+
+def _extract_from_xml(xml_bytes: bytes) -> List[str]:
+    root = ElementTree.fromstring(xml_bytes)
     placeholders: List[str] = []
-    for paragraph in paragraphs:
-        text = "".join(run.text for run in paragraph.runs)
-        placeholders.extend(_extract_from_text(text))
+    for paragraph_text in _extract_text_from_paragraphs(root):
+        placeholders.extend(_extract_placeholders_from_text(paragraph_text))
     return placeholders
 
 
-def _extract_from_tables(tables: Iterable) -> List[str]:
-    placeholders: List[str] = []
-    for table in tables:
-        for row in table.rows:
-            for cell in row.cells:
-                placeholders.extend(_extract_from_paragraphs(cell.paragraphs))
-                placeholders.extend(_extract_from_tables(cell.tables))
-    return placeholders
+def _collect_docx_xml_parts(docx_path: str) -> List[str]:
+    with zipfile.ZipFile(docx_path) as archive:
+        names = [name for name in archive.namelist() if name.startswith("word/")]
+        targets = [
+            name
+            for name in names
+            if name == "word/document.xml" or name.startswith("word/header") or name.startswith("word/footer")
+        ]
+    return targets
 
 
-def _extract_from_section(section) -> List[str]:
-    placeholders: List[str] = []
-    placeholders.extend(_extract_from_paragraphs(section.header.paragraphs))
-    placeholders.extend(_extract_from_tables(section.header.tables))
-    placeholders.extend(_extract_from_paragraphs(section.footer.paragraphs))
-    placeholders.extend(_extract_from_tables(section.footer.tables))
-    return placeholders
+def _read_xml_parts(docx_path: str, part_names: Iterable[str]) -> List[bytes]:
+    xml_parts: List[bytes] = []
+    with zipfile.ZipFile(docx_path) as archive:
+        for name in part_names:
+            xml_parts.append(archive.read(name))
+    return xml_parts
 
 
 def _block_placeholders(placeholders: Iterable[str]) -> List[str]:
@@ -79,54 +85,37 @@ def _block_placeholders(placeholders: Iterable[str]) -> List[str]:
     return blocks
 
 
-def extract_placeholders(docx_path: str) -> dict:
+def extract_placeholders(docx_path: str) -> PlaceholderReport:
+    part_names = _collect_docx_xml_parts(docx_path)
     placeholders: Set[str] = set()
-    with zipfile.ZipFile(docx_path) as archive:
-        for name in archive.namelist():
-            if not name.startswith("word/"):
-                continue
-            if name == "word/document.xml" or name.startswith("word/header") or name.startswith("word/footer"):
-                xml_bytes = archive.read(name)
-                placeholders.update(_extract_from_xml(xml_bytes))
-    doc = Document(docx_path)
-    placeholders: Set[str] = set()
-
-    placeholders.update(_extract_from_paragraphs(doc.paragraphs))
-    placeholders.update(_extract_from_tables(doc.tables))
-
-    for section in doc.sections:
-        placeholders.update(_extract_from_section(section))
+    for xml_bytes in _read_xml_parts(docx_path, part_names):
+        placeholders.update(_extract_from_xml(xml_bytes))
 
     if not placeholders:
         raise ValueError(f"No placeholders found in {docx_path}.")
 
     sorted_placeholders = sorted(placeholders)
-    return {"placeholders": sorted_placeholders}
+    blocks = sorted(set(_block_placeholders(sorted_placeholders)))
+    generated_at = datetime.now(timezone.utc).isoformat()
 
-
-def _select_docx_path(default_dir: str) -> str:
-    root = tk.Tk()
-    root.withdraw()
-    path = filedialog.askopenfilename(
-        title="Select Word template",
-        initialdir=default_dir,
-        filetypes=[("Word document", "*.docx")],
+    return PlaceholderReport(
+        template=docx_path,
+        generated_at=generated_at,
+        placeholders=sorted_placeholders,
+        blocks=blocks,
     )
-    root.destroy()
-    return path
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Extract placeholders from a Word template.")
     parser.add_argument(
-        "--docx",
+        "--template",
         default="templates/level1.docx",
         help="Path to the Word template",
     )
     parser.add_argument(
-        "--ui",
-        action="store_true",
-        help="Open a file dialog to select the Word template",
+        "--out",
+        help="Output JSON path (prints to stdout when omitted)",
     )
     return parser
 
@@ -134,21 +123,21 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
-    docx_path = args.docx
-    if args.ui:
-        selected = _select_docx_path(os.path.dirname(docx_path) or ".")
-        if not selected:
-            raise SystemExit("No template selected.")
-        docx_path = selected
-    blocks = sorted(set(_block_placeholders(sorted_placeholders)))
-    return {"placeholders": sorted_placeholders, "blocks": blocks}
 
+    try:
+        report = extract_placeholders(args.template)
+    except ValueError as exc:
+        sys.stderr.write(f"Error: {exc}\n")
+        return 1
 
-def main() -> int:
-    docx_path = "templates/level1.docx"
-    result = extract_placeholders(docx_path)
-    json.dump(result, sys.stdout, indent=2)
-    sys.stdout.write("\n")
+    payload = report.to_dict()
+    if args.out:
+        with open(args.out, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+    else:
+        json.dump(payload, sys.stdout, indent=2, sort_keys=True)
+        sys.stdout.write("\n")
     return 0
 
 
