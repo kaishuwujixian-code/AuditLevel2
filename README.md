@@ -2,6 +2,29 @@
 
 ## Quick Start
 
+### Run Desktop App
+```bash
+python app.py
+```
+
+### Run RETScreen-style Desktop App
+```bash
+python app_retscreen.py
+```
+
+### Questionnaire Schema
+Regenerate the schema from the Word template:
+```bash
+python tools/generate_questionnaire_schema.py --template templates/level1.docx --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+```
+
+Validate the generated schema:
+```bash
+python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --template templates/level1.docx
+```
+
+Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets. Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
+
 ### Generate a report
 Windows (PowerShell/CMD):
 ```bash
