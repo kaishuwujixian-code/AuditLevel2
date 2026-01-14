@@ -7,6 +7,11 @@
 python app.py
 ```
 
+### Run RETScreen-style Desktop App
+```bash
+python app_retscreen.py
+```
+
 ### Generate a report
 Windows (PowerShell/CMD):
 ```bash
