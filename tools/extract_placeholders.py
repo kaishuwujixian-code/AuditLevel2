@@ -8,6 +8,12 @@ from xml.etree import ElementTree
 
 PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 WORD_NAMESPACE = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+from typing import Iterable, List, Set
+
+from docx import Document
+
+
+PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 
 
 def _extract_from_text(text: str) -> List[str]:
@@ -22,7 +28,30 @@ def _extract_from_xml(xml_bytes: bytes) -> List[str]:
         if not text_parts:
             continue
         text = "".join(text_parts)
+def _extract_from_paragraphs(paragraphs: Iterable) -> List[str]:
+    placeholders: List[str] = []
+    for paragraph in paragraphs:
+        text = "".join(run.text for run in paragraph.runs)
         placeholders.extend(_extract_from_text(text))
+    return placeholders
+
+
+def _extract_from_tables(tables: Iterable) -> List[str]:
+    placeholders: List[str] = []
+    for table in tables:
+        for row in table.rows:
+            for cell in row.cells:
+                placeholders.extend(_extract_from_paragraphs(cell.paragraphs))
+                placeholders.extend(_extract_from_tables(cell.tables))
+    return placeholders
+
+
+def _extract_from_section(section) -> List[str]:
+    placeholders: List[str] = []
+    placeholders.extend(_extract_from_paragraphs(section.header.paragraphs))
+    placeholders.extend(_extract_from_tables(section.header.tables))
+    placeholders.extend(_extract_from_paragraphs(section.footer.paragraphs))
+    placeholders.extend(_extract_from_tables(section.footer.tables))
     return placeholders
 
 
@@ -44,6 +73,14 @@ def extract_placeholders(docx_path: str) -> dict:
             if name == "word/document.xml" or name.startswith("word/header") or name.startswith("word/footer"):
                 xml_bytes = archive.read(name)
                 placeholders.update(_extract_from_xml(xml_bytes))
+    doc = Document(docx_path)
+    placeholders: Set[str] = set()
+
+    placeholders.update(_extract_from_paragraphs(doc.paragraphs))
+    placeholders.update(_extract_from_tables(doc.tables))
+
+    for section in doc.sections:
+        placeholders.update(_extract_from_section(section))
 
     if not placeholders:
         raise ValueError(f"No placeholders found in {docx_path}.")
