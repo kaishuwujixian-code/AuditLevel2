@@ -1,0 +1,101 @@
+{
+  "rules": [
+    {
+      "match": {"type": "regex", "pattern": "\\{.*Heating.*\\}"},
+      "question": {
+        "id": "heating_system_type",
+        "title": "Heating system type",
+        "type": "single_select",
+        "options_ref": "hvac.heating_system_type",
+        "section_id": "heating"
+      }
+    },
+    {
+      "match": {"type": "regex", "pattern": "\\{.*Cooling.*\\}"},
+      "question": {
+        "id": "cooling_system_type",
+        "title": "Cooling system type",
+        "type": "single_select",
+        "options_ref": "cooling.system_type",
+        "section_id": "cooling"
+      }
+    },
+    {
+      "match": {"type": "regex", "pattern": "\\{.*Ventilation.*\\}"},
+      "question": {
+        "id": "ventilation_system_type",
+        "title": "Ventilation system type",
+        "type": "single_select",
+        "options_ref": "ventilation.system_type",
+        "section_id": "ventilation"
+      }
+    },
+    {
+      "match": {"type": "regex", "pattern": "\\{.*DHW.*\\}"},
+      "question": {
+        "id": "dhw_system_type",
+        "title": "DHW system type",
+        "type": "single_select",
+        "options_ref": "dhw.system_type",
+        "section_id": "dhw"
+      }
+    },
+    {
+      "match": {"type": "regex", "pattern": "\\{.*BAS.*\\}"},
+      "question": {
+        "id": "bas_level",
+        "title": "BAS level",
+        "type": "single_select",
+        "options_ref": "controls.bas_level",
+        "section_id": "controls"
+      }
+    }
+  ],
+  "option_sets": {
+    "hvac.heating_system_type": [
+      {"label": "Atmospheric boiler", "value": "atmospheric_boiler"},
+      {"label": "Condensing boiler", "value": "condensing_boiler"},
+      {"label": "Electric resistance", "value": "electric_resistance"},
+      {"label": "Air-source heat pump", "value": "ashp"},
+      {"label": "Water-source heat pump (central)", "value": "wshp_central"},
+      {"label": "Other / unknown", "value": "other_unknown"}
+    ],
+    "hvac.heating_serves": [
+      {"label": "WSHP loop", "value": "serves_wshp"},
+      {"label": "Fan coils", "value": "serves_fancoil"},
+      {"label": "Radiant / baseboard", "value": "serves_radiant"},
+      {"label": "AHUs", "value": "serves_ahu"},
+      {"label": "MAU/MUA heating", "value": "serves_mua"},
+      {"label": "Mixed / unknown", "value": "mixed_unknown"}
+    ],
+    "dhw.system_type": [
+      {"label": "Heat exchanger off heating loop (P/S)", "value": "hx_from_heating_ps"},
+      {"label": "Dedicated DHW boilers (condensing)", "value": "dhw_boiler_condensing"},
+      {"label": "Dedicated DHW boilers (atmospheric)", "value": "dhw_boiler_atmospheric"},
+      {"label": "Electric DHW", "value": "dhw_electric"},
+      {"label": "Other / unknown", "value": "dhw_other_unknown"}
+    ],
+    "cooling.system_type": [
+      {"label": "Chiller (air-cooled)", "value": "chiller_air"},
+      {"label": "Chiller (water-cooled)", "value": "chiller_water"},
+      {"label": "WSHP loop provides cooling", "value": "wshp_cooling"},
+      {"label": "Split DX", "value": "split_dx"},
+      {"label": "PTAC/through-wall", "value": "ptac"},
+      {"label": "No central cooling", "value": "none"},
+      {"label": "Other / unknown", "value": "other_unknown"}
+    ],
+    "ventilation.system_type": [
+      {"label": "Central MAU/MUA to corridors", "value": "mua_corridor"},
+      {"label": "DOAS", "value": "doas"},
+      {"label": "Suite ERVs/HRVs", "value": "suite_erv_hrv"},
+      {"label": "Exhaust only (no tempered make-up)", "value": "exhaust_only"},
+      {"label": "Mixed / unknown", "value": "mixed_unknown"}
+    ],
+    "controls.bas_level": [
+      {"label": "Standalone (no BAS)", "value": "standalone"},
+      {"label": "Partial BAS (some systems)", "value": "partial_bas"},
+      {"label": "Full BAS (centralized)", "value": "full_bas"},
+      {"label": "Unknown", "value": "unknown"}
+    ]
+  }
+}
