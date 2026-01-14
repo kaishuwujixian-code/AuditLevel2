@@ -16,6 +16,7 @@ python app_retscreen.py
 Extract placeholders from the single source of truth Word template:
 ```bash
 python tools/extract_placeholders.py --template templates/level1.docx --out schemas/placeholders.level1.json
+
 ```
 
 If `--out` is omitted, JSON is printed to stdout.
@@ -23,12 +24,13 @@ If `--out` is omitted, JSON is printed to stdout.
 ### Questionnaire Schema
 Regenerate the schema from the Word template:
 ```bash
-python tools/generate_questionnaire_schema.py --template templates/level1.docx --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+
 ```
 
 Validate the generated schema:
 ```bash
-python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --template templates/level1.docx
+python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
 ```
 
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
