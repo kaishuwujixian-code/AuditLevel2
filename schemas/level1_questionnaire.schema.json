@@ -2,6 +2,7 @@
   "version": "1.0",
   "source_template": "templates/level1.docx",
   "generated_at": "2026-01-14T18:28:08+00:00",
+  "generated_at": "2026-01-14T18:20:15+00:00",
   "placeholders": [
     "{Architectural Condition}",
     "{Central Heating/Cooling Systems block}",
