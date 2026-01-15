@@ -45,6 +45,8 @@ class DHWContext:
     system_type_values: List[str]
     heat_source_text: str | None
     storage_notes_text: str | None
+    location_text: str | None
+    condition_text: str | None
     recirc_value: Any
 
     @classmethod
@@ -72,6 +74,16 @@ class DHWContext:
             ["dhw_storage_notes", "dhw_distribution_notes", "dhw_notes", "notes", "dhw_block"],
             section="dhw",
         )
+        location_text = stringify_value(
+            get_answer_value(project, ["dhw_location", "location"], section="dhw")
+        )
+        condition_value = get_answer_value(project, ["architectural_condition", "condition"])
+        condition_text = None
+        condition_values = format_option_values(
+            "building.arch_condition", condition_value, mapping=mapping
+        )
+        if condition_values and not contains_unknown(condition_values):
+            condition_text = human_join(condition_values)
         recirc_value = get_answer_value(
             project,
             [
@@ -93,6 +105,8 @@ class DHWContext:
             system_type_values=system_type_values,
             heat_source_text=stringify_value(heat_source_value),
             storage_notes_text=stringify_value(storage_notes_value),
+            location_text=location_text,
+            condition_text=condition_text,
             recirc_value=recirc_value,
         )
 
@@ -111,12 +125,16 @@ def render_block(
     if context.override_text:
         return context.override_text
 
+    paragraphs: list[str] = []
     sentences: list[str] = []
     system_unknown = context.system_unknown()
 
     if not system_unknown:
         system_type = human_join(context.system_type_values)
-        sentences.append(f"Domestic hot water is provided by {system_type}.")
+        location = ""
+        if context.location_text and context.location_text.strip():
+            location = f" located in {context.location_text.strip()}"
+        sentences.append(f"Domestic hot water is provided by {system_type}{location}.")
     else:
         sentences.append(not_confirmed_sentence("The domestic hot water plant type"))
         sentences.append(further_investigation_sentence("the domestic hot water plant configuration"))
@@ -133,11 +151,27 @@ def render_block(
     if context.storage_notes_text and context.storage_notes_text.strip():
         sentences.append(ensure_sentence(context.storage_notes_text))
 
-    if len(sentences) < 3:
+    if context.condition_text:
+        sentences.append(
+            f"The DHW equipment appears to be in {context.condition_text} condition based on walkthrough observations."
+        )
+    else:
         sentences.append(
             uncertainty_sentence(
                 f"additional domestic hot water distribution details were not confirmed for this {context.audit_level} review"
             )
         )
 
-    return " ".join(sentences[:5])
+    paragraphs.append(" ".join(sentences[:5]))
+
+    recommendations: list[str] = []
+    if not system_unknown:
+        recommendations.append(
+            ensure_sentence(
+                "Further review of temperature controls, recirculation schedules, and storage sizing could be considered as part of a detailed audit"
+            )
+        )
+    if recommendations:
+        paragraphs.append(" ".join(recommendations))
+
+    return "\n\n".join(paragraphs)

@@ -38,6 +38,9 @@ class VentilationContext:
     override_text: str | None
     system_type_raw: Any
     system_type_values: List[str]
+    location_text: str | None
+    condition_text: str | None
+    bas_present: Any
     notes_text: str | None
 
     @classmethod
@@ -55,6 +58,17 @@ class VentilationContext:
         system_type_values = format_option_values(
             "ventilation.system_type", system_type_raw, mapping=mapping
         )
+        location_text = stringify_value(
+            get_answer_value(project, ["ventilation_location", "location"], section="ventilation")
+        )
+        condition_value = get_answer_value(project, ["architectural_condition", "condition"])
+        condition_text = None
+        condition_values = format_option_values(
+            "building.arch_condition", condition_value, mapping=mapping
+        )
+        if condition_values and not contains_unknown(condition_values):
+            condition_text = human_join(condition_values)
+        bas_present = get_answer_value(project, ["bas_present", "building_automation_system"])
         notes_value = get_answer_value(
             project,
             ["ventilation_notes", "ventilation_block", "notes"],
@@ -67,6 +81,9 @@ class VentilationContext:
             override_text=override_text,
             system_type_raw=system_type_raw,
             system_type_values=system_type_values,
+            location_text=location_text,
+            condition_text=condition_text,
+            bas_present=bas_present,
             notes_text=stringify_value(notes_value),
         )
 
@@ -85,23 +102,52 @@ def render_block(
     if context.override_text:
         return context.override_text
 
+    paragraphs: list[str] = []
     sentences: list[str] = []
     system_unknown = context.system_unknown()
 
     if not system_unknown:
         system_type = human_join(context.system_type_values)
-        sentences.append(f"Central ventilation is primarily served by {system_type}.")
+        location = ""
+        if context.location_text and context.location_text.strip():
+            location = f" located in {context.location_text.strip()}"
+        sentences.append(f"Ventilation is primarily provided by {system_type}{location}.")
     else:
         sentences.append(not_confirmed_sentence("The central ventilation system type"))
         sentences.append(further_investigation_sentence("the primary ventilation strategy"))
 
-    sentences.append(
-        uncertainty_sentence(
-            f"operating schedules, air-change rates, and control sequences were not verified for this {context.audit_level} review"
+    if context.condition_text:
+        sentences.append(
+            f"The ventilation equipment appears to be in {context.condition_text} condition based on walkthrough observations."
         )
-    )
+    else:
+        sentences.append(
+            uncertainty_sentence(
+                f"operating schedules, air-change rates, and control sequences were not verified for this {context.audit_level} review"
+            )
+        )
 
     if context.notes_text and context.notes_text.strip():
         sentences.append(ensure_sentence(context.notes_text))
 
-    return " ".join(sentences[:5])
+    paragraphs.append(" ".join(sentences[:5]))
+
+    bas_sentences: list[str] = []
+    if isinstance(context.bas_present, bool):
+        if context.bas_present:
+            bas_sentences.append(
+                "The ventilation systems appear to have some level of building automation system oversight."
+            )
+        else:
+            bas_sentences.append(
+                "The ventilation systems appear to be locally controlled without a centralized building automation system."
+            )
+    if bas_sentences:
+        bas_sentences.append(
+            ensure_sentence(
+                "Additional review of scheduling, demand control, and setback strategies could be considered as part of a future detailed assessment"
+            )
+        )
+        paragraphs.append(" ".join(bas_sentences))
+
+    return "\n\n".join(paragraphs)
