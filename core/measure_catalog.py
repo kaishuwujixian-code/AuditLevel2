@@ -27,8 +27,6 @@ def get_measure(measure_id: str, catalog: MeasureCatalog | None = None) -> dict:
         "existing": str(measure.get("existing") or ""),
         "retrofit": str(measure.get("retrofit") or ""),
         "summary": str(measure.get("summary") or ""),
-        "notes": str(measure.get("notes") or ""),
-        "dependencies": str(measure.get("dependencies") or ""),
     }
 
 
@@ -70,8 +68,6 @@ def load_measure_catalog(path: str = DEFAULT_MEASURE_CATALOG) -> MeasureCatalog:
             "existing": str(entry.get("existing", "")),
             "retrofit": str(entry.get("retrofit", "")),
             "summary": str(entry.get("summary", "")),
-            "notes": str(entry.get("notes", "")),
-            "dependencies": str(entry.get("dependencies", "")),
         }
         measures[measure_id] = measure
         order.append(measure_id)
