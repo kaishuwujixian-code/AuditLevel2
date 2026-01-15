@@ -1,7 +1,8 @@
 import json
 import os
+from dataclasses import dataclass
 from functools import lru_cache
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 from reporting.narratives import (
     ensure_sentence,
@@ -14,25 +15,57 @@ from reporting.narratives import (
 DEFAULT_MEASURE_CATALOG_PATH = os.path.join("templates", "template.level1.json")
 
 BLOCK_PLACEHOLDERS = ["{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"]
+EXPECTED_INPUTS = {
+    "{MEASURE_BLOCK}": {
+        "fields": [
+            "measures_block_override",
+            "measures",
+            "selected_measures",
+        ]
+    },
+    "{MEASURE_SUMMARY_ROW}": {
+        "fields": [
+            "selected_measures",
+            "measures",
+        ]
+    },
+}
+
+
+@dataclass(frozen=True)
+class MeasuresContext:
+    audit_level: str
+    confidence: str
+    unknown_policy: str
+    override_text: str | None
+    measures: List[Any]
+
+    @classmethod
+    def from_project(cls, project: Dict[str, Any]) -> "MeasuresContext":
+        return cls(
+            audit_level="L1",
+            confidence="moderate",
+            unknown_policy="soft",
+            override_text=_first_override_text(project),
+            measures=_collect_measures(project),
+        )
 
 
 def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
-    context = {"audit_level": "L1", "confidence": "moderate", "unknown_policy": "soft"}
-    override_text = _first_override_text(project)
-    if override_text:
-        return override_text
+    context = MeasuresContext.from_project(project)
+    if context.override_text:
+        return context.override_text
 
-    measures = _collect_measures(project)
-    if not measures:
+    if not context.measures:
         return uncertainty_sentence(
-            f"no energy conservation measures were identified for this {context['audit_level']} review"
+            f"no energy conservation measures were identified for this {context.audit_level} review"
         )
 
     catalog = _load_measure_catalog()
     lines = ["The following measures are recommended for consideration:"]
-    for measure in measures:
+    for measure in context.measures:
         title, justification = _split_measure_entry(measure, catalog)
         lines.append(f"• {title} — {justification}")
 
@@ -42,10 +75,10 @@ def render_block(
 def render_summary_row(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
-    measures = _collect_measures(project)
-    if not measures:
+    context = MeasuresContext.from_project(project)
+    if not context.measures:
         return "Measures summary: none identified at this time."
-    count = len(measures)
+    count = len(context.measures)
     opportunities_label = "opportunity" if count == 1 else "opportunities"
     summary = ensure_sentence(f"Measures summary: {count} {opportunities_label} identified")
     follow_up = further_investigation_sentence("measure feasibility and savings potential")
