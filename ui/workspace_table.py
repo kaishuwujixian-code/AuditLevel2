@@ -66,18 +66,23 @@ class WorkspaceTable(ttk.Frame):
         selected = project_data.get("selected_measures", [])
         if not isinstance(selected, list):
             selected = []
+        selected = self._normalize_selected(selected)
+        project_data["selected_measures"] = selected
 
         category_titles = template.category_titles
         category_order = [item.get("code", "") for item in template.ui_categories]
+        measure_order = template.measure_order or sorted(template.measures.keys())
+        order_index = {key: idx for idx, key in enumerate(measure_order)}
 
         def sort_key(measure_key: str) -> tuple:
             measure = template.measures.get(measure_key, {})
             category_code = measure.get("category") or template.category_overrides.get(measure_key, "")
+            index = order_index.get(measure_key, len(order_index))
             try:
-                index = category_order.index(category_code)
+                category_index = category_order.index(category_code)
             except ValueError:
-                index = len(category_order)
-            return (index, category_code, measure_key.lower())
+                category_index = len(category_order)
+            return (category_index, index, category_code, measure_key.lower())
 
         for measure_key in sorted(template.measures.keys(), key=sort_key):
             measure = template.measures.get(measure_key, {})
@@ -85,13 +90,14 @@ class WorkspaceTable(ttk.Frame):
             category_label = category_titles.get(category_code, category_code)
             include = "✓" if measure_key in selected else ""
             notes = ""
+            display_name = measure.get("name") or measure.get("title") or measure_key
             row_id = self.tree.insert(
                 "",
                 "end",
                 values=(
                     include,
                     category_label,
-                    measure_key,
+                    display_name,
                     notes,
                     "—",
                     "—",
@@ -141,3 +147,14 @@ class WorkspaceTable(ttk.Frame):
                 current = self.tree.set(row_id, "include")
                 self.tree.set(row_id, "include", "" if current else "✓")
                 break
+
+    def _normalize_selected(self, selected: List[str]) -> List[str]:
+        if not self._template:
+            return selected
+        mapped = []
+        for item in selected:
+            if item in self._template.measures:
+                mapped.append(item)
+                continue
+            mapped.append(self._template.legacy_key_map.get(item, item))
+        return mapped

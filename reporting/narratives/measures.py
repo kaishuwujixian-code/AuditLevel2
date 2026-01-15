@@ -12,7 +12,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 
-DEFAULT_MEASURE_CATALOG_PATH = os.path.join("templates", "template.level1.json")
+DEFAULT_MEASURE_CATALOG_PATH = os.path.join("catalogs", "measure_catalog.json")
 
 BLOCK_PLACEHOLDERS = ["{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"]
 EXPECTED_INPUTS = {
@@ -127,15 +127,24 @@ def _load_measure_catalog(
         return {}
     with open(catalog_path, "r", encoding="utf-8") as handle:
         data = json.load(handle)
-    measures = data.get("measures", {}) if isinstance(data, dict) else {}
-    if not isinstance(measures, dict):
+    measures = data.get("measures", []) if isinstance(data, dict) else []
+    if not isinstance(measures, list):
         return {}
     catalog: Dict[str, Dict[str, str]] = {}
-    for key, entry in measures.items():
+    for entry in measures:
         if isinstance(entry, dict):
             summary = entry.get("summary") or ""
             retrofit = entry.get("retrofit") or ""
-            catalog[str(key)] = {"summary": str(summary), "retrofit": str(retrofit)}
+            title = str(entry.get("title") or "").strip()
+            measure_id = str(entry.get("id") or "").strip()
+            legacy_key = str(entry.get("legacy_key") or "").strip()
+            payload = {"summary": str(summary), "retrofit": str(retrofit)}
+            if measure_id:
+                catalog[measure_id] = payload
+            if legacy_key:
+                catalog[legacy_key] = payload
+            if title:
+                catalog[title] = payload
     return catalog
 
 

@@ -4,6 +4,7 @@ import os
 import sys
 
 from reporting.level1_generator import generate_level1_report
+from core.measure_catalog import load_measure_catalog
 
 
 def _ensure_file(path: str, label: str) -> None:
@@ -54,12 +55,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _list_measures(template_path: str) -> int:
-    _ensure_file(template_path, "Template JSON file")
-    template_data = _load_json(template_path, "Template JSON file")
-    measures = template_data.get("measures")
-    if not isinstance(measures, dict):
-        raise ValueError("Template JSON must contain a measures object.")
-    for key in sorted(measures.keys()):
+    catalog = load_measure_catalog()
+    for key in catalog.order:
         print(key)
     return 0
 
@@ -80,9 +77,8 @@ def _validate_inputs(project_path: str, template_path: str, docx_template_path: 
     if not all(isinstance(item, str) for item in selected_measures):
         raise ValueError("project.json selected_measures must contain only strings.")
 
-    measures = template_data.get("measures")
-    if not isinstance(measures, dict):
-        raise ValueError("Template JSON must contain a measures object.")
+    catalog = load_measure_catalog()
+    measures = catalog.measures
     overrides = template_data.get("category_by_measure_overrides", {})
     if overrides is None:
         overrides = {}
@@ -93,7 +89,7 @@ def _validate_inputs(project_path: str, template_path: str, docx_template_path: 
         {
             key
             for key in selected_measures
-            if key not in measures and key not in overrides
+            if key not in measures and key not in overrides and key not in catalog.legacy_key_map
         }
     )
     if missing:
