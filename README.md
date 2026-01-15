@@ -66,6 +66,9 @@ Manual test checklist:
 The Word renderer now expands HVAC/DHW/Measures blocks into short narrative paragraphs and auto-fills key
 facility placeholders from `answers` (even when `placeholders` is present but empty).
 Narrative generation logic now lives under `reporting/narratives/` for reuse across renderers.
+Narrative modules now include consultant-grade conditional language and
+uncertainty handling to reflect available information while keeping a
+consistent professional tone.
 
 Minimal `project.json` example that produces a rich heating paragraph:
 ```json

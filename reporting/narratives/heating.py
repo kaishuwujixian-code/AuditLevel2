@@ -6,10 +6,13 @@ from reporting.narratives import (
     first_meaningful_text,
     format_distribution_values,
     format_option_values,
+    further_investigation_sentence,
     get_answer_value,
     human_join,
     is_unknown_selection,
+    not_confirmed_sentence,
     stringify_value,
+    uncertainty_sentence,
 )
 
 BLOCK_PLACEHOLDERS = ["{Central Heating/Cooling Systems block}"]
@@ -18,6 +21,7 @@ BLOCK_PLACEHOLDERS = ["{Central Heating/Cooling Systems block}"]
 def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
+    context = {"audit_level": "L1", "confidence": "moderate", "unknown_policy": "soft"}
     override_text = first_meaningful_text(
         [
             get_answer_value(project, ["heating_block_override", "heating_block"]),
@@ -62,20 +66,20 @@ def render_block(
         system_type = human_join(system_type_values)
         sentences.append(f"The building is served by a {system_type} heating plant.")
     else:
-        sentences.append(
-            "The heating plant type was not confirmed during the site visit and should be verified."
-        )
+        sentences.append(not_confirmed_sentence("The heating plant type"))
+        sentences.append(further_investigation_sentence("the central heating plant configuration"))
 
     if not distribution_unknown:
         serves = human_join(serves_values)
         sentences.append(f"Heat is distributed through {serves}.")
     else:
-        sentences.append(
-            "Distribution details were not confirmed during the site visit; the serving systems should be verified."
-        )
+        sentences.append(not_confirmed_sentence("Distribution details"))
+        sentences.append(further_investigation_sentence("the serving distribution systems"))
 
     sentences.append(
-        "Equipment condition and control sequences were not fully assessed during this Level 1 review."
+        uncertainty_sentence(
+            f"equipment condition and control sequences were not fully assessed for this {context['audit_level']} review"
+        )
     )
 
     notes_text = stringify_value(notes_value)

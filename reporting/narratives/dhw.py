@@ -5,11 +5,14 @@ from reporting.narratives import (
     ensure_sentence,
     first_meaningful_text,
     format_option_values,
+    further_investigation_sentence,
     get_answer_value,
     has_meaningful_value,
     human_join,
     is_unknown_selection,
+    not_confirmed_sentence,
     stringify_value,
+    uncertainty_sentence,
 )
 
 BLOCK_PLACEHOLDERS = ["{DHW System Block}"]
@@ -18,6 +21,7 @@ BLOCK_PLACEHOLDERS = ["{DHW System Block}"]
 def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
+    context = {"audit_level": "L1", "confidence": "moderate", "unknown_policy": "soft"}
     override_text = first_meaningful_text(
         [
             get_answer_value(project, ["dhw_block_override", "dhw_block"]),
@@ -66,9 +70,8 @@ def render_block(
         system_type = human_join(system_type_values)
         sentences.append(f"Domestic hot water is provided by {system_type}.")
     else:
-        sentences.append(
-            "The domestic hot water plant type was not confirmed during the site visit and should be verified."
-        )
+        sentences.append(not_confirmed_sentence("The domestic hot water plant type"))
+        sentences.append(further_investigation_sentence("the domestic hot water plant configuration"))
     heat_source_text = stringify_value(heat_source_value)
     if heat_source_text and heat_source_text.strip():
         sentences.append(f"The heat source is {heat_source_text}.")
@@ -85,7 +88,9 @@ def render_block(
 
     if len(sentences) < 3:
         sentences.append(
-            "Additional domestic hot water distribution details should be confirmed during detailed review."
+            uncertainty_sentence(
+                f"additional domestic hot water distribution details were not confirmed for this {context['audit_level']} review"
+            )
         )
 
     return " ".join(sentences[:5])
