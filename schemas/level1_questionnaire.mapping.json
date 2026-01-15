@@ -183,11 +183,11 @@
     {
       "match": {"type": "exact", "value": "{Central Heating/Cooling Systems block}"},
       "question": {
-        "id": "heating_block",
-        "title": "Central heating/cooling systems",
+        "id": "heating_block_override",
+        "title": "Central heating/cooling systems (manual override)",
         "type": "notes",
         "section_id": "heating",
-        "help": "Narrative summary of central heating/cooling systems.",
+        "help": "Optional manual override for the heating/cooling systems narrative.",
         "required": false
       }
     },
@@ -205,11 +205,11 @@
     {
       "match": {"type": "exact", "value": "{DHW System Block}"},
       "question": {
-        "id": "dhw_block",
-        "title": "DHW system",
+        "id": "dhw_block_override",
+        "title": "DHW system (manual override)",
         "type": "notes",
         "section_id": "dhw",
-        "help": "Narrative summary of domestic hot water systems.",
+        "help": "Optional manual override for the domestic hot water narrative.",
         "required": false
       }
     },
@@ -227,22 +227,22 @@
     {
       "match": {"type": "exact", "value": "{MEASURE_BLOCK}"},
       "question": {
-        "id": "measures",
-        "title": "Measures",
+        "id": "measures_block_override",
+        "title": "Measures block (manual override)",
         "type": "notes",
         "section_id": "measures",
-        "help": "Populate the measures block.",
+        "help": "Optional manual override for the measures block narrative.",
         "required": false
       }
     },
     {
       "match": {"type": "exact", "value": "{MEASURE_SUMMARY_ROW}"},
       "question": {
-        "id": "measures",
-        "title": "Measures",
+        "id": "measures_block_override",
+        "title": "Measures block (manual override)",
         "type": "notes",
         "section_id": "measures",
-        "help": "Populate the measures summary row.",
+        "help": "Optional manual override for the measures summary row narrative.",
         "required": false
       }
     }
