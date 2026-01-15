@@ -302,7 +302,6 @@ class QuestionnaireApp:
     def _build_placeholders(self, answers: Dict[str, Any]) -> Dict[str, Any]:
         if not self._schema_data:
             return {}
-        placeholders = set(self._schema_data.get("placeholders", []))
         sections = self._schema_data.get("sections", [])
         placeholder_values: Dict[str, Any] = {}
         for section in sections:
@@ -312,6 +311,5 @@ class QuestionnaireApp:
                     continue
                 value = answers[question_id]
                 for target in question.get("placeholder_targets", []):
-                    if target in placeholders:
-                        placeholder_values[target] = value
+                    placeholder_values[target] = value
         return placeholder_values

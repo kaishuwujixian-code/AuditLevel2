@@ -47,12 +47,12 @@ Manual test checklist:
 4. Choose a single-select option and a multi-select option.
 5. Click **Add photos…** and select one or more files.
 6. Click **Save Project** and confirm `project.json` is created in the repo root.
-7. Open `project.json` and verify `meta`, `answers`, and `photos` look correct.
+7. Open `project.json` and verify `meta`, `answers`, `placeholders`, and `photos` look correct.
 
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
 ### Commit 4A - Minimal Word renderer
-Render simple placeholders into the Level 1 Word template (uses `project.json` placeholders):
+Render simple placeholders into the Level 1 Word template (prefers `project.json` placeholders):
 ```bash
 python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
 ```
@@ -60,7 +60,7 @@ python tools/render_level1.py --template templates/level1.docx --project project
 Manual test checklist:
 1. Run `python app.py`, fill ClientName/City/Province, and save `projects/project.json`.
 2. Run the render command above.
-3. Open `outputs/level1_rendered.docx` and confirm the placeholders are replaced.
+3. Open `outputs/level1_rendered.docx` and confirm the placeholders (including those in textboxes/shapes) are replaced.
 
 ### Desktop App Smoke-Test Checklist
 1. Run `python app_retscreen.py` and confirm the window opens.
