@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Any, Dict
 
 from reporting.narratives import (
@@ -27,13 +28,25 @@ PROVINCE_ABBREVIATIONS = {
 BLOCK_PLACEHOLDERS: list[str] = []
 
 
+@dataclass(frozen=True)
+class FacilityOverviewContext:
+    answers: Dict[str, Any]
+
+    @classmethod
+    def from_project(cls, project: Dict[str, Any]) -> "FacilityOverviewContext":
+        answers = project.get("answers", {}) if isinstance(project, dict) else {}
+        if not isinstance(answers, dict):
+            answers = {}
+        return cls(answers=answers)
+
+
 def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
-    answers = project.get("answers", {}) if isinstance(project, dict) else {}
-    if not isinstance(answers, dict):
+    context = FacilityOverviewContext.from_project(project)
+    if not context.answers:
         return ""
-    return _build_facility_overview(answers, mapping=mapping)
+    return _build_facility_overview(context.answers, mapping=mapping)
 
 
 def apply_facility_placeholders(
