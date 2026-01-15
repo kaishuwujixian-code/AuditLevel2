@@ -12,6 +12,7 @@
     "{Date Constructed}",
     "{DateDocument}",
     "{District}",
+    "{FINDINGS_BLOCK}",
     "{MEASURE_BLOCK}",
     "{MEASURE_SUMMARY_ROW}",
     "{Miscellaneous Block}",
@@ -227,6 +228,19 @@
           ],
           "help": "Additional notes for miscellaneous content.",
           "required": false
+        },
+        {
+          "id": "findings_block",
+          "title": "Walkthrough findings (manual override)",
+          "type": "notes",
+          "section_id": "findings",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{FINDINGS_BLOCK}"
+          ],
+          "help": "Optional manual override for the walkthrough findings narrative.",
+          "required": false
         }
       ]
     },
@@ -296,7 +310,7 @@
               "category_label": "Other / Misc"
             },
             {
-              "label": "Primary–Secondary Boiler and DHW Piping Reconfiguration",
+              "label": "Primary\u2013Secondary Boiler and DHW Piping Reconfiguration",
               "value": "primary_secondary_boiler_and_dhw_piping",
               "category": "loop",
               "category_label": "Hydronic Loops"
@@ -344,7 +358,7 @@
               "category_label": "MUA / Ventilation"
             },
             {
-              "label": "BAS Recommissioning – Control Valves",
+              "label": "BAS Recommissioning \u2013 Control Valves",
               "value": "bas_recommission_valves",
               "category": "bas",
               "category_label": "BAS / Controls"
@@ -374,7 +388,7 @@
               "category_label": "Other / Misc"
             },
             {
-              "label": "Fan Coil Unit Retrofit – Suite Units",
+              "label": "Fan Coil Unit Retrofit \u2013 Suite Units",
               "value": "fan_coil_unit_retrofit",
               "category": "other",
               "category_label": "Other / Misc"
@@ -482,7 +496,7 @@
               "category_label": "Other / Misc"
             },
             {
-              "label": "Window Retrofit – High-Performance Glazing",
+              "label": "Window Retrofit \u2013 High-Performance Glazing",
               "value": "window_retrofit",
               "category": "other",
               "category_label": "Other / Misc"
@@ -582,8 +596,8 @@
     }
   ],
   "stats": {
-    "total_placeholders": 20,
-    "mapped": 18,
+    "total_placeholders": 21,
+    "mapped": 19,
     "unmapped": 2
   }
 }

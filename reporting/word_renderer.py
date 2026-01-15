@@ -5,6 +5,8 @@ import zipfile
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
+from docx.oxml import OxmlElement
+from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
 from reporting.narratives import facility_overview, measures as measure_narratives
@@ -147,6 +149,57 @@ def _replace_placeholders_in_text(text: str, placeholder_map: Dict[str, str]) ->
     return replaced_text, replacements
 
 
+def _split_block_text(block_text: str) -> List[str]:
+    return [line.strip() for line in block_text.splitlines() if line.strip()]
+
+
+def _normalize_block_line(line: str) -> Tuple[str, Optional[str]]:
+    stripped = line.strip()
+    if stripped.startswith(("- ", "• ")):
+        return stripped[2:].strip(), "List Bullet"
+    return stripped, None
+
+
+def _insert_paragraph_after(paragraph: Paragraph, text: str = "") -> Paragraph:
+    new_p = OxmlElement("w:p")
+    paragraph._p.addnext(new_p)
+    new_paragraph = Paragraph(new_p, paragraph._parent)
+    if text:
+        new_paragraph.add_run(text)
+    return new_paragraph
+
+
+def _apply_block_line(paragraph: Paragraph, line: str, base_style: Any) -> None:
+    text, style_name = _normalize_block_line(line)
+    paragraph.text = ""
+    paragraph.add_run(text)
+    if style_name:
+        try:
+            paragraph.style = style_name
+        except KeyError:
+            paragraph.style = base_style
+    else:
+        paragraph.style = base_style
+
+
+def _replace_block_placeholder(
+    paragraph: Paragraph,
+    block_text: str,
+) -> int:
+    lines = _split_block_text(block_text)
+    if not lines:
+        paragraph._element.getparent().remove(paragraph._element)
+        return 0
+
+    base_style = paragraph.style
+    _apply_block_line(paragraph, lines[0], base_style)
+    current = paragraph
+    for line in lines[1:]:
+        current = _insert_paragraph_after(current)
+        _apply_block_line(current, line, base_style)
+    return len(lines)
+
+
 def _iter_xml_parts(docx_path: str) -> Iterable[Tuple[str, bytes]]:
     with zipfile.ZipFile(docx_path) as archive:
         for info in archive.infolist():
@@ -273,12 +326,18 @@ def render_word(
     placeholders_replaced = 0
     unresolved: Set[str] = set()
 
-    for paragraph in _iter_all_paragraphs(doc):
+    for paragraph in list(_iter_all_paragraphs(doc)):
         text = paragraph.text
         if not text or "{" not in text:
             continue
         found = PLACEHOLDER_PATTERN.findall(text)
         if not found:
+            continue
+        block_found = [ph for ph in found if ph in block_replacements]
+        if block_found:
+            placeholder = block_found[0]
+            placeholders_replaced += text.count(placeholder)
+            _replace_block_placeholder(paragraph, block_replacements.get(placeholder, ""))
             continue
         replaced_text = text
         for placeholder in set(found):

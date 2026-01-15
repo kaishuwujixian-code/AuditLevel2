@@ -88,7 +88,7 @@ def render_block(
             override,
             catalog,
         )
-        sections.append(f"{index}. {title}\n{narrative}")
+        sections.append(f"3.{index} {title}\n{narrative}")
 
     return "\n\n".join(sections)
 
@@ -229,25 +229,9 @@ def _order_selected_measures(
     selected: List[str],
     catalog: MeasureCatalog,
 ) -> List[str]:
-    category_order = [
-        str(item.get("code", "")).strip()
-        for item in catalog.categories
-        if isinstance(item, dict)
-    ]
-    category_index = {code: idx for idx, code in enumerate(category_order)}
-    catalog_index = {measure_id: idx for idx, measure_id in enumerate(catalog.order)}
-    selected_index = {measure_id: idx for idx, measure_id in enumerate(selected)}
-
-    def sort_key(measure_id: str) -> tuple:
-        measure = catalog.measures.get(measure_id, {})
-        category = measure.get("category", "") or ""
-        return (
-            category_index.get(category, len(category_index)),
-            selected_index.get(measure_id, catalog_index.get(measure_id, len(catalog_index))),
-            measure_id.lower(),
-        )
-
-    return sorted(selected, key=sort_key)
+    if not selected:
+        return []
+    return list(selected)
 
 
 def _collect_measure_overrides(
@@ -314,8 +298,9 @@ def _render_measure_narrative(
     else:
         measure = get_measure(measure_id, catalog)
         narrative = _build_default_narrative(measure)
-    if notes_override:
-        notes_section = _build_notes_section(notes_override)
+    notes_payload = notes_override or _extract_measure_notes(measure_id, catalog)
+    if notes_payload:
+        notes_section = _build_notes_section(notes_payload)
         if notes_section:
             narrative = "\n\n".join([narrative, notes_section]) if narrative else notes_section
     return narrative
@@ -352,16 +337,10 @@ def _build_default_narrative(measure: Dict[str, str]) -> str:
         "occupant comfort."
     )
 
-    notes_paragraph = (
-        "Final design details, savings, and implementation feasibility should be confirmed "
-        "during a subsequent Level 2 energy audit or detailed design phase."
-    )
-
     sections = [
         "Existing Conditions\n" + ensure_sentence(existing_paragraph),
-        "Recommendation\n" + ensure_sentence(recommendation_paragraph),
-        "Rationale\n" + ensure_sentence(rationale_paragraph),
-        "Notes / Limitations\n" + ensure_sentence(notes_paragraph),
+        "Recommended Retrofit / Scope\n" + ensure_sentence(recommendation_paragraph),
+        "Rationale / Expected Benefit\n" + ensure_sentence(rationale_paragraph),
     ]
     return "\n\n".join(sections)
 
@@ -423,7 +402,7 @@ def _infer_general_condition(existing: str) -> str:
 def _build_notes_section(notes_override: str) -> str:
     if not notes_override:
         return ""
-    return "Notes / Limitations\n" + ensure_sentence(str(notes_override).strip())
+    return "Notes / Dependencies\n" + ensure_sentence(str(notes_override).strip())
 
 
 def _build_existing_lead_in(existing_detail: str) -> str:
@@ -436,3 +415,14 @@ def _build_existing_lead_in(existing_detail: str) -> str:
 
 def _split_lines(value: str) -> list[str]:
     return [item for item in value.replace(",", "\n").splitlines()]
+
+
+def _extract_measure_notes(
+    measure_id: str,
+    catalog: MeasureCatalog,
+) -> str:
+    measure = get_measure(measure_id, catalog)
+    notes = measure.get("notes") or measure.get("dependencies")
+    if not notes:
+        return ""
+    return str(notes).strip()
