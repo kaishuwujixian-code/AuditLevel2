@@ -4,7 +4,7 @@
 
 ### Run the unified desktop app
 ```bash
-python ui/app.py
+python app_retscreen.py
 ```
 
 ### Generate a Level 1 report (CLI)
@@ -87,9 +87,8 @@ Expected output:
 7. Generate Level 1 and confirm output in `output/`.
 
 ### Legacy entry points (deprecated)
-The standalone questionnaire builder and earlier UI entry points are still available but no longer recommended:
+The standalone questionnaire builder is still available but no longer recommended:
 ```bash
-python app_retscreen.py
 python app.py
 ```
 
