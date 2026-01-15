@@ -7,7 +7,6 @@ from typing import Any, Dict, List, Mapping
 from core.measure_catalog import MeasureCatalog, get_measure, load_measure_catalog
 from reporting.narratives import (
     ensure_sentence,
-    extract_first_sentence,
     further_investigation_sentence,
     has_meaningful_value,
 )
@@ -20,14 +19,12 @@ EXPECTED_INPUTS = {
             "measure_overrides",
             "measures_selected",
             "selected_measures",
-            "measures",
         ]
     },
     "{MEASURE_SUMMARY_ROW}": {
         "fields": [
             "measures_selected",
             "selected_measures",
-            "measures",
         ]
     },
 }
@@ -80,17 +77,14 @@ def render_block(
     ordered = _order_selected_measures(context.selected_measures, catalog)
 
     sections: List[str] = []
-    for index, measure_id in enumerate(ordered, start=1):
+    for measure_id in ordered:
         override = context.measure_overrides.get(measure_id, {})
         title = _resolve_measure_title(measure_id, override, catalog)
-        narrative = _render_measure_narrative(
-            measure_id,
-            override,
-            catalog,
-        )
-        sections.append(f"{index}. {title}\n{narrative}")
+        narrative = _render_measure_narrative(measure_id, override, catalog)
+        block = _format_measure_block(title, narrative)
+        sections.append(block)
 
-    return "\n\n".join(sections)
+    return "\n\n".join(section for section in sections if section)
 
 
 def render_summary_row(
@@ -136,7 +130,7 @@ def _first_override_text(
     answers = project.get("answers", {}) if isinstance(project, dict) else {}
     override_text = None
     if isinstance(answers, dict):
-        override_text = answers.get("measures_block_override") or answers.get("measures")
+        override_text = answers.get("measures_block_override")
     if not override_text:
         override_text = project.get("measures_block_override")
     if not override_text and placeholders:
@@ -156,7 +150,7 @@ def _collect_raw_measure_selections(project: Dict[str, Any]) -> List[Any]:
     selections: List[Any] = []
     answers = project.get("answers", {}) if isinstance(project, dict) else {}
     if isinstance(answers, dict):
-        for key in ("measures_selected", "selected_measures", "measures"):
+        for key in ("measures_selected", "selected_measures"):
             value = answers.get(key)
             if value is not None:
                 return _expand_measure_input(value)
@@ -279,10 +273,14 @@ def _normalize_override_entry(value: Any) -> Dict[str, str]:
     if isinstance(value, dict):
         title = value.get("title")
         narrative = value.get("narrative")
+        existing = value.get("existing")
+        retrofit = value.get("retrofit")
         notes = value.get("notes") or value.get("justification")
         payload = {
             "title": str(title).strip() if has_meaningful_value(title) else "",
             "narrative": str(narrative).strip() if has_meaningful_value(narrative) else "",
+            "existing": str(existing).strip() if has_meaningful_value(existing) else "",
+            "retrofit": str(retrofit).strip() if has_meaningful_value(retrofit) else "",
             "notes": str(notes).strip() if has_meaningful_value(notes) else "",
         }
         return {key: val for key, val in payload.items() if val}
@@ -309,11 +307,15 @@ def _render_measure_narrative(
 ) -> str:
     narrative_override = override.get("narrative")
     notes_override = override.get("notes")
+    existing_override = override.get("existing")
+    retrofit_override = override.get("retrofit")
     if narrative_override:
         narrative = narrative_override
     else:
         measure = get_measure(measure_id, catalog)
-        narrative = _build_default_narrative(measure)
+        existing_text = existing_override or measure.get("existing", "")
+        retrofit_text = retrofit_override or measure.get("retrofit", "")
+        narrative = _build_catalog_narrative(existing_text, retrofit_text)
     if notes_override:
         notes_section = _build_notes_section(notes_override)
         if notes_section:
@@ -321,117 +323,28 @@ def _render_measure_narrative(
     return narrative
 
 
-def _build_default_narrative(measure: Dict[str, str]) -> str:
-    existing = extract_first_sentence(measure.get("existing", ""))
-    existing_detail = existing or "operates with conditions that were not fully confirmed"
-    general_condition = _infer_general_condition(existing)
-    existing_lead_in = _build_existing_lead_in(existing_detail)
-    existing_paragraph = (
-        f"{existing_lead_in} The existing system appears to be {general_condition}, "
-        "with limited optimization or modern control strategies in place."
-    )
-
-    recommendation = extract_first_sentence(measure.get("retrofit", ""))
-    recommendation_detail = _normalize_recommendation(recommendation)
-    if not recommendation_detail:
-        recommendation_detail = "targeted efficiency upgrades"
-    recommendation_paragraph = (
-        "Mann recommends implementing "
-        f"{recommendation_detail} to improve system efficiency, operational reliability, "
-        "and overall energy performance. This measure is considered appropriate for a "
-        "Level 1 walk-through assessment and does not require detailed engineering at this stage."
-    )
-
-    key_inefficiency = _normalize_key_inefficiency(
-        extract_first_sentence(measure.get("summary", ""))
-    )
-    rationale_paragraph = (
-        "This measure is expected to reduce energy consumption by addressing "
-        f"{key_inefficiency}, while also improving system controllability and long-term "
-        "maintainability. Additional benefits may include reduced operating costs and improved "
-        "occupant comfort."
-    )
-
-    notes_paragraph = (
-        "Final design details, savings, and implementation feasibility should be confirmed "
-        "during a subsequent Level 2 energy audit or detailed design phase."
-    )
-
-    sections = [
-        "Existing Conditions\n" + ensure_sentence(existing_paragraph),
-        "Recommendation\n" + ensure_sentence(recommendation_paragraph),
-        "Rationale\n" + ensure_sentence(rationale_paragraph),
-        "Notes / Limitations\n" + ensure_sentence(notes_paragraph),
-    ]
+def _build_catalog_narrative(existing: str, retrofit: str) -> str:
+    sections: List[str] = []
+    existing_text = existing.strip() if existing else ""
+    retrofit_text = retrofit.strip() if retrofit else ""
+    if existing_text:
+        sections.append(f"Existing Conditions: {existing_text}")
+    if retrofit_text:
+        sections.append(f"Retrofit Recommendation: {retrofit_text}")
     return "\n\n".join(sections)
-
-
-def _normalize_recommendation(recommendation: str) -> str:
-    if not recommendation:
-        return ""
-    lowered = recommendation.strip()
-    lowered_clean = lowered.lower()
-    for prefix in (
-        "mann recommends",
-        "mann recommended",
-        "mann proposes",
-        "mann propose",
-    ):
-        if lowered_clean.startswith(prefix):
-            lowered = lowered[len(prefix) :].strip(" :.-")
-            lowered_clean = lowered.lower()
-            break
-    if lowered_clean.startswith("implementing "):
-        lowered = lowered[len("implementing ") :].strip()
-    if lowered.lower().startswith("that "):
-        lowered = lowered[5:].strip()
-    return lowered
-
-
-def _normalize_key_inefficiency(summary: str) -> str:
-    if not summary:
-        return "identified operational inefficiencies"
-    trimmed = summary.strip()
-    lowered = trimmed.lower()
-    if lowered.startswith(
-        (
-            "modernise",
-            "modernize",
-            "upgrade",
-            "replace",
-            "install",
-            "implement",
-            "retrofit",
-            "optimize",
-        )
-    ):
-        return "identified operational inefficiencies"
-    return trimmed.rstrip(".")
-
-
-def _infer_general_condition(existing: str) -> str:
-    if not existing:
-        return "functional"
-    lowered = existing.lower()
-    if any(term in lowered for term in ("aging", "aged", "obsolete", "past its", "end of life")):
-        return "aging"
-    if "fair" in lowered:
-        return "fair"
-    return "functional"
 
 
 def _build_notes_section(notes_override: str) -> str:
     if not notes_override:
         return ""
-    return "Notes / Limitations\n" + ensure_sentence(str(notes_override).strip())
+    return "Notes: " + ensure_sentence(str(notes_override).strip())
 
 
-def _build_existing_lead_in(existing_detail: str) -> str:
-    detail = existing_detail.strip()
-    lowered = detail.lower()
-    if lowered.startswith(("the building", "building", "there is", "there are")):
-        return f"Based on the site walk-through, {detail}"
-    return f"Based on the site walk-through, the building currently {detail}."
+def _format_measure_block(title: str, narrative: str) -> str:
+    heading = f"Measure \u2013 {title}" if title else "Measure"
+    if narrative and narrative.strip():
+        return "\n\n".join([heading, narrative.strip()])
+    return heading
 
 
 def _split_lines(value: str) -> list[str]:

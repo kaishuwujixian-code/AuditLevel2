@@ -1,5 +1,7 @@
 from typing import Any, Dict, List
 
+from reporting.narratives import ensure_sentence
+
 BLOCK_PLACEHOLDERS = ["{FINDINGS_BLOCK}"]
 
 
@@ -14,20 +16,28 @@ def render_block(
         return ""
     if not isinstance(selections, dict):
         return ""
-    lines: List[str] = []
-    for group_name in sorted(selections.keys()):
+    paragraphs: List[str] = []
+    group_names = sorted(selections.keys())
+    include_group = len(group_names) > 1
+    for group_name in group_names:
         categories = selections.get(group_name, {})
         if not isinstance(categories, dict):
             continue
-        lines.append(group_name)
         for category_name in sorted(categories.keys()):
             items = categories.get(category_name, [])
             if not isinstance(items, list):
                 continue
-            if items:
-                items_text = ", ".join(str(item) for item in items)
+            sentences = [
+                ensure_sentence(str(item).strip())
+                for item in items
+                if str(item).strip()
+            ]
+            if not sentences:
+                continue
+            if include_group and group_name:
+                label = f"{group_name} - {category_name}"
             else:
-                items_text = "(none)"
-            lines.append(f"- {category_name}: {items_text}")
-        lines.append("")
-    return "\n".join(line for line in lines if line.strip())
+                label = category_name
+            paragraph = f"{label}: " + " ".join(sentences)
+            paragraphs.append(paragraph)
+    return "\n\n".join(paragraphs)
