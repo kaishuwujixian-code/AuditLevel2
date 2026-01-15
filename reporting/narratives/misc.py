@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Any, Dict
 
 from reporting.narratives import (
-    ensure_sentence,
     first_meaningful_text,
     further_investigation_sentence,
     get_answer_value,
@@ -34,7 +33,7 @@ def render_block(
 ) -> str:
     context = MiscContext.from_project(project)
     if context.override_text:
-        return ensure_sentence(context.override_text)
+        return context.override_text
 
     sentences = [
         "No additional miscellaneous systems were noted based on available information.",

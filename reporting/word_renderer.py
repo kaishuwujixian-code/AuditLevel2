@@ -5,6 +5,8 @@ import zipfile
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
+from docx.oxml import OxmlElement
+from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
 from reporting.narratives import facility_overview, measures as measure_narratives
@@ -147,6 +149,36 @@ def _replace_placeholders_in_text(text: str, placeholder_map: Dict[str, str]) ->
     return replaced_text, replacements
 
 
+def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Paragraph:
+    new_p_elm = OxmlElement("w:p")
+    paragraph._element.addnext(new_p_elm)
+    new_p = Paragraph(new_p_elm, paragraph._parent)
+    if style is not None:
+        new_p.style = style
+    if text:
+        new_p.add_run(text)
+    return new_p
+
+
+def _split_block_paragraphs(text: str) -> List[str]:
+    lines = text.splitlines()
+    paragraphs: List[str] = []
+    buffer: List[str] = []
+    for line in lines:
+        cleaned = line.strip()
+        if not cleaned:
+            if buffer:
+                paragraphs.append(" ".join(buffer).strip())
+                buffer = []
+            continue
+        buffer.append(cleaned)
+    if buffer:
+        paragraphs.append(" ".join(buffer).strip())
+    if not paragraphs and text.strip():
+        return [text.strip()]
+    return paragraphs
+
+
 def _iter_xml_parts(docx_path: str) -> Iterable[Tuple[str, bytes]]:
     with zipfile.ZipFile(docx_path) as archive:
         for info in archive.infolist():
@@ -268,6 +300,10 @@ def render_word(
         blocks_rendered.append(placeholder)
 
     replacement_map = {**placeholder_map, **block_replacements}
+    block_paragraphs = {
+        placeholder: _split_block_paragraphs(text)
+        for placeholder, text in block_replacements.items()
+    }
 
     placeholders_found = len(placeholder_occurrences)
     placeholders_replaced = 0
@@ -281,12 +317,29 @@ def render_word(
         if not found:
             continue
         replaced_text = text
+        expanded_block = False
         for placeholder in set(found):
             if placeholder in replacement_map:
                 placeholders_replaced += text.count(placeholder)
-                replaced_text = replaced_text.replace(placeholder, replacement_map[placeholder])
+                if placeholder in block_replacements:
+                    paragraphs = block_paragraphs.get(placeholder, [])
+                    if len(paragraphs) > 1 and text.strip() == placeholder:
+                        paragraph.text = paragraphs[0]
+                        current_para = paragraph
+                        for block_text in paragraphs[1:]:
+                            current_para = _add_paragraph_after(
+                                current_para, block_text, style=paragraph.style
+                            )
+                        expanded_block = True
+                        continue
+                    joined = " ".join(paragraphs) if paragraphs else replacement_map[placeholder]
+                    replaced_text = replaced_text.replace(placeholder, joined)
+                else:
+                    replaced_text = replaced_text.replace(placeholder, replacement_map[placeholder])
             else:
                 unresolved.add(placeholder)
+        if expanded_block:
+            continue
         if replaced_text != text:
             paragraph.text = replaced_text
 
