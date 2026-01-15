@@ -8,14 +8,7 @@ from core.paths import DEFAULT_TEMPLATE_DOCX, DEFAULT_TEMPLATE_JSON, OUTPUT_DIR,
 from core.project_store import load_project, save_project
 from core.template_store import load_template
 from reporting.level1_generator import generate_level1_report
-from ui.widgets import (
-    LabeledCombo,
-    LabeledEntry,
-    LabeledText,
-    MeasureMultiSelect,
-    MultiSelectList,
-    SummaryBox,
-)
+from ui.widgets import LabeledCombo, LabeledEntry, LabeledText, MultiSelectList, SummaryBox
 from ui.bindings import AppBindings
 
 
@@ -32,7 +25,6 @@ class MainWindow:
 
         self._fields: Dict[str, List] = {}
         self._multi_fields: Dict[str, MultiSelectList] = {}
-        self._measure_widget: Optional[MeasureMultiSelect] = None
 
         self.bindings = AppBindings(self)
         self._build_menu()
@@ -238,22 +230,11 @@ class MainWindow:
     def _build_measures_section(self) -> ttk.Frame:
         frame = ttk.Frame(self.section_container)
         frame.columnconfigure(0, weight=1)
-        widget = MeasureMultiSelect(
-            frame,
-            measures=self.template.measures,
-            categories=self.template.ui_categories,
-            order=self.template.measure_order or list(self.template.measures.keys()),
-        )
+        measures = sorted(self.template.measures.keys())
+        widget = MultiSelectList(frame, "Selected measures", measures, height=12)
         widget.grid(row=0, column=0, sticky="nsew")
-        selected = self.project_data.get("selected_measures", [])
-        if isinstance(selected, list):
-            selected = [
-                self.template.legacy_key_map.get(item, item)
-                for item in selected
-            ]
-        widget.set_selected(selected)
-        widget.set_overrides(self.project_data.get("measure_overrides", {}))
-        self._measure_widget = widget
+        widget.set(self.project_data.get("selected_measures", []))
+        self._multi_fields["selected_measures"] = widget
         return frame
 
     def _build_findings_section(self) -> ttk.Frame:
@@ -321,10 +302,6 @@ class MainWindow:
             else:
                 findings = self.project_data.setdefault("findings", {})
                 findings[question_id] = values
-
-        if self._measure_widget:
-            self.project_data["selected_measures"] = self._measure_widget.get_selected()
-            self.project_data["measure_overrides"] = self._measure_widget.get_overrides()
 
     def _refresh_summary(self) -> None:
         info = self.project_data.get("project_info", {})

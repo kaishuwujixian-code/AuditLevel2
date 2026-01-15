@@ -26,8 +26,17 @@ python tools/extract_placeholders.py --template templates/level1.docx --out sche
 
 If `--out` is omitted, JSON is printed to stdout.
 
-### Questionnaire Schema
-Regenerate the schema from the Word template:
+### Desktop App Smoke-Test Checklist
+1. Run `python app.py` and confirm the window opens.
+2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
+3. File → Save As, confirm it writes to `projects/<slug>/project.json`.
+4. File → Open an existing project.json and confirm fields load.
+5. Edit a field and Save, confirm the JSON updates and unknown keys remain.
+6. Tools → Validate Project (expect OK or warnings dialog).
+7. Report → Generate Level 1 and confirm output in `output/`.
+
+### Generate a report
+Windows (PowerShell/CMD):
 ```bash
 python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
 
