@@ -1,5 +1,4 @@
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -17,8 +16,29 @@ SECTION_TITLES = {
     "findings": "Findings",
     "heating": "Heating",
     "measures": "Measures",
-    "unmapped": "Unmapped placeholders",
+    "placeholders_raw": "Template Fields",
     "ventilation": "Ventilation",
+}
+
+SECTION_ORDER = [
+    "facility",
+    "placeholders_raw",
+    "heating",
+    "cooling",
+    "dhw",
+    "ventilation",
+    "controls",
+    "measures",
+    "findings",
+]
+
+BLOCK_PLACEHOLDERS = {
+    "{Central Heating/Cooling Systems block}",
+    "{Central Ventilation System Block}",
+    "{DHW System Block}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
 }
 
 
@@ -40,11 +60,21 @@ def _resolve_path(path: str) -> str:
     return os.path.join(REPO_ROOT, path)
 
 
-def _make_unmapped_id(placeholder: str) -> str:
+def _normalize_key(text: str) -> str:
+    normalized = re.sub(r"[^a-z0-9]+", "_", text.strip().lower())
+    return normalized.strip("_")
+
+
+def _make_unmapped_id(placeholder: str, used_ids: set) -> str:
     inner = placeholder.strip("{}").strip()
-    base = re.sub(r"[^a-z0-9]+", "_", inner.lower()).strip("_") or "unmapped"
-    digest = hashlib.sha1(placeholder.encode("utf-8")).hexdigest()[:6]
-    return f"{base}_{digest}"
+    base = _normalize_key(inner) or "unmapped"
+    candidate = base
+    counter = 2
+    while candidate in used_ids:
+        candidate = f"{base}_{counter}"
+        counter += 1
+    used_ids.add(candidate)
+    return candidate
 
 
 def _normalize_options(options: Optional[list]) -> List[dict]:
@@ -113,6 +143,7 @@ def generate_schema(placeholders_path: str, mapping_path: str, out_path: str) ->
     questions_by_id: Dict[str, dict] = {}
     sections: Dict[str, List[str]] = {}
     mapped_placeholders = set()
+    used_question_ids = set()
 
     for placeholder in placeholders:
         matched_rule = None
@@ -126,6 +157,7 @@ def generate_schema(placeholders_path: str, mapping_path: str, out_path: str) ->
             question_id = question_data.get("id")
             if not question_id:
                 raise ValueError("Mapping rule is missing question id.")
+            used_question_ids.add(question_id)
 
             options_ref = question_data.get("options_ref")
             if options_ref:
@@ -150,13 +182,15 @@ def generate_schema(placeholders_path: str, mapping_path: str, out_path: str) ->
                 sections[section_id].append(question_id)
             mapped_placeholders.add(placeholder)
         else:
-            question_id = _make_unmapped_id(placeholder)
+            if placeholder in BLOCK_PLACEHOLDERS:
+                continue
+            question_id = _make_unmapped_id(placeholder, used_question_ids)
             question = _normalize_question(
                 {
                     "id": question_id,
                     "title": placeholder.strip("{}").strip() or placeholder,
                     "type": "text",
-                    "section_id": "unmapped",
+                    "section_id": "placeholders_raw",
                     "options": [],
                     "placeholder_targets": [placeholder],
                     "help": "Unmapped placeholder.",
@@ -164,10 +198,18 @@ def generate_schema(placeholders_path: str, mapping_path: str, out_path: str) ->
                 }
             )
             questions_by_id[question_id] = question
-            sections.setdefault("unmapped", []).append(question_id)
+            sections.setdefault("placeholders_raw", []).append(question_id)
 
     serialized_sections = []
-    for section_id in sorted(sections.keys()):
+    ordered_section_ids = [
+        section_id for section_id in SECTION_ORDER if section_id in sections
+    ]
+    ordered_section_ids.extend(
+        section_id
+        for section_id in sorted(sections.keys())
+        if section_id not in ordered_section_ids
+    )
+    for section_id in ordered_section_ids:
         question_ids = sorted(set(sections[section_id]))
         ordered_questions = [questions_by_id[qid] for qid in question_ids]
         serialized_sections.append(

@@ -221,7 +221,24 @@ def _get_answer_value(
     return None
 
 
+def _first_meaningful_text(values: Iterable[Any]) -> Optional[str]:
+    for value in values:
+        if _has_meaningful_value(value):
+            text = _stringify_value(value)
+            if text and text.strip():
+                return text.strip()
+    return None
+
+
 def render_heating_block(project_data: Dict[str, Any]) -> str:
+    override_text = _first_meaningful_text(
+        [
+            _get_answer_value(project_data, ["heating_block_override", "heating_block"]),
+        ]
+    )
+    if override_text:
+        return override_text
+
     system_type_raw = _get_answer_value(
         project_data,
         ["hvac.heating_system_type", "heating_system_type", "system_type"],
@@ -256,18 +273,20 @@ def render_heating_block(project_data: Dict[str, Any]) -> str:
         system_type = _human_join(system_type_values)
         sentences.append(f"The building is served by a {system_type} heating plant.")
     else:
-        sentences.append("The heating plant type was not confirmed at the time of the site visit.")
+        sentences.append(
+            "The heating plant type was not confirmed during the site visit and should be verified."
+        )
 
     if not distribution_unknown:
         serves = _human_join(serves_values)
         sentences.append(f"Heat is distributed through {serves}.")
     else:
         sentences.append(
-            "The heating distribution system was not confirmed at the time of the site visit."
+            "Distribution details were not confirmed during the site visit; the serving systems should be verified."
         )
 
     sentences.append(
-        "Additional details on equipment condition and control sequences were not confirmed at the time of the site visit."
+        "Equipment condition and control sequences were not fully assessed during this Level 1 review."
     )
 
     notes_text = _stringify_value(notes_value)
@@ -278,6 +297,14 @@ def render_heating_block(project_data: Dict[str, Any]) -> str:
 
 
 def render_dhw_block(project_data: Dict[str, Any]) -> str:
+    override_text = _first_meaningful_text(
+        [
+            _get_answer_value(project_data, ["dhw_block_override", "dhw_block"]),
+        ]
+    )
+    if override_text:
+        return override_text
+
     system_type_raw = _get_answer_value(
         project_data,
         ["dhw.system_type", "dhw_system_type", "system_type"],
@@ -319,7 +346,7 @@ def render_dhw_block(project_data: Dict[str, Any]) -> str:
         sentences.append(f"Domestic hot water is provided by {system_type}.")
     else:
         sentences.append(
-            "The domestic hot water plant type was not confirmed at the time of the site visit."
+            "The domestic hot water plant type was not confirmed during the site visit and should be verified."
         )
     heat_source_text = _stringify_value(heat_source_value)
     if heat_source_text and heat_source_text.strip():
@@ -344,6 +371,14 @@ def render_dhw_block(project_data: Dict[str, Any]) -> str:
 
 
 def render_measures_block(project_data: Dict[str, Any]) -> str:
+    override_text = _first_meaningful_text(
+        [
+            _get_answer_value(project_data, ["measures_block_override", "measures"]),
+        ]
+    )
+    if override_text:
+        return override_text
+
     measures: List[Any] = []
     selected_measures = project_data.get("selected_measures")
     if isinstance(selected_measures, list):
@@ -470,6 +505,8 @@ def _apply_facility_placeholders(
     set_if_missing("{Property Address1}", answers.get("site_address"))
 
     district_value = answers.get("district") or answers.get("city")
+    if not _has_meaningful_value(district_value):
+        district_value = "the surrounding area"
     set_if_missing("{District}", district_value)
 
     set_if_missing("{Province}", answers.get("province"))
@@ -483,6 +520,7 @@ def _apply_facility_placeholders(
 
     set_if_missing("{Number of Floors}", answers.get("number_of_floors"))
     set_if_missing("{Number of Suites}", answers.get("number_of_suites"))
+    set_if_missing("{Date Constructed}", answers.get("date_constructed") or "an unknown year")
 
     arch_condition_value = answers.get("architectural_condition")
     if _has_meaningful_value(arch_condition_value):
@@ -491,6 +529,56 @@ def _apply_facility_placeholders(
             set_if_missing("{Architectural Condition}", _human_join(labels))
         else:
             set_if_missing("{Architectural Condition}", arch_condition_value)
+    else:
+        set_if_missing("{Architectural Condition}", "Based on a visual review.")
+
+    facility_overview = _build_facility_overview(answers)
+    set_if_missing("{Facility Overview}", facility_overview)
+
+
+def _build_facility_overview(answers: Dict[str, Any]) -> str:
+    address_parts = [
+        str(value).strip()
+        for value in [
+            answers.get("site_address"),
+            answers.get("district") or answers.get("city"),
+            answers.get("province"),
+        ]
+        if _has_meaningful_value(value)
+    ]
+    location_text = ""
+    if address_parts:
+        location_text = "at " + ", ".join(address_parts)
+    else:
+        location_text = "at the facility location"
+
+    date_constructed = answers.get("date_constructed")
+    date_text = "constructed in an unknown year"
+    if _has_meaningful_value(date_constructed):
+        date_str = str(date_constructed).strip()
+        year_match = re.fullmatch(r"\d{4}", date_str)
+        if year_match:
+            date_text = f"constructed in {year_match.group(0)}"
+        else:
+            date_text = f"constructed in {date_str}"
+
+    arch_condition_value = answers.get("architectural_condition")
+    if _has_meaningful_value(arch_condition_value):
+        labels = _format_option_values("building.arch_condition", arch_condition_value)
+        if labels and not _contains_unknown(labels):
+            condition_text = f"The architectural condition is described as {_human_join(labels)}."
+        else:
+            condition_text = _ensure_sentence(str(arch_condition_value))
+    else:
+        condition_text = "Architectural condition observations are based on a visual review only."
+
+    return " ".join(
+        [
+            _ensure_sentence(f"The facility is located {location_text}"),
+            _ensure_sentence(f"It was {date_text}"),
+            condition_text,
+        ]
+    )
 
 
 def _build_placeholder_map_from_answers(
@@ -623,6 +711,11 @@ def render_word(
         _apply_facility_placeholders(answers, placeholder_map)
 
     block_placeholders = [ph for ph in placeholder_occurrences if _is_block_placeholder(ph)]
+    block_placeholder_values = {
+        placeholder: value
+        for placeholder, value in placeholder_map.items()
+        if _is_block_placeholder(placeholder)
+    }
     placeholder_map = {
         placeholder: value
         for placeholder, value in placeholder_map.items()
@@ -634,11 +727,16 @@ def render_word(
     for placeholder in block_placeholders:
         inner_text = placeholder[1:-1].strip()
         renderer = BLOCK_RENDERERS.get(inner_text)
-        if not renderer:
-            continue
-        rendered_text = renderer(project_data)
-        if rendered_text is None:
-            rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
+        if renderer:
+            rendered_text = renderer(project_data)
+            if rendered_text is None:
+                rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
+        else:
+            rendered_text = block_placeholder_values.get(
+                placeholder, DEFAULT_EMPTY_BLOCK_TEXT
+            )
+            if not _has_meaningful_value(rendered_text):
+                rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
         block_replacements[placeholder] = rendered_text
         blocks_rendered.append(placeholder)
 
