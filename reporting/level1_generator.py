@@ -110,7 +110,16 @@ def load_level1_template(json_path):
         "categories": categories,
         "category_by_measure": category_by_measure,
         "styles": styles,
-        "placeholders": placeholders,
+        "placeholders": {
+            "measure_block_paragraph": placeholders.get(
+                "measure_block_paragraph",
+                DEFAULT_PLACEHOLDERS["measure_block_paragraph"],
+            ),
+            "measure_summary_table_row": placeholders.get(
+                "measure_summary_table_row",
+                DEFAULT_PLACEHOLDERS["measure_summary_table_row"],
+            ),
+        },
         "section_headings": section_headings,
         "pagination": pagination,
         "checklists": checklists,
@@ -147,6 +156,8 @@ STYLE_MEASURE_TITLE = _TEMPLATE_CONFIG["styles"].get("measure_title_style", STYL
 STYLE_SECTION_SUB = _TEMPLATE_CONFIG["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
 STYLE_BODY = _TEMPLATE_CONFIG["styles"].get("body_style", STYLE_BODY)
 CHECKLIST_SELECTIONS = {}
+MEASURE_OVERRIDES = {}
+PROJECT_ANSWERS = {}
 
 # -------------------- Word helpers -------------------- #
 def add_paragraph_after(paragraph, text="", style=None, bold=False):
@@ -171,15 +182,6 @@ def add_paragraph_after(paragraph, text="", style=None, bold=False):
 
     return new_p
 
-
-def add_paragraph_after_safe(paragraph, text="", style=None, bold=False):
-    new_p = add_paragraph_after(paragraph, text, None, bold)
-    if style:
-        try:
-            new_p.style = style
-        except KeyError:
-            pass
-    return new_p
 
 #-----------填 summary 表格的函数-------------------#
 def fill_measure_summary_table(doc, selected_keys):
@@ -225,7 +227,7 @@ def fill_measure_summary_table(doc, selected_keys):
 
     first = True
     for key in selected_keys:
-        tpl = MEASURE_TEMPLATES[key]
+        tpl = MEASURE_TEMPLATES.get(key) or {}
         name = tpl.get("name", key)
         summary = tpl.get("summary", "")
 
@@ -244,6 +246,51 @@ def fill_measure_summary_table(doc, selected_keys):
         row.cells[0].text = row.cells[0].text.replace(placeholder, "")
 
 # -------------------- Measure insert -------------------- #
+def insert_findings_block(doc):
+    """
+    Insert narrative paragraphs for each checklist category into the {FINDINGS_BLOCK} placeholder.
+    Each category (e.g., Operations & Maintenance, Opportunities, Safety Hazards) becomes one paragraph.
+    """
+    placeholder = FINDINGS_PLACEHOLDER
+    anchor_idx = None
+    for i, para in enumerate(doc.paragraphs):
+        if placeholder in para.text:
+            anchor_idx = i
+            break
+    if anchor_idx is None:
+        return
+
+    anchor_para = doc.paragraphs[anchor_idx]
+    anchor_para.text = ""
+    try:
+        anchor_para.style = STYLE_BODY
+    except Exception:
+        pass
+
+    current_para = anchor_para
+    categories = CHECKLIST_SELECTIONS.get("Walkthrough Findings", {})
+    first_para_done = False
+    for category, items in categories.items():
+        if not items or len(items) == 0:
+            continue
+        text_items = [item for item in items]
+        if len(text_items) == 1:
+            items_str = text_items[0]
+        elif len(text_items) == 2:
+            items_str = f"{text_items[0]} and {text_items[1]}"
+        else:
+            items_str = ", ".join(text_items[:-1]) + ", and " + text_items[-1]
+        paragraph_text = f"{category}: {items_str}."
+        if not first_para_done:
+            current_para.text = paragraph_text
+            first_para_done = True
+        else:
+            current_para = add_paragraph_after(current_para, paragraph_text, STYLE_BODY, bold=False)
+
+    if not first_para_done:
+        anchor_para.text = ""
+
+
 def insert_measures_into_docx(template_path, output_path, selected_keys):
     """
     在 template_path 的 docx 中寻找 {MEASURE_BLOCK} 所在段落，
@@ -252,16 +299,49 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
     - Existing / Retrofit 副标题用 STYLE_SECTION_SUB 并加粗
     - 正文用 STYLE_BODY
     - 每个 measure 的最后插一个分页符（下一条新起一页），最后一条不分页
+    Also fills the measures summary table and checklist findings if present.
     """
-    if not selected_keys:
-        raise ValueError("No measures selected.")
-
     doc = Document(template_path)
 
-    # 先填 introduction 里的 measure summary 表格
+    override_text = PROJECT_ANSWERS.get("measures_block_override") or ""
+    if override_text.strip():
+        fill_measure_summary_table(doc, selected_keys)
+        placeholder = PLACEHOLDERS.get(
+            "measure_block_paragraph",
+            DEFAULT_PLACEHOLDERS["measure_block_paragraph"],
+        )
+        anchor_idx = None
+        for i, para in enumerate(doc.paragraphs):
+            if placeholder in para.text:
+                anchor_idx = i
+                break
+        if anchor_idx is not None:
+            anchor_para = doc.paragraphs[anchor_idx]
+            anchor_para.text = ""
+            try:
+                anchor_para.style = STYLE_BODY
+            except Exception:
+                pass
+            override_parts = [p for p in override_text.split("\n\n") if p.strip() != ""]
+            if len(override_parts) == 0:
+                override_parts = [override_text]
+            current_para = anchor_para
+            first_part = True
+            for part in override_parts:
+                text = part.strip()
+                if first_part:
+                    current_para.text = text
+                    first_part = False
+                else:
+                    current_para = add_paragraph_after(current_para, text, STYLE_BODY, bold=False)
+            if placeholder in current_para.text:
+                current_para.text = current_para.text.replace(placeholder, "")
+        insert_findings_block(doc)
+        doc.save(output_path)
+        return
+
     fill_measure_summary_table(doc, selected_keys)
 
-    # 1. 找到占位符段落
     placeholder = PLACEHOLDERS.get(
         "measure_block_paragraph",
         DEFAULT_PLACEHOLDERS["measure_block_paragraph"],
@@ -276,8 +356,6 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
         raise RuntimeError("Placeholder {MEASURE_BLOCK} not found in template.")
 
     anchor_para = doc.paragraphs[anchor_idx]
-
-    # 把占位符清空，等会儿拿来当“第一条 measure 的标题段”
     anchor_para.text = ""
     if STYLE_MEASURE_TITLE:
         anchor_para.style = STYLE_MEASURE_TITLE
@@ -285,137 +363,63 @@ def insert_measures_into_docx(template_path, output_path, selected_keys):
     current_para = anchor_para
     total = len(selected_keys)
 
-    # 2. 按顺序写每一个 measure
-    for idx, key in enumerate(selected_keys, start=1):
-        tpl = MEASURE_TEMPLATES[key]
-
-        # ---------- 2.1 标题：3.x Measure – Name ----------
-        title_text = f"3.{idx} Measure – {tpl['name']}"
-        if idx == 1:
-            # 第一条直接写在 anchor_para 上
-            run_title = current_para.add_run(title_text)
-        else:
-            current_para = add_paragraph_after(current_para, "", STYLE_BODY)
-            current_para = add_paragraph_after(current_para, title_text, STYLE_MEASURE_TITLE)
-            run_title = current_para.runs[0]
-
-        # 这里标题是否加粗你自己决定，我先不加粗
-        # run_title.bold = True
-
-        # ---------- 2.2 Existing Conditions 小标题 ----------
-        exist_heading = SECTION_HEADINGS.get(
-            "existing_conditions_heading",
-            DEFAULT_SECTION_HEADINGS["existing_conditions_heading"],
-        )
-        exist_sub = add_paragraph_after(
-            current_para,
-            exist_heading,
-            STYLE_SECTION_SUB,
-            bold=True
-        )
-
-        # ---------- 2.3 Existing Conditions 正文 ----------
-        exist_body = add_paragraph_after(
-            exist_sub,
-            tpl["existing"],
-            STYLE_BODY,
-            bold=False
-        )
-
-        # 空一行
-        blank1 = add_paragraph_after(exist_body, "", STYLE_BODY)
-
-        # ---------- 2.4 Retrofit Conditions 小标题 ----------
-        retrofit_heading = SECTION_HEADINGS.get(
-            "retrofit_conditions_heading",
-            DEFAULT_SECTION_HEADINGS["retrofit_conditions_heading"],
-        )
-        retro_sub = add_paragraph_after(
-            blank1,
-            retrofit_heading,
-            STYLE_SECTION_SUB,
-            bold=True
-        )
-
-        # ---------- 2.5 Retrofit Conditions 正文 ----------
-        retro_body = add_paragraph_after(
-            retro_sub,
-            tpl["retrofit"],
-            STYLE_BODY,
-            bold=False
-        )
-
-        # measure 结束后的空行
-        end_blank = add_paragraph_after(retro_body, "", STYLE_BODY)
-        current_para = end_blank
-
-        # ---------- 2.6 除最后一条外，插入分页符 ----------
-        should_page_break = PAGINATION.get("page_break_between_measures", True)
-        no_break_after_last = PAGINATION.get("no_page_break_after_last_measure", True)
-        if should_page_break and not (no_break_after_last and idx == total):
-            pb_para = add_paragraph_after(current_para, "", STYLE_BODY)
-            run_pb = pb_para.add_run()
-            run_pb.add_break(WD_BREAK.PAGE)
-            current_para = pb_para
-
-    # 3. 保存
-    insert_findings_into_docx(doc, CHECKLIST_SELECTIONS)
-    doc.save(output_path)
-
-
-def insert_findings_into_docx(doc, findings, placeholder=FINDINGS_PLACEHOLDER):
-    if not findings:
+    if total == 0:
+        doc.save(output_path)
         return
 
-    anchor_para = None
-    for para in doc.paragraphs:
-        if para.text == placeholder:
-            anchor_para = para
-            break
+    for idx, key in enumerate(selected_keys, start=1):
+        tpl = MEASURE_TEMPLATES.get(key) or {}
+        measure_name = tpl.get("name", str(key))
 
-    if anchor_para is None:
-        anchor_para = doc.add_paragraph("")
-    else:
-        anchor_para.text = ""
-
-    current_para = anchor_para
-    first_group = True
-
-    for group_name, categories in findings.items():
-        if not isinstance(categories, dict):
-            continue
-
-        if first_group:
-            if STYLE_MEASURE_TITLE:
-                try:
-                    current_para.style = STYLE_MEASURE_TITLE
-                except KeyError:
-                    pass
-            current_para.add_run(group_name)
-            first_group = False
+        title_text = f"3.{idx} Measure – {measure_name}"
+        if idx == 1:
+            current_para.add_run(title_text)
         else:
-            current_para = add_paragraph_after_safe(current_para, "", STYLE_BODY)
-            current_para = add_paragraph_after_safe(current_para, group_name, STYLE_MEASURE_TITLE)
+            current_para = add_paragraph_after(current_para, "", STYLE_BODY, bold=False)
+            current_para = add_paragraph_after(current_para, title_text, STYLE_MEASURE_TITLE, bold=False)
 
-        for category_name, items in categories.items():
-            if not items or not isinstance(items, list):
-                continue
-            category_para = add_paragraph_after_safe(
-                current_para,
-                category_name,
-                STYLE_SECTION_SUB,
-                bold=True,
+        override_para_text = None
+        if key in MEASURE_OVERRIDES and MEASURE_OVERRIDES[key].strip():
+            override_para_text = MEASURE_OVERRIDES[key].strip()
+        if override_para_text:
+            override_parts = [p for p in override_para_text.split("\n\n") if p.strip() != ""]
+            if len(override_parts) == 0:
+                override_parts = [override_para_text]
+            for part in override_parts:
+                text = part.strip()
+                current_para = add_paragraph_after(current_para, text, STYLE_BODY, bold=False)
+        else:
+            exist_heading = SECTION_HEADINGS.get(
+                "existing_conditions_heading",
+                DEFAULT_SECTION_HEADINGS["existing_conditions_heading"],
             )
-            current_para = category_para
-            for item in items:
-                bullet_para = add_paragraph_after_safe(
-                    current_para,
-                    item,
-                    "List Bullet",
-                )
-                current_para = bullet_para
+            retro_heading = SECTION_HEADINGS.get(
+                "retrofit_conditions_heading",
+                DEFAULT_SECTION_HEADINGS["retrofit_conditions_heading"],
+            )
+            exist_sub = add_paragraph_after(current_para, exist_heading, STYLE_SECTION_SUB, bold=True)
+            exist_body_text = tpl.get("existing", "")
+            exist_body = add_paragraph_after(exist_sub, exist_body_text, STYLE_BODY, bold=False)
+            blank_line = add_paragraph_after(exist_body, "", STYLE_BODY, bold=False)
+            retro_sub = add_paragraph_after(blank_line, retro_heading, STYLE_SECTION_SUB, bold=True)
+            retro_body_text = tpl.get("retrofit", "")
+            retro_body = add_paragraph_after(retro_sub, retro_body_text, STYLE_BODY, bold=False)
+            current_para = retro_body
 
-        current_para = add_paragraph_after_safe(current_para, "", STYLE_BODY)
+        end_blank = add_paragraph_after(current_para, "", STYLE_BODY, bold=False)
+        current_para = end_blank
+
+        if idx != total and PAGINATION.get("page_break_between_measures", True):
+            pb_para = add_paragraph_after(current_para, "", STYLE_BODY, bold=False)
+            pb_run = pb_para.add_run()
+            try:
+                pb_run.add_break(WD_BREAK.PAGE)
+            except NameError:
+                pass
+            current_para = pb_para
+
+    insert_findings_block(doc)
+    doc.save(output_path)
 
 
 
@@ -623,7 +627,7 @@ def generate_level1_report(
 
     global MEASURE_TEMPLATES, CATEGORIES, CATEGORY_BY_MEASURE, PLACEHOLDERS
     global SECTION_HEADINGS, PAGINATION, STYLE_MEASURE_TITLE, STYLE_SECTION_SUB, STYLE_BODY
-    global CHECKLIST_SELECTIONS
+    global CHECKLIST_SELECTIONS, MEASURE_OVERRIDES, PROJECT_ANSWERS
 
     MEASURE_TEMPLATES = template_config["measures"]
     CATEGORIES = template_config["categories"]
@@ -635,6 +639,8 @@ def generate_level1_report(
     STYLE_SECTION_SUB = template_config["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
     STYLE_BODY = template_config["styles"].get("body_style", STYLE_BODY)
     CHECKLIST_SELECTIONS = project_data.get("checklist_selections") or {}
+    MEASURE_OVERRIDES = project_data.get("measure_overrides") or {}
+    PROJECT_ANSWERS = project_data.get("answers") or {}
 
     insert_measures_into_docx(docx_template_path, out_path, selected_measures)
     return out_path
