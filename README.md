@@ -2,14 +2,19 @@
 
 ## Quick Start
 
-### Run Questionnaire App (Commit 3)
-```bash
-python app.py
-```
-
-### Run RETScreen-style Desktop App
+### Run the unified desktop app
 ```bash
 python app_retscreen.py
+```
+
+### Generate a Level 1 report (CLI)
+```bash
+python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
+```
+
+### Validate project inputs (CLI)
+```bash
+python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
 ```
 
 ### Commit 1 - Extract placeholders
@@ -33,36 +38,7 @@ Validate the generated schema:
 python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
 ```
 
-### Commit 3 - Questionnaire UI
-The questionnaire UI loads a schema and writes answers to `project.json` in the repo root.
-```bash
-python app.py
-```
-The app expects a schema JSON file (default: `schemas/level1_questionnaire.schema.json`). Use the **Select schema…** button to load another schema file if needed.
-
-Manual test checklist:
-1. Run `python app.py` and confirm the window opens.
-2. Click **Select schema…** and load `schemas/level1_questionnaire.schema.json`.
-3. Fill a few text/notes fields.
-4. Choose a single-select option and a multi-select option.
-5. Click **Add photos…** and select one or more files.
-6. Click **Save Project** and confirm `project.json` is created in the repo root.
-7. Open `project.json` and verify `meta`, `answers`, `placeholders`, and `photos` look correct.
-
-Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
-
-### Commit 4A - Minimal Word renderer
-Render simple placeholders into the Level 1 Word template (prefers `project.json` placeholders):
-```bash
-python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
-```
-
-Manual test checklist:
-1. Run `python app.py`, fill ClientName/City/Province, and save `projects/project.json`.
-2. Run the render command above.
-3. Open `outputs/level1_rendered.docx` and confirm the placeholders (including those in textboxes/shapes) are replaced.
-
-### Commit 4B - Narrative blocks + facility placeholders
+### Narrative blocks + facility placeholders
 The Word renderer now expands HVAC/DHW/Measures blocks into short narrative paragraphs and auto-fills key
 facility placeholders from `answers` (even when `placeholders` is present but empty).
 Narrative generation logic now lives under `reporting/narratives/` for reuse across renderers.
@@ -94,7 +70,7 @@ Minimal `project.json` example that produces a rich heating paragraph:
 
 Manual test command:
 ```bash
-python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
+python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out output/level1_rendered.docx
 ```
 
 Expected output:
@@ -103,45 +79,17 @@ Expected output:
 
 ### Desktop App Smoke-Test Checklist
 1. Run `python app_retscreen.py` and confirm the window opens.
-2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
-3. File → Save As, confirm it writes to `projects/<slug>/project.json`.
-4. File → Open an existing project.json and confirm fields load.
+2. Open or create a project, enter facility/system answers, select measures, and choose checklist findings.
+3. Save and confirm it writes to `projects/<slug>/project.json`.
+4. Re-open the same file and confirm fields load.
 5. Edit a field and Save, confirm the JSON updates and unknown keys remain.
-6. Tools → Validate Project (expect OK or warnings dialog).
-7. Report → Generate Level 1 and confirm output in `output/`.
-Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets. Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
+6. Validate Project (expect OK or warnings dialog).
+7. Generate Level 1 and confirm output in `output/`.
 
-### Generate a report
-Windows (PowerShell/CMD):
+### Legacy entry points (deprecated)
+The standalone questionnaire builder is still available but no longer recommended:
 ```bash
-python main.py --project project.json --template templates\\template.level1.json --docx-template templates\\level1.docx --out output\\level1_walkthrough.docx
-```
-
-POSIX (macOS/Linux):
-```bash
-python main.py --project project.json --template templates/template.level1.json --docx-template templates/level1.docx --out output/level1_walkthrough.docx
-```
-
-### List available measures
-Windows:
-```bash
-python main.py --template templates\\template.level1.json --list-measures
-```
-
-POSIX:
-```bash
-python main.py --template templates/template.level1.json --list-measures
-```
-
-### Validate inputs
-Windows:
-```bash
-python main.py --project project.json --template templates\\template.level1.json --docx-template templates\\level1.docx --validate
-```
-
-POSIX:
-```bash
-python main.py --project project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
+python app.py
 ```
 
 ## Walkthrough Findings (Checklist)
