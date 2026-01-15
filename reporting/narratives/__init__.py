@@ -135,6 +135,18 @@ def ensure_sentence(text: str) -> str:
     return cleaned
 
 
+def uncertainty_sentence(reason: str) -> str:
+    return ensure_sentence(f"Based on available information, {reason}")
+
+
+def not_confirmed_sentence(item: str) -> str:
+    return ensure_sentence(f"{item} was not confirmed at the time of the site visit")
+
+
+def further_investigation_sentence(scope: str) -> str:
+    return ensure_sentence(f"Further investigation is recommended to confirm {scope}")
+
+
 def contains_unknown(values: List[str]) -> bool:
     return any("unknown" in value.lower() for value in values)
 

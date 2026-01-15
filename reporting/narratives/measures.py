@@ -3,7 +3,13 @@ import os
 from functools import lru_cache
 from typing import Any, Dict, Tuple
 
-from reporting.narratives import extract_first_sentence, has_meaningful_value
+from reporting.narratives import (
+    ensure_sentence,
+    extract_first_sentence,
+    further_investigation_sentence,
+    has_meaningful_value,
+    uncertainty_sentence,
+)
 
 DEFAULT_MEASURE_CATALOG_PATH = os.path.join("templates", "template.level1.json")
 
@@ -13,16 +19,19 @@ BLOCK_PLACEHOLDERS = ["{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"]
 def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
+    context = {"audit_level": "L1", "confidence": "moderate", "unknown_policy": "soft"}
     override_text = _first_override_text(project)
     if override_text:
         return override_text
 
     measures = _collect_measures(project)
     if not measures:
-        return "No measures were selected."
+        return uncertainty_sentence(
+            f"no energy conservation measures were identified for this {context['audit_level']} review"
+        )
 
     catalog = _load_measure_catalog()
-    lines = []
+    lines = ["The following measures are recommended for consideration:"]
     for measure in measures:
         title, justification = _split_measure_entry(measure, catalog)
         lines.append(f"• {title} — {justification}")
@@ -33,7 +42,14 @@ def render_block(
 def render_summary_row(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
-    return ""
+    measures = _collect_measures(project)
+    if not measures:
+        return "Measures summary: none identified at this time."
+    count = len(measures)
+    opportunities_label = "opportunity" if count == 1 else "opportunities"
+    summary = ensure_sentence(f"Measures summary: {count} {opportunities_label} identified")
+    follow_up = further_investigation_sentence("measure feasibility and savings potential")
+    return " ".join([summary, follow_up])
 
 
 def _first_override_text(project: Dict[str, Any]) -> str | None:
@@ -110,6 +126,8 @@ def _split_measure_entry(
             justification = extract_first_sentence(retrofit)
 
     if not justification:
-        justification = "Justification not provided."
+        justification = ensure_sentence(
+            uncertainty_sentence("justification was not documented for this measure")
+        )
 
     return title or "Untitled measure", justification
