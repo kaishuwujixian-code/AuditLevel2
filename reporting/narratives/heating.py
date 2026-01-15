@@ -15,6 +15,7 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
+from reporting.narratives import cooling
 
 BLOCK_PLACEHOLDERS = ["{Central Heating/Cooling Systems block}"]
 EXPECTED_INPUTS = {
@@ -25,6 +26,8 @@ EXPECTED_INPUTS = {
             "heating_block",
             "hvac.heating_system_type",
             "heating_system_type",
+            "number_of_boilers",
+            "boiler_capacity_mbh",
             "hvac.heating_serves",
             "heating_serves",
             "heating_notes",
@@ -53,6 +56,8 @@ class HeatingContext:
     cooling_notes_text: str | None
     condition_text: str | None
     notes_text: str | None
+    number_of_boilers: Any
+    boiler_capacity_mbh: Any
 
     @classmethod
     def from_project(
@@ -124,6 +129,16 @@ class HeatingContext:
             section="heating",
         )
         notes_text = stringify_value(notes_value)
+        number_of_boilers = get_answer_value(
+            project,
+            ["number_of_boilers", "heating_boiler_count", "boiler_count"],
+            section="heating",
+        )
+        boiler_capacity_mbh = get_answer_value(
+            project,
+            ["boiler_capacity_mbh", "boiler_capacity", "boiler_capacity_mbh_each"],
+            section="heating",
+        )
         return cls(
             audit_level="L1",
             confidence="moderate",
@@ -143,6 +158,8 @@ class HeatingContext:
             cooling_notes_text=cooling_notes_text,
             condition_text=condition_text,
             notes_text=notes_text,
+            number_of_boilers=number_of_boilers,
+            boiler_capacity_mbh=boiler_capacity_mbh,
         )
 
     def system_unknown(self) -> bool:
@@ -174,10 +191,131 @@ class HeatingContext:
         )
 
 
-def _article_for(text: str) -> str:
-    if not text:
-        return "a"
-    return "an" if text[0].lower() in {"a", "e", "i", "o", "u"} else "a"
+def _coerce_list(value: Any) -> List[Any]:
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple)):
+        return list(value)
+    return [value]
+
+
+def _format_count_capacity(
+    count: Any, capacity: Any, unit: str, singular: str, plural: str | None = None
+) -> str:
+    count_text = stringify_value(count)
+    capacity_text = stringify_value(capacity)
+    is_single = False
+    if isinstance(count, (int, float)):
+        is_single = count == 1
+    item_label = singular if is_single else (plural or f"{singular}s")
+    if count_text and capacity_text:
+        return f\"{count_text} {item_label} rated at {capacity_text} {unit} each\"
+    if count_text:
+        return f\"{count_text} {item_label}\"
+    if capacity_text:
+        return f\"{item_label} rated at {capacity_text} {unit} each\"
+    return item_label
+
+
+def _render_heating_system(system_type: str, context: HeatingContext) -> str:
+    location = (
+        f\" located in {context.heating_location_text.strip()}\"
+        if context.heating_location_text and context.heating_location_text.strip()
+        else \"\"
+    )
+    if system_type == \"condensing_boiler\":
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            \"MBH\",
+            \"condensing boiler\",
+        )
+        return f\"The building is heated by {boiler_desc}{location}.\"
+    if system_type == \"atmospheric_boiler\":
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            \"MBH\",
+            \"atmospheric boiler\",
+        )
+        return f\"The building is heated by {boiler_desc}{location}.\"
+    if system_type == \"electric_resistance\":
+        return f\"Heating is provided by electric resistance equipment{location}.\"
+    if system_type in {\"wshp_central\", \"wshp_fluid_cooler\"}:
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            \"MBH\",
+            \"boiler\",
+        )
+        return (
+            \"Heating is provided by a water-source heat pump loop.\" + (
+                f\" The loop temperature is maintained by {boiler_desc}{location}.\"
+                if boiler_desc
+                else f\" Central plant equipment maintains loop temperature{location}.\"
+            )
+        )
+    if system_type == \"ashp\":
+        return f\"Heating is provided by air-source heat pump equipment{location}.\"
+    return \"\"
+
+
+def _resolve_system_types(system_type_raw: Any) -> List[str]:
+    values = _coerce_list(system_type_raw)
+    return [
+        value
+        for value in values
+        if isinstance(value, str) and \"unknown\" not in value.lower()
+    ]
+
+
+def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
+    project = context if isinstance(context, dict) and \"answers\" in context else {\"answers\": context}
+    ctx = HeatingContext.from_project(project, mapping=mapping)
+    system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    if not system_types:
+        return not_confirmed_sentence(\"The heating plant type\")
+    sentences = [_render_heating_system(system_type, ctx) for system_type in system_types]
+    return \" \".join(sentence for sentence in sentences if sentence)
+
+
+def _render_heating_paragraph(context: HeatingContext) -> str:
+    system_types = _resolve_system_types(context.system_type_raw)
+    sentences: list[str] = []
+    if system_types:
+        sentences.extend(
+            sentence for sentence in (_render_heating_system(value, context) for value in system_types) if sentence
+        )
+    else:
+        sentences.append(not_confirmed_sentence(\"The heating plant type\"))
+
+    distribution_unknown = context.distribution_unknown()
+    if not distribution_unknown:
+        serves = human_join(context.serves_values)
+        sentences.append(f\"Heating is distributed through {serves}.\")
+    else:
+        sentences.append(further_investigation_sentence(\"the heating distribution systems\"))
+
+    if context.condition_text:
+        sentences.append(
+            f\"The heating equipment appears to be in {context.condition_text} condition based on walkthrough observations.\"
+        )
+    else:
+        sentences.append(
+            uncertainty_sentence(
+                f\"equipment condition and sequence of operations were not fully verified for this {context.audit_level} review\"
+            )
+        )
+
+    if context.controls_notes_text and context.controls_notes_text.strip():
+        sentences.append(ensure_sentence(context.controls_notes_text))
+    elif system_types or not distribution_unknown:
+        sentences.append(not_confirmed_sentence(\"Control sequences for the heating systems\"))
+
+    if context.notes_text and context.notes_text.strip():
+        sentences.append(ensure_sentence(context.notes_text))
+
+    return \" \".join(sentences[:6])
 
 
 def render_block(
@@ -188,97 +326,13 @@ def render_block(
         return context.override_text
 
     paragraphs: list[str] = []
-    heating_sentences: list[str] = []
-    system_unknown = context.system_unknown()
-    distribution_unknown = context.distribution_unknown()
+    paragraphs.append(_render_heating_paragraph(context))
 
-    if not system_unknown:
-        system_type = human_join(context.system_type_values)
-        location = ""
-        if context.heating_location_text and context.heating_location_text.strip():
-            location = f" located in {context.heating_location_text.strip()}"
-        if len(context.system_type_values) > 1:
-            heating_sentences.append(f"Heating is provided by {system_type} systems{location}.")
-        else:
-            article = _article_for(system_type)
-            heating_sentences.append(
-                f"The primary heating source for the building is {article} {system_type} system{location}."
-            )
-    else:
-        heating_sentences.append(not_confirmed_sentence("The heating plant type"))
-
-    if not distribution_unknown:
-        serves = human_join(context.serves_values)
-        heating_sentences.append(f"Heating is distributed through {serves}.")
-    else:
-        heating_sentences.append(further_investigation_sentence("the heating distribution systems"))
-
-    if context.condition_text:
-        heating_sentences.append(
-            f"The heating equipment appears to be in {context.condition_text} condition based on walkthrough observations."
-        )
-    else:
-        heating_sentences.append(
-            uncertainty_sentence(
-                f"equipment condition and sequence of operations were not fully verified for this {context.audit_level} review"
-            )
-        )
-
-    if context.controls_notes_text and context.controls_notes_text.strip():
-        heating_sentences.append(ensure_sentence(context.controls_notes_text))
-    elif not system_unknown or not distribution_unknown:
-        heating_sentences.append(
-            not_confirmed_sentence("Control sequences for the heating systems")
-        )
-
-    if context.notes_text and context.notes_text.strip():
-        heating_sentences.append(ensure_sentence(context.notes_text))
-
-    paragraphs.append(" ".join(heating_sentences[:5]))
-
-    cooling_sentences: list[str] = []
-    cooling_unknown = context.cooling_unknown()
-    cooling_distribution_unknown = context.cooling_distribution_unknown()
-
-    if not cooling_unknown:
-        cooling_type = human_join(context.cooling_type_values)
-        if "none" in cooling_type.lower():
-            cooling_sentences.append(
-                "No central cooling plant was identified during the walkthrough."
-            )
-        else:
-            location = ""
-            if context.cooling_location_text and context.cooling_location_text.strip():
-                location = f" located in {context.cooling_location_text.strip()}"
-            if len(context.cooling_type_values) > 1:
-                cooling_sentences.append(f"Cooling is provided by {cooling_type} systems{location}.")
-            else:
-                article = _article_for(cooling_type)
-                cooling_sentences.append(
-                    f"The primary cooling system is {article} {cooling_type} plant{location}."
-                )
-    else:
-        cooling_sentences.append(not_confirmed_sentence("The central cooling system type"))
-
-    if not cooling_distribution_unknown:
-        serves = human_join(context.cooling_serves_values)
-        cooling_sentences.append(f"Cooling is distributed through {serves}.")
-    elif not cooling_unknown:
-        cooling_sentences.append(
-            further_investigation_sentence("the cooling distribution systems")
-        )
-
-    if context.cooling_notes_text and context.cooling_notes_text.strip():
-        cooling_sentences.append(ensure_sentence(context.cooling_notes_text))
-    elif not cooling_unknown:
-        cooling_sentences.append(
-            uncertainty_sentence(
-                f"cooling equipment condition and controls were not fully verified for this {context.audit_level} review"
-            )
-        )
-
-    if cooling_sentences:
-        paragraphs.append(" ".join(cooling_sentences[:4]))
+    cooling_paragraph = cooling.render_paragraph(
+        project, mapping=mapping, system_type_override=context.cooling_type_raw
+    )
+    if cooling_paragraph:
+        paragraphs.append(cooling_paragraph)
 
     if not paragraphs:
         return not_confirmed_sentence("Heating and cooling system details")

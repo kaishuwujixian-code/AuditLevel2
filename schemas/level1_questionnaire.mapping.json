@@ -1,11 +1,12 @@
 {
   "option_sets": {
     "hvac.heating_system_type": [
-      {"label": "Atmospheric boiler", "value": "atmospheric_boiler"},
       {"label": "Condensing boiler", "value": "condensing_boiler"},
-      {"label": "WSHP central", "value": "wshp_central"},
+      {"label": "Atmospheric boiler", "value": "atmospheric_boiler"},
       {"label": "Electric resistance", "value": "electric_resistance"},
-      {"label": "ASHP", "value": "ashp"},
+      {"label": "Heat pump loop (WSHP)", "value": "wshp_central"},
+      {"label": "WSHP loop with fluid cooler", "value": "wshp_fluid_cooler"},
+      {"label": "Air-source heat pump", "value": "ashp"},
       {"label": "Other / Unknown", "value": "other_unknown"}
     ],
     "hvac.heating_serves": [
@@ -17,22 +18,28 @@
       {"label": "Mixed / Unknown", "value": "mixed_unknown"}
     ],
     "dhw.system_type": [
-      {"label": "HX from heating plant", "value": "hx_from_heating_ps"},
-      {"label": "DHW boiler (condensing)", "value": "dhw_boiler_condensing"},
-      {"label": "DHW boiler (atmospheric)", "value": "dhw_boiler_atmospheric"},
-      {"label": "DHW electric", "value": "dhw_electric"},
+      {"label": "Heat exchanger from heating plant", "value": "hx_from_heating_ps"},
+      {"label": "Central boiler (condensing)", "value": "dhw_boiler_condensing"},
+      {"label": "Central boiler (atmospheric)", "value": "dhw_boiler_atmospheric"},
+      {"label": "Electric water heater", "value": "dhw_electric"},
       {"label": "Other / Unknown", "value": "dhw_other_unknown"}
     ],
     "cooling.system_type": [
+      {"label": "Chiller & cooling tower", "value": "chiller_cooling_tower"},
       {"label": "Air-cooled chiller", "value": "chiller_air"},
       {"label": "Water-cooled chiller", "value": "chiller_water"},
-      {"label": "WSHP cooling", "value": "wshp_cooling"},
+      {"label": "Fluid cooler (WSHP loop)", "value": "fluid_cooler"},
+      {"label": "Packaged rooftop DX", "value": "packaged_rooftop_dx"},
       {"label": "Split DX", "value": "split_dx"},
       {"label": "PTAC", "value": "ptac"},
+      {"label": "WSHP cooling", "value": "wshp_cooling"},
       {"label": "None", "value": "none"},
       {"label": "Other / Unknown", "value": "other_unknown"}
     ],
     "ventilation.system_type": [
+      {"label": "Gas-fired rooftop MUA", "value": "mua_gas_rooftop"},
+      {"label": "Hydronic coil MUA", "value": "mua_hydronic_coil"},
+      {"label": "Heat recovery ventilator", "value": "heat_recovery_ventilator"},
       {"label": "MUA corridor", "value": "mua_corridor"},
       {"label": "DOAS", "value": "doas"},
       {"label": "Suite ERV/HRV", "value": "suite_erv_hrv"},
@@ -194,11 +201,11 @@
     {
       "match": {"type": "exact", "value": "{Central Ventilation System Block}"},
       "question": {
-        "id": "ventilation_block",
-        "title": "Central ventilation system",
+        "id": "ventilation_block_override",
+        "title": "Central ventilation system (manual override)",
         "type": "notes",
         "section_id": "ventilation",
-        "help": "Narrative summary of ventilation systems.",
+        "help": "Optional manual override for the ventilation systems narrative.",
         "required": false
       }
     },
