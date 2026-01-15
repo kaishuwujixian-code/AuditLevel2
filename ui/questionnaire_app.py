@@ -184,6 +184,47 @@ class QuestionnaireApp:
                 metadata={"label_to_value": label_to_value},
             )
 
+        if question_type == "measure_select":
+            options = question.get("options", [])
+            override_target = question.get("override_target", "measure_overrides")
+            groups: Dict[str, List[Dict[str, str]]] = {}
+            category_order: List[str] = []
+            for opt in options:
+                label = opt.get("label", opt.get("value", ""))
+                value = opt.get("value")
+                category = opt.get("category_label") or opt.get("category") or "Other / Misc"
+                if category not in groups:
+                    category_order.append(category)
+                groups.setdefault(category, []).append({"label": label, "value": value})
+
+            option_vars = []
+            for category in category_order:
+                frame = ttk.Labelframe(parent, text=category)
+                frame.pack(fill="x", pady=(4, 0))
+                frame.columnconfigure(1, weight=1)
+                for idx, opt in enumerate(groups[category]):
+                    var = tk.BooleanVar()
+                    override_var = tk.StringVar()
+                    check = ttk.Checkbutton(frame, text=opt["label"], variable=var)
+                    check.grid(row=idx, column=0, sticky="w", padx=(4, 6), pady=2)
+                    entry = ttk.Entry(frame, textvariable=override_var, state="disabled")
+                    entry.grid(row=idx, column=1, sticky="ew", padx=(0, 4), pady=2)
+
+                    def _toggle_entry(*_args, entry_widget=entry, value_var=var) -> None:
+                        entry_widget.configure(
+                            state="normal" if value_var.get() else "disabled"
+                        )
+
+                    var.trace_add("write", _toggle_entry)
+                    option_vars.append((opt["value"], var, override_var))
+
+            return QuestionWidget(
+                question_id,
+                question_type,
+                option_vars,
+                metadata={"override_target": override_target},
+            )
+
         if question_type == "multi_select":
             options = question.get("options", [])
             option_vars = []
@@ -260,6 +301,12 @@ class QuestionnaireApp:
                 if var.get():
                     selections.append(value)
             return selections
+        if widget.question_type == "measure_select":
+            selections = []
+            for value, var, _override in widget.widget:
+                if var.get():
+                    selections.append(value)
+            return selections
         if widget.question_type == "image_list":
             return widget.metadata.get("paths", [])
         return None
@@ -277,6 +324,18 @@ class QuestionnaireApp:
                     photos.append({"path": path, "note": ""})
                 continue
             answers[question_id] = value
+            if widget.question_type == "measure_select":
+                override_target = widget.metadata.get("override_target")
+                if override_target:
+                    overrides = {}
+                    for measure_id, var, override_var in widget.widget:
+                        if not var.get():
+                            continue
+                        text = override_var.get().strip()
+                        if text:
+                            overrides[measure_id] = text
+                    if overrides:
+                        answers[override_target] = overrides
 
         placeholders = self._build_placeholders(answers)
 

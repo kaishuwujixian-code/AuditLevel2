@@ -2,13 +2,17 @@ import json
 from dataclasses import dataclass
 from typing import Dict, List
 
+from core.measure_catalog import load_measure_catalog
+
 
 @dataclass(frozen=True)
 class TemplateData:
     measures: Dict[str, dict]
+    measure_order: List[str]
     checklists: Dict[str, dict]
     ui_categories: List[dict]
     category_overrides: Dict[str, str]
+    legacy_key_map: Dict[str, str]
 
     @property
     def category_titles(self) -> Dict[str, str]:
@@ -21,9 +25,9 @@ def load_template(path: str) -> TemplateData:
     if not isinstance(data, dict):
         raise ValueError("Template JSON must be an object.")
 
-    measures = data.get("measures", {})
-    if not isinstance(measures, dict):
-        raise ValueError("Template JSON measures must be an object.")
+    catalog = load_measure_catalog()
+    measures = catalog.measures
+    measure_order = catalog.order
 
     checklists = data.get("checklists", {})
     if checklists is None:
@@ -31,11 +35,13 @@ def load_template(path: str) -> TemplateData:
     if not isinstance(checklists, dict):
         raise ValueError("Template JSON checklists must be an object.")
 
-    ui_categories = data.get("ui_categories", [])
-    if ui_categories is None:
-        ui_categories = []
-    if not isinstance(ui_categories, list):
-        raise ValueError("Template JSON ui_categories must be a list.")
+    ui_categories = catalog.categories
+    if not ui_categories:
+        ui_categories = data.get("ui_categories", [])
+        if ui_categories is None:
+            ui_categories = []
+        if not isinstance(ui_categories, list):
+            raise ValueError("Template JSON ui_categories must be a list.")
 
     category_overrides = data.get("category_by_measure_overrides", {})
     if category_overrides is None:
@@ -45,7 +51,9 @@ def load_template(path: str) -> TemplateData:
 
     return TemplateData(
         measures=measures,
+        measure_order=measure_order,
         checklists=checklists,
         ui_categories=ui_categories,
         category_overrides=category_overrides,
+        legacy_key_map=catalog.legacy_key_map,
     )

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from typing import Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional
 
 
 class LabeledEntry(ttk.Frame):
@@ -105,3 +105,91 @@ class MultiSelectList(ttk.Frame):
         for index in range(self.listbox.size()):
             if self.listbox.get(index) in selections:
                 self.listbox.selection_set(index)
+
+
+class MeasureMultiSelect(ttk.Frame):
+    def __init__(
+        self,
+        master: tk.Misc,
+        measures: Dict[str, dict],
+        categories: Iterable[dict],
+        order: Iterable[str],
+    ) -> None:
+        super().__init__(master)
+        self._measures = measures
+        self._order = list(order)
+        self._rows: Dict[str, dict] = {}
+
+        category_titles = {
+            item.get("code", ""): item.get("tab_title", "")
+            for item in categories
+        }
+        category_codes = [item.get("code", "") for item in categories]
+
+        grouped: Dict[str, list[str]] = {code: [] for code in category_codes}
+        grouped[""] = []
+        for measure_id in self._order:
+            measure = measures.get(measure_id, {})
+            category = measure.get("category", "")
+            if category not in grouped:
+                grouped[category] = []
+            grouped[category].append(measure_id)
+
+        row = 0
+        for category in category_codes:
+            items = grouped.get(category, [])
+            if not items:
+                continue
+            frame = ttk.Labelframe(self, text=category_titles.get(category, category))
+            frame.grid(row=row, column=0, sticky="ew", pady=(0, 6))
+            frame.columnconfigure(1, weight=1)
+            row += 1
+            for idx, measure_id in enumerate(items):
+                measure = measures.get(measure_id, {})
+                name = measure.get("title") or measure.get("name") or measure_id
+                var = tk.BooleanVar(value=False)
+                override_var = tk.StringVar()
+                check = ttk.Checkbutton(frame, text=name, variable=var)
+                check.grid(row=idx, column=0, sticky="w", padx=(6, 6), pady=2)
+                entry = ttk.Entry(frame, textvariable=override_var, state="disabled")
+                entry.grid(row=idx, column=1, sticky="ew", padx=(0, 6), pady=2)
+
+                def _toggle_entry(*_args, entry_widget=entry, value=var) -> None:
+                    entry_widget.configure(state="normal" if value.get() else "disabled")
+
+                var.trace_add("write", _toggle_entry)
+                self._rows[measure_id] = {
+                    "selected": var,
+                    "override": override_var,
+                }
+
+        self.columnconfigure(0, weight=1)
+
+    def get_selected(self) -> List[str]:
+        return [
+            measure_id
+            for measure_id in self._order
+            if self._rows.get(measure_id, {}).get("selected", tk.BooleanVar()).get()
+        ]
+
+    def get_overrides(self) -> Dict[str, str]:
+        overrides: Dict[str, str] = {}
+        for measure_id, data in self._rows.items():
+            if not data["selected"].get():
+                continue
+            text = data["override"].get().strip()
+            if text:
+                overrides[measure_id] = text
+        return overrides
+
+    def set_selected(self, values: Iterable[str]) -> None:
+        selections = set(values)
+        for measure_id, data in self._rows.items():
+            data["selected"].set(measure_id in selections)
+
+    def set_overrides(self, overrides: Dict[str, str]) -> None:
+        if not overrides:
+            return
+        for measure_id, text in overrides.items():
+            if measure_id in self._rows:
+                self._rows[measure_id]["override"].set(text)
