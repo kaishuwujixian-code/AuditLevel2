@@ -30,6 +30,60 @@
       "title": "Domestic Hot Water",
       "questions": [
         {
+          "id": "dhw_system_type",
+          "title": "DHW system type",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [
+            {
+              "label": "HX from heating plant",
+              "value": "hx_from_heating_ps"
+            },
+            {
+              "label": "DHW boiler (condensing)",
+              "value": "dhw_boiler_condensing"
+            },
+            {
+              "label": "DHW boiler (atmospheric)",
+              "value": "dhw_boiler_atmospheric"
+            },
+            {
+              "label": "DHW electric",
+              "value": "dhw_electric"
+            },
+            {
+              "label": "Other / Unknown",
+              "value": "dhw_other_unknown"
+            }
+          ],
+          "options_ref": "dhw.system_type",
+          "placeholder_targets": [],
+          "help": "Primary domestic hot water system type.",
+          "required": false
+        },
+        {
+          "id": "dhw_location",
+          "title": "DHW location",
+          "type": "text",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of DHW plant equipment.",
+          "required": false
+        },
+        {
+          "id": "dhw_notes",
+          "title": "DHW notes",
+          "type": "notes",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the domestic hot water system.",
+          "required": false
+        },
+        {
           "id": "dhw_block",
           "title": "DHW system",
           "type": "notes",
@@ -235,6 +289,111 @@
       "title": "Heating",
       "questions": [
         {
+          "id": "heating_system_type",
+          "title": "Heating system type",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [
+            {
+              "label": "Atmospheric boiler",
+              "value": "atmospheric_boiler"
+            },
+            {
+              "label": "Condensing boiler",
+              "value": "condensing_boiler"
+            },
+            {
+              "label": "WSHP central",
+              "value": "wshp_central"
+            },
+            {
+              "label": "Electric resistance",
+              "value": "electric_resistance"
+            },
+            {
+              "label": "ASHP",
+              "value": "ashp"
+            },
+            {
+              "label": "Other / Unknown",
+              "value": "other_unknown"
+            }
+          ],
+          "options_ref": "hvac.heating_system_type",
+          "placeholder_targets": [],
+          "help": "Primary heating system type.",
+          "required": false
+        },
+        {
+          "id": "heating_serves",
+          "title": "Heating serves",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [
+            {
+              "label": "Serves WSHP",
+              "value": "serves_wshp"
+            },
+            {
+              "label": "Serves fan coil",
+              "value": "serves_fancoil"
+            },
+            {
+              "label": "Serves radiant",
+              "value": "serves_radiant"
+            },
+            {
+              "label": "Serves AHU",
+              "value": "serves_ahu"
+            },
+            {
+              "label": "Serves MUA",
+              "value": "serves_mua"
+            },
+            {
+              "label": "Mixed / Unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": "hvac.heating_serves",
+          "placeholder_targets": [],
+          "help": "Distribution systems served by the heating plant.",
+          "required": false
+        },
+        {
+          "id": "heating_location",
+          "title": "Heating location",
+          "type": "text",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of the heating plant equipment.",
+          "required": false
+        },
+        {
+          "id": "heating_controls_notes",
+          "title": "Heating controls notes",
+          "type": "notes",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Notes about heating controls and sequencing.",
+          "required": false
+        },
+        {
+          "id": "heating_notes",
+          "title": "Heating notes",
+          "type": "notes",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the heating system.",
+          "required": false
+        },
+        {
           "id": "heating_block",
           "title": "Central heating/cooling systems",
           "type": "notes",
@@ -245,6 +404,121 @@
             "{Central Heating/Cooling Systems block}"
           ],
           "help": "Narrative summary of central heating/cooling systems.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling",
+      "questions": [
+        {
+          "id": "cooling_system_type",
+          "title": "Cooling system type",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [
+            {
+              "label": "Air-cooled chiller",
+              "value": "chiller_air"
+            },
+            {
+              "label": "Water-cooled chiller",
+              "value": "chiller_water"
+            },
+            {
+              "label": "WSHP cooling",
+              "value": "wshp_cooling"
+            },
+            {
+              "label": "Split DX",
+              "value": "split_dx"
+            },
+            {
+              "label": "PTAC",
+              "value": "ptac"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            },
+            {
+              "label": "Other / Unknown",
+              "value": "other_unknown"
+            }
+          ],
+          "options_ref": "cooling.system_type",
+          "placeholder_targets": [],
+          "help": "Primary cooling system type.",
+          "required": false
+        },
+        {
+          "id": "cooling_serves",
+          "title": "Cooling serves",
+          "type": "multi_select",
+          "section_id": "cooling",
+          "options": [
+            {
+              "label": "Serves WSHP",
+              "value": "serves_wshp"
+            },
+            {
+              "label": "Serves fan coil",
+              "value": "serves_fancoil"
+            },
+            {
+              "label": "Serves radiant",
+              "value": "serves_radiant"
+            },
+            {
+              "label": "Serves AHU",
+              "value": "serves_ahu"
+            },
+            {
+              "label": "Serves MUA",
+              "value": "serves_mua"
+            },
+            {
+              "label": "Mixed / Unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": "hvac.heating_serves",
+          "placeholder_targets": [],
+          "help": "Distribution systems served by the cooling plant.",
+          "required": false
+        },
+        {
+          "id": "cooling_location",
+          "title": "Cooling location",
+          "type": "text",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of the cooling plant equipment.",
+          "required": false
+        },
+        {
+          "id": "cooling_controls_notes",
+          "title": "Cooling controls notes",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Notes about cooling controls and sequencing.",
+          "required": false
+        },
+        {
+          "id": "cooling_notes",
+          "title": "Cooling notes",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the cooling system.",
           "required": false
         }
       ]
@@ -565,6 +839,60 @@
       "id": "ventilation",
       "title": "Ventilation",
       "questions": [
+        {
+          "id": "ventilation_system_type",
+          "title": "Ventilation system type",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [
+            {
+              "label": "MUA corridor",
+              "value": "mua_corridor"
+            },
+            {
+              "label": "DOAS",
+              "value": "doas"
+            },
+            {
+              "label": "Suite ERV/HRV",
+              "value": "suite_erv_hrv"
+            },
+            {
+              "label": "Exhaust only",
+              "value": "exhaust_only"
+            },
+            {
+              "label": "Mixed / Unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": "ventilation.system_type",
+          "placeholder_targets": [],
+          "help": "Primary ventilation system type.",
+          "required": false
+        },
+        {
+          "id": "ventilation_location",
+          "title": "Ventilation location",
+          "type": "text",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of ventilation equipment.",
+          "required": false
+        },
+        {
+          "id": "ventilation_notes",
+          "title": "Ventilation notes",
+          "type": "notes",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the ventilation system.",
+          "required": false
+        },
         {
           "id": "ventilation_block",
           "title": "Central ventilation system",

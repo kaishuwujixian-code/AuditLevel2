@@ -7,6 +7,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from core.questionnaire import apply_answers_to_project, collect_template_placeholders
+from reporting.narratives import load_option_sets
 
 
 @dataclass
@@ -23,34 +24,64 @@ class QuestionnairePanel(ttk.Frame):
         self._schema = schema
         self._question_widgets: Dict[str, QuestionWidget] = {}
         self._template_widgets: Dict[str, QuestionWidget] = {}
+        self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
-        self._scrollable = _ScrollableFrame(self)
-        self._scrollable.grid(row=0, column=0, sticky="nsew")
+        self._notebook = ttk.Notebook(self)
+        self._notebook.grid(row=0, column=0, sticky="nsew")
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self._build_sections()
 
     def _build_sections(self) -> None:
-        container = self._scrollable.content
-        for child in container.winfo_children():
+        for child in self._notebook.winfo_children():
             child.destroy()
         self._question_widgets.clear()
         self._template_widgets.clear()
 
+        general_tab = _ScrollableFrame(self._notebook)
+        self._notebook.add(general_tab, text="General")
+
+        system_tabs = {
+            "heating": _ScrollableFrame(self._notebook),
+            "cooling": _ScrollableFrame(self._notebook),
+            "dhw": _ScrollableFrame(self._notebook),
+            "ventilation": _ScrollableFrame(self._notebook),
+        }
+        self._notebook.add(system_tabs["heating"], text="Heating")
+        self._notebook.add(system_tabs["cooling"], text="Cooling")
+        self._notebook.add(system_tabs["dhw"], text="DHW")
+        self._notebook.add(system_tabs["ventilation"], text="Ventilation")
+
+        general_container = general_tab.content
+        section_frames: Dict[tuple[str, str], ttk.LabelFrame] = {}
+
         for section in self._schema.get("sections", []):
-            section_frame = ttk.LabelFrame(
-                container, text=section.get("title", "Section"), padding=10
-            )
-            section_frame.pack(fill="x", padx=10, pady=6)
+            if not isinstance(section, dict):
+                continue
+            section_id = str(section.get("id", "")).strip().lower()
+            section_title = section.get("title", "Section")
+            default_tab = section_id if section_id in system_tabs else "general"
             for question in section.get("questions", []):
                 if question.get("type") == "measure_select":
                     continue
-                self._add_question(section_frame, question)
+                question_section = self._resolve_system_section(question)
+                tab_key = question_section or default_tab
+                if tab_key in system_tabs:
+                    container = system_tabs[tab_key].content
+                else:
+                    container = general_container
+                frame_key = (tab_key, section_title)
+                if frame_key not in section_frames:
+                    section_frames[frame_key] = self._build_form_section(
+                        container, section_title
+                    )
+                self._add_question(section_frames[frame_key], question)
 
-        template_frame = ttk.LabelFrame(container, text="Template Fields", padding=10)
-        template_frame.pack(fill="x", padx=10, pady=6)
+        template_frame = self._build_form_section(general_container, "Template Fields")
         if not self._template_fields:
-            ttk.Label(template_frame, text="No additional template placeholders found.").pack(anchor="w")
+            ttk.Label(
+                template_frame, text="No additional template placeholders found."
+            ).grid(row=0, column=0, sticky="w")
         else:
             for placeholder in self._template_fields:
                 question = {
@@ -73,11 +104,11 @@ class QuestionnairePanel(ttk.Frame):
         title = question.get("title") or question_id
         question_type = question.get("type", "text")
 
-        frame = ttk.Frame(parent)
-        frame.pack(fill="x", pady=6)
-        ttk.Label(frame, text=title).pack(anchor="w")
+        row = getattr(parent, "next_row", 0)
+        parent.next_row = row + 1
+        ttk.Label(parent, text=title).grid(row=row, column=0, sticky="nw", padx=(0, 12), pady=6)
 
-        widget = self._create_question_widget(frame, question)
+        widget = self._create_question_widget(parent, question, row=row)
         if widget:
             if template_field:
                 self._template_widgets[question_id] = widget
@@ -85,24 +116,30 @@ class QuestionnairePanel(ttk.Frame):
                 self._question_widgets[question_id] = widget
 
     def _create_question_widget(
-        self, parent: ttk.Frame, question: Dict[str, Any]
+        self, parent: ttk.Frame, question: Dict[str, Any], *, row: int
     ) -> Optional[QuestionWidget]:
         question_id = question.get("id", "")
         question_type = question.get("type", "text")
+        options = question.get("options", [])
+        options_ref = question.get("options_ref")
+        if not options and options_ref:
+            option_set = self._option_sets.get(options_ref, {})
+            options = [
+                {"label": label, "value": value} for value, label in option_set.items()
+            ]
 
         if question_type in {"text", "number", "date"}:
             var = tk.StringVar()
             entry = ttk.Entry(parent, textvariable=var)
-            entry.pack(fill="x", pady=(4, 0))
+            entry.grid(row=row, column=1, sticky="ew", pady=6)
             return QuestionWidget(question_id, question_type, var)
 
         if question_type == "notes":
             text = tk.Text(parent, height=4, wrap="word")
-            text.pack(fill="x", pady=(4, 0))
+            text.grid(row=row, column=1, sticky="ew", pady=6)
             return QuestionWidget(question_id, question_type, text)
 
         if question_type == "single_select":
-            options = question.get("options", [])
             labels = [opt.get("label", opt.get("value", "")) for opt in options]
             label_to_value = {
                 opt.get("label", opt.get("value", "")): opt.get("value")
@@ -114,7 +151,7 @@ class QuestionnairePanel(ttk.Frame):
             }
             var = tk.StringVar()
             combo = ttk.Combobox(parent, textvariable=var, values=labels, state="readonly")
-            combo.pack(fill="x", pady=(4, 0))
+            combo.grid(row=row, column=1, sticky="ew", pady=6)
             return QuestionWidget(
                 question_id,
                 question_type,
@@ -123,10 +160,9 @@ class QuestionnairePanel(ttk.Frame):
             )
 
         if question_type == "multi_select":
-            options = question.get("options", [])
             option_vars = []
             options_frame = ttk.Frame(parent)
-            options_frame.pack(fill="x", pady=(4, 0))
+            options_frame.grid(row=row, column=1, sticky="ew", pady=6)
             for opt in options:
                 label = opt.get("label", opt.get("value", ""))
                 value = opt.get("value")
@@ -206,6 +242,21 @@ class QuestionnairePanel(ttk.Frame):
             values = set(value or [])
             for option_value, var in widget.widget:
                 var.set(option_value in values)
+
+    def _build_form_section(self, parent: ttk.Frame, title: str) -> ttk.LabelFrame:
+        section_frame = ttk.LabelFrame(parent, text=title, padding=10)
+        section_frame.pack(fill="x", padx=10, pady=6)
+        section_frame.columnconfigure(1, weight=1)
+        section_frame.next_row = 0
+        return section_frame
+
+    def _resolve_system_section(self, question: Dict[str, Any]) -> str:
+        question_id = str(question.get("id", "")).strip().lower()
+        section_id = str(question.get("section_id", "")).strip().lower()
+        for system in ("heating", "cooling", "dhw", "ventilation"):
+            if question_id.startswith(f"{system}_") or section_id == system:
+                return system
+        return ""
 
 
 class _ScrollableFrame(ttk.Frame):

@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from docx import Document
+
 from core.project_store import load_project, save_project
 from core.questionnaire import apply_answers_to_project, load_questionnaire_schema
 from reporting.word_renderer import render_word
@@ -28,8 +30,20 @@ def test_project_roundtrip_and_render(tmp_path: Path) -> None:
     )
 
     apply_answers_to_project(project, answers, schema, {"{ClientName}": "Acme Client"})
-    project["selected_measures"] = ["BAS Upgrade"]
-    project["measure_overrides"] = {"BAS Upgrade": "Override narrative for BAS upgrade."}
+    project["selected_measures"] = ["condensing_boiler_retrofit", "bas_upgrade"]
+    project["measure_overrides"] = {"bas_upgrade": "Override narrative for BAS upgrade."}
+    project["checklist_selections"] = {
+        "Walkthrough Findings": {
+            "Safety Hazards": [
+                "Combustion air openings unobstructed",
+                "No storage in boiler room",
+            ],
+            "Opportunities": [
+                "BAS scheduling optimization",
+                "Hydronic balancing review",
+            ],
+        }
+    }
 
     project_path = tmp_path / "project.json"
     save_project(str(project_path), project)
@@ -45,3 +59,29 @@ def test_project_roundtrip_and_render(tmp_path: Path) -> None:
         out_path=str(output_path),
     )
     assert output_path.exists()
+    document = Document(str(output_path))
+    rendered_text = "\n".join(
+        paragraph.text for paragraph in _iter_document_paragraphs(document)
+    )
+    assert "{MEASURE_BLOCK}" not in rendered_text
+    assert "{FINDINGS_BLOCK}" not in rendered_text
+    assert "Measure – Condensing Boiler Retrofit" in rendered_text
+    assert "Existing Conditions:" in rendered_text
+    assert "Override narrative for BAS upgrade." in rendered_text
+    assert "Safety Hazards:" in rendered_text
+
+
+def _iter_document_paragraphs(document: Document):
+    for paragraph in document.paragraphs:
+        yield paragraph
+    for table in document.tables:
+        yield from _iter_table_paragraphs(table)
+
+
+def _iter_table_paragraphs(table):
+    for row in table.rows:
+        for cell in row.cells:
+            for paragraph in cell.paragraphs:
+                yield paragraph
+            for nested in cell.tables:
+                yield from _iter_table_paragraphs(nested)
