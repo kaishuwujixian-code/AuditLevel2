@@ -36,19 +36,19 @@
           "section_id": "dhw",
           "options": [
             {
-              "label": "HX from heating plant",
+              "label": "Heat exchanger from heating plant",
               "value": "hx_from_heating_ps"
             },
             {
-              "label": "DHW boiler (condensing)",
+              "label": "Central boiler (condensing)",
               "value": "dhw_boiler_condensing"
             },
             {
-              "label": "DHW boiler (atmospheric)",
+              "label": "Central boiler (atmospheric)",
               "value": "dhw_boiler_atmospheric"
             },
             {
-              "label": "DHW electric",
+              "label": "Electric water heater",
               "value": "dhw_electric"
             },
             {
@@ -84,8 +84,8 @@
           "required": false
         },
         {
-          "id": "dhw_block",
-          "title": "DHW system",
+          "id": "dhw_block_override",
+          "title": "DHW system (manual override)",
           "type": "notes",
           "section_id": "dhw",
           "options": [],
@@ -93,7 +93,51 @@
           "placeholder_targets": [
             "{DHW System Block}"
           ],
-          "help": "Narrative summary of domestic hot water systems.",
+          "help": "Optional manual override for the domestic hot water narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_dhw_boilers",
+          "title": "Number of DHW boilers",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central DHW boilers or water heaters.",
+          "required": false
+        },
+        {
+          "id": "dhw_boiler_capacity_mbh",
+          "title": "DHW boiler capacity (MBH each)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per DHW boiler in MBH.",
+          "required": false
+        },
+        {
+          "id": "number_of_dhw_tanks",
+          "title": "Number of DHW tanks",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of domestic hot water storage tanks.",
+          "required": false
+        },
+        {
+          "id": "dhw_tank_capacity_gal",
+          "title": "DHW tank capacity (gallons each)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal storage volume per tank in gallons.",
           "required": false
         }
       ]
@@ -295,23 +339,27 @@
           "section_id": "heating",
           "options": [
             {
-              "label": "Atmospheric boiler",
-              "value": "atmospheric_boiler"
-            },
-            {
               "label": "Condensing boiler",
               "value": "condensing_boiler"
             },
             {
-              "label": "WSHP central",
-              "value": "wshp_central"
+              "label": "Atmospheric boiler",
+              "value": "atmospheric_boiler"
             },
             {
               "label": "Electric resistance",
               "value": "electric_resistance"
             },
             {
-              "label": "ASHP",
+              "label": "Heat pump loop (WSHP)",
+              "value": "wshp_central"
+            },
+            {
+              "label": "WSHP loop with fluid cooler",
+              "value": "wshp_fluid_cooler"
+            },
+            {
+              "label": "Air-source heat pump",
               "value": "ashp"
             },
             {
@@ -394,8 +442,8 @@
           "required": false
         },
         {
-          "id": "heating_block",
-          "title": "Central heating/cooling systems",
+          "id": "heating_block_override",
+          "title": "Central heating/cooling systems (manual override)",
           "type": "notes",
           "section_id": "heating",
           "options": [],
@@ -403,7 +451,29 @@
           "placeholder_targets": [
             "{Central Heating/Cooling Systems block}"
           ],
-          "help": "Narrative summary of central heating/cooling systems.",
+          "help": "Optional manual override for the heating/cooling systems narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_boilers",
+          "title": "Number of boilers",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central heating boilers.",
+          "required": false
+        },
+        {
+          "id": "boiler_capacity_mbh",
+          "title": "Boiler capacity (MBH each)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per boiler in MBH.",
           "required": false
         }
       ]
@@ -419,6 +489,10 @@
           "section_id": "cooling",
           "options": [
             {
+              "label": "Chiller & cooling tower",
+              "value": "chiller_cooling_tower"
+            },
+            {
               "label": "Air-cooled chiller",
               "value": "chiller_air"
             },
@@ -427,8 +501,12 @@
               "value": "chiller_water"
             },
             {
-              "label": "WSHP cooling",
-              "value": "wshp_cooling"
+              "label": "Fluid cooler (WSHP loop)",
+              "value": "fluid_cooler"
+            },
+            {
+              "label": "Packaged rooftop DX",
+              "value": "packaged_rooftop_dx"
             },
             {
               "label": "Split DX",
@@ -437,6 +515,10 @@
             {
               "label": "PTAC",
               "value": "ptac"
+            },
+            {
+              "label": "WSHP cooling",
+              "value": "wshp_cooling"
             },
             {
               "label": "None",
@@ -519,6 +601,50 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Additional notes for the cooling system.",
+          "required": false
+        },
+        {
+          "id": "number_of_chillers",
+          "title": "Number of chillers",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central chillers.",
+          "required": false
+        },
+        {
+          "id": "chiller_tonnage",
+          "title": "Chiller tonnage (tons each)",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per chiller in tons.",
+          "required": false
+        },
+        {
+          "id": "number_of_fluid_coolers",
+          "title": "Number of fluid coolers",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of fluid coolers serving the WSHP or condenser loop.",
+          "required": false
+        },
+        {
+          "id": "number_of_rooftop_units",
+          "title": "Number of rooftop DX units",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of packaged rooftop DX units, if applicable.",
           "required": false
         }
       ]
@@ -846,6 +972,18 @@
           "section_id": "ventilation",
           "options": [
             {
+              "label": "Gas-fired rooftop MUA",
+              "value": "mua_gas_rooftop"
+            },
+            {
+              "label": "Hydronic coil MUA",
+              "value": "mua_hydronic_coil"
+            },
+            {
+              "label": "Heat recovery ventilator",
+              "value": "heat_recovery_ventilator"
+            },
+            {
               "label": "MUA corridor",
               "value": "mua_corridor"
             },
@@ -894,8 +1032,8 @@
           "required": false
         },
         {
-          "id": "ventilation_block",
-          "title": "Central ventilation system",
+          "id": "ventilation_block_override",
+          "title": "Central ventilation system (manual override)",
           "type": "notes",
           "section_id": "ventilation",
           "options": [],
@@ -903,7 +1041,29 @@
           "placeholder_targets": [
             "{Central Ventilation System Block}"
           ],
-          "help": "Narrative summary of ventilation systems.",
+          "help": "Optional manual override for the ventilation systems narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_mua_units",
+          "title": "Number of MUA units",
+          "type": "number",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of make-up air units serving the building.",
+          "required": false
+        },
+        {
+          "id": "ventilation_airflow_cfm",
+          "title": "Ventilation airflow (CFM)",
+          "type": "number",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Design supply or exhaust airflow in CFM, if known.",
           "required": false
         }
       ]

@@ -24,6 +24,8 @@ EXPECTED_INPUTS = {
             "ventilation_block",
             "ventilation.system_type",
             "ventilation_system_type",
+            "number_of_mua_units",
+            "ventilation_airflow_cfm",
             "ventilation_notes",
         ],
     }
@@ -42,6 +44,8 @@ class VentilationContext:
     condition_text: str | None
     bas_present: Any
     notes_text: str | None
+    number_of_mua_units: Any
+    ventilation_airflow_cfm: Any
 
     @classmethod
     def from_project(
@@ -74,6 +78,16 @@ class VentilationContext:
             ["ventilation_notes", "ventilation_block", "notes"],
             section="ventilation",
         )
+        number_of_mua_units = get_answer_value(
+            project,
+            ["number_of_mua_units", "mua_count"],
+            section="ventilation",
+        )
+        ventilation_airflow_cfm = get_answer_value(
+            project,
+            ["ventilation_airflow_cfm", "ventilation_cfm"],
+            section="ventilation",
+        )
         return cls(
             audit_level="L1",
             confidence="low",
@@ -85,6 +99,8 @@ class VentilationContext:
             condition_text=condition_text,
             bas_present=bas_present,
             notes_text=stringify_value(notes_value),
+            number_of_mua_units=number_of_mua_units,
+            ventilation_airflow_cfm=ventilation_airflow_cfm,
         )
 
     def system_unknown(self) -> bool:
@@ -93,6 +109,62 @@ class VentilationContext:
             or contains_unknown(self.system_type_values)
             or is_unknown_selection(self.system_type_raw)
         )
+
+
+def _coerce_list(value: Any) -> List[Any]:
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple)):
+        return list(value)
+    return [value]
+
+
+def _render_ventilation_system(system_type: str, context: VentilationContext) -> str:
+    location = (
+        f\" located in {context.location_text.strip()}\"
+        if context.location_text and context.location_text.strip()
+        else \"\"
+    )
+    if system_type in {\"mua_gas_rooftop\", \"mua_hydronic_coil\", \"mua_corridor\"}:
+        system_label = {
+            \"mua_gas_rooftop\": \"gas-fired rooftop make-up air units\",
+            \"mua_hydronic_coil\": \"hydronic-coil make-up air units\",
+            \"mua_corridor\": \"corridor make-up air units\",
+        }.get(system_type, \"make-up air units\")
+        count_text = stringify_value(context.number_of_mua_units)
+        if count_text:
+            return (
+                f\"Ventilation is primarily provided by {count_text} units of {system_label}{location}.\"
+            )
+        return f\"Ventilation is primarily provided by {system_label}{location}.\"
+    if system_type == \"heat_recovery_ventilator\":
+        return f\"Ventilation is provided by a heat recovery ventilator system{location}.\"
+    if system_type == \"doas\":
+        return f\"Ventilation is provided by a dedicated outdoor air system{location}.\"
+    if system_type == \"suite_erv_hrv\":
+        return f\"Ventilation is delivered via suite-level ERV/HRV units{location}.\"
+    if system_type == \"exhaust_only\":
+        return f\"Ventilation is provided by exhaust-only systems{location}.\"
+    return \"\"
+
+
+def _resolve_system_types(system_type_raw: Any) -> List[str]:
+    values = _coerce_list(system_type_raw)
+    return [
+        value
+        for value in values
+        if isinstance(value, str) and \"unknown\" not in value.lower()
+    ]
+
+
+def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
+    project = context if isinstance(context, dict) and \"answers\" in context else {\"answers\": context}
+    ctx = VentilationContext.from_project(project, mapping=mapping)
+    system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    if not system_types:
+        return not_confirmed_sentence(\"The central ventilation system type\")
+    sentences = [_render_ventilation_system(value, ctx) for value in system_types]
+    return \" \".join(sentence for sentence in sentences if sentence)
 
 
 def render_block(
@@ -105,16 +177,20 @@ def render_block(
     paragraphs: list[str] = []
     sentences: list[str] = []
     system_unknown = context.system_unknown()
+    system_types = _resolve_system_types(context.system_type_raw)
 
-    if not system_unknown:
-        system_type = human_join(context.system_type_values)
-        location = ""
-        if context.location_text and context.location_text.strip():
-            location = f" located in {context.location_text.strip()}"
-        sentences.append(f"Ventilation is primarily provided by {system_type}{location}.")
+    if system_types:
+        sentences.extend(
+            sentence for sentence in (_render_ventilation_system(value, context) for value in system_types) if sentence
+        )
     else:
         sentences.append(not_confirmed_sentence("The central ventilation system type"))
         sentences.append(further_investigation_sentence("the primary ventilation strategy"))
+
+    if context.ventilation_airflow_cfm:
+        sentences.append(
+            f\"Reported ventilation airflow is approximately {stringify_value(context.ventilation_airflow_cfm)} CFM.\"
+        )
 
     if context.condition_text:
         sentences.append(
