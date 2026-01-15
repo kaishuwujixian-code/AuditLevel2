@@ -71,7 +71,11 @@ def render_block(
         return context.override_text
 
     if not context.selected_measures:
-        return "No energy conservation measures are proposed as part of this Level 1 walk-through."
+        return (
+            "No energy conservation measures are proposed as part of this Level 1 walk-through "
+            "energy audit. Opportunities identified during the site visit may be further "
+            "evaluated as part of a future detailed assessment."
+        )
 
     ordered = _order_selected_measures(context.selected_measures, catalog)
 
@@ -311,42 +315,123 @@ def _render_measure_narrative(
         measure = get_measure(measure_id, catalog)
         narrative = _build_default_narrative(measure)
     if notes_override:
-        notes_sentence = ensure_sentence(f"Notes: {notes_override}")
-        if notes_sentence:
-            narrative = " ".join([narrative, notes_sentence]) if narrative else notes_sentence
+        notes_section = _build_notes_section(notes_override)
+        if notes_section:
+            narrative = "\n\n".join([narrative, notes_section]) if narrative else notes_section
     return narrative
 
 
 def _build_default_narrative(measure: Dict[str, str]) -> str:
-    sentences: List[str] = []
     existing = extract_first_sentence(measure.get("existing", ""))
-    if existing:
-        sentences.append(ensure_sentence(f"Existing condition: {existing}"))
-    else:
-        sentences.append(
-            ensure_sentence(
-                "Existing condition: details were not confirmed at the time of the site visit"
-            )
-        )
+    existing_detail = existing or "operates with conditions that were not fully confirmed"
+    general_condition = _infer_general_condition(existing)
+    existing_lead_in = _build_existing_lead_in(existing_detail)
+    existing_paragraph = (
+        f"{existing_lead_in} The existing system appears to be {general_condition}, "
+        "with limited optimization or modern control strategies in place."
+    )
 
     recommendation = extract_first_sentence(measure.get("retrofit", ""))
-    if recommendation:
-        if recommendation.lower().startswith("mann"):
-            sentences.append(ensure_sentence(f"Recommendation: {recommendation}"))
-        else:
-            sentences.append(ensure_sentence(f"Recommendation: Mann recommends {recommendation}"))
-    else:
-        sentences.append(ensure_sentence("Recommendation: additional review is recommended"))
+    recommendation_detail = _normalize_recommendation(recommendation)
+    if not recommendation_detail:
+        recommendation_detail = "targeted efficiency upgrades"
+    recommendation_paragraph = (
+        "Mann recommends implementing "
+        f"{recommendation_detail} to improve system efficiency, operational reliability, "
+        "and overall energy performance. This measure is considered appropriate for a "
+        "Level 1 walk-through assessment and does not require detailed engineering at this stage."
+    )
 
-    rationale = extract_first_sentence(measure.get("summary", ""))
-    if rationale:
-        sentences.append(ensure_sentence(f"Rationale: {rationale}"))
-    else:
-        sentences.append(
-            ensure_sentence("Rationale: this measure is expected to improve energy performance")
+    key_inefficiency = _normalize_key_inefficiency(
+        extract_first_sentence(measure.get("summary", ""))
+    )
+    rationale_paragraph = (
+        "This measure is expected to reduce energy consumption by addressing "
+        f"{key_inefficiency}, while also improving system controllability and long-term "
+        "maintainability. Additional benefits may include reduced operating costs and improved "
+        "occupant comfort."
+    )
+
+    notes_paragraph = (
+        "Final design details, savings, and implementation feasibility should be confirmed "
+        "during a subsequent Level 2 energy audit or detailed design phase."
+    )
+
+    sections = [
+        "Existing Conditions\n" + ensure_sentence(existing_paragraph),
+        "Recommendation\n" + ensure_sentence(recommendation_paragraph),
+        "Rationale\n" + ensure_sentence(rationale_paragraph),
+        "Notes / Limitations\n" + ensure_sentence(notes_paragraph),
+    ]
+    return "\n\n".join(sections)
+
+
+def _normalize_recommendation(recommendation: str) -> str:
+    if not recommendation:
+        return ""
+    lowered = recommendation.strip()
+    lowered_clean = lowered.lower()
+    for prefix in (
+        "mann recommends",
+        "mann recommended",
+        "mann proposes",
+        "mann propose",
+    ):
+        if lowered_clean.startswith(prefix):
+            lowered = lowered[len(prefix) :].strip(" :.-")
+            lowered_clean = lowered.lower()
+            break
+    if lowered_clean.startswith("implementing "):
+        lowered = lowered[len("implementing ") :].strip()
+    if lowered.lower().startswith("that "):
+        lowered = lowered[5:].strip()
+    return lowered
+
+
+def _normalize_key_inefficiency(summary: str) -> str:
+    if not summary:
+        return "identified operational inefficiencies"
+    trimmed = summary.strip()
+    lowered = trimmed.lower()
+    if lowered.startswith(
+        (
+            "modernise",
+            "modernize",
+            "upgrade",
+            "replace",
+            "install",
+            "implement",
+            "retrofit",
+            "optimize",
         )
+    ):
+        return "identified operational inefficiencies"
+    return trimmed.rstrip(".")
 
-    return " ".join(sentence for sentence in sentences if sentence)
+
+def _infer_general_condition(existing: str) -> str:
+    if not existing:
+        return "functional"
+    lowered = existing.lower()
+    if any(term in lowered for term in ("aging", "aged", "obsolete", "past its", "end of life")):
+        return "aging"
+    if "fair" in lowered:
+        return "fair"
+    return "functional"
+
+
+def _build_notes_section(notes_override: str) -> str:
+    if not notes_override:
+        return ""
+    return "Notes / Limitations\n" + ensure_sentence(str(notes_override).strip())
+
+
+def _build_existing_lead_in(existing_detail: str) -> str:
+    detail = existing_detail.strip()
+    lowered = detail.lower()
+    if lowered.startswith(("the building", "building", "there is", "there are")):
+        return f"Based on the site walk-through, {detail}"
+    return f"Based on the site walk-through, the building currently {detail}."
 
 
 def _split_lines(value: str) -> list[str]:
