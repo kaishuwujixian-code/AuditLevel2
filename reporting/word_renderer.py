@@ -6,7 +6,8 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 
-from reporting.narratives import facility_overview
+from core.measure_catalog import load_measure_catalog
+from reporting.narratives import facility_overview, measures as measure_narratives
 from reporting.narratives.registry import KNOWN_BLOCK_PLACEHOLDERS, get_block_renderer
 
 
@@ -225,6 +226,8 @@ def render_word(
         )
         facility_overview.apply_facility_placeholders(project_data, placeholder_map)
 
+    mapping_data = _load_mapping(mapping_path)
+    base_placeholder_map = dict(placeholder_map)
     block_placeholders = [ph for ph in placeholder_occurrences if _is_block_placeholder(ph)]
     placeholder_map = {
         placeholder: value
@@ -232,13 +235,30 @@ def render_word(
         if not _is_block_placeholder(placeholder)
     }
 
+    measure_catalog = None
+    if any(
+        ph in ("{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}") for ph in block_placeholders
+    ):
+        try:
+            measure_catalog = load_measure_catalog()
+        except FileNotFoundError:
+            measure_catalog = None
+
     blocks_rendered: List[str] = []
     blocks_unresolved: List[str] = []
     block_replacements: Dict[str, str] = {}
     for placeholder in block_placeholders:
         renderer = get_block_renderer(placeholder)
         if renderer:
-            rendered_text = renderer(project_data)
+            renderer_kwargs: Dict[str, Any] = {"schema": None, "mapping": mapping_data}
+            if placeholder in ("{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"):
+                renderer_kwargs.update(
+                    {
+                        "catalog": measure_catalog,
+                        "placeholders": base_placeholder_map,
+                    }
+                )
+            rendered_text = renderer(project_data, **renderer_kwargs)
         else:
             rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
         if not _has_meaningful_value(rendered_text):
@@ -288,6 +308,12 @@ def render_word(
         "blocks_rendered": blocks_rendered,
         "blocks_unresolved": blocks_unresolved,
     }
+    if any(
+        ph in ("{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}") for ph in block_placeholders
+    ):
+        summary["measures_rendered_count"] = measure_narratives.count_selected_measures(
+            project_data, catalog=measure_catalog
+        )
 
     if strict and unresolved:
         summary["strict_error"] = True
