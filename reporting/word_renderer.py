@@ -178,26 +178,25 @@ def render_word(
     strict: bool = False,
 ) -> Dict[str, Any]:
     """
-    Render a Word document by replacing simple placeholders using answers from project JSON.
+    Render a Word document by replacing placeholders using project JSON.
 
     Note: python-docx does not expose text inside shapes/textboxes, so those placeholders
-    may remain unresolved.
+    may remain unresolved until the XML fallback replacement runs.
     """
     with open(project_json_path, "r", encoding="utf-8") as handle:
         project_data = json.load(handle)
-
-    answers = project_data.get("answers", {})
-    if not isinstance(answers, dict):
-        raise ValueError("project['answers'] must be a JSON object.")
 
     doc = Document(template_path)
     placeholder_occurrences = _collect_placeholders_from_docx(template_path)
     placeholder_set = set(placeholder_occurrences)
 
     project_placeholders = project_data.get("placeholders")
-    if isinstance(project_placeholders, dict) and project_placeholders:
+    if "placeholders" in project_data and isinstance(project_placeholders, dict):
         placeholder_map = _build_placeholder_map_from_placeholders(project_placeholders)
     else:
+        answers = project_data.get("answers", {})
+        if not isinstance(answers, dict):
+            raise ValueError("project['answers'] must be a JSON object.")
         placeholder_map = _build_placeholder_map_from_answers(
             answers, placeholder_set, mapping_path
         )

@@ -47,7 +47,7 @@ def main() -> int:
     if summary.get("strict_error"):
         print("Unresolved placeholders remain.", file=sys.stderr)
 
-    print("Note: python-docx does not expose text inside shapes/textboxes.")
+    print("Note: python-docx skips text inside shapes/textboxes; XML fallback will handle them.")
     return 0
 
 
