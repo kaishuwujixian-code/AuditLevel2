@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-### Run Desktop App
+### Run Questionnaire App (Commit 3)
 ```bash
 python app.py
 ```
@@ -33,10 +33,26 @@ Validate the generated schema:
 python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
 ```
 
+### Commit 3 - Questionnaire UI
+The questionnaire UI loads a schema and writes answers to `project.json` in the repo root.
+```bash
+python app.py
+```
+The app expects a schema JSON file (default: `schemas/level1_questionnaire.schema.json`). Use the **Select schema…** button to load another schema file if needed.
+
+Manual test checklist:
+1. Run `python app.py` and confirm the window opens.
+2. Click **Select schema…** and load `schemas/level1_questionnaire.schema.json`.
+3. Fill a few text/notes fields.
+4. Choose a single-select option and a multi-select option.
+5. Click **Add photos…** and select one or more files.
+6. Click **Save Project** and confirm `project.json` is created in the repo root.
+7. Open `project.json` and verify `meta`, `answers`, and `photos` look correct.
+
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
 ### Desktop App Smoke-Test Checklist
-1. Run `python app.py` and confirm the window opens.
+1. Run `python app_retscreen.py` and confirm the window opens.
 2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
 3. File → Save As, confirm it writes to `projects/<slug>/project.json`.
 4. File → Open an existing project.json and confirm fields load.

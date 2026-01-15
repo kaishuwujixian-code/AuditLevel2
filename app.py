@@ -1,13 +1,11 @@
 import tkinter as tk
 
-from ui.main_window import MainWindow
-from ui.project_browser import ProjectBrowserApp
+from ui.questionnaire_app import QuestionnaireApp
 
 
 def main() -> None:
     root = tk.Tk()
-    MainWindow(root)
-    ProjectBrowserApp(root)
+    QuestionnaireApp(root)
     root.mainloop()
 
 
