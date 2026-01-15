@@ -278,12 +278,15 @@ class QuestionnaireApp:
                 continue
             answers[question_id] = value
 
+        placeholders = self._build_placeholders(answers)
+
         payload = {
             "meta": {
                 "schema_path": self.schema_path_var.get(),
                 "generated_at": datetime.now(timezone.utc).isoformat(),
             },
             "answers": answers,
+            "placeholders": placeholders,
             "photos": photos,
         }
 
@@ -295,3 +298,20 @@ class QuestionnaireApp:
             return
 
         self.status_var.set(f"Saved OK: {project_path.resolve()}")
+
+    def _build_placeholders(self, answers: Dict[str, Any]) -> Dict[str, Any]:
+        if not self._schema_data:
+            return {}
+        placeholders = set(self._schema_data.get("placeholders", []))
+        sections = self._schema_data.get("sections", [])
+        placeholder_values: Dict[str, Any] = {}
+        for section in sections:
+            for question in section.get("questions", []):
+                question_id = question.get("id")
+                if not question_id or question_id not in answers:
+                    continue
+                value = answers[question_id]
+                for target in question.get("placeholder_targets", []):
+                    if target in placeholders:
+                        placeholder_values[target] = value
+        return placeholder_values

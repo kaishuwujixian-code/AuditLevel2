@@ -51,8 +51,8 @@ Manual test checklist:
 
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
-### Commit 4 - Minimal Word renderer
-Render simple placeholders into the Level 1 Word template:
+### Commit 4A - Minimal Word renderer
+Render simple placeholders into the Level 1 Word template (uses `project.json` placeholders):
 ```bash
 python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
 ```
