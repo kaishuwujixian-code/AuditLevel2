@@ -225,6 +225,17 @@
       }
     },
     {
+      "match": {"type": "exact", "value": "{FINDINGS_BLOCK}"},
+      "question": {
+        "id": "findings_block",
+        "title": "Walkthrough findings (manual override)",
+        "type": "notes",
+        "section_id": "findings",
+        "help": "Optional manual override for the walkthrough findings narrative.",
+        "required": false
+      }
+    },
+    {
       "match": {"type": "exact", "value": "{MEASURE_BLOCK}"},
       "question": {
         "id": "measures_block_override",

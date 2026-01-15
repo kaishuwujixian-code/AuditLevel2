@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import zipfile
 from pathlib import Path
+
+from docx import Document
 
 from core.project_store import load_project, save_project
 from core.questionnaire import apply_answers_to_project, load_questionnaire_schema
@@ -28,7 +31,7 @@ def test_project_roundtrip_and_render(tmp_path: Path) -> None:
     )
 
     apply_answers_to_project(project, answers, schema, {"{ClientName}": "Acme Client"})
-    project["selected_measures"] = ["BAS Upgrade"]
+    project["selected_measures"] = ["BAS Upgrade", "Condensing Boiler Retrofit"]
     project["measure_overrides"] = {"BAS Upgrade": "Override narrative for BAS upgrade."}
 
     project_path = tmp_path / "project.json"
@@ -45,3 +48,40 @@ def test_project_roundtrip_and_render(tmp_path: Path) -> None:
         out_path=str(output_path),
     )
     assert output_path.exists()
+
+    doc = Document(str(output_path))
+    doc_text = "\n".join(_collect_doc_text(doc))
+    assert "Building Automation System Upgrade" in doc_text
+    assert "Hydronic balancing review" in doc_text
+
+    with zipfile.ZipFile(output_path) as archive:
+        xml = archive.read("word/document.xml").decode("utf-8", errors="ignore")
+    assert "{MEASURE_BLOCK}" not in xml
+    assert "{FINDINGS_BLOCK}" not in xml
+
+
+def _collect_doc_text(doc: Document) -> list[str]:
+    paragraphs = []
+    for paragraph in doc.paragraphs:
+        if paragraph.text:
+            paragraphs.append(paragraph.text)
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    if paragraph.text:
+                        paragraphs.append(paragraph.text)
+                paragraphs.extend(_collect_table_text(cell.tables))
+    return paragraphs
+
+
+def _collect_table_text(tables: list) -> list[str]:
+    paragraphs = []
+    for table in tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    if paragraph.text:
+                        paragraphs.append(paragraph.text)
+                paragraphs.extend(_collect_table_text(cell.tables))
+    return paragraphs

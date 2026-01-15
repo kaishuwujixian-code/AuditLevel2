@@ -3,6 +3,7 @@
     "{Central Heating/Cooling Systems block}",
     "{Central Ventilation System Block}",
     "{DHW System Block}",
+    "{FINDINGS_BLOCK}",
     "{MEASURE_BLOCK}",
     "{MEASURE_SUMMARY_ROW}",
     "{Miscellaneous Block}"
@@ -18,6 +19,7 @@
     "{Date Constructed}",
     "{DateDocument}",
     "{District}",
+    "{FINDINGS_BLOCK}",
     "{MEASURE_BLOCK}",
     "{MEASURE_SUMMARY_ROW}",
     "{Miscellaneous Block}",
@@ -31,8 +33,8 @@
     "{Suite Types}"
   ],
   "stats": {
-    "blocks": 6,
-    "total": 20
+    "blocks": 7,
+    "total": 21
   },
   "template": "templates/level1.docx"
 }
