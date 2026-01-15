@@ -1,19 +1,37 @@
 {
-  "project_info": {
-    "client_name": "Demo Client",
-    "site_address": "123 Main St",
-    "building_name": "Demo Building",
-    "report_date": "2026-01-13",
-    "prepared_by": "Ken"
+  "meta": {
+    "schema_path": "schemas\\level1_questionnaire.schema.json",
+    "generated_at": "2026-01-15T02:53:31.923787+00:00"
   },
-  "selected_measures": [
-    "BAS Upgrade",
-    "Condensing Boiler Retrofit"
-  ],
-  "notes": {
-    "general_site_notes": "",
-    "safety_hazards_observed": [],
-    "maintenance_issues_observed": [],
-    "comfort_complaints_reported": []
-  }
+  "answers": {
+    "site_address": "45 Charles St E",
+  "city": "Toronto",
+  "district": "Yorkville",
+  "province": "Ontario",
+  "province_abbreviation": "ON",
+  "number_of_floors": "12",
+  "number_of_suites": "180",
+  "architectural_condition": "The building envelope and common areas appear to be in fair condition based on a visual review.",
+  "heating_system_type": "condensing_boiler",
+  "heating_serves": ["serves_fancoil", "serves_ahu"]
+  },
+  "placeholders": {
+    "{DHW System Block}": "",
+    "{Architectural Condition}": null,
+    "{City}": "",
+    "{ClientName}": "",
+    "{Date Constructed}": "",
+    "{Post Code}": "",
+    "{Province}": "",
+    "{Property Address1}": "",
+    "{Suite Types}": "",
+    "{Miscellaneous Block}": "",
+    "{Central Heating/Cooling Systems block}": "condensing boiler",
+    "{MEASURE_BLOCK}": "",
+    "{MEASURE_SUMMARY_ROW}": "",
+    "{District}": "",
+    "{Province Abbreviation}": "",
+    "{Central Ventilation System Block}": ""
+  },
+  "photos": []
 }
