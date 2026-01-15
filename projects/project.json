@@ -3,18 +3,29 @@
     "architectural_condition": null,
     "city": "Toronto",
     "client_name": "Charz YorkVille",
+    "cooling_controls_notes": "no BAS ",
+    "cooling_location": "pent house mechanical room",
+    "cooling_notes": "",
+    "cooling_serves": [
+      "serves_fancoil",
+      "serves_mua"
+    ],
+    "cooling_system_type": "chiller_water",
     "date_constructed": "2015",
     "dhw_block": "",
+    "dhw_location": "pent house  mechanical room",
+    "dhw_notes": "storage tank poor condition",
     "dhw_system_type": "dhw_boiler_condensing",
     "district": "Yorkville",
     "district_50b69d": "",
     "heating_block": "",
-    "heating_controls_notes": "Control sequences were not confirmed at the time of the site visit.",
+    "heating_controls_notes": "no BAS system",
     "heating_distribution_notes": "Heat is distributed through fan coil units and AHUs.",
-    "heating_location": "Mechanical room (location not confirmed).",
+    "heating_location": "Penthouse Mechanical room",
+    "heating_notes": "in put temperature too high, no delta T",
     "heating_serves": [
       "serves_fancoil",
-      "serves_ahu"
+      "serves_mua"
     ],
     "heating_system_type": "condensing_boiler",
     "measures": [],
@@ -27,26 +38,22 @@
     "province_abbreviation_ff26b8": "",
     "report_date": "Jan 15 2026",
     "site_address": "45 Charles St E",
-    "suite_types": "['3 Bed-room', '2 bed room']",
+    "suite_types": "3 bed room + 2 bed room + 1 bed room/ studio",
     "ventilation_block": "",
-    "ventilation_system_type": "mua"
+    "ventilation_location": "roof top",
+    "ventilation_notes": "hydronic heating and cooling coil, served by central mechanical plant",
+    "ventilation_system_type": "mua_corridor"
   },
   "checklist_selections": {
     "Walkthrough Findings": {
       "Operations & Maintenance": [
-        "Schedules verified with staff",
-        "Setpoints reasonable",
-        "No overrides left in hand"
+        "Schedules verified with staff"
       ],
       "Opportunities": [
-        "BAS scheduling optimization",
-        "VFD potential on pumps/fans",
-        "Hydronic balancing review"
+        "BAS scheduling optimization"
       ],
       "Safety Hazards": [
-        "Combustion air openings unobstructed",
-        "No storage in boiler room",
-        "Flue venting appears intact"
+        "Combustion air openings unobstructed"
       ]
     }
   },
