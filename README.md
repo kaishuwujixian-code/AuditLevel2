@@ -51,6 +51,17 @@ Manual test checklist:
 
 Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets (including `measure_catalog_path`). Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
 
+### Commit 4A - Minimal Word renderer
+Render simple placeholders into the Level 1 Word template (uses `project.json` placeholders):
+```bash
+python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
+```
+
+Manual test checklist:
+1. Run `python app.py`, fill ClientName/City/Province, and save `projects/project.json`.
+2. Run the render command above.
+3. Open `outputs/level1_rendered.docx` and confirm the placeholders are replaced.
+
 ### Desktop App Smoke-Test Checklist
 1. Run `python app_retscreen.py` and confirm the window opens.
 2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
