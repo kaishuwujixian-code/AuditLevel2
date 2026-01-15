@@ -3,7 +3,7 @@ import os
 import subprocess
 import sys
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import filedialog, messagebox, ttk
 from typing import Dict, Optional
 
 from core.paths import (
@@ -13,79 +13,81 @@ from core.paths import (
     PROJECTS_DIR,
 )
 from core.project_store import (
-    ProjectSummary,
     default_output_path_for_project,
-    default_output_path_for_summary,
     load_project,
     save_project,
-    scan_project_summaries,
 )
+from core.questionnaire import load_questionnaire_schema
 from core.template_store import TemplateData, load_template
-from reporting.level1_generator import generate_level1_report
-from ui.detail_panel import DetailPanel
-from ui.navigation_tree import NavigationTree
-from ui.ribbon import Ribbon
-from ui.workspace_table import WorkspaceTable
 from main import _validate_inputs
+from reporting.word_renderer import render_word
+from ui.checklist_panel import ChecklistPanel
+from ui.diagnostics_panel import DiagnosticsPanel
+from ui.measures_panel import MeasuresPanel
+from ui.questionnaire_panel import QuestionnairePanel
+from ui.report_panel import ReportPanel
 
 
 class RetScreenApp:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
-        self.root.title("RETScreen-style Audit Studio")
+        self.root.title("Audit Studio")
         self.root.geometry("1280x720")
         self._template: Optional[TemplateData] = None
+        self._schema: Optional[Dict] = None
         self._project_data: Optional[Dict] = None
         self._project_path: Optional[str] = None
-        self._project_summaries: list[ProjectSummary] = []
         self._status_var = tk.StringVar(value="Ready")
-        self._build_ui()
         self._load_template()
-        self.refresh_projects()
+        self._load_schema()
+        self._build_ui()
+        self.new_project()
 
     def _build_ui(self) -> None:
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(1, weight=1)
 
-        ribbon_actions = {
-            "open_projects": self.open_projects_folder,
-            "open_output": self.open_output_folder,
-            "settings": self.show_settings,
-            "exit": self.root.destroy,
-            "generate_selected": self.generate_selected,
-            "generate_all": self.generate_all,
-            "validate": self.validate_project,
-            "save": self.save_project,
-            "export": self.placeholder_export,
-        }
+        toolbar = ttk.Frame(self.root, padding=(8, 6))
+        toolbar.grid(row=0, column=0, sticky="ew")
+        toolbar.columnconfigure(0, weight=1)
 
-        ribbon = Ribbon(self.root, ribbon_actions)
-        ribbon.grid(row=0, column=0, sticky="ew")
+        button_frame = ttk.Frame(toolbar)
+        button_frame.grid(row=0, column=0, sticky="w")
+        ttk.Button(button_frame, text="Open", command=self.open_project_dialog).grid(
+            row=0, column=0, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="Save", command=self.save_project).grid(
+            row=0, column=1, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="Validate", command=self.validate_project).grid(
+            row=0, column=2, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="Generate Report", command=self.generate_report).grid(
+            row=0, column=3, padx=(0, 6)
+        )
+        ttk.Button(
+            button_frame, text="Open Output Folder", command=self.open_output_folder
+        ).grid(row=0, column=4, padx=(0, 6))
 
         content = ttk.Frame(self.root)
         content.grid(row=1, column=0, sticky="nsew")
-        content.columnconfigure(1, weight=1)
+        content.columnconfigure(0, weight=1)
         content.rowconfigure(0, weight=1)
 
-        nav_frame = ttk.Frame(content)
-        nav_frame.grid(row=0, column=0, sticky="nsew")
-        nav_frame.rowconfigure(0, weight=1)
-        nav_frame.columnconfigure(0, weight=1)
+        self._notebook = ttk.Notebook(content)
+        self._notebook.grid(row=0, column=0, sticky="nsew", padx=6, pady=6)
 
-        self.navigation = NavigationTree(nav_frame, self.load_project)
-        self.navigation.grid(row=0, column=0, sticky="nsew", padx=(6, 0), pady=6)
+        self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
+        self._measures_tab = MeasuresPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
+        self._checklist_tab = ChecklistPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
+        self._report_tab = ReportPanel(self._notebook, self.generate_report)
+        self._diagnostics_tab = DiagnosticsPanel(self._notebook)
 
-        workspace_frame = ttk.Frame(content)
-        workspace_frame.grid(row=0, column=1, sticky="nsew")
-        workspace_frame.columnconfigure(0, weight=3)
-        workspace_frame.columnconfigure(1, weight=2)
-        workspace_frame.rowconfigure(0, weight=1)
-
-        self.workspace = WorkspaceTable(workspace_frame, self.on_measure_selected)
-        self.workspace.grid(row=0, column=0, sticky="nsew", padx=6, pady=6)
-
-        self.details = DetailPanel(workspace_frame)
-        self.details.grid(row=0, column=1, sticky="nsew", padx=(0, 6), pady=6)
+        self._notebook.add(self._inputs_tab, text="Inputs")
+        self._notebook.add(self._measures_tab, text="Measures")
+        self._notebook.add(self._checklist_tab, text="Checklist")
+        self._notebook.add(self._report_tab, text="Report")
+        self._notebook.add(self._diagnostics_tab, text="Diagnostics")
 
         status_bar = ttk.Label(
             self.root,
@@ -108,86 +110,105 @@ class RetScreenApp:
         except Exception as exc:
             self._set_status(f"Template error: {exc}")
 
-    def refresh_projects(self) -> None:
-        summaries, errors = scan_project_summaries(PROJECTS_DIR)
-        self._project_summaries = summaries
-        self.navigation.populate(summaries)
-        message = f"Loaded {len(summaries)} project(s)."
-        if errors:
-            message += f" {len(errors)} file(s) skipped."
-            for error in errors:
-                print(error)
-        self._set_status(message)
+    def _load_schema(self) -> None:
+        try:
+            self._schema = load_questionnaire_schema(
+                os.path.join("schemas", "level1_questionnaire.schema.json")
+            )
+        except Exception as exc:
+            self._set_status(f"Schema error: {exc}")
+
+    def new_project(self) -> None:
+        self._project_data = {
+            "project_info": {
+                "client_name": "",
+                "site_address": "",
+                "building_name": "",
+                "report_date": "",
+                "prepared_by": "",
+            },
+            "answers": {},
+            "selected_measures": [],
+            "measure_overrides": {},
+            "checklist_selections": {},
+            "notes": {"general_site_notes": ""},
+        }
+        self._project_path = None
+        self._load_project_into_tabs()
+        self._set_status("Started new project.")
 
     def load_project(self, project_path: str) -> None:
-        if not self._template:
-            self._set_status("Template not loaded.")
+        if not self._template or not self._schema:
+            self._set_status("Template or schema not loaded.")
             return
         try:
             self._project_data = load_project(project_path)
             self._project_path = project_path
-            self.workspace.load_project(self._template, self._project_data)
-            self.details.load_project(self._template, self._project_data)
+            self._load_project_into_tabs()
             self._set_status(f"Loaded project: {project_path}")
         except Exception as exc:
             self._set_status(f"Error loading project: {exc}")
 
-    def on_measure_selected(self, measure_key: str) -> None:
-        self.details.set_measure_preview(measure_key)
+    def open_project_dialog(self) -> None:
+        path = filedialog.askopenfilename(
+            title="Open project.json",
+            initialdir=PROJECTS_DIR,
+            filetypes=[("Project JSON", "project.json"), ("JSON files", "*.json")],
+        )
+        if path:
+            self.load_project(path)
+
+    def _load_project_into_tabs(self) -> None:
+        if not self._project_data:
+            return
+        if self._schema:
+            self._inputs_tab.load_project(self._project_data)
+        if self._template:
+            self._measures_tab.load_project(self._project_data)
+            self._checklist_tab.load_project(self._project_data)
 
     def save_project(self) -> None:
         if not self._project_path or not self._project_data:
-            self._set_status("No project loaded.")
-            return
+            path = filedialog.asksaveasfilename(
+                title="Save project.json",
+                initialdir=PROJECTS_DIR,
+                defaultextension=".json",
+                filetypes=[("Project JSON", "*.json")],
+                initialfile="project.json",
+            )
+            if not path:
+                self._set_status("Save cancelled.")
+                return
+            self._project_path = path
         try:
-            self.details.update_project_notes()
+            self._sync_project_data()
             save_project(self._project_path, self._project_data)
             self._set_status(f"Saved project: {self._project_path}")
         except Exception as exc:
             self._set_status(f"Save failed: {exc}")
 
-    def generate_selected(self) -> None:
+    def generate_report(self) -> None:
         if not self._project_path or not self._project_data:
             self._set_status("Select a project to generate.")
             return
         if not self._ensure_templates():
             return
         try:
-            self.details.update_project_notes()
+            self._sync_project_data()
             save_project(self._project_path, self._project_data)
             os.makedirs(OUTPUT_DIR, exist_ok=True)
             out_path = default_output_path_for_project(
                 self._project_data, self._project_path, OUTPUT_DIR
             )
-            generate_level1_report(
-                self._project_path,
-                DEFAULT_TEMPLATE_JSON,
-                DEFAULT_TEMPLATE_DOCX,
-                out_path,
+            render_word(
+                template_path=DEFAULT_TEMPLATE_DOCX,
+                project_json_path=self._project_path,
+                out_path=out_path,
             )
+            self._report_tab.update_output(out_path)
             self._set_status(f"Generated: {out_path}")
         except Exception as exc:
             self._set_status(f"Generate failed: {exc}")
-
-    def generate_all(self) -> None:
-        if not self._ensure_templates():
-            return
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        completed = 0
-        for summary in self._project_summaries:
-            try:
-                out_path = default_output_path_for_summary(summary, OUTPUT_DIR)
-                generate_level1_report(
-                    summary.path,
-                    DEFAULT_TEMPLATE_JSON,
-                    DEFAULT_TEMPLATE_DOCX,
-                    out_path,
-                )
-                completed += 1
-            except Exception as exc:
-                self._set_status(f"Generate failed for {summary.name}: {exc}")
-                return
-        self._set_status(f"Generated {completed} report(s) in {OUTPUT_DIR}.")
 
     def validate_project(self) -> None:
         if not self._project_path:
@@ -201,6 +222,8 @@ class RetScreenApp:
             sys.stdout = output
             sys.stderr = error_output
             try:
+                self._sync_project_data()
+                save_project(self._project_path, self._project_data)
                 _validate_inputs(
                     self._project_path, DEFAULT_TEMPLATE_JSON, DEFAULT_TEMPLATE_DOCX
                 )
@@ -211,6 +234,7 @@ class RetScreenApp:
             warnings = error_output.getvalue().strip()
             if warnings:
                 message = f"{message}\n\nWarnings:\n{warnings}"
+            self._diagnostics_tab.set_output(message)
             messagebox.showinfo("Validation", message)
             self._set_status("Validation complete.")
         except Exception as exc:
@@ -222,12 +246,6 @@ class RetScreenApp:
 
     def open_output_folder(self) -> None:
         self._open_folder(OUTPUT_DIR, "output")
-
-    def show_settings(self) -> None:
-        messagebox.showinfo("Settings", "Settings will be available in a future update.")
-
-    def placeholder_export(self) -> None:
-        messagebox.showinfo("Export", "Export is not available yet.")
 
     def _open_folder(self, path: str, label: str) -> None:
         try:
@@ -250,3 +268,10 @@ class RetScreenApp:
             self._set_status(f"Template DOCX missing: {DEFAULT_TEMPLATE_DOCX}")
             return False
         return True
+
+    def _sync_project_data(self) -> None:
+        if not self._project_data:
+            return
+        self._inputs_tab.update_project(self._project_data)
+        self._measures_tab.update_project(self._project_data)
+        self._checklist_tab.update_project(self._project_data)

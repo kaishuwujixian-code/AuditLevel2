@@ -1,0 +1,97 @@
+{
+  "answers": {
+    "architectural_condition": null,
+    "city": "Toronto",
+    "client_name": "Charz YorkVille",
+    "date_constructed": "2015",
+    "dhw_block": "",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "district": "Yorkville",
+    "district_50b69d": "",
+    "heating_block": "",
+    "heating_controls_notes": "Control sequences were not confirmed at the time of the site visit.",
+    "heating_distribution_notes": "Heat is distributed through fan coil units and AHUs.",
+    "heating_location": "Mechanical room (location not confirmed).",
+    "heating_serves": [
+      "serves_fancoil",
+      "serves_ahu"
+    ],
+    "heating_system_type": "condensing_boiler",
+    "measures": [],
+    "misc_block": "",
+    "number_of_floors": "12",
+    "number_of_suites": "180",
+    "postal_code": "M4R 1O1",
+    "province": "Ontario",
+    "province_abbreviation": "ON",
+    "province_abbreviation_ff26b8": "",
+    "report_date": "Jan 15 2026",
+    "site_address": "45 Charles St E",
+    "suite_types": "['3 Bed-room', '2 bed room']",
+    "ventilation_block": "",
+    "ventilation_system_type": "mua"
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Operations & Maintenance": [
+        "Schedules verified with staff",
+        "Setpoints reasonable",
+        "No overrides left in hand"
+      ],
+      "Opportunities": [
+        "BAS scheduling optimization",
+        "VFD potential on pumps/fans",
+        "Hydronic balancing review"
+      ],
+      "Safety Hazards": [
+        "Combustion air openings unobstructed",
+        "No storage in boiler room",
+        "Flue venting appears intact"
+      ]
+    }
+  },
+  "measure_overrides": {},
+  "meta": {
+    "generated_at": "2026-01-15T02:53:31.923787+00:00",
+    "schema_path": "schemas\\level1_questionnaire.schema.json"
+  },
+  "photos": [],
+  "placeholders": {
+    "{Architectural Condition}": null,
+    "{Central Heating/Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Toronto",
+    "{ClientName}": "Charz YorkVille",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "2015",
+    "{DateDocument}": "Jan 15 2026",
+    "{District}": "",
+    "{MEASURE_BLOCK}": "",
+    "{MEASURE_SUMMARY_ROW}": "",
+    "{Miscellaneous Block}": "",
+    "{Number of Floors}": "12",
+    "{Number of Suites}": "180",
+    "{Post Code}": "M4R 1O1",
+    "{Property Address1}": "45 Charles St E",
+    "{Province Abbreviation}": "",
+    "{Province}": "Ontario",
+    "{Report Date}": "Jan 15 2026",
+    "{Suite Types}": "['3 Bed-room', '2 bed room']"
+  },
+  "project_info": {
+    "client_name": "Charz YorkVille",
+    "report_date": "Jan 15 2026",
+    "site_address": "45 Charles St E"
+  },
+  "selected_measures": [
+    "condensing_boiler_retrofit",
+    "primary_secondary_boiler_and_dhw_piping",
+    "mua_hydronic_conversion",
+    "ev_charging_stations",
+    "bas_install",
+    "common_area_lighting_retrofit",
+    "booster_pump_vfd",
+    "misc_maintenance_upgrades",
+    "solar_preheat_dhw"
+  ]
+}

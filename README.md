@@ -2,28 +2,29 @@
 
 ## Quick Start
 
-### Run Desktop App
+### Run the unified desktop app
 ```bash
-python app.py
+python ui/app.py
 ```
 
-### Run RETScreen-style Desktop App
+### Generate a Level 1 report (CLI)
 ```bash
-python app_retscreen.py
+python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
 ```
 
-### Questionnaire Schema
-Regenerate the schema from the Word template:
+### Validate project inputs (CLI)
 ```bash
-python tools/generate_questionnaire_schema.py --template templates/level1.docx --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
 ```
 
-Validate the generated schema:
+### Commit 1 - Extract placeholders
+Extract placeholders from the single source of truth Word template:
 ```bash
-python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --template templates/level1.docx
+python tools/extract_placeholders.py --template templates/level1.docx --out schemas/placeholders.level1.json
+
 ```
 
-Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to-question rules and option sets. Any placeholders that do not match a mapping rule are emitted under the `unmapped` section in the schema with a default text question.
+If `--out` is omitted, JSON is printed to stdout.
 
 ### Desktop App Smoke-Test Checklist
 1. Run `python app.py` and confirm the window opens.
@@ -37,34 +38,68 @@ Edit `schemas/level1_questionnaire.mapping.json` to add or adjust placeholder-to
 ### Generate a report
 Windows (PowerShell/CMD):
 ```bash
-python main.py --project project.json --template templates\\template.level1.json --docx-template templates\\level1.docx --out output\\level1_walkthrough.docx
+python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+
 ```
 
-POSIX (macOS/Linux):
+Validate the generated schema:
 ```bash
-python main.py --project project.json --template templates/template.level1.json --docx-template templates/level1.docx --out output/level1_walkthrough.docx
+python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
 ```
 
-### List available measures
-Windows:
-```bash
-python main.py --template templates\\template.level1.json --list-measures
+### Narrative blocks + facility placeholders
+The Word renderer now expands HVAC/DHW/Measures blocks into short narrative paragraphs and auto-fills key
+facility placeholders from `answers` (even when `placeholders` is present but empty).
+Narrative generation logic now lives under `reporting/narratives/` for reuse across renderers.
+Narrative modules now include consultant-grade conditional language and
+uncertainty handling to reflect available information while keeping a
+consistent professional tone.
+
+Minimal `project.json` example that produces a rich heating paragraph:
+```json
+{
+  "answers": {
+    "site_address": "45 Charles St E",
+    "district": "Yorkville",
+    "province": "Ontario",
+    "province_abbreviation": "ON",
+    "number_of_floors": "12",
+    "number_of_suites": "180",
+    "architectural_condition": "fair",
+    "heating_system_type": "condensing_boiler",
+    "heating_serves": ["serves_fancoil", "serves_ahu"],
+    "heating_notes": "Boilers were observed in the central plant; controls require verification.",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_recirc": true,
+    "dhw_notes": "DHW storage tank observed in the main mechanical room."
+  },
+  "selected_measures": ["BAS Upgrade", "Condensing Boiler Retrofit"]
+}
 ```
 
-POSIX:
+Manual test command:
 ```bash
-python main.py --template templates/template.level1.json --list-measures
+python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out output/level1_rendered.docx
 ```
 
-### Validate inputs
-Windows:
-```bash
-python main.py --project project.json --template templates\\template.level1.json --docx-template templates\\level1.docx --validate
-```
+Expected output:
+* `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
+* `{Number of Floors}`, `{Number of Suites}`, `{Architectural Condition}` are filled when provided under `answers`.
 
-POSIX:
+### Desktop App Smoke-Test Checklist
+1. Run `python app_retscreen.py` and confirm the window opens.
+2. Open or create a project, enter facility/system answers, select measures, and choose checklist findings.
+3. Save and confirm it writes to `projects/<slug>/project.json`.
+4. Re-open the same file and confirm fields load.
+5. Edit a field and Save, confirm the JSON updates and unknown keys remain.
+6. Validate Project (expect OK or warnings dialog).
+7. Generate Level 1 and confirm output in `output/`.
+
+### Legacy entry points (deprecated)
+The standalone questionnaire builder and earlier UI entry points are still available but no longer recommended:
 ```bash
-python main.py --project project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
+python app_retscreen.py
+python app.py
 ```
 
 ## Walkthrough Findings (Checklist)
