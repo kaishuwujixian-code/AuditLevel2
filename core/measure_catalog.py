@@ -14,6 +14,22 @@ class MeasureCatalog:
     legacy_key_map: Dict[str, str]
 
 
+def get_measure(measure_id: str, catalog: MeasureCatalog | None = None) -> dict:
+    if catalog is None:
+        catalog = load_measure_catalog()
+    measure = catalog.measures.get(measure_id, {})
+    title = str(measure.get("title") or measure.get("name") or "").strip()
+    return {
+        "id": measure_id,
+        "name": title,
+        "title": title,
+        "category": str(measure.get("category") or "").strip(),
+        "existing": str(measure.get("existing") or ""),
+        "retrofit": str(measure.get("retrofit") or ""),
+        "summary": str(measure.get("summary") or ""),
+    }
+
+
 def load_measure_catalog(path: str = DEFAULT_MEASURE_CATALOG) -> MeasureCatalog:
     if not path or not os.path.isfile(path):
         raise FileNotFoundError(f"Measure catalog not found: {path}")
