@@ -12,6 +12,32 @@ PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 DEFAULT_MAPPING_PATH = os.path.join("schemas", "level1_placeholders.map.json")
 DEFAULT_OPTION_SETS_PATH = os.path.join("schemas", "level1_questionnaire.mapping.json")
 DEFAULT_EMPTY_BLOCK_TEXT = ""
+DEFAULT_MEASURE_CATALOG_PATH = os.path.join("templates", "template.level1.json")
+
+PROVINCE_ABBREVIATIONS = {
+    "alberta": "AB",
+    "british columbia": "BC",
+    "manitoba": "MB",
+    "new brunswick": "NB",
+    "newfoundland and labrador": "NL",
+    "nova scotia": "NS",
+    "northwest territories": "NT",
+    "nunavut": "NU",
+    "ontario": "ON",
+    "prince edward island": "PE",
+    "quebec": "QC",
+    "saskatchewan": "SK",
+    "yukon": "YT",
+}
+
+DISTRIBUTION_OVERRIDES = {
+    "serves_wshp": "water-source heat pump units",
+    "serves_fancoil": "fan coil units",
+    "serves_radiant": "radiant distribution",
+    "serves_ahu": "air handling units (AHUs)",
+    "serves_mua": "make-up air units (MUAs)",
+    "mixed_unknown": "mixed distribution systems",
+}
 
 
 def _normalize_key(text: str) -> str:
@@ -53,6 +79,11 @@ def _stringify_value(value: Any) -> Optional[str]:
     if isinstance(value, dict):
         return json.dumps(value)
     return str(value)
+
+
+def _has_meaningful_value(value: Any) -> bool:
+    string_value = _stringify_value(value)
+    return string_value is not None and bool(string_value.strip())
 
 
 def _is_block_placeholder(placeholder: str) -> bool:
@@ -111,6 +142,28 @@ def _format_option_values(option_set: str, value: Any) -> List[str]:
     return [label for label in labels if label]
 
 
+def _format_distribution_values(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple)):
+        values = value
+    else:
+        values = [value]
+    labels: List[str] = []
+    mapping = _load_option_sets().get("hvac.heating_serves", {})
+    for item in values:
+        if isinstance(item, str) and item in DISTRIBUTION_OVERRIDES:
+            labels.append(DISTRIBUTION_OVERRIDES[item])
+        elif isinstance(item, str):
+            label = mapping.get(item, _humanize_value(item))
+            if label.lower().startswith("serves "):
+                label = label[7:]
+            labels.append(label.strip())
+        else:
+            labels.append(_humanize_value(item))
+    return [label for label in labels if label]
+
+
 def _human_join(values: List[str]) -> str:
     if not values:
         return ""
@@ -128,6 +181,23 @@ def _ensure_sentence(text: str) -> str:
     if cleaned[-1] not in ".!?":
         return f"{cleaned}."
     return cleaned
+
+
+def _contains_unknown(values: List[str]) -> bool:
+    return any("unknown" in value.lower() for value in values)
+
+
+def _is_unknown_selection(value: Any) -> bool:
+    if value is None:
+        return True
+    if isinstance(value, (list, tuple)):
+        values = value
+    else:
+        values = [value]
+    for item in values:
+        if isinstance(item, str) and "unknown" in item.lower():
+            return True
+    return False
 
 
 def _get_answer_value(
@@ -152,22 +222,18 @@ def _get_answer_value(
 
 
 def render_heating_block(project_data: Dict[str, Any]) -> str:
-    system_type_values = _format_option_values(
-        "hvac.heating_system_type",
-        _get_answer_value(
-            project_data,
-            ["hvac.heating_system_type", "heating_system_type", "system_type"],
-            section="heating",
-        ),
+    system_type_raw = _get_answer_value(
+        project_data,
+        ["hvac.heating_system_type", "heating_system_type", "system_type"],
+        section="heating",
     )
-    serves_values = _format_option_values(
-        "hvac.heating_serves",
-        _get_answer_value(
-            project_data,
-            ["hvac.heating_serves", "heating_serves", "serves"],
-            section="heating",
-        ),
+    system_type_values = _format_option_values("hvac.heating_system_type", system_type_raw)
+    distribution_raw = _get_answer_value(
+        project_data,
+        ["hvac.heating_serves", "heating_serves", "serves"],
+        section="heating",
     )
+    serves_values = _format_distribution_values(distribution_raw)
     notes_value = _get_answer_value(
         project_data,
         ["heating_notes", "heating_block", "notes"],
@@ -175,30 +241,49 @@ def render_heating_block(project_data: Dict[str, Any]) -> str:
     )
 
     sentences: List[str] = []
-    if system_type_values:
+    system_unknown = (
+        not system_type_values
+        or _contains_unknown(system_type_values)
+        or _is_unknown_selection(system_type_raw)
+    )
+    distribution_unknown = (
+        not serves_values
+        or _contains_unknown(serves_values)
+        or _is_unknown_selection(distribution_raw)
+    )
+
+    if not system_unknown:
         system_type = _human_join(system_type_values)
-        sentences.append(f"The building is served by a {system_type} heating system.")
-    if serves_values:
+        sentences.append(f"The building is served by a {system_type} heating plant.")
+    else:
+        sentences.append("The heating plant type was not confirmed at the time of the site visit.")
+
+    if not distribution_unknown:
         serves = _human_join(serves_values)
-        sentences.append(f"The system provides space heating to {serves}.")
+        sentences.append(f"Heat is distributed through {serves}.")
+    else:
+        sentences.append(
+            "The heating distribution system was not confirmed at the time of the site visit."
+        )
+
+    sentences.append(
+        "Additional details on equipment condition and control sequences were not confirmed at the time of the site visit."
+    )
+
     notes_text = _stringify_value(notes_value)
-    if notes_text:
+    if notes_text and notes_text.strip():
         sentences.append(_ensure_sentence(notes_text))
 
-    if not sentences:
-        return DEFAULT_EMPTY_BLOCK_TEXT
-    return " ".join(sentences)
+    return " ".join(sentences[:6])
 
 
 def render_dhw_block(project_data: Dict[str, Any]) -> str:
-    system_type_values = _format_option_values(
-        "dhw.system_type",
-        _get_answer_value(
-            project_data,
-            ["dhw.system_type", "dhw_system_type", "system_type"],
-            section="dhw",
-        ),
+    system_type_raw = _get_answer_value(
+        project_data,
+        ["dhw.system_type", "dhw_system_type", "system_type"],
+        section="dhw",
     )
+    system_type_values = _format_option_values("dhw.system_type", system_type_raw)
     heat_source_value = _get_answer_value(
         project_data,
         ["dhw_heat_source", "heat_source", "dhw_source"],
@@ -209,49 +294,134 @@ def render_dhw_block(project_data: Dict[str, Any]) -> str:
         ["dhw_storage_notes", "dhw_distribution_notes", "dhw_notes", "notes", "dhw_block"],
         section="dhw",
     )
+    recirc_value = _get_answer_value(
+        project_data,
+        [
+            "dhw_recirc",
+            "dhw_recirculation",
+            "dhw_circulation",
+            "dhw_recirc_pumps",
+            "dhw_circulation_pumps",
+            "dhw_pumps",
+        ],
+        section="dhw",
+    )
 
     sentences: List[str] = []
-    if system_type_values:
+    system_unknown = (
+        not system_type_values
+        or _contains_unknown(system_type_values)
+        or _is_unknown_selection(system_type_raw)
+    )
+
+    if not system_unknown:
         system_type = _human_join(system_type_values)
         sentences.append(f"Domestic hot water is provided by {system_type}.")
+    else:
+        sentences.append(
+            "The domestic hot water plant type was not confirmed at the time of the site visit."
+        )
     heat_source_text = _stringify_value(heat_source_value)
-    if heat_source_text:
+    if heat_source_text and heat_source_text.strip():
         sentences.append(f"The heat source is {heat_source_text}.")
+    if isinstance(recirc_value, bool):
+        if recirc_value:
+            sentences.append("A recirculation loop with circulation pumps was observed.")
+        else:
+            sentences.append("No domestic hot water recirculation loop was observed.")
+    elif _has_meaningful_value(recirc_value):
+        sentences.append(_ensure_sentence(str(recirc_value)))
     storage_notes_text = _stringify_value(storage_notes_value)
-    if storage_notes_text:
+    if storage_notes_text and storage_notes_text.strip():
         sentences.append(_ensure_sentence(storage_notes_text))
 
-    if not sentences:
-        return DEFAULT_EMPTY_BLOCK_TEXT
-    return " ".join(sentences)
+    if len(sentences) < 3:
+        sentences.append(
+            "Additional domestic hot water distribution details should be confirmed during detailed review."
+        )
+
+    return " ".join(sentences[:5])
 
 
 def render_measures_block(project_data: Dict[str, Any]) -> str:
-    measures: List[str] = []
+    measures: List[Any] = []
     selected_measures = project_data.get("selected_measures")
     if isinstance(selected_measures, list):
-        measures = [str(item).strip() for item in selected_measures if str(item).strip()]
+        measures = [item for item in selected_measures if _has_meaningful_value(item)]
     if not measures:
         answers = project_data.get("answers", {})
         if isinstance(answers, dict):
             answer_measures = answers.get("selected_measures") or answers.get("measures")
             if isinstance(answer_measures, list):
-                measures = [str(item).strip() for item in answer_measures if str(item).strip()]
+                measures = [item for item in answer_measures if _has_meaningful_value(item)]
             elif isinstance(answer_measures, str):
                 measures = [
-                    item.strip()
-                    for item in re.split(r"[\n,]+", answer_measures)
-                    if item.strip()
+                    item.strip() for item in re.split(r"[\n,]+", answer_measures) if item.strip()
                 ]
 
     if not measures:
-        return DEFAULT_EMPTY_BLOCK_TEXT
+        return "No measures were selected."
 
-    sentences = [f"({idx}) {measure}." for idx, measure in enumerate(measures, start=1)]
-    return (
-        "The following energy conservation measures were identified during the walkthrough: "
-        + " ".join(sentences)
-    )
+    catalog = _load_measure_catalog()
+    lines = []
+    for measure in measures:
+        title, justification = _split_measure_entry(measure, catalog)
+        lines.append(f"• {title} — {justification}")
+
+    return "\n".join(lines)
+
+
+@lru_cache(maxsize=1)
+def _load_measure_catalog(
+    catalog_path: str = DEFAULT_MEASURE_CATALOG_PATH,
+) -> Dict[str, Dict[str, str]]:
+    if not catalog_path or not os.path.isfile(catalog_path):
+        return {}
+    with open(catalog_path, "r", encoding="utf-8") as handle:
+        data = json.load(handle)
+    measures = data.get("measures", {}) if isinstance(data, dict) else {}
+    if not isinstance(measures, dict):
+        return {}
+    catalog: Dict[str, Dict[str, str]] = {}
+    for key, entry in measures.items():
+        if isinstance(entry, dict):
+            summary = entry.get("summary") or ""
+            retrofit = entry.get("retrofit") or ""
+            catalog[str(key)] = {"summary": str(summary), "retrofit": str(retrofit)}
+    return catalog
+
+
+def _extract_first_sentence(text: str) -> str:
+    cleaned = text.strip()
+    if not cleaned:
+        return ""
+    match = re.split(r"(?<=[.!?])\s+", cleaned, maxsplit=1)
+    return match[0].strip()
+
+
+def _split_measure_entry(
+    measure: Any, catalog: Dict[str, Dict[str, str]]
+) -> Tuple[str, str]:
+    if isinstance(measure, dict):
+        title = str(measure.get("title") or measure.get("name") or "").strip()
+        justification = str(
+            measure.get("justification") or measure.get("summary") or measure.get("notes") or ""
+        ).strip()
+    else:
+        title = str(measure).strip()
+        justification = ""
+
+    if title in catalog and not justification:
+        summary = catalog[title].get("summary", "")
+        justification = summary.strip()
+        if not justification:
+            retrofit = catalog[title].get("retrofit", "")
+            justification = _extract_first_sentence(retrofit)
+
+    if not justification:
+        justification = "Justification not provided."
+
+    return title or "Untitled measure", justification
 
 
 BLOCK_RENDERERS = {
@@ -282,6 +452,45 @@ def _build_placeholder_map_from_placeholders(placeholders: Dict[str, Any]) -> Di
         if string_value is not None:
             placeholder_map[str(placeholder)] = string_value
     return placeholder_map
+
+
+def _apply_facility_placeholders(
+    answers: Dict[str, Any], placeholder_map: Dict[str, str]
+) -> None:
+    if not answers:
+        return
+
+    def set_if_missing(placeholder: str, value: Any) -> None:
+        if not _has_meaningful_value(value):
+            return
+        existing = placeholder_map.get(placeholder, "")
+        if not existing.strip():
+            placeholder_map[placeholder] = _stringify_value(value) or ""
+
+    set_if_missing("{Property Address1}", answers.get("site_address"))
+
+    district_value = answers.get("district") or answers.get("city")
+    set_if_missing("{District}", district_value)
+
+    set_if_missing("{Province}", answers.get("province"))
+
+    province_abbreviation = answers.get("province_abbreviation")
+    if not _has_meaningful_value(province_abbreviation):
+        province = answers.get("province")
+        if isinstance(province, str):
+            province_abbreviation = PROVINCE_ABBREVIATIONS.get(province.strip().lower())
+    set_if_missing("{Province Abbreviation}", province_abbreviation)
+
+    set_if_missing("{Number of Floors}", answers.get("number_of_floors"))
+    set_if_missing("{Number of Suites}", answers.get("number_of_suites"))
+
+    arch_condition_value = answers.get("architectural_condition")
+    if _has_meaningful_value(arch_condition_value):
+        labels = _format_option_values("building.arch_condition", arch_condition_value)
+        if labels and not _contains_unknown(labels):
+            set_if_missing("{Architectural Condition}", _human_join(labels))
+        else:
+            set_if_missing("{Architectural Condition}", arch_condition_value)
 
 
 def _build_placeholder_map_from_answers(
@@ -400,15 +609,18 @@ def render_word(
     placeholder_set = set(placeholder_occurrences)
 
     project_placeholders = project_data.get("placeholders")
+    answers = project_data.get("answers", {})
     if "placeholders" in project_data and isinstance(project_placeholders, dict):
         placeholder_map = _build_placeholder_map_from_placeholders(project_placeholders)
+        if isinstance(answers, dict):
+            _apply_facility_placeholders(answers, placeholder_map)
     else:
-        answers = project_data.get("answers", {})
         if not isinstance(answers, dict):
             raise ValueError("project['answers'] must be a JSON object.")
         placeholder_map = _build_placeholder_map_from_answers(
             answers, placeholder_set, mapping_path
         )
+        _apply_facility_placeholders(answers, placeholder_map)
 
     block_placeholders = [ph for ph in placeholder_occurrences if _is_block_placeholder(ph)]
     placeholder_map = {

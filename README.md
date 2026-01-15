@@ -62,6 +62,41 @@ Manual test checklist:
 2. Run the render command above.
 3. Open `outputs/level1_rendered.docx` and confirm the placeholders (including those in textboxes/shapes) are replaced.
 
+### Commit 4B - Narrative blocks + facility placeholders
+The Word renderer now expands HVAC/DHW/Measures blocks into short narrative paragraphs and auto-fills key
+facility placeholders from `answers` (even when `placeholders` is present but empty).
+
+Minimal `project.json` example that produces a rich heating paragraph:
+```json
+{
+  "answers": {
+    "site_address": "45 Charles St E",
+    "district": "Yorkville",
+    "province": "Ontario",
+    "province_abbreviation": "ON",
+    "number_of_floors": "12",
+    "number_of_suites": "180",
+    "architectural_condition": "fair",
+    "heating_system_type": "condensing_boiler",
+    "heating_serves": ["serves_fancoil", "serves_ahu"],
+    "heating_notes": "Boilers were observed in the central plant; controls require verification.",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_recirc": true,
+    "dhw_notes": "DHW storage tank observed in the main mechanical room."
+  },
+  "selected_measures": ["BAS Upgrade", "Condensing Boiler Retrofit"]
+}
+```
+
+Manual test command:
+```bash
+python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out outputs/level1_rendered.docx
+```
+
+Expected output:
+* `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
+* `{Number of Floors}`, `{Number of Suites}`, `{Architectural Condition}` are filled when provided under `answers`.
+
 ### Desktop App Smoke-Test Checklist
 1. Run `python app_retscreen.py` and confirm the window opens.
 2. File → New, enter project info, choose Heating/DHW/Cooling/Ventilation values, select measures, add notes.
