@@ -60,9 +60,9 @@ class MeasuresEditor(ttk.Frame):
         card = _MeasureCard(
             self._scroll.content,
             text_font=self._text_font,
-            on_move_up=lambda c=card: self._move_card(c, -1),
-            on_move_down=lambda c=card: self._move_card(c, 1),
-            on_remove=lambda c=card: self._remove_card(c),
+            on_move_up=lambda: self._move_card(card, -1),
+            on_move_down=lambda: self._move_card(card, 1),
+            on_remove=lambda: self._remove_card(card),
         )
         self._cards.append(card)
         card.frame.pack(fill="x", pady=6)
