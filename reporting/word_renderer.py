@@ -2,10 +2,12 @@ import json
 import os
 import re
 import zipfile
+from copy import deepcopy
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
@@ -160,6 +162,71 @@ def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Pa
     return new_p
 
 
+def _extract_num_pr(paragraph: Paragraph) -> Optional[OxmlElement]:
+    ppr = paragraph._element.pPr
+    if ppr is None:
+        return None
+    num_pr = ppr.find(qn("w:numPr"))
+    return num_pr
+
+
+def _apply_numbering(paragraph: Paragraph, num_pr: Optional[OxmlElement]) -> None:
+    if num_pr is None:
+        return
+    ppr = paragraph._element.get_or_add_pPr()
+    existing = ppr.find(qn("w:numPr"))
+    if existing is not None:
+        ppr.remove(existing)
+    ppr.append(deepcopy(num_pr))
+
+
+def _find_measure_reference_paragraph(doc: Document) -> Optional[Paragraph]:
+    pattern = re.compile(r"\bMeasure\s*[–-]", re.IGNORECASE)
+    for paragraph in _iter_all_paragraphs(doc):
+        if paragraph.text and pattern.search(paragraph.text):
+            return paragraph
+    return None
+
+
+def _format_measure_heading(title: str) -> str:
+    cleaned = title.strip() if title else ""
+    return f"Measure \u2013 {cleaned}" if cleaned else "Measure"
+
+
+def _insert_structured_measures(
+    paragraph: Paragraph,
+    measures: List[Dict[str, Any]],
+    *,
+    heading_style: Any,
+    heading_num_pr: Optional[OxmlElement],
+    body_style: Any,
+) -> None:
+    current = paragraph
+    for idx, measure in enumerate(measures):
+        heading = _format_measure_heading(measure.get("measure_title", ""))
+        if idx == 0:
+            heading_para = current
+        else:
+            heading_para = _add_paragraph_after(current)
+        heading_para.text = heading
+        if heading_style is not None:
+            heading_para.style = heading_style
+        _apply_numbering(heading_para, heading_num_pr)
+        current = heading_para
+
+        existing = (measure.get("existing_conditions") or "").strip()
+        retrofit = (measure.get("retrofit_recommendation") or "").strip()
+        notes = (measure.get("notes") or "").strip()
+        for text in (
+            f"Existing Conditions: {existing}" if existing else "",
+            f"Retrofit Recommendation: {retrofit}" if retrofit else "",
+            f"Notes: {notes}" if notes else "",
+        ):
+            if not text:
+                continue
+            current = _add_paragraph_after(current, text=text, style=body_style)
+
+
 def _split_block_paragraphs(text: str) -> List[str]:
     lines = text.splitlines()
     paragraphs: List[str] = []
@@ -276,23 +343,39 @@ def render_word(
         except FileNotFoundError:
             measure_catalog = None
 
+    structured_measures = measure_narratives.collect_structured_measures(project_data)
+    measure_reference = _find_measure_reference_paragraph(doc) if structured_measures else None
+    heading_style = None
+    heading_num_pr = None
+    if measure_reference is not None:
+        heading_style = measure_reference.style
+        heading_num_pr = _extract_num_pr(measure_reference)
+    if heading_style is None:
+        try:
+            heading_style = doc.styles["List Number"]
+        except KeyError:
+            heading_style = None
+
     blocks_rendered: List[str] = []
     blocks_unresolved: List[str] = []
     block_replacements: Dict[str, str] = {}
     for placeholder in block_placeholders:
-        renderer = get_block_renderer(placeholder)
-        if renderer:
-            renderer_kwargs: Dict[str, Any] = {"schema": None, "mapping": mapping_data}
-            if placeholder in ("{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"):
-                renderer_kwargs.update(
-                    {
-                        "catalog": measure_catalog,
-                        "placeholders": base_placeholder_map,
-                    }
-                )
-            rendered_text = renderer(project_data, **renderer_kwargs)
-        else:
+        if placeholder == "{MEASURE_BLOCK}" and structured_measures:
             rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
+        else:
+            renderer = get_block_renderer(placeholder)
+            if renderer:
+                renderer_kwargs: Dict[str, Any] = {"schema": None, "mapping": mapping_data}
+                if placeholder in ("{MEASURE_BLOCK}", "{MEASURE_SUMMARY_ROW}"):
+                    renderer_kwargs.update(
+                        {
+                            "catalog": measure_catalog,
+                            "placeholders": base_placeholder_map,
+                        }
+                    )
+                rendered_text = renderer(project_data, **renderer_kwargs)
+            else:
+                rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
         if not _has_meaningful_value(rendered_text):
             rendered_text = DEFAULT_EMPTY_BLOCK_TEXT
             blocks_unresolved.append(placeholder)
@@ -318,6 +401,18 @@ def render_word(
             continue
         replaced_text = text
         expanded_block = False
+        if structured_measures and text.strip() == "{MEASURE_BLOCK}":
+            _insert_structured_measures(
+                paragraph,
+                structured_measures,
+                heading_style=heading_style,
+                heading_num_pr=heading_num_pr,
+                body_style=paragraph.style,
+            )
+            placeholders_replaced += text.count("{MEASURE_BLOCK}")
+            expanded_block = True
+        if expanded_block:
+            continue
         for placeholder in set(found):
             if placeholder in replacement_map:
                 placeholders_replaced += text.count(placeholder)
