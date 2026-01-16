@@ -26,16 +26,6 @@ python tools/render_level1.py --template templates/level1.docx --project project
    python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1_rendered.docx
    ```
 
-### Adding measures in the UI
-1. Open the Audit Studio app:
-   ```bash
-   python app_retscreen.py
-   ```
-2. Go to **Inputs → Measures** and click **Add Measure** for each entry.
-3. Fill in the title, existing conditions, and retrofit recommendation fields, then save the project.
-
-Measures are stored as a structured list under `answers.measures` in `project.json`.
-
 ### Validate project inputs (CLI)
 ```bash
 python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
@@ -115,11 +105,6 @@ Manual test command:
 ```bash
 python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out output/level1_rendered.docx
 ```
-
-Manual verification checklist:
-* Measures render as numbered “Measure – …” headings with automatic Word numbering (no typed 1, 2, 3).
-* Each measure includes “Existing Conditions:” and “Retrofit Recommendation:” paragraphs with template fonts.
-* `{MEASURE_BLOCK}` is fully replaced in the output document.
 
 Expected output:
 * `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
