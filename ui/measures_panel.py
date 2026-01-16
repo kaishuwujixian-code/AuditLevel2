@@ -15,7 +15,7 @@ class MeasuresPanel(ttk.Frame):
         super().__init__(master)
         self._catalog: Optional[MeasureCatalog] = None
         self._catalog_tree: Optional[ttk.Treeview] = None
-        self._editor = MeasuresEditor(self)
+        self._editor: Optional[MeasuresEditor] = None
         self._catalog_items: Dict[str, str] = {}
         self._build_ui()
         self._load_catalog()
@@ -43,15 +43,20 @@ class MeasuresPanel(ttk.Frame):
         editor_frame = ttk.Frame(paned, padding=(6, 6))
         editor_frame.columnconfigure(0, weight=1)
         editor_frame.rowconfigure(0, weight=1)
-        self._editor.grid(row=0, column=0, sticky="nsew", in_=editor_frame)
+        self._editor = MeasuresEditor(editor_frame)
+        self._editor.grid(row=0, column=0, sticky="nsew")
         paned.add(editor_frame, weight=3)
 
     def load_project(self, project_data: Dict[str, Any]) -> None:
+        if not self._editor:
+            return
         normalize_measures_data(project_data)
         measures = _extract_measures(project_data)
         self._editor.set_measures(measures)
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
+        if not self._editor:
+            return
         measures = self._editor.get_measures()
         project_data["measures"] = measures
         answers = project_data.get("answers", {})
@@ -96,7 +101,7 @@ class MeasuresPanel(ttk.Frame):
             self._catalog_tree.item(node_id, open=True)
 
     def _on_catalog_select(self, _event: tk.Event) -> None:
-        if not self._catalog_tree or not self._catalog:
+        if not self._catalog_tree or not self._catalog or not self._editor:
             return
         selection = self._catalog_tree.selection()
         if not selection:
