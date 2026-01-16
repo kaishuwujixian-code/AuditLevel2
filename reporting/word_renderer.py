@@ -19,14 +19,19 @@ PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 DEFAULT_MAPPING_PATH = os.path.join("schemas", "level1_placeholders.map.json")
 DEFAULT_EMPTY_BLOCK_TEXT = ""
 MEASURE_CATEGORY_LABELS = {
-    "bas": "BAS",
+    "bas": "BAS / Controls",
+    "boiler": "Boiler / Plant",
     "boilers": "Boilers",
     "dhw": "DHW",
     "lighting": "Lighting",
     "ventilation": "Ventilation",
+    "mua": "MUA / Ventilation",
     "controls": "Controls",
-    "envelope": "Envelope",
-    "other": "Other",
+    "loop": "Hydronic Loops",
+    "water": "Water & DHW",
+    "pumps": "Pumps / Power / PF",
+    "envelope": "Building Envelope",
+    "other": "Other / Misc",
 }
 
 

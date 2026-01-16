@@ -9,14 +9,19 @@ from tkinter import ttk
 
 
 MEASURE_CATEGORIES = [
-    ("bas", "BAS"),
+    ("bas", "BAS / Controls"),
+    ("boiler", "Boiler / Plant"),
     ("boilers", "Boilers"),
     ("dhw", "DHW"),
     ("lighting", "Lighting"),
     ("ventilation", "Ventilation"),
+    ("mua", "MUA / Ventilation"),
     ("controls", "Controls"),
-    ("envelope", "Envelope"),
-    ("other", "Other"),
+    ("loop", "Hydronic Loops"),
+    ("water", "Water & DHW"),
+    ("pumps", "Pumps / Power / PF"),
+    ("envelope", "Building Envelope"),
+    ("other", "Other / Misc"),
 ]
 
 
@@ -41,6 +46,7 @@ class MeasuresEditor(ttk.Frame):
     def __init__(self, master: tk.Misc) -> None:
         super().__init__(master)
         self._cards: List[_MeasureCard] = []
+        self._active_card: Optional[_MeasureCard] = None
         self._text_font = tkfont.nametofont("TkTextFont")
         self._build_ui()
 
@@ -56,24 +62,28 @@ class MeasuresEditor(ttk.Frame):
         self._scroll.grid(row=1, column=0, sticky="nsew")
         self.rowconfigure(1, weight=1)
 
-    def add_measure(self, data: Optional[Dict[str, Any]] = None) -> None:
+    def add_measure(self, data: Optional[Dict[str, Any]] = None) -> _MeasureCard:
         card = _MeasureCard(
             self._scroll.content,
             text_font=self._text_font,
             on_move_up=lambda: self._move_card(card, -1),
             on_move_down=lambda: self._move_card(card, 1),
             on_remove=lambda: self._remove_card(card),
+            on_activate=lambda: self._set_active_card(card),
         )
         self._cards.append(card)
         card.frame.pack(fill="x", pady=6)
         if data:
             card.set_data(data)
+        self._set_active_card(card)
         self._refresh_controls()
+        return card
 
     def set_measures(self, measures: List[Dict[str, Any]]) -> None:
         for card in self._cards:
             card.frame.destroy()
         self._cards = []
+        self._active_card = None
         for measure in measures:
             self.add_measure(measure)
         if not measures:
@@ -91,6 +101,8 @@ class MeasuresEditor(ttk.Frame):
         if card in self._cards:
             self._cards.remove(card)
             card.frame.destroy()
+            if self._active_card is card:
+                self._active_card = self._cards[-1] if self._cards else None
         self._refresh_controls()
 
     def _move_card(self, card: "_MeasureCard", offset: int) -> None:
@@ -112,7 +124,29 @@ class MeasuresEditor(ttk.Frame):
 
     def _refresh_controls(self) -> None:
         for idx, card in enumerate(self._cards, start=1):
-            card.update_index(idx, total=len(self._cards))
+            card.update_index(idx, total=len(self._cards), active=card is self._active_card)
+
+    def _set_active_card(self, card: Optional["_MeasureCard"]) -> None:
+        if card is None or card not in self._cards:
+            return
+        self._active_card = card
+        self._refresh_controls()
+
+    def apply_catalog_measure(self, measure: Dict[str, Any]) -> None:
+        target = self._active_card
+        if target is None:
+            target = self.add_measure()
+        target.set_data(
+            {
+                "measure_id": measure.get("id"),
+                "measure_title": measure.get("title") or measure.get("name") or "",
+                "category": measure.get("category") or "",
+                "existing_conditions": measure.get("existing") or "",
+                "retrofit_conditions": measure.get("retrofit") or "",
+                "notes": measure.get("summary") or "",
+            }
+        )
+        self._set_active_card(target)
 
 
 class _MeasureCard:
@@ -124,13 +158,17 @@ class _MeasureCard:
         on_move_up,
         on_move_down,
         on_remove,
+        on_activate,
     ) -> None:
         self._text_font = text_font
         self._on_move_up = on_move_up
         self._on_move_down = on_move_down
         self._on_remove = on_remove
+        self._on_activate = on_activate
+        self._measure_id: Optional[str] = None
         self.frame = ttk.Labelframe(master, text="Measure")
         self._build_ui()
+        self._bind_activate()
 
     def _build_ui(self) -> None:
         self.frame.columnconfigure(1, weight=1)
@@ -201,12 +239,24 @@ class _MeasureCard:
         self._notes_text = tk.Text(self.frame, height=3, wrap="word", font=self._text_font)
         self._notes_text.grid(row=4, column=1, columnspan=2, sticky="ew", pady=(10, 0))
 
-    def update_index(self, index: int, total: int) -> None:
-        self.frame.configure(text=f"Measure {index}")
+    def _bind_activate(self) -> None:
+        def bind_recursive(widget: tk.Misc) -> None:
+            widget.bind("<Button-1>", lambda _event: self._on_activate(), add=True)
+            for child in widget.winfo_children():
+                bind_recursive(child)
+
+        bind_recursive(self.frame)
+
+    def update_index(self, index: int, total: int, *, active: bool) -> None:
+        label = f"Measure {index}"
+        if active:
+            label = f"{label} (selected)"
+        self.frame.configure(text=label)
         self._up_button.configure(state="normal" if index > 1 else "disabled")
         self._down_button.configure(state="normal" if index < total else "disabled")
 
     def set_data(self, data: Dict[str, Any]) -> None:
+        self._measure_id = _normalize_measure_id(data.get("measure_id"))
         self._title_var.set(str(data.get("measure_title", "")))
         category_label = _label_for_category(data.get("category"))
         self._category_var.set(category_label)
@@ -225,6 +275,8 @@ class _MeasureCard:
             "retrofit_conditions": _get_text(self._retrofit_text),
             "notes": _get_text(self._notes_text),
         }
+        if self._measure_id:
+            payload["measure_id"] = self._measure_id
         for key, var in self._numeric_vars.items():
             payload[key] = _parse_optional_number(var.get())
         return payload
@@ -286,6 +338,13 @@ def _value_for_category(label: str) -> str:
         if label == display:
             return code
     return label.strip().lower().replace(" ", "_") if label else ""
+
+
+def _normalize_measure_id(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
 
 
 def _has_measure_content(data: Dict[str, Any]) -> bool:
