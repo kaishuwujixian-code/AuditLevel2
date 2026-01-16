@@ -8,7 +8,6 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 from reporting.narratives import load_option_sets
-from ui.repeatable_group import RepeatableGroupWidget
 
 DEFAULT_SCHEMA_PATH = Path("schemas/level1_questionnaire.schema.json")
 DEFAULT_PROJECT_PATH = Path("project.json")
@@ -170,19 +169,6 @@ class QuestionnaireApp:
             text.pack(fill="x", pady=(4, 0))
             return QuestionWidget(question_id, question_type, text)
 
-        if question_type == "repeatable_group":
-            fields = question.get("item_fields") or question.get("fields") or []
-            if not isinstance(fields, list):
-                return None
-            widget = RepeatableGroupWidget(
-                parent,
-                fields,
-                add_label="Add Measure",
-                row_label="Measure",
-            )
-            widget.pack(fill="x", pady=(4, 0))
-            return QuestionWidget(question_id, question_type, widget)
-
         if question_type == "single_select":
             options = question.get("options", [])
             options_ref = question.get("options_ref")
@@ -335,8 +321,6 @@ class QuestionnaireApp:
                 if var.get():
                     selections.append(value)
             return selections
-        if widget.question_type == "repeatable_group":
-            return widget.widget.get_value()
         if widget.question_type == "image_list":
             return widget.metadata.get("paths", [])
         return None
