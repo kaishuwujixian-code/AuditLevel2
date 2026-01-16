@@ -1,61 +1,234 @@
 {
   "option_sets": {
     "hvac.heating_system_type": [
-      {"label": "Condensing boiler", "value": "condensing_boiler"},
-      {"label": "Atmospheric boiler", "value": "atmospheric_boiler"},
-      {"label": "Electric resistance", "value": "electric_resistance"},
-      {"label": "Heat pump loop (WSHP)", "value": "wshp_central"},
-      {"label": "WSHP loop with fluid cooler", "value": "wshp_fluid_cooler"},
-      {"label": "Air-source heat pump", "value": "ashp"},
-      {"label": "Other / Unknown", "value": "other_unknown"}
+      {
+        "label": "Condensing boiler",
+        "value": "condensing_boiler"
+      },
+      {
+        "label": "Atmospheric boiler",
+        "value": "atmospheric_boiler"
+      },
+      {
+        "label": "Electric resistance",
+        "value": "electric_resistance"
+      },
+      {
+        "label": "Heat pump loop (WSHP)",
+        "value": "wshp_central"
+      },
+      {
+        "label": "WSHP loop with fluid cooler",
+        "value": "wshp_fluid_cooler"
+      },
+      {
+        "label": "Air-source heat pump",
+        "value": "ashp"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "other_unknown"
+      }
     ],
     "hvac.heating_serves": [
-      {"label": "Serves WSHP", "value": "serves_wshp"},
-      {"label": "Serves fan coil", "value": "serves_fancoil"},
-      {"label": "Serves radiant", "value": "serves_radiant"},
-      {"label": "Serves AHU", "value": "serves_ahu"},
-      {"label": "Serves MUA", "value": "serves_mua"},
-      {"label": "Mixed / Unknown", "value": "mixed_unknown"}
+      {
+        "label": "Serves WSHP",
+        "value": "serves_wshp"
+      },
+      {
+        "label": "Serves fan coil",
+        "value": "serves_fancoil"
+      },
+      {
+        "label": "Serves radiant",
+        "value": "serves_radiant"
+      },
+      {
+        "label": "Serves AHU",
+        "value": "serves_ahu"
+      },
+      {
+        "label": "Serves MUA",
+        "value": "serves_mua"
+      },
+      {
+        "label": "Mixed / Unknown",
+        "value": "mixed_unknown"
+      }
     ],
     "dhw.system_type": [
-      {"label": "Heat exchanger from heating plant", "value": "hx_from_heating_ps"},
-      {"label": "Central boiler (condensing)", "value": "dhw_boiler_condensing"},
-      {"label": "Central boiler (atmospheric)", "value": "dhw_boiler_atmospheric"},
-      {"label": "Electric water heater", "value": "dhw_electric"},
-      {"label": "Other / Unknown", "value": "dhw_other_unknown"}
+      {
+        "label": "Heat exchanger from heating plant",
+        "value": "hx_from_heating_ps"
+      },
+      {
+        "label": "Central boiler plant (generic)",
+        "value": "dhw_boilers"
+      },
+      {
+        "label": "Central boiler (condensing)",
+        "value": "dhw_boiler_condensing"
+      },
+      {
+        "label": "Central boiler (atmospheric)",
+        "value": "dhw_boiler_atmospheric"
+      },
+      {
+        "label": "Electric water heater",
+        "value": "dhw_electric"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "dhw_other_unknown"
+      }
     ],
     "cooling.system_type": [
-      {"label": "Chiller & cooling tower", "value": "chiller_cooling_tower"},
-      {"label": "Air-cooled chiller", "value": "chiller_air"},
-      {"label": "Water-cooled chiller", "value": "chiller_water"},
-      {"label": "Fluid cooler (WSHP loop)", "value": "fluid_cooler"},
-      {"label": "Packaged rooftop DX", "value": "packaged_rooftop_dx"},
-      {"label": "Split DX", "value": "split_dx"},
-      {"label": "PTAC", "value": "ptac"},
-      {"label": "WSHP cooling", "value": "wshp_cooling"},
-      {"label": "None", "value": "none"},
-      {"label": "Other / Unknown", "value": "other_unknown"}
+      {
+        "label": "Chiller & cooling tower",
+        "value": "chiller_cooling_tower"
+      },
+      {
+        "label": "Air-cooled chiller",
+        "value": "chiller_air"
+      },
+      {
+        "label": "Water-cooled chiller",
+        "value": "chiller_water"
+      },
+      {
+        "label": "Fluid cooler (WSHP loop)",
+        "value": "fluid_cooler"
+      },
+      {
+        "label": "Packaged rooftop DX",
+        "value": "packaged_rooftop_dx"
+      },
+      {
+        "label": "Split DX",
+        "value": "split_dx"
+      },
+      {
+        "label": "PTAC",
+        "value": "ptac"
+      },
+      {
+        "label": "WSHP cooling",
+        "value": "wshp_cooling"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "other_unknown"
+      }
     ],
     "ventilation.system_type": [
-      {"label": "Gas-fired rooftop MUA", "value": "mua_gas_rooftop"},
-      {"label": "Hydronic coil MUA", "value": "mua_hydronic_coil"},
-      {"label": "Heat recovery ventilator", "value": "heat_recovery_ventilator"},
-      {"label": "MUA corridor", "value": "mua_corridor"},
-      {"label": "DOAS", "value": "doas"},
-      {"label": "Suite ERV/HRV", "value": "suite_erv_hrv"},
-      {"label": "Exhaust only", "value": "exhaust_only"},
-      {"label": "Mixed / Unknown", "value": "mixed_unknown"}
+      {
+        "label": "Gas-fired rooftop MUA",
+        "value": "mua_gas_rooftop"
+      },
+      {
+        "label": "Hydronic coil MUA",
+        "value": "mua_hydronic_coil"
+      },
+      {
+        "label": "Heat recovery ventilator",
+        "value": "heat_recovery_ventilator"
+      },
+      {
+        "label": "MUA corridor",
+        "value": "mua_corridor"
+      },
+      {
+        "label": "DOAS",
+        "value": "doas"
+      },
+      {
+        "label": "Suite ERV/HRV",
+        "value": "suite_erv_hrv"
+      },
+      {
+        "label": "Exhaust only",
+        "value": "exhaust_only"
+      },
+      {
+        "label": "Mixed / Unknown",
+        "value": "mixed_unknown"
+      }
     ],
     "building.arch_condition": [
-      {"label": "Good", "value": "good"},
-      {"label": "Fair", "value": "fair"},
-      {"label": "Poor", "value": "poor"},
-      {"label": "Unknown", "value": "unknown"}
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Unknown",
+        "value": "unknown"
+      }
+    ],
+    "hvac.system_combos": [
+      {
+        "label": "WSHP loop + fluid cooler",
+        "value": "wshp_fluid_cooler"
+      },
+      {
+        "label": "WSHP loop (central condenser loop)",
+        "value": "wshp_loop"
+      },
+      {
+        "label": "High-temperature heating loop",
+        "value": "high_temp_heating_loop"
+      },
+      {
+        "label": "Condensing boiler plant (primary-secondary)",
+        "value": "condensing_boiler_ps"
+      },
+      {
+        "label": "Chiller with cooling tower",
+        "value": "chiller_cooling_tower"
+      },
+      {
+        "label": "Air-cooled chiller",
+        "value": "air_cooled_chiller"
+      },
+      {
+        "label": "Separate DHW boilers",
+        "value": "separate_dhw_boilers"
+      },
+      {
+        "label": "DHW via heating heat exchanger",
+        "value": "dhw_from_heating_hx"
+      },
+      {
+        "label": "Central ventilation (MUA/DOAS)",
+        "value": "central_ventilation_mua_doas"
+      },
+      {
+        "label": "Suite ERV/HRV ventilation",
+        "value": "suite_erv_hrv"
+      },
+      {
+        "label": "Exhaust-only ventilation",
+        "value": "exhaust_only"
+      }
     ]
   },
   "rules": [
     {
-      "match": {"type": "exact", "value": "{ClientName}"},
+      "match": {
+        "type": "exact",
+        "value": "{ClientName}"
+      },
       "question": {
         "id": "client_name",
         "title": "Client name",
@@ -66,7 +239,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Property Address1}"},
+      "match": {
+        "type": "exact",
+        "value": "{Property Address1}"
+      },
       "question": {
         "id": "site_address",
         "title": "Site address",
@@ -77,7 +253,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{City}"},
+      "match": {
+        "type": "exact",
+        "value": "{City}"
+      },
       "question": {
         "id": "city",
         "title": "City",
@@ -88,7 +267,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Province}"},
+      "match": {
+        "type": "exact",
+        "value": "{Province}"
+      },
       "question": {
         "id": "province",
         "title": "Province",
@@ -99,7 +281,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Post Code}"},
+      "match": {
+        "type": "exact",
+        "value": "{Post Code}"
+      },
       "question": {
         "id": "postal_code",
         "title": "Postal code",
@@ -110,7 +295,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Number of Floors}"},
+      "match": {
+        "type": "exact",
+        "value": "{Number of Floors}"
+      },
       "question": {
         "id": "number_of_floors",
         "title": "Number of floors",
@@ -121,7 +309,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Number of Suites}"},
+      "match": {
+        "type": "exact",
+        "value": "{Number of Suites}"
+      },
       "question": {
         "id": "number_of_suites",
         "title": "Number of suites",
@@ -132,7 +323,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Suite Types}"},
+      "match": {
+        "type": "exact",
+        "value": "{Suite Types}"
+      },
       "question": {
         "id": "suite_types",
         "title": "Suite types",
@@ -143,7 +337,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Date Constructed}"},
+      "match": {
+        "type": "exact",
+        "value": "{Date Constructed}"
+      },
       "question": {
         "id": "date_constructed",
         "title": "Date constructed",
@@ -154,7 +351,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{DateDocument}"},
+      "match": {
+        "type": "exact",
+        "value": "{DateDocument}"
+      },
       "question": {
         "id": "report_date",
         "title": "Report date",
@@ -165,7 +365,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Report Date}"},
+      "match": {
+        "type": "exact",
+        "value": "{Report Date}"
+      },
       "question": {
         "id": "report_date",
         "title": "Report date",
@@ -176,7 +379,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Architectural Condition}"},
+      "match": {
+        "type": "exact",
+        "value": "{Architectural Condition}"
+      },
       "question": {
         "id": "architectural_condition",
         "title": "Architectural condition",
@@ -188,7 +394,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Central Heating/Cooling Systems block}"},
+      "match": {
+        "type": "exact",
+        "value": "{Central Heating/Cooling Systems block}"
+      },
       "question": {
         "id": "heating_block_override",
         "title": "Central heating/cooling systems (manual override)",
@@ -199,7 +408,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Central Ventilation System Block}"},
+      "match": {
+        "type": "exact",
+        "value": "{Central Ventilation System Block}"
+      },
       "question": {
         "id": "ventilation_block_override",
         "title": "Central ventilation system (manual override)",
@@ -210,7 +422,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{DHW System Block}"},
+      "match": {
+        "type": "exact",
+        "value": "{DHW System Block}"
+      },
       "question": {
         "id": "dhw_block_override",
         "title": "DHW system (manual override)",
@@ -221,7 +436,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{Miscellaneous Block}"},
+      "match": {
+        "type": "exact",
+        "value": "{Miscellaneous Block}"
+      },
       "question": {
         "id": "misc_block",
         "title": "Miscellaneous notes",
@@ -232,7 +450,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{MEASURE_BLOCK}"},
+      "match": {
+        "type": "exact",
+        "value": "{MEASURE_BLOCK}"
+      },
       "question": {
         "id": "measures_block_override",
         "title": "Measures block (manual override)",
@@ -243,7 +464,10 @@
       }
     },
     {
-      "match": {"type": "exact", "value": "{MEASURE_SUMMARY_ROW}"},
+      "match": {
+        "type": "exact",
+        "value": "{MEASURE_SUMMARY_ROW}"
+      },
       "question": {
         "id": "measures_block_override",
         "title": "Measures block (manual override)",

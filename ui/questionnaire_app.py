@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
+from reporting.narratives import load_option_sets
 
 DEFAULT_SCHEMA_PATH = Path("schemas/level1_questionnaire.schema.json")
 DEFAULT_PROJECT_PATH = Path("project.json")
@@ -29,6 +30,7 @@ class QuestionnaireApp:
         self.status_var = tk.StringVar(value="Ready")
         self._question_widgets: Dict[str, QuestionWidget] = {}
         self._schema_data: Optional[Dict[str, Any]] = None
+        self._option_sets = load_option_sets()
         self._build_ui()
         self._load_schema(Path(self.schema_path_var.get()))
 
@@ -156,7 +158,7 @@ class QuestionnaireApp:
         question_id = question.get("id", "")
         question_type = question.get("type", "text")
 
-        if question_type == "text":
+        if question_type in {"text", "number", "date"}:
             var = tk.StringVar()
             entry = ttk.Entry(parent, textvariable=var)
             entry.pack(fill="x", pady=(4, 0))
@@ -169,6 +171,12 @@ class QuestionnaireApp:
 
         if question_type == "single_select":
             options = question.get("options", [])
+            options_ref = question.get("options_ref")
+            if not options and options_ref:
+                option_set = self._option_sets.get(options_ref, {})
+                options = [
+                    {"label": label, "value": value} for value, label in option_set.items()
+                ]
             labels = [opt.get("label", opt.get("value", "")) for opt in options]
             label_to_value = {
                 opt.get("label", opt.get("value", "")): opt.get("value")
@@ -227,6 +235,12 @@ class QuestionnaireApp:
 
         if question_type == "multi_select":
             options = question.get("options", [])
+            options_ref = question.get("options_ref")
+            if not options and options_ref:
+                option_set = self._option_sets.get(options_ref, {})
+                options = [
+                    {"label": label, "value": value} for value, label in option_set.items()
+                ]
             option_vars = []
             options_frame = ttk.Frame(parent)
             options_frame.pack(fill="x", pady=(4, 0))
@@ -287,7 +301,7 @@ class QuestionnaireApp:
         return None
 
     def _extract_answer(self, widget: QuestionWidget) -> Any:
-        if widget.question_type == "text":
+        if widget.question_type in {"text", "number", "date"}:
             return widget.widget.get()
         if widget.question_type == "notes":
             return widget.widget.get("1.0", "end-1c")

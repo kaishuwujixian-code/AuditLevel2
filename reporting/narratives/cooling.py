@@ -15,12 +15,21 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 
+COMBO_COOLING_TYPE_MAP = {
+    "chiller_cooling_tower": "chiller_cooling_tower",
+    "air_cooled_chiller": "chiller_air",
+    "wshp_fluid_cooler": "fluid_cooler",
+    "wshp_loop": "wshp_cooling",
+}
+
 
 @dataclass(frozen=True)
 class CoolingContext:
     audit_level: str
     system_type_raw: Any
     system_type_values: List[str]
+    system_combos_raw: Any
+    system_combos_values: List[str]
     distribution_raw: Any
     serves_values: List[str]
     location_text: str | None
@@ -48,6 +57,13 @@ class CoolingContext:
             )
         system_type_values = format_option_values(
             "cooling.system_type", system_type_raw, mapping=mapping
+        )
+        system_combos_raw = get_answer_value(
+            project,
+            ["hvac.system_combos", "hvac_system_combos", "system_combos"],
+        )
+        system_combos_values = format_option_values(
+            "hvac.system_combos", system_combos_raw, mapping=mapping
         )
         distribution_raw = get_answer_value(
             project,
@@ -92,6 +108,8 @@ class CoolingContext:
             audit_level="L1",
             system_type_raw=system_type_raw,
             system_type_values=system_type_values,
+            system_combos_raw=system_combos_raw,
+            system_combos_values=system_combos_values,
             distribution_raw=distribution_raw,
             serves_values=serves_values,
             location_text=location_text,
@@ -104,6 +122,8 @@ class CoolingContext:
         )
 
     def system_unknown(self) -> bool:
+        if self.system_combos_values:
+            return False
         return (
             not self.system_type_values
             or contains_unknown(self.system_type_values)
@@ -200,10 +220,24 @@ def _resolve_system_types(system_type_raw: Any) -> List[str]:
     ]
 
 
+def _resolve_combo_systems(system_combos_raw: Any) -> List[str]:
+    combos = _resolve_system_types(system_combos_raw)
+    systems: List[str] = []
+    for combo in combos:
+        mapped = COMBO_COOLING_TYPE_MAP.get(combo)
+        if mapped:
+            systems.append(mapped)
+        elif combo:
+            systems.append(combo)
+    return systems
+
+
 def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
     project = context if isinstance(context, dict) and "answers" in context else {"answers": context}
     ctx = CoolingContext.from_project(project, mapping=mapping, system_type_override=system_type)
     system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    combo_types = _resolve_combo_systems(ctx.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     if not system_types:
         return not_confirmed_sentence("The central cooling system type")
     sentences = [_render_cooling_system(value, ctx) for value in system_types]
@@ -218,6 +252,8 @@ def render_paragraph(
     )
     sentences: list[str] = []
     system_types = _resolve_system_types(context.system_type_raw)
+    combo_types = _resolve_combo_systems(context.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     if system_types:
         sentences.extend(
             sentence for sentence in (_render_cooling_system(value, context) for value in system_types) if sentence

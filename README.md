@@ -12,6 +12,20 @@ python app_retscreen.py
 python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
 ```
 
+### Level 1 workflow (schema → UI → project.json → Word)
+1. Ensure the schema and option sets are up to date:
+   ```bash
+   python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+   ```
+2. Run the questionnaire UI and save a project:
+   ```bash
+   python app.py
+   ```
+3. Render the Word report from the saved project:
+   ```bash
+   python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1_rendered.docx
+   ```
+
 ### Validate project inputs (CLI)
 ```bash
 python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
@@ -46,7 +60,7 @@ Narrative modules now include consultant-grade conditional language and
 uncertainty handling to reflect available information while keeping a
 consistent professional tone.
 
-Minimal `project.json` example that produces a rich heating paragraph:
+Minimal `project.json` example that produces HVAC/DHW/ventilation narrative blocks:
 ```json
 {
   "answers": {
@@ -57,12 +71,31 @@ Minimal `project.json` example that produces a rich heating paragraph:
     "number_of_floors": "12",
     "number_of_suites": "180",
     "architectural_condition": "fair",
+    "hvac_system_combos": [
+      "wshp_fluid_cooler",
+      "condensing_boiler_ps",
+      "separate_dhw_boilers",
+      "central_ventilation_mua_doas"
+    ],
     "heating_system_type": "condensing_boiler",
     "heating_serves": ["serves_fancoil", "serves_ahu"],
+    "number_of_boilers": 2,
+    "boiler_capacity_mbh": 2500,
+    "cooling_system_type": "chiller_cooling_tower",
+    "number_of_chillers": 1,
+    "chiller_tonnage": 300,
+    "number_of_fluid_coolers": 1,
     "heating_notes": "Boilers were observed in the central plant; controls require verification.",
     "dhw_system_type": "dhw_boiler_condensing",
+    "number_of_dhw_boilers": 2,
+    "dhw_boiler_capacity_mbh": 500,
+    "number_of_dhw_tanks": 1,
+    "dhw_tank_capacity_gal": 1000,
     "dhw_recirc": true,
-    "dhw_notes": "DHW storage tank observed in the main mechanical room."
+    "dhw_notes": "DHW storage tank observed in the main mechanical room.",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "number_of_mua_units": 2,
+    "ventilation_airflow_cfm": 12000
   },
   "selected_measures": ["BAS Upgrade", "Condensing Boiler Retrofit"]
 }
@@ -75,7 +108,15 @@ python tools/render_level1.py --template templates/level1.docx --project project
 
 Expected output:
 * `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
+* `{DHW System Block}` and `{Central Ventilation System Block}` render narrative blocks based on system selections.
 * `{Number of Floors}`, `{Number of Suites}`, `{Architectural Condition}` are filled when provided under `answers`.
+
+### Example smoke test
+Generate a sample report from `projects/example.json`:
+```bash
+python tools/render_level1.py --template templates/level1.docx --project projects/example.json --out outputs/level1_rendered.docx
+```
+The renderer prints a summary with replaced/unresolved placeholder counts; use `--strict` to fail if any remain.
 
 ### Desktop App Smoke-Test Checklist
 1. Run `python app_retscreen.py` and confirm the window opens.

@@ -26,6 +26,8 @@ EXPECTED_INPUTS = {
             "heating_block",
             "hvac.heating_system_type",
             "heating_system_type",
+            "hvac.system_combos",
+            "hvac_system_combos",
             "number_of_boilers",
             "boiler_capacity_mbh",
             "hvac.heating_serves",
@@ -33,6 +35,13 @@ EXPECTED_INPUTS = {
             "heating_notes",
         ],
     }
+}
+
+COMBO_HEATING_TYPE_MAP = {
+    "condensing_boiler_ps": "condensing_boiler",
+    "high_temp_heating_loop": "high_temp_heating_loop",
+    "wshp_loop": "wshp_central",
+    "wshp_fluid_cooler": "wshp_fluid_cooler",
 }
 
 
@@ -44,6 +53,8 @@ class HeatingContext:
     override_text: str | None
     system_type_raw: Any
     system_type_values: List[str]
+    system_combos_raw: Any
+    system_combos_values: List[str]
     cooling_type_raw: Any
     cooling_type_values: List[str]
     distribution_raw: Any
@@ -73,6 +84,13 @@ class HeatingContext:
         )
         system_type_values = format_option_values(
             "hvac.heating_system_type", system_type_raw, mapping=mapping
+        )
+        system_combos_raw = get_answer_value(
+            project,
+            ["hvac.system_combos", "hvac_system_combos", "system_combos"],
+        )
+        system_combos_values = format_option_values(
+            "hvac.system_combos", system_combos_raw, mapping=mapping
         )
         cooling_type_raw = get_answer_value(
             project,
@@ -146,6 +164,8 @@ class HeatingContext:
             override_text=override_text,
             system_type_raw=system_type_raw,
             system_type_values=system_type_values,
+            system_combos_raw=system_combos_raw,
+            system_combos_values=system_combos_values,
             cooling_type_raw=cooling_type_raw,
             cooling_type_values=cooling_type_values,
             distribution_raw=distribution_raw,
@@ -163,6 +183,8 @@ class HeatingContext:
         )
 
     def system_unknown(self) -> bool:
+        if self.system_combos_values:
+            return False
         return (
             not self.system_type_values
             or contains_unknown(self.system_type_values)
@@ -223,7 +245,7 @@ def _render_heating_system(system_type: str, context: HeatingContext) -> str:
         if context.heating_location_text and context.heating_location_text.strip()
         else ""
     )
-    if system_type == "condensing_boiler":
+    if system_type in {"condensing_boiler", "condensing_boiler_ps"}:
         boiler_desc = _format_count_capacity(
             context.number_of_boilers,
             context.boiler_capacity_mbh,
@@ -239,6 +261,16 @@ def _render_heating_system(system_type: str, context: HeatingContext) -> str:
             "atmospheric boiler",
         )
         return f"The building is heated by {boiler_desc}{location}."
+    if system_type == "high_temp_heating_loop":
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            "MBH",
+            "boiler",
+        )
+        if boiler_desc:
+            return f"The building is served by a high-temperature heating loop supported by {boiler_desc}{location}."
+        return f"The building is served by a high-temperature heating loop{location}."
     if system_type == "electric_resistance":
         return f"Heating is provided by electric resistance equipment{location}."
     if system_type in {"wshp_central", "wshp_fluid_cooler"}:
@@ -269,10 +301,24 @@ def _resolve_system_types(system_type_raw: Any) -> List[str]:
     ]
 
 
+def _resolve_combo_systems(system_combos_raw: Any) -> List[str]:
+    combos = _resolve_system_types(system_combos_raw)
+    systems: List[str] = []
+    for combo in combos:
+        mapped = COMBO_HEATING_TYPE_MAP.get(combo)
+        if mapped:
+            systems.append(mapped)
+        elif combo:
+            systems.append(combo)
+    return systems
+
+
 def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
     project = context if isinstance(context, dict) and "answers" in context else {"answers": context}
     ctx = HeatingContext.from_project(project, mapping=mapping)
     system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    combo_types = _resolve_combo_systems(ctx.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     if not system_types:
         return not_confirmed_sentence("The heating plant type")
     sentences = [_render_heating_system(system_type, ctx) for system_type in system_types]
@@ -281,6 +327,8 @@ def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | 
 
 def _render_heating_paragraph(context: HeatingContext) -> str:
     system_types = _resolve_system_types(context.system_type_raw)
+    combo_types = _resolve_combo_systems(context.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     sentences: list[str] = []
     if system_types:
         sentences.extend(
