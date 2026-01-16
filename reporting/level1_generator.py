@@ -6,12 +6,19 @@ from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 import json
 import os
+import sys
 
 
 # -------------------- Measure templates -------------------- #
 
 from core.measure_catalog import load_measure_catalog
 from core.paths import DEFAULT_MEASURE_CATALOG
+from reporting.word_renderer import render_word
+
+DEPRECATION_NOTICE = (
+    "DEPRECATED: reporting.level1_generator is legacy. "
+    "Use reporting.word_renderer.render_word or tools/render_level1.py instead."
+)
 
 MEASURE_TEMPLATES = {}
 CATEGORIES = []
@@ -583,6 +590,7 @@ class MeasureToWordApp:
 
 
 if __name__ == "__main__":
+    _warn_deprecated()
     root = tk.Tk()
     try:
         style = ttk.Style()
@@ -604,43 +612,16 @@ def generate_level1_report(
 ) -> str:
     """
     Headless entrypoint (no Tkinter).
-    Loads project.json + template.level1.json,
-    resolves selected_measures, and calls insert_measures_into_docx.
-    Returns out_path.
+    Deprecated: use reporting.word_renderer.render_word instead.
+    The template_json_path argument is ignored and kept for compatibility.
     """
-    with open(project_json_path, "r", encoding="utf-8") as handle:
-        project_data = json.load(handle)
-
-    selected_measures = project_data.get("selected_measures")
-    if not isinstance(selected_measures, list):
-        raise ValueError("project.json must contain a selected_measures list.")
-
-    template_config = load_level1_template(template_json_path)
-    legacy_map = template_config.get("legacy_key_map", {})
-    normalized = []
-    for measure_key in selected_measures:
-        if measure_key in template_config["measures"]:
-            normalized.append(measure_key)
-        else:
-            normalized.append(legacy_map.get(measure_key, measure_key))
-    selected_measures = normalized
-
-    global MEASURE_TEMPLATES, CATEGORIES, CATEGORY_BY_MEASURE, PLACEHOLDERS
-    global SECTION_HEADINGS, PAGINATION, STYLE_MEASURE_TITLE, STYLE_SECTION_SUB, STYLE_BODY
-    global CHECKLIST_SELECTIONS, MEASURE_OVERRIDES, PROJECT_ANSWERS
-
-    MEASURE_TEMPLATES = template_config["measures"]
-    CATEGORIES = template_config["categories"]
-    CATEGORY_BY_MEASURE = template_config["category_by_measure"]
-    PLACEHOLDERS = template_config["placeholders"]
-    SECTION_HEADINGS = template_config["section_headings"]
-    PAGINATION = template_config["pagination"]
-    STYLE_MEASURE_TITLE = template_config["styles"].get("measure_title_style", STYLE_MEASURE_TITLE)
-    STYLE_SECTION_SUB = template_config["styles"].get("section_subtitle_style", STYLE_SECTION_SUB)
-    STYLE_BODY = template_config["styles"].get("body_style", STYLE_BODY)
-    CHECKLIST_SELECTIONS = project_data.get("checklist_selections") or {}
-    MEASURE_OVERRIDES = project_data.get("measure_overrides") or {}
-    PROJECT_ANSWERS = project_data.get("answers") or {}
-
-    insert_measures_into_docx(docx_template_path, out_path, selected_measures)
+    render_word(
+        template_path=docx_template_path,
+        project_json_path=project_json_path,
+        out_path=out_path,
+    )
     return out_path
+
+
+def _warn_deprecated() -> None:
+    print(DEPRECATION_NOTICE, file=sys.stderr)

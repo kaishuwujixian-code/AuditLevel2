@@ -3,8 +3,8 @@ import json
 import os
 import sys
 
-from reporting.level1_generator import generate_level1_report
 from core.measure_catalog import load_measure_catalog
+from reporting.word_renderer import render_word
 
 
 def _ensure_file(path: str, label: str) -> None:
@@ -144,6 +144,10 @@ def _validate_inputs(project_path: str, template_path: str, docx_template_path: 
 
 
 def main() -> int:
+    print(
+        "DEPRECATED: use python -m tools.render_level1 ... or python app_retscreen.py",
+        file=sys.stderr,
+    )
     parser = build_parser()
     args = parser.parse_args()
 
@@ -161,10 +165,9 @@ def main() -> int:
         if output_dir:
             os.makedirs(output_dir, exist_ok=True)
 
-        generate_level1_report(
+        render_word(
+            template_path=args.docx_template,
             project_json_path=args.project,
-            template_json_path=args.template,
-            docx_template_path=args.docx_template,
             out_path=args.out,
         )
 

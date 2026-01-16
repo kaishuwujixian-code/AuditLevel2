@@ -3,11 +3,7 @@ import json
 import os
 import sys
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
-
-from reporting.word_renderer import render_word  # noqa: E402
+from reporting.word_renderer import render_word
 
 
 def _parse_args() -> argparse.Namespace:
