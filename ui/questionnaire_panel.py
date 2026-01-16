@@ -8,6 +8,7 @@ from tkinter import ttk
 
 from core.questionnaire import apply_answers_to_project, collect_template_placeholders
 from reporting.narratives import load_option_sets
+from ui.repeatable_group import RepeatableGroupWidget
 
 
 @dataclass
@@ -139,6 +140,19 @@ class QuestionnairePanel(ttk.Frame):
             text.grid(row=row, column=1, sticky="ew", pady=6)
             return QuestionWidget(question_id, question_type, text)
 
+        if question_type == "repeatable_group":
+            fields = question.get("item_fields") or question.get("fields") or []
+            if not isinstance(fields, list):
+                return None
+            widget = RepeatableGroupWidget(
+                parent,
+                fields,
+                add_label="Add Measure",
+                row_label="Measure",
+            )
+            widget.grid(row=row, column=1, sticky="ew", pady=6)
+            return QuestionWidget(question_id, question_type, widget)
+
         if question_type == "single_select":
             labels = [opt.get("label", opt.get("value", "")) for opt in options]
             label_to_value = {
@@ -225,6 +239,8 @@ class QuestionnairePanel(ttk.Frame):
                 if var.get():
                     selections.append(value)
             return selections
+        if widget.question_type == "repeatable_group":
+            return widget.widget.get_value()
         return None
 
     def _set_widget_value(self, widget: QuestionWidget, value: Any) -> None:
@@ -242,6 +258,8 @@ class QuestionnairePanel(ttk.Frame):
             values = set(value or [])
             for option_value, var in widget.widget:
                 var.set(option_value in values)
+        elif widget.question_type == "repeatable_group":
+            widget.widget.set_value(value)
 
     def _build_form_section(self, parent: ttk.Frame, title: str) -> ttk.LabelFrame:
         section_frame = ttk.LabelFrame(parent, text=title, padding=10)

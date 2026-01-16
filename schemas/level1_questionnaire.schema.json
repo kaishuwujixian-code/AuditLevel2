@@ -509,276 +509,59 @@
         {
           "id": "measures",
           "title": "Measures",
-          "type": "measure_select",
+          "type": "repeatable_group",
           "section_id": "measures",
-          "options": [
+          "item_fields": [
             {
-              "label": "Building Automation System Upgrade",
-              "value": "bas_upgrade",
-              "category": "bas",
-              "category_label": "BAS / Controls"
+              "id": "measure_title",
+              "title": "Measure title",
+              "type": "text",
+              "required": true
             },
             {
-              "label": "Condensing Boiler Retrofit",
-              "value": "condensing_boiler_retrofit",
-              "category": "boiler",
-              "category_label": "Boiler / Plant"
+              "id": "existing_conditions",
+              "title": "Existing conditions",
+              "type": "notes",
+              "required": true
             },
             {
-              "label": "Water Source Heat Pump System Conversion",
-              "value": "fancoil_to_wshp_short_term",
-              "category": "boiler",
-              "category_label": "Boiler / Plant"
+              "id": "retrofit_recommendation",
+              "title": "Retrofit recommendation",
+              "type": "notes",
+              "required": true
             },
             {
-              "label": "Investigate and Eliminate Sources of Electrical Heating",
-              "value": "investigate_electric_heating",
-              "category": "other",
-              "category_label": "Other / Misc"
+              "id": "category",
+              "title": "Category",
+              "type": "text",
+              "required": false
             },
             {
-              "label": "Existing BAS Upgrade",
-              "value": "existing_bas_upgrade",
-              "category": "bas",
-              "category_label": "BAS / Controls"
+              "id": "priority",
+              "title": "Priority",
+              "type": "text",
+              "required": false
             },
             {
-              "label": "Electrical Sub-metering",
-              "value": "sub_metering",
-              "category": "other",
-              "category_label": "Other / Misc"
+              "id": "notes",
+              "title": "Notes",
+              "type": "notes",
+              "required": false
             },
             {
-              "label": "Primary\u2013Secondary Boiler and DHW Piping Reconfiguration",
-              "value": "primary_secondary_boiler_and_dhw_piping",
-              "category": "loop",
-              "category_label": "Hydronic Loops"
-            },
-            {
-              "label": "MUA Hydronic Conversion",
-              "value": "mua_hydronic_conversion",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Transition Fan Coils to Water-Source Heat Pump System (Long-Term Strategy)",
-              "value": "fan_coil_to_wshp",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "EV Charging Stations",
-              "value": "ev_charging_stations",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Install New Building Automation System (BAS)",
-              "value": "bas_install",
-              "category": "bas",
-              "category_label": "BAS / Controls"
-            },
-            {
-              "label": "Common Area and Garage Lighting Retrofit",
-              "value": "common_area_lighting_retrofit",
-              "category": "lighting",
-              "category_label": "Lighting"
-            },
-            {
-              "label": "Outdoor Reset Control for Hydronic Heating System",
-              "value": "outdoor_reset_for_hydronic_heating",
-              "category": "bas",
-              "category_label": "BAS / Controls"
-            },
-            {
-              "label": "MUA VFD Retrofit",
-              "value": "mua_vfd_retrofit",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "BAS Recommissioning \u2013 Control Valves",
-              "value": "bas_recommission_valves",
-              "category": "bas",
-              "category_label": "BAS / Controls"
-            },
-            {
-              "label": "DHW Repiping for Condensing Boiler Performance",
-              "value": "dhw_repiping_for_condensing_boilers",
-              "category": "boiler",
-              "category_label": "Boiler / Plant"
-            },
-            {
-              "label": "MUA Hydronic Conversion with BAS and VFDs",
-              "value": "mua_hydronic_bas_vfd",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Boiler Plant Optimization & Hydronic Balancing",
-              "value": "enbridge_gas_boiler_optimization_pilot_program",
-              "category": "boiler",
-              "category_label": "Boiler / Plant"
-            },
-            {
-              "label": "Natural Gas Co-Generation (CHP) System",
-              "value": "gas_co_generation_chp",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Fan Coil Unit Retrofit \u2013 Suite Units",
-              "value": "fan_coil_unit_retrofit",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Garage Exhaust CO Sensor Control",
-              "value": "garage_co_sensors",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Replace DHW Boiler with Condensing Boiler",
-              "value": "dhw_condensing_boiler_replacement",
-              "category": "boiler",
-              "category_label": "Boiler / Plant"
-            },
-            {
-              "label": "Cooling Tower Fan VFD Retrofit",
-              "value": "cooling_tower_fan_vfd",
-              "category": "pumps",
-              "category_label": "Pumps / Power / PF"
-            },
-            {
-              "label": "Booster Pump VFD Retrofit",
-              "value": "booster_pump_vfd",
-              "category": "pumps",
-              "category_label": "Pumps / Power / PF"
-            },
-            {
-              "label": "Miscellaneous Maintenance and Efficiency Upgrades",
-              "value": "misc_maintenance_upgrades",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Replace Existing MUA with Packaged Heating/Cooling MUA",
-              "value": "packaged_heating_cooling_mua",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Convert Upper MUA to Hydronic Heating",
-              "value": "upper_mua_hydronic_conversion",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Solar Air Pre-Heating for Upper MUA",
-              "value": "solar_preheat_upper_mua",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Solar Pre-Heating for Domestic Hot Water",
-              "value": "solar_preheat_dhw",
-              "category": "water",
-              "category_label": "Water & DHW"
-            },
-            {
-              "label": "DHW retrofit with plate and frame Heat exchanger",
-              "value": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
-              "category": "water",
-              "category_label": "Water & DHW"
-            },
-            {
-              "label": "Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit",
-              "value": "dry_o_tron_pool_unit",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Heat Recovery for Roof MUA and Exhaust Fans",
-              "value": "roof_mua_heat_recovery",
-              "category": "mua",
-              "category_label": "MUA / Ventilation"
-            },
-            {
-              "label": "Adding a Heat Exchanger to Isolate the Glycol Tower Loop from the Building Loop",
-              "value": "adding_a_heat_exchanger_to_isolate_the_glycol_tower_loop_from_the_building_loop",
-              "category": "loop",
-              "category_label": "Hydronic Loops"
-            },
-            {
-              "label": "Replace Electric Dryers with Natural Gas Dryers",
-              "value": "gas_dryer_replacement",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Install Natural Gas Unit Heaters for Space Heating",
-              "value": "gas_unit_heaters_space_heating",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Replace Existing Chiller with High-Efficiency Chiller",
-              "value": "new_chiller_replacement",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Common Area Lighting Occupancy Sensors",
-              "value": "common_area_occupancy_sensors",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Window Retrofit \u2013 High-Performance Glazing",
-              "value": "window_retrofit",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Window Caulking / Weatherstripping Upgrade",
-              "value": "window_caulking_upgrade",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Install Power Factor Correction Equipment",
-              "value": "power_factor_correction",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Heating System Recommissioning",
-              "value": "heating_system_recommissioning",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Separate Garage Exhaust from Cooling Tower Well",
-              "value": "separate_garage_exhaust_from_cooling_tower",
-              "category": "other",
-              "category_label": "Other / Misc"
-            },
-            {
-              "label": "Geothermal Upgrade for Heat Pump Loop",
-              "value": "geothermal_upgrade",
-              "category": "other",
-              "category_label": "Other / Misc"
+              "id": "include_in_report",
+              "title": "Include in report",
+              "type": "boolean",
+              "required": false,
+              "default": true
             }
           ],
-          "options_ref": "measure_catalog",
           "placeholder_targets": [
             "{MEASURE_BLOCK}",
             "{MEASURE_SUMMARY_ROW}"
           ],
-          "help": "Select measures to include; add optional override text per measure.",
-          "required": false,
-          "override_target": "measure_overrides"
+          "help": "Add measures with existing conditions and retrofit recommendations.",
+          "required": false
         }
       ]
     },

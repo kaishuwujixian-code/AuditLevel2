@@ -63,9 +63,17 @@ def render_block(
     placeholders: Mapping[str, Any] | None = None,
 ) -> str:
     catalog = catalog or _load_measure_catalog_safe()
+    structured_measures = collect_structured_measures(project)
     context = MeasuresContext.from_project(project, catalog=catalog, placeholders=placeholders)
     if context.override_text:
         return context.override_text
+
+    if structured_measures:
+        return _render_structured_measures(structured_measures)
+
+    legacy_text = _legacy_measures_text(project)
+    if legacy_text:
+        return legacy_text
 
     if not context.selected_measures:
         return (
@@ -107,7 +115,45 @@ def render_summary_row(
 
 def count_selected_measures(project: Dict[str, Any], *, catalog: MeasureCatalog | None = None) -> int:
     catalog = catalog or _load_measure_catalog_safe()
+    structured_measures = collect_structured_measures(project)
+    if structured_measures:
+        return len(structured_measures)
     return len(_collect_selected_measures(project, catalog))
+
+
+def collect_structured_measures(project: Dict[str, Any]) -> List[Dict[str, Any]]:
+    answers = project.get("answers", {}) if isinstance(project, dict) else {}
+    sources = []
+    if isinstance(answers, dict):
+        sources.append(answers.get("measures"))
+    sources.append(project.get("measures") if isinstance(project, dict) else None)
+
+    for source in sources:
+        if not isinstance(source, list):
+            continue
+        measures: List[Dict[str, Any]] = []
+        for entry in source:
+            normalized = _normalize_structured_measure(entry)
+            if not normalized:
+                continue
+            if not normalized.get("include_in_report", True):
+                continue
+            measures.append(normalized)
+        if measures:
+            return measures
+    return []
+
+
+def _legacy_measures_text(project: Dict[str, Any]) -> str | None:
+    answers = project.get("answers", {}) if isinstance(project, dict) else {}
+    candidates = []
+    if isinstance(answers, dict):
+        candidates.append(answers.get("measures"))
+    candidates.append(project.get("measures") if isinstance(project, dict) else None)
+    for value in candidates:
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return None
 
 
 def _load_measure_catalog_safe() -> MeasureCatalog:
@@ -289,6 +335,41 @@ def _normalize_override_entry(value: Any) -> Dict[str, str]:
     return {}
 
 
+def _normalize_structured_measure(entry: Any) -> Dict[str, Any] | None:
+    if not isinstance(entry, dict):
+        return None
+    title = _normalize_text(entry.get("measure_title") or entry.get("title"))
+    existing = _normalize_text(
+        entry.get("existing_conditions") or entry.get("existing")
+    )
+    retrofit = _normalize_text(
+        entry.get("retrofit_recommendation") or entry.get("retrofit")
+    )
+    notes = _normalize_text(entry.get("notes"))
+    category = _normalize_text(entry.get("category"))
+    priority = _normalize_text(entry.get("priority"))
+    include_in_report = entry.get("include_in_report", True)
+
+    if not any([title, existing, retrofit, notes, category, priority]):
+        return None
+
+    return {
+        "measure_title": title or "",
+        "existing_conditions": existing or "",
+        "retrofit_recommendation": retrofit or "",
+        "notes": notes or "",
+        "category": category or "",
+        "priority": priority or "",
+        "include_in_report": bool(include_in_report),
+    }
+
+
+def _normalize_text(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
 def _resolve_measure_title(
     measure_id: str,
     override: Dict[str, str],
@@ -345,6 +426,25 @@ def _format_measure_block(title: str, narrative: str) -> str:
     if narrative and narrative.strip():
         return "\n\n".join([heading, narrative.strip()])
     return heading
+
+
+def _render_structured_measures(measures: List[Dict[str, Any]]) -> str:
+    blocks: List[str] = []
+    for measure in measures:
+        title = measure.get("measure_title") or ""
+        existing = measure.get("existing_conditions") or ""
+        retrofit = measure.get("retrofit_recommendation") or ""
+        notes = measure.get("notes") or ""
+        sections: List[str] = []
+        if existing:
+            sections.append(f"Existing Conditions: {existing}")
+        if retrofit:
+            sections.append(f"Retrofit Recommendation: {retrofit}")
+        if notes:
+            sections.append(f"Notes: {ensure_sentence(notes)}")
+        narrative = "\n\n".join(sections)
+        blocks.append(_format_measure_block(title, narrative))
+    return "\n\n".join(blocks)
 
 
 def _split_lines(value: str) -> list[str]:
