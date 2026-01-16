@@ -1,46 +1,62 @@
 {
   "answers": {
-    "architectural_condition": null,
+    "architectural_condition": "good",
+    "boiler_capacity_mbh": "4000 MBH",
+    "chiller_tonnage": "300 tons",
     "city": "Toronto",
-    "client_name": "Charz YorkVille",
-    "cooling_controls_notes": "no BAS ",
-    "cooling_location": "pent house mechanical room",
+    "client_name": "Novo Property Managerment CharYorkville",
+    "cooling_controls_notes": "No BAS",
+    "cooling_location": "Pent House",
     "cooling_notes": "",
     "cooling_serves": [
       "serves_fancoil",
       "serves_mua"
     ],
-    "cooling_system_type": "chiller_water",
+    "cooling_system_type": "chiller_cooling_tower",
     "date_constructed": "2015",
-    "dhw_block": "",
-    "dhw_location": "pent house  mechanical room",
-    "dhw_notes": "storage tank poor condition",
-    "dhw_system_type": "dhw_boiler_condensing",
-    "district": "Yorkville",
-    "heating_block": "",
-    "heating_controls_notes": "no BAS system",
-    "heating_distribution_notes": "Heat is distributed through fan coil units and AHUs.",
-    "heating_location": "Penthouse Mechanical room",
-    "heating_notes": "in put temperature too high, no delta T",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1500 MBH",
+    "dhw_location": "Pent house",
+    "dhw_notes": "",
+    "dhw_system_type": "hx_from_heating_ps",
+    "dhw_tank_capacity_gal": " 500 ",
+    "district_50b69d": "Toronto",
+    "heating_block_override": "",
+    "heating_controls_notes": "No BAS",
+    "heating_location": "Penthouse",
+    "heating_notes": "return temperature too high",
     "heating_serves": [
       "serves_fancoil",
       "serves_mua"
     ],
     "heating_system_type": "condensing_boiler",
-    "measures": [],
-    "misc_block": "",
-    "number_of_floors": "12",
-    "number_of_suites": "180",
-    "postal_code": "M4R 1O1",
+    "hvac_system_combos": [
+      "condensing_boiler_ps",
+      "chiller_cooling_tower",
+      "dhw_from_heating_hx",
+      "suite_erv_hrv"
+    ],
+    "misc_block": "No BAS, All LED fixture, garage unheated",
+    "number_of_boilers": "3",
+    "number_of_chillers": "1",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "3",
+    "number_of_floors": "47",
+    "number_of_fluid_coolers": "2",
+    "number_of_mua_units": "2",
+    "number_of_rooftop_units": "5",
+    "number_of_suites": "520",
+    "postal_code": "M4R",
     "province": "Ontario",
-    "province_abbreviation": "ON",
-    "report_date": "Jan 15 2026",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "2026-01-15",
     "site_address": "45 Charles St E",
-    "suite_types": "3 bed room + 2 bed room + 1 bed room/ studio",
-    "ventilation_block": "",
-    "ventilation_location": "roof top",
-    "ventilation_notes": "hydronic heating and cooling coil, served by central mechanical plant",
-    "ventilation_system_type": "mua_corridor"
+    "suite_types": "3 bed room + 2 bed room + studio",
+    "ventilation_airflow_cfm": "700 CFM",
+    "ventilation_block_override": "",
+    "ventilation_location": "Roof top",
+    "ventilation_notes": "",
+    "ventilation_system_type": "mua_hydronic_coil"
   },
   "checklist_selections": {
     "Walkthrough Findings": {
@@ -48,7 +64,9 @@
         "Schedules verified with staff"
       ],
       "Opportunities": [
-        "BAS scheduling optimization"
+        "BAS scheduling optimization",
+        "VFD potential on pumps/fans",
+        "Hydronic balancing review"
       ],
       "Safety Hazards": [
         "Combustion air openings unobstructed"
@@ -56,47 +74,44 @@
     }
   },
   "measure_overrides": {},
-  "meta": {
-    "generated_at": "2026-01-15T02:53:31.923787+00:00",
-    "schema_path": "schemas\\level1_questionnaire.schema.json"
+  "notes": {
+    "general_site_notes": ""
   },
-  "photos": [],
   "placeholders": {
-    "{Architectural Condition}": null,
+    "{Architectural Condition}": "good",
     "{Central Heating/Cooling Systems block}": "",
     "{Central Ventilation System Block}": "",
     "{City}": "Toronto",
-    "{ClientName}": "Charz YorkVille",
+    "{ClientName}": "Novo Property Managerment CharYorkville",
     "{DHW System Block}": "",
     "{Date Constructed}": "2015",
-    "{DateDocument}": "Jan 15 2026",
-    "{District}": "",
-    "{MEASURE_BLOCK}": "",
-    "{MEASURE_SUMMARY_ROW}": "",
-    "{Miscellaneous Block}": "",
-    "{Number of Floors}": "12",
-    "{Number of Suites}": "180",
-    "{Post Code}": "M4R 1O1",
+    "{DateDocument}": "2026-01-15",
+    "{District}": "Toronto",
+    "{Miscellaneous Block}": "No BAS, All LED fixture, garage unheated",
+    "{Number of Floors}": "47",
+    "{Number of Suites}": "520",
+    "{Post Code}": "M4R",
     "{Property Address1}": "45 Charles St E",
-    "{Province Abbreviation}": "",
+    "{Province Abbreviation}": "ON",
     "{Province}": "Ontario",
-    "{Report Date}": "Jan 15 2026",
-    "{Suite Types}": "['3 Bed-room', '2 bed room']"
+    "{Report Date}": "2026-01-15",
+    "{Suite Types}": "3 bed room + 2 bed room + studio"
   },
   "project_info": {
-    "client_name": "Charz YorkVille",
-    "report_date": "Jan 15 2026",
+    "building_name": "",
+    "client_name": "Novo Property Managerment CharYorkville",
+    "prepared_by": "",
+    "report_date": "2026-01-15",
     "site_address": "45 Charles St E"
   },
   "selected_measures": [
     "condensing_boiler_retrofit",
-    "primary_secondary_boiler_and_dhw_piping",
-    "mua_hydronic_conversion",
-    "ev_charging_stations",
     "bas_install",
-    "common_area_lighting_retrofit",
+    "mua_vfd_retrofit",
+    "enbridge_gas_boiler_optimization_pilot_program",
+    "garage_co_sensors",
     "booster_pump_vfd",
     "misc_maintenance_upgrades",
-    "solar_preheat_dhw"
+    "heating_system_recommissioning"
   ]
 }
