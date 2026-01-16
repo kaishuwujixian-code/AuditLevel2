@@ -121,31 +121,31 @@ def _coerce_list(value: Any) -> List[Any]:
 
 def _render_ventilation_system(system_type: str, context: VentilationContext) -> str:
     location = (
-        f\" located in {context.location_text.strip()}\"
+        f" located in {context.location_text.strip()}"
         if context.location_text and context.location_text.strip()
-        else \"\"
+        else ""
     )
-    if system_type in {\"mua_gas_rooftop\", \"mua_hydronic_coil\", \"mua_corridor\"}:
+    if system_type in {"mua_gas_rooftop", "mua_hydronic_coil", "mua_corridor"}:
         system_label = {
-            \"mua_gas_rooftop\": \"gas-fired rooftop make-up air units\",
-            \"mua_hydronic_coil\": \"hydronic-coil make-up air units\",
-            \"mua_corridor\": \"corridor make-up air units\",
-        }.get(system_type, \"make-up air units\")
+            "mua_gas_rooftop": "gas-fired rooftop make-up air units",
+            "mua_hydronic_coil": "hydronic-coil make-up air units",
+            "mua_corridor": "corridor make-up air units",
+        }.get(system_type, "make-up air units")
         count_text = stringify_value(context.number_of_mua_units)
         if count_text:
             return (
-                f\"Ventilation is primarily provided by {count_text} units of {system_label}{location}.\"
+                f"Ventilation is primarily provided by {count_text} units of {system_label}{location}."
             )
-        return f\"Ventilation is primarily provided by {system_label}{location}.\"
-    if system_type == \"heat_recovery_ventilator\":
-        return f\"Ventilation is provided by a heat recovery ventilator system{location}.\"
-    if system_type == \"doas\":
-        return f\"Ventilation is provided by a dedicated outdoor air system{location}.\"
-    if system_type == \"suite_erv_hrv\":
-        return f\"Ventilation is delivered via suite-level ERV/HRV units{location}.\"
-    if system_type == \"exhaust_only\":
-        return f\"Ventilation is provided by exhaust-only systems{location}.\"
-    return \"\"
+        return f"Ventilation is primarily provided by {system_label}{location}."
+    if system_type == "heat_recovery_ventilator":
+        return f"Ventilation is provided by a heat recovery ventilator system{location}."
+    if system_type == "doas":
+        return f"Ventilation is provided by a dedicated outdoor air system{location}."
+    if system_type == "suite_erv_hrv":
+        return f"Ventilation is delivered via suite-level ERV/HRV units{location}."
+    if system_type == "exhaust_only":
+        return f"Ventilation is provided by exhaust-only systems{location}."
+    return ""
 
 
 def _resolve_system_types(system_type_raw: Any) -> List[str]:
@@ -153,18 +153,18 @@ def _resolve_system_types(system_type_raw: Any) -> List[str]:
     return [
         value
         for value in values
-        if isinstance(value, str) and \"unknown\" not in value.lower()
+        if isinstance(value, str) and "unknown" not in value.lower()
     ]
 
 
 def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
-    project = context if isinstance(context, dict) and \"answers\" in context else {\"answers\": context}
+    project = context if isinstance(context, dict) and "answers" in context else {"answers": context}
     ctx = VentilationContext.from_project(project, mapping=mapping)
     system_types = _resolve_system_types(system_type or ctx.system_type_raw)
     if not system_types:
-        return not_confirmed_sentence(\"The central ventilation system type\")
+        return not_confirmed_sentence("The central ventilation system type")
     sentences = [_render_ventilation_system(value, ctx) for value in system_types]
-    return \" \".join(sentence for sentence in sentences if sentence)
+    return " ".join(sentence for sentence in sentences if sentence)
 
 
 def render_block(
@@ -189,7 +189,7 @@ def render_block(
 
     if context.ventilation_airflow_cfm:
         sentences.append(
-            f\"Reported ventilation airflow is approximately {stringify_value(context.ventilation_airflow_cfm)} CFM.\"
+            f"Reported ventilation airflow is approximately {stringify_value(context.ventilation_airflow_cfm)} CFM."
         )
 
     if context.condition_text:
