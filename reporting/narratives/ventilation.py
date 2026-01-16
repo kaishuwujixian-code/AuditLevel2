@@ -24,11 +24,19 @@ EXPECTED_INPUTS = {
             "ventilation_block",
             "ventilation.system_type",
             "ventilation_system_type",
+            "hvac.system_combos",
+            "hvac_system_combos",
             "number_of_mua_units",
             "ventilation_airflow_cfm",
             "ventilation_notes",
         ],
     }
+}
+
+COMBO_VENTILATION_TYPE_MAP = {
+    "central_ventilation_mua_doas": "central_ventilation_mua_doas",
+    "suite_erv_hrv": "suite_erv_hrv",
+    "exhaust_only": "exhaust_only",
 }
 
 
@@ -40,6 +48,8 @@ class VentilationContext:
     override_text: str | None
     system_type_raw: Any
     system_type_values: List[str]
+    system_combos_raw: Any
+    system_combos_values: List[str]
     location_text: str | None
     condition_text: str | None
     bas_present: Any
@@ -61,6 +71,13 @@ class VentilationContext:
         )
         system_type_values = format_option_values(
             "ventilation.system_type", system_type_raw, mapping=mapping
+        )
+        system_combos_raw = get_answer_value(
+            project,
+            ["hvac.system_combos", "hvac_system_combos", "system_combos"],
+        )
+        system_combos_values = format_option_values(
+            "hvac.system_combos", system_combos_raw, mapping=mapping
         )
         location_text = stringify_value(
             get_answer_value(project, ["ventilation_location", "location"], section="ventilation")
@@ -95,6 +112,8 @@ class VentilationContext:
             override_text=override_text,
             system_type_raw=system_type_raw,
             system_type_values=system_type_values,
+            system_combos_raw=system_combos_raw,
+            system_combos_values=system_combos_values,
             location_text=location_text,
             condition_text=condition_text,
             bas_present=bas_present,
@@ -104,6 +123,8 @@ class VentilationContext:
         )
 
     def system_unknown(self) -> bool:
+        if self.system_combos_values:
+            return False
         return (
             not self.system_type_values
             or contains_unknown(self.system_type_values)
@@ -137,6 +158,13 @@ def _render_ventilation_system(system_type: str, context: VentilationContext) ->
                 f"Ventilation is primarily provided by {count_text} units of {system_label}{location}."
             )
         return f"Ventilation is primarily provided by {system_label}{location}."
+    if system_type == "central_ventilation_mua_doas":
+        count_text = stringify_value(context.number_of_mua_units)
+        if count_text:
+            return (
+                f"Central ventilation is provided by approximately {count_text} make-up air units or DOAS equipment{location}."
+            )
+        return f"Central ventilation is provided by make-up air units or DOAS equipment{location}."
     if system_type == "heat_recovery_ventilator":
         return f"Ventilation is provided by a heat recovery ventilator system{location}."
     if system_type == "doas":
@@ -157,10 +185,24 @@ def _resolve_system_types(system_type_raw: Any) -> List[str]:
     ]
 
 
+def _resolve_combo_systems(system_combos_raw: Any) -> List[str]:
+    combos = _resolve_system_types(system_combos_raw)
+    systems: List[str] = []
+    for combo in combos:
+        mapped = COMBO_VENTILATION_TYPE_MAP.get(combo)
+        if mapped:
+            systems.append(mapped)
+        elif combo:
+            systems.append(combo)
+    return systems
+
+
 def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
     project = context if isinstance(context, dict) and "answers" in context else {"answers": context}
     ctx = VentilationContext.from_project(project, mapping=mapping)
     system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    combo_types = _resolve_combo_systems(ctx.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     if not system_types:
         return not_confirmed_sentence("The central ventilation system type")
     sentences = [_render_ventilation_system(value, ctx) for value in system_types]
@@ -178,6 +220,8 @@ def render_block(
     sentences: list[str] = []
     system_unknown = context.system_unknown()
     system_types = _resolve_system_types(context.system_type_raw)
+    combo_types = _resolve_combo_systems(context.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
 
     if system_types:
         sentences.extend(

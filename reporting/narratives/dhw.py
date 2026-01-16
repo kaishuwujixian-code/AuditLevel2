@@ -25,6 +25,8 @@ EXPECTED_INPUTS = {
             "dhw_block",
             "dhw.system_type",
             "dhw_system_type",
+            "hvac.system_combos",
+            "hvac_system_combos",
             "number_of_dhw_boilers",
             "dhw_boiler_capacity_mbh",
             "number_of_dhw_tanks",
@@ -38,6 +40,11 @@ EXPECTED_INPUTS = {
     }
 }
 
+COMBO_DHW_TYPE_MAP = {
+    "separate_dhw_boilers": "dhw_boilers",
+    "dhw_from_heating_hx": "hx_from_heating_ps",
+}
+
 
 @dataclass(frozen=True)
 class DHWContext:
@@ -47,6 +54,8 @@ class DHWContext:
     override_text: str | None
     system_type_raw: Any
     system_type_values: List[str]
+    system_combos_raw: Any
+    system_combos_values: List[str]
     heat_source_text: str | None
     storage_notes_text: str | None
     location_text: str | None
@@ -71,6 +80,13 @@ class DHWContext:
         )
         system_type_values = format_option_values(
             "dhw.system_type", system_type_raw, mapping=mapping
+        )
+        system_combos_raw = get_answer_value(
+            project,
+            ["hvac.system_combos", "hvac_system_combos", "system_combos"],
+        )
+        system_combos_values = format_option_values(
+            "hvac.system_combos", system_combos_raw, mapping=mapping
         )
         heat_source_value = get_answer_value(
             project,
@@ -131,6 +147,8 @@ class DHWContext:
             override_text=override_text,
             system_type_raw=system_type_raw,
             system_type_values=system_type_values,
+            system_combos_raw=system_combos_raw,
+            system_combos_values=system_combos_values,
             heat_source_text=stringify_value(heat_source_value),
             storage_notes_text=stringify_value(storage_notes_value),
             location_text=location_text,
@@ -143,6 +161,8 @@ class DHWContext:
         )
 
     def system_unknown(self) -> bool:
+        if self.system_combos_values:
+            return False
         return (
             not self.system_type_values
             or contains_unknown(self.system_type_values)
@@ -182,7 +202,7 @@ def _render_dhw_system(system_type: str, context: DHWContext) -> str:
         if context.location_text and context.location_text.strip()
         else ""
     )
-    if system_type in {"dhw_boiler_condensing", "dhw_boiler_atmospheric"}:
+    if system_type in {"dhw_boiler_condensing", "dhw_boiler_atmospheric", "dhw_boilers"}:
         boiler_desc = _format_count_capacity(
             context.number_of_dhw_boilers,
             context.dhw_boiler_capacity_mbh,
@@ -206,10 +226,24 @@ def _resolve_system_types(system_type_raw: Any) -> List[str]:
     ]
 
 
+def _resolve_combo_systems(system_combos_raw: Any) -> List[str]:
+    combos = _resolve_system_types(system_combos_raw)
+    systems: List[str] = []
+    for combo in combos:
+        mapped = COMBO_DHW_TYPE_MAP.get(combo)
+        if mapped:
+            systems.append(mapped)
+        elif combo:
+            systems.append(combo)
+    return systems
+
+
 def render(system_type: Any, context: Dict[str, Any], mapping: Dict[str, Any] | None = None) -> str:
     project = context if isinstance(context, dict) and "answers" in context else {"answers": context}
     ctx = DHWContext.from_project(project, mapping=mapping)
     system_types = _resolve_system_types(system_type or ctx.system_type_raw)
+    combo_types = _resolve_combo_systems(ctx.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
     if not system_types:
         return not_confirmed_sentence("The domestic hot water plant type")
     sentences = [_render_dhw_system(value, ctx) for value in system_types]
@@ -227,6 +261,8 @@ def render_block(
     sentences: list[str] = []
     system_unknown = context.system_unknown()
     system_types = _resolve_system_types(context.system_type_raw)
+    combo_types = _resolve_combo_systems(context.system_combos_raw)
+    system_types = list(dict.fromkeys(system_types + combo_types))
 
     if system_types:
         sentences.extend(
