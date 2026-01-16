@@ -62,7 +62,7 @@ class QuestionnairePanel(ttk.Frame):
             section_title = section.get("title", "Section")
             default_tab = section_id if section_id in system_tabs else "general"
             for question in section.get("questions", []):
-                if question.get("type") == "measure_select":
+                if question.get("type") in {"measure_select", "measure_list"}:
                     continue
                 question_section = self._resolve_system_section(question)
                 tab_key = question_section or default_tab
