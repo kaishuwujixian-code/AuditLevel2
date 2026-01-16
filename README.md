@@ -2,40 +2,34 @@
 
 ## Quick Start
 
-### Run the unified desktop app
+### Run the unified desktop app (supported)
 ```bash
 python app_retscreen.py
 ```
 
-### Generate a Level 1 report (CLI)
+### Generate a Level 1 report (CLI, supported)
 ```bash
-python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
+python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
 ```
 
 ### Level 1 workflow (schema → UI → project.json → Word)
 1. Ensure the schema and option sets are up to date:
    ```bash
-   python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+   python -m tools.generate_questionnaire_schema --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
    ```
-2. Run the questionnaire UI and save a project:
+2. Run the desktop UI and save a project:
    ```bash
-   python app.py
+   python app_retscreen.py
    ```
 3. Render the Word report from the saved project:
    ```bash
-   python tools/render_level1.py --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1_rendered.docx
+   python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1_rendered.docx
    ```
-
-### Validate project inputs (CLI)
-```bash
-python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --validate
-```
 
 ### Commit 1 - Extract placeholders
 Extract placeholders from the single source of truth Word template:
 ```bash
-python tools/extract_placeholders.py --template templates/level1.docx --out schemas/placeholders.level1.json
-
+python -m tools.extract_placeholders --template templates/level1.docx --out schemas/placeholders.level1.json
 ```
 
 If `--out` is omitted, JSON is printed to stdout.
@@ -43,13 +37,12 @@ If `--out` is omitted, JSON is printed to stdout.
 ### Questionnaire Schema
 Regenerate the schema from the Word template:
 ```bash
-python tools/generate_questionnaire_schema.py --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
-
+python -m tools.generate_questionnaire_schema --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
 ```
 
 Validate the generated schema:
 ```bash
-python tools/validate_questionnaire_schema.py --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
+python -m tools.validate_questionnaire_schema --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
 ```
 
 ### Narrative blocks + facility placeholders
@@ -103,7 +96,7 @@ Minimal `project.json` example that produces HVAC/DHW/ventilation narrative bloc
 
 Manual test command:
 ```bash
-python tools/render_level1.py --template templates/level1.docx --project projects/project.json --out output/level1_rendered.docx
+python -m tools.render_level1 --template templates/level1.docx --project projects/project.json --out output/level1_rendered.docx
 ```
 
 Expected output:
@@ -114,7 +107,7 @@ Expected output:
 ### Example smoke test
 Generate a sample report from `projects/example.json`:
 ```bash
-python tools/render_level1.py --template templates/level1.docx --project projects/example.json --out outputs/level1_rendered.docx
+python -m tools.render_level1 --template templates/level1.docx --project projects/example.json --out outputs/level1_rendered.docx
 ```
 The renderer prints a summary with replaced/unresolved placeholder counts; use `--strict` to fail if any remain.
 
@@ -127,11 +120,20 @@ The renderer prints a summary with replaced/unresolved placeholder counts; use `
 6. Validate Project (expect OK or warnings dialog).
 7. Generate Level 1 and confirm output in `output/`.
 
-### Legacy entry points (deprecated)
-The standalone questionnaire builder is still available but no longer recommended:
-```bash
-python app.py
-```
+### Deprecated entry points
+These are kept only for backward compatibility. Prefer the supported commands above.
+
+* Legacy questionnaire builder (deprecated):
+  ```bash
+  python app.py
+  ```
+  Replacement: `python app_retscreen.py`
+* Legacy CLI (deprecated):
+  ```bash
+  python main.py --project projects/<slug>/project.json --template templates/template.level1.json --docx-template templates/level1.docx --out output/<slug>_level1.docx
+  ```
+  Replacement: `python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx`
+* Removed legacy UI modules: `ui/main_window.py`, `ui/project_browser.py`, and `tools/new_project.py`.
 
 ## Walkthrough Findings (Checklist)
 
@@ -160,36 +162,45 @@ In the Word template, place the placeholder where findings should appear:
 
 Create a project file interactively:
 ```bash
-python tools/site_wizard.py --new
+python -m tools.site_wizard --new
 ```
 Use flags like `--template`, `--out`, `--no-measures`, or `--no-checklists` to customize the prompt flow.
 
 Clone an existing project file:
 ```bash
-python tools/site_wizard.py --clone projects/2255_victoria_park/project.json
+python -m tools.site_wizard --clone projects/2255_victoria_park/project.json
 ```
 
 Reuse selections from an existing project file:
 ```bash
-python tools/site_wizard.py --reuse projects/2255_victoria_park/project.json
+python -m tools.site_wizard --reuse projects/2255_victoria_park/project.json
 ```
 
 Non-interactive example:
 ```bash
-python tools/site_wizard.py --new --non-interactive --set project_info.client_name="ABC" --set project_info.site_address="123 Main" --set project_info.report_date="2026-01-13" --out projects/abc_123/project.json
+python -m tools.site_wizard --new --non-interactive --set project_info.client_name="ABC" --set project_info.site_address="123 Main" --set project_info.report_date="2026-01-13" --out projects/abc_123/project.json
 ```
 
 Generate a report from the new project:
 ```bash
-python main.py --project projects/<slug>/project.json --out output/<slug>_level1.docx
+python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
 ```
 
-List measures:
-```bash
-python main.py --list-measures
-```
-
-Validate inputs:
-```bash
-python main.py --validate
-```
+## Smoke tests
+* UI launches (no import errors):
+  ```bash
+  python app_retscreen.py
+  ```
+* CLI renders a docx:
+  ```bash
+  python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
+  ```
+* Schema tools run:
+  ```bash
+  python -m tools.generate_questionnaire_schema --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json --out schemas/level1_questionnaire.schema.json
+  python -m tools.validate_questionnaire_schema --schema schemas/level1_questionnaire.schema.json --placeholders schemas/placeholders.level1.json --mapping schemas/level1_questionnaire.mapping.json
+  ```
+* site_wizard creates project.json:
+  ```bash
+  python -m tools.site_wizard --new
+  ```
