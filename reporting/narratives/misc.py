@@ -33,6 +33,8 @@ def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
     context = MiscContext.from_project(project)
+    if context.override_text and context.items:
+        return "\n\n".join([_render_misc_items(context.items), context.override_text])
     if context.override_text:
         return context.override_text
 

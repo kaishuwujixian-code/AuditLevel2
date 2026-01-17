@@ -6,6 +6,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 
@@ -196,8 +197,7 @@ def _ensure_paragraph_style(
 def _ensure_measure_styles(doc: Document) -> Dict[str, str]:
     body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
     subtitle_style = _ensure_paragraph_style(doc, "Section Subtitle", base=body_style, bold=True)
-    base_title = "List Number" if "List Number" in doc.styles else "Heading 3"
-    title_style = _ensure_paragraph_style(doc, "Measure Title", base=base_title, bold=True)
+    title_style = "Heading 2" if "Heading 2" in doc.styles else "Heading 3"
     return {"body": body_style, "subtitle": subtitle_style, "title": title_style}
 
 
@@ -276,15 +276,21 @@ def _insert_measure_block(
 
         existing = measure.get("existing_conditions")
         if existing:
-            current_para = _add_paragraph_after(current_para, "Existing Conditions:", style=styles["subtitle"])
+            current_para = _add_paragraph_after(
+                current_para, "Existing Conditions:", style=styles["subtitle"]
+            )
             for line in _split_text_lines(existing):
                 current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
         retrofit = measure.get("retrofit_conditions")
         if retrofit:
-            current_para = _add_paragraph_after(current_para, "Retrofit Conditions:", style=styles["subtitle"])
+            current_para = _add_paragraph_after(
+                current_para, "Retrofit Conditions:", style=styles["subtitle"]
+            )
             for line in _split_text_lines(retrofit):
                 current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
         key_inputs = _format_key_inputs(measure)
         if key_inputs:
@@ -292,12 +298,14 @@ def _insert_measure_block(
             current_para = _add_paragraph_after(
                 current_para, "; ".join(key_inputs), style=styles["body"]
             )
+            current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
         notes = measure.get("notes")
         if notes:
             current_para = _add_paragraph_after(current_para, "Notes:", style=styles["subtitle"])
             for line in _split_text_lines(notes):
                 current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
 
 def _split_block_paragraphs(text: str) -> List[str]:
