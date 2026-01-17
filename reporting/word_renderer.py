@@ -9,7 +9,6 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
-from docx.table import _Cell
 
 from core.measure_catalog import load_measure_catalog
 from core.project_store import normalize_measures_data
@@ -304,49 +303,6 @@ def _insert_measure_block(
         # Notes are summarized in {MEASURE_SUMMARY_ROW}; avoid repeating here.
 
 
-def _set_cell_text(cell: _Cell, text: str, *, style: str | None = None) -> None:
-    for paragraph in list(cell.paragraphs):
-        paragraph._element.getparent().remove(paragraph._element)
-    paragraph = cell.add_paragraph()
-    if style is not None:
-        paragraph.style = style
-    paragraph.add_run(text)
-
-
-def _add_cell_paragraphs(cell: _Cell, text: str, *, style: str | None = None) -> None:
-    for paragraph in list(cell.paragraphs):
-        paragraph._element.getparent().remove(paragraph._element)
-    for line in _split_text_lines(text) or [""]:
-        paragraph = cell.add_paragraph()
-        if style is not None:
-            paragraph.style = style
-        paragraph.add_run(line)
-
-
-def _replace_measure_summary_table(
-    paragraph: Paragraph, measures: List[Dict[str, Any]], styles: Dict[str, str]
-) -> bool:
-    if not isinstance(paragraph._parent, _Cell):
-        return False
-    if not measures:
-        return False
-    cell = paragraph._parent
-    row = cell._parent
-    table = row._parent
-    for idx, measure in enumerate(measures):
-        if idx == 0:
-            target_row = row
-        else:
-            target_row = table.add_row()
-        title = str(measure.get("measure_title", "")).strip() or "Measure"
-        notes = str(measure.get("notes", "")).strip()
-        left_cell = target_row.cells[0]
-        right_cell = target_row.cells[1] if len(target_row.cells) > 1 else target_row.cells[0]
-        _set_cell_text(left_cell, title, style=styles["body"])
-        _add_cell_paragraphs(right_cell, notes, style=styles["body"])
-    return True
-
-
 def _split_block_paragraphs(text: str) -> List[str]:
     lines = text.splitlines()
     paragraphs: List[str] = []
@@ -519,10 +475,6 @@ def render_word(
         for placeholder in set(found):
             if placeholder in replacement_map:
                 placeholders_replaced += text.count(placeholder)
-                if placeholder == "{MEASURE_SUMMARY_ROW}" and text.strip() == placeholder:
-                    if _replace_measure_summary_table(paragraph, structured_measures, measure_styles):
-                        expanded_block = True
-                        continue
                 if (
                     placeholder == "{MEASURE_BLOCK}"
                     and text.strip() == placeholder
