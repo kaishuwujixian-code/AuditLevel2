@@ -5,17 +5,16 @@ from typing import Any, Dict, Optional
 import tkinter as tk
 from tkinter import ttk
 
-from core.measure_catalog import MeasureCatalog, load_measure_catalog
-from core.project_store import normalize_measures_data
-from ui.measure_editor import MeasuresEditor
+from core.misc_catalog import MiscCatalog, load_misc_catalog
+from ui.misc_editor import MiscEditor
 
 
-class MeasuresPanel(ttk.Frame):
+class MiscPanel(ttk.Frame):
     def __init__(self, master: tk.Misc) -> None:
         super().__init__(master)
-        self._catalog: Optional[MeasureCatalog] = None
+        self._catalog: Optional[MiscCatalog] = None
         self._catalog_tree: Optional[ttk.Treeview] = None
-        self._editor: Optional[MeasuresEditor] = None
+        self._editor: Optional[MiscEditor] = None
         self._catalog_items: Dict[str, str] = {}
         self._build_ui()
         self._load_catalog()
@@ -29,7 +28,7 @@ class MeasuresPanel(ttk.Frame):
         catalog_frame = ttk.Frame(paned, padding=(6, 6))
         catalog_frame.columnconfigure(0, weight=1)
         catalog_frame.rowconfigure(1, weight=1)
-        ttk.Label(catalog_frame, text="Measure Library").grid(row=0, column=0, sticky="w")
+        ttk.Label(catalog_frame, text="Miscellaneous Library").grid(row=0, column=0, sticky="w")
         self._catalog_tree = ttk.Treeview(catalog_frame, show="tree")
         self._catalog_tree.grid(row=1, column=0, sticky="nsew", pady=(6, 0))
         catalog_scroll = ttk.Scrollbar(
@@ -43,35 +42,36 @@ class MeasuresPanel(ttk.Frame):
         editor_frame = ttk.Frame(paned, padding=(6, 6))
         editor_frame.columnconfigure(0, weight=1)
         editor_frame.rowconfigure(0, weight=1)
-        self._editor = MeasuresEditor(editor_frame)
+        self._editor = MiscEditor(editor_frame)
         self._editor.grid(row=0, column=0, sticky="nsew")
         paned.add(editor_frame, weight=3)
 
     def load_project(self, project_data: Dict[str, Any]) -> None:
         if not self._editor:
             return
-        normalize_measures_data(project_data)
-        measures = _extract_measures(project_data)
-        self._editor.set_measures(measures)
+        items = _extract_items(project_data)
+        self._editor.set_items(items)
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
         if not self._editor:
             return
-        measures = self._editor.get_measures()
-        project_data["measures"] = measures
+        items = self._editor.get_items()
+        project_data["misc_items"] = items
         answers = project_data.get("answers", {})
         if not isinstance(answers, dict):
             answers = {}
-        answers["measures"] = measures
+        answers["misc_items"] = items
         project_data["answers"] = answers
 
     def _load_catalog(self) -> None:
-        if not self._catalog_tree:
+        if not self._catalog_tree or not self._editor:
             return
         try:
-            self._catalog = load_measure_catalog()
+            self._catalog = load_misc_catalog()
         except Exception:
             self._catalog = None
+        if self._catalog:
+            self._editor.set_categories(self._catalog.categories)
         self._populate_catalog_tree()
 
     def _populate_catalog_tree(self) -> None:
@@ -80,22 +80,22 @@ class MeasuresPanel(ttk.Frame):
         self._catalog_tree.delete(*self._catalog_tree.get_children())
         self._catalog_items = {}
         if not self._catalog:
-            self._catalog_tree.insert("", "end", text="Measure catalog not available.")
+            self._catalog_tree.insert("", "end", text="Misc catalog not available.")
             return
 
         category_nodes: Dict[str, str] = {}
         for category in self._catalog.categories:
             code = str(category.get("code", "")).strip()
-            label = str(category.get("tab_title", "")).strip() or code or "Other"
+            label = str(category.get("title", "")).strip() or code or "Other"
             category_nodes[code] = self._catalog_tree.insert("", "end", text=label)
 
-        for measure_id in self._catalog.order:
-            measure = self._catalog.measures.get(measure_id, {})
-            category = str(measure.get("category") or "").strip()
+        for item_id in self._catalog.order:
+            item = self._catalog.items.get(item_id, {})
+            category = str(item.get("category") or "").strip()
             parent = category_nodes.get(category, "")
-            title = measure.get("title") or measure.get("name") or measure_id
-            item_id = self._catalog_tree.insert(parent, "end", text=title)
-            self._catalog_items[item_id] = measure_id
+            title = item.get("title") or item_id
+            row_id = self._catalog_tree.insert(parent, "end", text=title)
+            self._catalog_items[row_id] = item_id
 
         for node_id in category_nodes.values():
             self._catalog_tree.item(node_id, open=True)
@@ -106,20 +106,20 @@ class MeasuresPanel(ttk.Frame):
         selection = self._catalog_tree.selection()
         if not selection:
             return
-        measure_id = self._catalog_items.get(selection[0])
-        if not measure_id:
+        item_id = self._catalog_items.get(selection[0])
+        if not item_id:
             return
-        measure = self._catalog.measures.get(measure_id, {})
-        self._editor.apply_catalog_measure(measure)
+        item = self._catalog.items.get(item_id, {})
+        self._editor.apply_catalog_item(item)
 
 
-def _extract_measures(project_data: Dict[str, Any]) -> list[Dict[str, Any]]:
-    measures = project_data.get("measures")
-    if isinstance(measures, list):
-        return [item for item in measures if isinstance(item, dict)]
+def _extract_items(project_data: Dict[str, Any]) -> list[Dict[str, Any]]:
+    items = project_data.get("misc_items")
+    if isinstance(items, list):
+        return [item for item in items if isinstance(item, dict)]
     answers = project_data.get("answers", {})
     if isinstance(answers, dict):
-        measures = answers.get("measures")
-        if isinstance(measures, list):
-            return [item for item in measures if isinstance(item, dict)]
+        items = answers.get("misc_items")
+        if isinstance(items, list):
+            return [item for item in items if isinstance(item, dict)]
     return []
