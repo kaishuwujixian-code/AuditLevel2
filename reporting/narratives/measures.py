@@ -100,6 +100,11 @@ def render_summary_row(
     placeholders: Mapping[str, Any] | None = None,
 ) -> str:
     catalog = catalog or _load_measure_catalog_safe()
+    structured_measures = collect_structured_measures(project)
+    if structured_measures:
+        summary = _render_summary_from_notes(structured_measures)
+        if summary:
+            return summary
     count = count_selected_measures(project, catalog=catalog)
     if not count:
         return "Measures summary: none identified at this time."
@@ -385,16 +390,22 @@ def _render_structured_text_block(measures: List[Dict[str, Any]]) -> str:
         title = str(measure.get("measure_title", "")).strip() or "Measure"
         existing = str(measure.get("existing_conditions", "")).strip()
         retrofit = str(measure.get("retrofit_conditions", "")).strip()
-        notes = str(measure.get("notes", "")).strip()
         parts = [f"Measure – {title}"]
         if existing:
             parts.append(f"Existing Conditions: {existing}")
         if retrofit:
             parts.append(f"Retrofit Conditions: {retrofit}")
-        if notes:
-            parts.append(f"Notes: {notes}")
         sections.append("\n\n".join(parts))
     return "\n\n".join(section for section in sections if section)
+
+
+def _render_summary_from_notes(measures: List[Dict[str, Any]]) -> str:
+    notes: List[str] = []
+    for measure in measures:
+        note = str(measure.get("notes", "")).strip()
+        if note:
+            notes.append(note)
+    return "\n".join(notes)
 
 
 def _split_lines(value: str) -> list[str]:

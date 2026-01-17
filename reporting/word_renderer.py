@@ -300,12 +300,7 @@ def _insert_measure_block(
             )
             current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
-        notes = measure.get("notes")
-        if notes:
-            current_para = _add_paragraph_after(current_para, "Notes:", style=styles["subtitle"])
-            for line in _split_text_lines(notes):
-                current_para = _add_paragraph_after(current_para, line, style=styles["body"])
-                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+        # Notes are summarized in {MEASURE_SUMMARY_ROW}; avoid repeating here.
 
 
 def _split_block_paragraphs(text: str) -> List[str]:
