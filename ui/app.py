@@ -78,7 +78,7 @@ class RetScreenApp:
         self._notebook.grid(row=0, column=0, sticky="nsew", padx=6, pady=6)
 
         self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
-        self._measures_tab = MeasuresPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
+        self._measures_tab = MeasuresPanel(self._notebook)
         self._checklist_tab = ChecklistPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
         self._report_tab = ReportPanel(self._notebook, self.generate_report)
         self._diagnostics_tab = DiagnosticsPanel(self._notebook)
@@ -128,6 +128,7 @@ class RetScreenApp:
                 "prepared_by": "",
             },
             "answers": {},
+            "measures": [],
             "selected_measures": [],
             "measure_overrides": {},
             "checklist_selections": {},

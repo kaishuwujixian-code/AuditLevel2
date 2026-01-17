@@ -191,6 +191,11 @@ python -m tools.render_level1 --template templates/level1.docx --project project
   ```bash
   python app_retscreen.py
   ```
+* Measures rendering smoke test (create a project with 2 measures via the UI first):
+  ```bash
+  python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
+  ```
+  Verify the measures appear as a numbered list with consistent fonts and include the "Existing Conditions" / "Retrofit Conditions" subtitles.
 * CLI renders a docx:
   ```bash
   python -m tools.render_level1 --template templates/level1.docx --project projects/<slug>/project.json --out output/<slug>_level1.docx
