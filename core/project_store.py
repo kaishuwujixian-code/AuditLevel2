@@ -45,6 +45,7 @@ def _load_project(path: str) -> dict:
         data = json.load(handle)
     if not isinstance(data, dict):
         raise ValueError("project.json must contain a JSON object.")
+    normalize_measures_data(data)
     return data
 
 
@@ -57,9 +58,7 @@ def _build_record(path: str, project_data: dict) -> ProjectRecord:
     address = str(project_info.get("site_address", "")).strip()
     report_date = str(project_info.get("report_date", "")).strip()
 
-    selected_measures = project_data.get("selected_measures", [])
-    if not isinstance(selected_measures, list):
-        selected_measures = []
+    measures_count = _count_measures(project_data)
 
     project_dir = os.path.dirname(path)
     return ProjectRecord(
@@ -67,7 +66,7 @@ def _build_record(path: str, project_data: dict) -> ProjectRecord:
         building_name=building_name,
         address=address,
         report_date=report_date,
-        measures_count=len(selected_measures),
+        measures_count=measures_count,
         project_dir=project_dir,
     )
 
@@ -149,6 +148,46 @@ def scan_project_summaries(projects_dir: str) -> Tuple[List[ProjectSummary], Lis
 
 def load_project(path: str) -> Dict:
     return _load_project(path)
+
+
+def normalize_measures_data(project_data: Dict) -> None:
+    answers = project_data.get("answers", {})
+    if not isinstance(answers, dict):
+        answers = {}
+
+    measures = _extract_measures_list(project_data, answers)
+    if not measures:
+        legacy = answers.get("measures")
+        if not legacy:
+            legacy = project_data.get("measures")
+        if isinstance(legacy, str) and legacy.strip():
+            measures = [
+                {
+                    "measure_title": "Legacy measure",
+                    "existing_conditions": legacy.strip(),
+                }
+            ]
+
+    project_data["measures"] = measures
+    answers["measures"] = measures
+    project_data["answers"] = answers
+
+
+def _extract_measures_list(project_data: Dict, answers: Dict) -> List[Dict]:
+    for source in (project_data.get("measures"), answers.get("measures")):
+        if isinstance(source, list):
+            return [item for item in source if isinstance(item, dict)]
+    return []
+
+
+def _count_measures(project_data: Dict) -> int:
+    measures = project_data.get("measures")
+    if isinstance(measures, list):
+        return len([item for item in measures if isinstance(item, dict)])
+    selected_measures = project_data.get("selected_measures", [])
+    if not isinstance(selected_measures, list):
+        return 0
+    return len(selected_measures)
 
 
 def save_project(path: str, data: Dict) -> None:

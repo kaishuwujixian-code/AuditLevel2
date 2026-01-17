@@ -5,10 +5,13 @@ import zipfile
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
+from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
+from core.project_store import normalize_measures_data
 from reporting.narratives import facility_overview, measures as measure_narratives
 from reporting.narratives.registry import KNOWN_BLOCK_PLACEHOLDERS, get_block_renderer
 
@@ -16,6 +19,21 @@ from reporting.narratives.registry import KNOWN_BLOCK_PLACEHOLDERS, get_block_re
 PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 DEFAULT_MAPPING_PATH = os.path.join("schemas", "level1_placeholders.map.json")
 DEFAULT_EMPTY_BLOCK_TEXT = ""
+MEASURE_CATEGORY_LABELS = {
+    "bas": "BAS / Controls",
+    "boiler": "Boiler / Plant",
+    "boilers": "Boilers",
+    "dhw": "DHW",
+    "lighting": "Lighting",
+    "ventilation": "Ventilation",
+    "mua": "MUA / Ventilation",
+    "controls": "Controls",
+    "loop": "Hydronic Loops",
+    "water": "Water & DHW",
+    "pumps": "Pumps / Power / PF",
+    "envelope": "Building Envelope",
+    "other": "Other / Misc",
+}
 
 
 def _normalize_key(text: str) -> str:
@@ -160,6 +178,136 @@ def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Pa
     return new_p
 
 
+def _ensure_paragraph_style(
+    doc: Document, name: str, *, base: Optional[str] = None, bold: bool = False
+) -> str:
+    try:
+        style = doc.styles[name]
+        created = False
+    except KeyError:
+        style = doc.styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
+        created = True
+        if base and base in doc.styles:
+            style.base_style = doc.styles[base]
+    if created:
+        style.font.bold = bold
+    return name
+
+
+def _ensure_measure_styles(doc: Document) -> Dict[str, str]:
+    body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
+    subtitle_style = _ensure_paragraph_style(doc, "Section Subtitle", base=body_style, bold=True)
+    title_style = "Heading 2" if "Heading 2" in doc.styles else "Heading 3"
+    return {"body": body_style, "subtitle": subtitle_style, "title": title_style}
+
+
+def _split_text_lines(text: str) -> List[str]:
+    return [line.strip() for line in str(text).splitlines() if line.strip()]
+
+
+def _format_key_inputs(measure: Dict[str, Any]) -> List[str]:
+    fields = [
+        ("Category", _label_for_category(measure.get("category"))),
+        ("Electric savings (kWh)", measure.get("savings_electric_kwh")),
+        ("Gas savings (m³)", measure.get("savings_gas_m3")),
+        ("Water savings (m³)", measure.get("savings_water_m3")),
+        ("Implementation cost", measure.get("implementation_cost")),
+        ("Incentive", measure.get("incentive")),
+        ("Simple payback (yrs)", measure.get("simple_payback_years")),
+    ]
+    parts: List[str] = []
+    for label, value in fields:
+        formatted = _format_numeric_value(value)
+        if formatted is None:
+            continue
+        parts.append(f"{label}: {formatted}")
+    return parts
+
+
+def _format_numeric_value(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    if isinstance(value, str):
+        if not value.strip():
+            return None
+        return value.strip()
+    if isinstance(value, float):
+        return f"{value:,.2f}".rstrip("0").rstrip(".")
+    if isinstance(value, int):
+        return f"{value:,d}"
+    return str(value)
+
+
+def _label_for_category(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    return MEASURE_CATEGORY_LABELS.get(text.lower(), text)
+
+
+def _insert_measure_block(
+    paragraph: Paragraph,
+    measures: List[Dict[str, Any]],
+    styles: Dict[str, str],
+    fallback_text: str,
+) -> None:
+    def set_paragraph(target: Paragraph, text: str, style: str) -> Paragraph:
+        target.text = ""
+        target.style = style
+        if text:
+            target.add_run(text)
+        return target
+
+    if not measures:
+        set_paragraph(paragraph, fallback_text, styles["body"])
+        return
+
+    current_para = paragraph
+    first = True
+    for measure in measures:
+        title = str(measure.get("measure_title", "")).strip() or "Measure"
+        if first:
+            current_para = set_paragraph(current_para, title, styles["title"])
+            first = False
+        else:
+            current_para = _add_paragraph_after(current_para, title, style=styles["title"])
+
+        existing = measure.get("existing_conditions")
+        if existing:
+            current_para = _add_paragraph_after(
+                current_para, "Existing Conditions:", style=styles["subtitle"]
+            )
+            for line in _split_text_lines(existing):
+                current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+        retrofit = measure.get("retrofit_conditions")
+        if retrofit:
+            current_para = _add_paragraph_after(
+                current_para, "Retrofit Conditions:", style=styles["subtitle"]
+            )
+            for line in _split_text_lines(retrofit):
+                current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+        key_inputs = _format_key_inputs(measure)
+        if key_inputs:
+            current_para = _add_paragraph_after(current_para, "Key Inputs:", style=styles["subtitle"])
+            current_para = _add_paragraph_after(
+                current_para, "; ".join(key_inputs), style=styles["body"]
+            )
+            current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+        notes = measure.get("notes")
+        if notes:
+            current_para = _add_paragraph_after(current_para, "Notes:", style=styles["subtitle"])
+            for line in _split_text_lines(notes):
+                current_para = _add_paragraph_after(current_para, line, style=styles["body"])
+                current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+
 def _split_block_paragraphs(text: str) -> List[str]:
     lines = text.splitlines()
     paragraphs: List[str] = []
@@ -240,6 +388,8 @@ def render_word(
     """
     with open(project_json_path, "r", encoding="utf-8") as handle:
         project_data = json.load(handle)
+    if isinstance(project_data, dict):
+        normalize_measures_data(project_data)
 
     doc = Document(template_path)
     placeholder_occurrences = _collect_placeholders_from_docx(template_path)
@@ -260,7 +410,12 @@ def render_word(
 
     mapping_data = _load_mapping(mapping_path)
     base_placeholder_map = dict(placeholder_map)
-    block_placeholders = [ph for ph in placeholder_occurrences if _is_block_placeholder(ph)]
+    block_placeholders = sorted(
+        {
+            *[ph for ph in placeholder_occurrences if _is_block_placeholder(ph)],
+            *KNOWN_BLOCK_PLACEHOLDERS,
+        }
+    )
     placeholder_map = {
         placeholder: value
         for placeholder, value in placeholder_map.items()
@@ -309,6 +464,10 @@ def render_word(
     placeholders_replaced = 0
     unresolved: Set[str] = set()
 
+    measure_styles = _ensure_measure_styles(doc)
+    structured_measures = measure_narratives.collect_structured_measures(project_data)
+    measure_fallback_text = block_replacements.get("{MEASURE_BLOCK}", DEFAULT_EMPTY_BLOCK_TEXT)
+
     for paragraph in _iter_all_paragraphs(doc):
         text = paragraph.text
         if not text or "{" not in text:
@@ -321,6 +480,18 @@ def render_word(
         for placeholder in set(found):
             if placeholder in replacement_map:
                 placeholders_replaced += text.count(placeholder)
+                if (
+                    placeholder == "{MEASURE_BLOCK}"
+                    and text.strip() == placeholder
+                ):
+                    _insert_measure_block(
+                        paragraph,
+                        structured_measures,
+                        measure_styles,
+                        measure_fallback_text,
+                    )
+                    expanded_block = True
+                    continue
                 if placeholder in block_replacements:
                     paragraphs = block_paragraphs.get(placeholder, [])
                     if len(paragraphs) > 1 and text.strip() == placeholder:

@@ -8,6 +8,8 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 
 from reporting.narratives import load_option_sets
+from ui.measure_editor import MeasuresEditor
+from ui.misc_editor import MiscEditor
 
 DEFAULT_SCHEMA_PATH = Path("schemas/level1_questionnaire.schema.json")
 DEFAULT_PROJECT_PATH = Path("project.json")
@@ -233,6 +235,16 @@ class QuestionnaireApp:
                 metadata={"override_target": override_target},
             )
 
+        if question_type == "measure_list":
+            editor = MeasuresEditor(parent)
+            editor.pack(fill="x", pady=(4, 0))
+            return QuestionWidget(question_id, question_type, editor)
+
+        if question_type == "misc_list":
+            editor = MiscEditor(parent)
+            editor.pack(fill="x", pady=(4, 0))
+            return QuestionWidget(question_id, question_type, editor)
+
         if question_type == "multi_select":
             options = question.get("options", [])
             options_ref = question.get("options_ref")
@@ -323,6 +335,10 @@ class QuestionnaireApp:
             return selections
         if widget.question_type == "image_list":
             return widget.metadata.get("paths", [])
+        if widget.question_type == "measure_list":
+            return widget.widget.get_measures()
+        if widget.question_type == "misc_list":
+            return widget.widget.get_items()
         return None
 
     def _save_project(self) -> None:
@@ -350,6 +366,10 @@ class QuestionnaireApp:
                             overrides[measure_id] = text
                     if overrides:
                         answers[override_target] = overrides
+            if widget.question_type == "measure_list":
+                answers[question_id] = widget.widget.get_measures()
+            if widget.question_type == "misc_list":
+                answers[question_id] = widget.widget.get_items()
 
         placeholders = self._build_placeholders(answers)
 
