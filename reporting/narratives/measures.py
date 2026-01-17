@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import lru_cache
-from typing import Any, Dict, List, Mapping
+from typing import Any, Dict, List, Mapping, Sequence
 
 from core.measure_catalog import MeasureCatalog, get_measure, load_measure_catalog
 from reporting.narratives import (
@@ -67,6 +67,10 @@ def render_block(
     if context.override_text:
         return context.override_text
 
+    structured_measures = collect_structured_measures(project)
+    if structured_measures:
+        return _render_structured_text_block(structured_measures)
+
     if not context.selected_measures:
         return (
             "No energy conservation measures are proposed as part of this Level 1 walk-through "
@@ -107,7 +111,23 @@ def render_summary_row(
 
 def count_selected_measures(project: Dict[str, Any], *, catalog: MeasureCatalog | None = None) -> int:
     catalog = catalog or _load_measure_catalog_safe()
+    structured = collect_structured_measures(project)
+    if structured:
+        return len(structured)
     return len(_collect_selected_measures(project, catalog))
+
+
+def collect_structured_measures(project: Dict[str, Any]) -> List[Dict[str, Any]]:
+    answers = project.get("answers", {}) if isinstance(project, dict) else {}
+    measures = None
+    if isinstance(answers, dict):
+        measures = answers.get("measures")
+    if measures is None:
+        measures = project.get("measures") if isinstance(project, dict) else None
+    if not isinstance(measures, list):
+        return []
+    normalized = [item for item in measures if isinstance(item, dict)]
+    return [item for item in normalized if _has_measure_content(item)]
 
 
 def _load_measure_catalog_safe() -> MeasureCatalog:
@@ -159,6 +179,18 @@ def _collect_raw_measure_selections(project: Dict[str, Any]) -> List[Any]:
         if value is not None:
             return _expand_measure_input(value)
     return selections
+
+
+def _has_measure_content(measure: Mapping[str, Any]) -> bool:
+    for value in measure.values():
+        if value is None:
+            continue
+        if isinstance(value, str) and not value.strip():
+            continue
+        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)) and len(value) == 0:
+            continue
+        return True
+    return False
 
 
 def _expand_measure_input(value: Any) -> List[Any]:
@@ -345,6 +377,24 @@ def _format_measure_block(title: str, narrative: str) -> str:
     if narrative and narrative.strip():
         return "\n\n".join([heading, narrative.strip()])
     return heading
+
+
+def _render_structured_text_block(measures: List[Dict[str, Any]]) -> str:
+    sections = []
+    for measure in measures:
+        title = str(measure.get("measure_title", "")).strip() or "Measure"
+        existing = str(measure.get("existing_conditions", "")).strip()
+        retrofit = str(measure.get("retrofit_conditions", "")).strip()
+        notes = str(measure.get("notes", "")).strip()
+        parts = [f"Measure – {title}"]
+        if existing:
+            parts.append(f"Existing Conditions: {existing}")
+        if retrofit:
+            parts.append(f"Retrofit Conditions: {retrofit}")
+        if notes:
+            parts.append(f"Notes: {notes}")
+        sections.append("\n\n".join(parts))
+    return "\n\n".join(section for section in sections if section)
 
 
 def _split_lines(value: str) -> list[str]:
