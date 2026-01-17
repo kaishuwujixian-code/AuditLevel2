@@ -291,25 +291,6 @@
       ]
     },
     {
-      "id": "misc",
-      "title": "Miscellaneous",
-      "questions": [
-        {
-          "id": "misc_items",
-          "title": "Miscellaneous items",
-          "type": "misc_list",
-          "section_id": "misc",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [
-            "{Miscellaneous Block}"
-          ],
-          "help": "Select or edit miscellaneous narratives from the library.",
-          "required": false
-        }
-      ]
-    },
-    {
       "id": "heating",
       "title": "Heating",
       "questions": [

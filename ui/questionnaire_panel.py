@@ -8,7 +8,6 @@ from tkinter import ttk
 
 from core.questionnaire import apply_answers_to_project, collect_template_placeholders
 from reporting.narratives import load_option_sets
-from ui.misc_panel import MiscPanel
 
 
 @dataclass
@@ -27,7 +26,6 @@ class QuestionnairePanel(ttk.Frame):
         self._template_widgets: Dict[str, QuestionWidget] = {}
         self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
-        self._misc_panel: Optional[MiscPanel] = None
         self._notebook = ttk.Notebook(self)
         self._notebook.grid(row=0, column=0, sticky="nsew")
         self.rowconfigure(0, weight=1)
@@ -53,8 +51,6 @@ class QuestionnairePanel(ttk.Frame):
         self._notebook.add(system_tabs["cooling"], text="Cooling")
         self._notebook.add(system_tabs["dhw"], text="DHW")
         self._notebook.add(system_tabs["ventilation"], text="Ventilation")
-        self._misc_panel = MiscPanel(self._notebook)
-        self._notebook.add(self._misc_panel, text="Misc")
 
         general_container = general_tab.content
         section_frames: Dict[tuple[str, str], ttk.LabelFrame] = {}
@@ -66,7 +62,7 @@ class QuestionnairePanel(ttk.Frame):
             section_title = section.get("title", "Section")
             default_tab = section_id if section_id in system_tabs else "general"
             for question in section.get("questions", []):
-                if question.get("type") in {"measure_select", "measure_list", "misc_list"}:
+                if question.get("type") in {"measure_select", "measure_list"}:
                     continue
                 question_section = self._resolve_system_section(question)
                 tab_key = question_section or default_tab
@@ -200,8 +196,6 @@ class QuestionnairePanel(ttk.Frame):
         for placeholder, widget in self._template_widgets.items():
             value = placeholders.get(placeholder, "")
             self._set_widget_value(widget, value)
-        if self._misc_panel:
-            self._misc_panel.load_project(project_data)
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
         answers = project_data.get("answers", {})
@@ -215,8 +209,6 @@ class QuestionnairePanel(ttk.Frame):
             template_fields[placeholder] = self._extract_answer(widget)
 
         apply_answers_to_project(project_data, answers, self._schema, template_fields)
-        if self._misc_panel:
-            self._misc_panel.update_project(project_data)
 
     def _extract_answer(self, widget: QuestionWidget) -> Any:
         if widget.question_type in {"text", "number", "date"}:
