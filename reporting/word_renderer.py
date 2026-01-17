@@ -402,7 +402,12 @@ def render_word(
 
     mapping_data = _load_mapping(mapping_path)
     base_placeholder_map = dict(placeholder_map)
-    block_placeholders = [ph for ph in placeholder_occurrences if _is_block_placeholder(ph)]
+    block_placeholders = sorted(
+        {
+            *[ph for ph in placeholder_occurrences if _is_block_placeholder(ph)],
+            *KNOWN_BLOCK_PLACEHOLDERS,
+        }
+    )
     placeholder_map = {
         placeholder: value
         for placeholder, value in placeholder_map.items()
