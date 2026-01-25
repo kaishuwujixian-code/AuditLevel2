@@ -5,6 +5,22 @@
       "title": "Lighting"
     },
     {
+      "code": "window",
+      "title": "Window Condition"
+    },
+    {
+      "code": "electric",
+      "title": "Electric Panel"
+    },
+    {
+      "code": "water",
+      "title": "Toilet Flush"
+    },
+    {
+      "code": "thermostat",
+      "title": "No Insuite Thermostat"
+    },
+    {
       "code": "garage",
       "title": "Garage Ventilation"
     },
@@ -27,6 +43,30 @@
       "title": "Lighting condition and controls",
       "category": "lighting",
       "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas."
+    },
+    {
+      "id": "window_condition",
+      "title": "Window caulk condition",
+      "category": "window",
+      "text": "During the site visit, deteriorated or missing caulking and weatherstripping were observed at several window frames and balcony door interfaces, while localized repairs have been completed in some areas. These conditions allow air infiltration during the heating season, contributing to localized cold drafts and increased space-heating demand. Full window replacement would address both air leakage and thermal losses."
+    },
+    {
+      "id": "electric_panel",
+      "title": "Electric Panel",
+      "category": "electric",
+      "text": "The building is served by an aging electrical distribution panel consistent with the original construction era. While the panel appeared to be functional and no immediate safety deficiencies were observed during the site visit, its configuration and capacity reflect outdated electrical standards and may offer limited flexibility to support future electrical loads, energy-efficiency upgrades, or electrification initiatives. Further detailed electrical assessment is recommended prior to implementing major electrical or energy-related retrofits to confirm available capacity, code compliance, and long-term suitability."
+    },
+    {
+      "id": "toilet_condition",
+      "title": "Toilet Flush",
+      "category": "water",
+      "text": "The existing toilets are estimated to operate at approximately 4.8 liters per flush (LPF). Upgrading to modern dual-flush, low-flow toilet fixtures, typically rated at approximately 3.0–3.5 LPF for full flush with reduced volumes for liquid waste, would reduce domestic water consumption and associated sewer charges while maintaining acceptable fixture performance and occupant comfort."
+    },
+    {
+      "id": "no_insuite_thermostat",
+      "title": "No Insuite Thermostat",
+      "category": "thermostat",
+      "text": "Suite temperatures are regulated through boiler-room setpoints and/or manual adjustments at the central plant, resulting in limited ability to respond to variations in occupancy, solar gains, or individual comfort preferences. This centralized control approach may contribute to overheating in some suites and underheating in others, increasing overall heating energy consumption and occupant complaints."
     },
     {
       "id": "garage_co_control",
