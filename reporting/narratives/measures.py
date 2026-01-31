@@ -122,6 +122,15 @@ def count_selected_measures(project: Dict[str, Any], *, catalog: MeasureCatalog 
     return len(_collect_selected_measures(project, catalog))
 
 
+def collect_selected_measure_ids(
+    project: Dict[str, Any],
+    *,
+    catalog: MeasureCatalog | None = None,
+) -> List[str]:
+    catalog = catalog or _load_measure_catalog_safe()
+    return _collect_selected_measures(project, catalog)
+
+
 def collect_structured_measures(project: Dict[str, Any]) -> List[Dict[str, Any]]:
     answers = project.get("answers", {}) if isinstance(project, dict) else {}
     measures = None
