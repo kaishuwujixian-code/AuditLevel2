@@ -6,7 +6,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.enum.text import WD_BREAK, WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 
@@ -167,6 +167,64 @@ def _replace_placeholders_in_text(text: str, placeholder_map: Dict[str, str]) ->
     return replaced_text, replacements
 
 
+def _replace_placeholders_in_runs(paragraph: Paragraph, placeholder_map: Dict[str, str]) -> int:
+    replacements = 0
+    if not paragraph.runs or "{" not in paragraph.text:
+        return replacements
+
+    for placeholder, value in placeholder_map.items():
+        while True:
+            runs = paragraph.runs
+            full_text = "".join(run.text for run in runs)
+            start = full_text.find(placeholder)
+            if start == -1:
+                break
+            end = start + len(placeholder)
+            cursor = 0
+            start_run = None
+            end_run = None
+            start_offset = 0
+            end_offset = 0
+            for index, run in enumerate(runs):
+                run_len = len(run.text)
+                if start_run is None and cursor + run_len > start:
+                    start_run = index
+                    start_offset = start - cursor
+                if cursor + run_len >= end:
+                    end_run = index
+                    end_offset = end - cursor
+                    break
+                cursor += run_len
+            if start_run is None or end_run is None:
+                break
+            if start_run == end_run:
+                run = runs[start_run]
+                run.text = run.text[:start_offset] + value + run.text[end_offset:]
+            else:
+                first_run = runs[start_run]
+                last_run = runs[end_run]
+                prefix = first_run.text[:start_offset]
+                suffix = last_run.text[end_offset:]
+                first_run.text = prefix + value + suffix
+                for idx in range(start_run + 1, end_run + 1):
+                    runs[idx].text = ""
+            replacements += 1
+    return replacements
+
+
+def _set_cell_text(cell, text: str) -> None:
+    if not cell.paragraphs:
+        cell.add_paragraph(text)
+        return
+    paragraph = cell.paragraphs[0]
+    if paragraph.runs:
+        paragraph.runs[0].text = text
+        for run in paragraph.runs[1:]:
+            run.text = ""
+    else:
+        paragraph.add_run(text)
+
+
 def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Paragraph:
     new_p_elm = OxmlElement("w:p")
     paragraph._element.addnext(new_p_elm)
@@ -195,7 +253,10 @@ def _ensure_paragraph_style(
 
 
 def _ensure_measure_styles(doc: Document) -> Dict[str, str]:
-    body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
+    if "content A" in doc.styles:
+        body_style = "content A"
+    else:
+        body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
     subtitle_style = _ensure_paragraph_style(doc, "Section Subtitle", base=body_style, bold=True)
     title_style = "Heading 2" if "Heading 2" in doc.styles else "Heading 3"
     return {"body": body_style, "subtitle": subtitle_style, "title": title_style}
@@ -266,7 +327,8 @@ def _insert_measure_block(
 
     current_para = paragraph
     first = True
-    for measure in measures:
+    total = len(measures)
+    for index, measure in enumerate(measures, start=1):
         title = str(measure.get("measure_title", "")).strip() or "Measure"
         if first:
             current_para = set_paragraph(current_para, title, styles["title"])
@@ -301,6 +363,95 @@ def _insert_measure_block(
             current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
         # Notes are summarized in {MEASURE_SUMMARY_ROW}; avoid repeating here.
+        if index < total:
+            current_para = _add_paragraph_after(current_para, "", style=styles["body"])
+            pb_run = current_para.add_run()
+            pb_run.add_break(WD_BREAK.PAGE)
+
+
+def _resolve_measure_summary_text(measure: Dict[str, Any]) -> str:
+    for key in ("notes", "summary", "retrofit_conditions", "existing_conditions"):
+        value = measure.get(key)
+        if value is None:
+            continue
+        text = str(value).strip()
+        if text:
+            return text
+    return ""
+
+
+def _collect_measure_summary_rows(
+    project_data: Dict[str, Any],
+    measures: List[Dict[str, Any]],
+    catalog: Any,
+) -> List[Tuple[str, str]]:
+    rows: List[Tuple[str, str]] = []
+    if measures:
+        for measure in measures:
+            title = str(measure.get("measure_title", "")).strip() or "Measure"
+            summary = _resolve_measure_summary_text(measure)
+            rows.append((title, summary))
+        return rows
+
+    if catalog is None:
+        return rows
+
+    selected_ids = measure_narratives.collect_selected_measure_ids(project_data, catalog=catalog)
+    for measure_id in selected_ids:
+        catalog_measure = catalog.measures.get(measure_id, {})
+        title = (
+            str(catalog_measure.get("title", "")).strip()
+            or str(catalog_measure.get("name", "")).strip()
+            or measure_id
+        )
+        summary = str(catalog_measure.get("summary", "")).strip()
+        rows.append((title, summary))
+    return rows
+
+
+def _fill_measure_summary_table(
+    doc: Document,
+    project_data: Dict[str, Any],
+    measures: List[Dict[str, Any]],
+    catalog: Any,
+) -> bool:
+    placeholder = "{MEASURE_SUMMARY_ROW}"
+    target_table = None
+    target_row = None
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                if placeholder in cell.text:
+                    target_table = table
+                    target_row = row
+                    break
+            if target_row is not None:
+                break
+        if target_row is not None:
+            break
+
+    if target_row is None or target_table is None:
+        return False
+
+    summary_rows = _collect_measure_summary_rows(project_data, measures, catalog)
+    if not summary_rows:
+        for cell in target_row.cells:
+            _set_cell_text(cell, "")
+        return True
+
+    for index, (title, summary) in enumerate(summary_rows):
+        row = target_row if index == 0 else target_table.add_row()
+        if row.cells:
+            _set_cell_text(row.cells[0], title)
+        if len(row.cells) > 1:
+            _set_cell_text(row.cells[1], summary)
+
+    if placeholder in target_row.cells[0].text:
+        _set_cell_text(
+            target_row.cells[0],
+            target_row.cells[0].text.replace(placeholder, ""),
+        )
+    return True
 
 
 def _split_block_paragraphs(text: str) -> List[str]:
@@ -462,11 +613,15 @@ def render_word(
     measure_styles = _ensure_measure_styles(doc)
     structured_measures = measure_narratives.collect_structured_measures(project_data)
     measure_fallback_text = block_replacements.get("{MEASURE_BLOCK}", DEFAULT_EMPTY_BLOCK_TEXT)
+    if "{MEASURE_SUMMARY_ROW}" in block_placeholders:
+        _fill_measure_summary_table(doc, project_data, structured_measures, measure_catalog)
 
     for paragraph in _iter_all_paragraphs(doc):
         text = paragraph.text
         if not text or "{" not in text:
             continue
+        placeholders_replaced += _replace_placeholders_in_runs(paragraph, placeholder_map)
+        text = paragraph.text
         found = PLACEHOLDER_PATTERN.findall(text)
         if not found:
             continue
@@ -474,7 +629,6 @@ def render_word(
         expanded_block = False
         for placeholder in set(found):
             if placeholder in replacement_map:
-                placeholders_replaced += text.count(placeholder)
                 if (
                     placeholder == "{MEASURE_BLOCK}"
                     and text.strip() == placeholder
@@ -488,6 +642,7 @@ def render_word(
                     expanded_block = True
                     continue
                 if placeholder in block_replacements:
+                    placeholders_replaced += text.count(placeholder)
                     paragraphs = block_paragraphs.get(placeholder, [])
                     if len(paragraphs) > 1 and text.strip() == placeholder:
                         paragraph.text = paragraphs[0]
@@ -501,7 +656,10 @@ def render_word(
                     joined = " ".join(paragraphs) if paragraphs else replacement_map[placeholder]
                     replaced_text = replaced_text.replace(placeholder, joined)
                 else:
-                    replaced_text = replaced_text.replace(placeholder, replacement_map[placeholder])
+                    placeholders_replaced += _replace_placeholders_in_runs(
+                        paragraph, {placeholder: replacement_map[placeholder]}
+                    )
+                    text = paragraph.text
             else:
                 unresolved.add(placeholder)
         if expanded_block:
