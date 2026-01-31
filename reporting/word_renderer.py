@@ -253,8 +253,8 @@ def _ensure_paragraph_style(
 
 
 def _ensure_measure_styles(doc: Document) -> Dict[str, str]:
-    if "content A" in doc.styles:
-        body_style = "content A"
+    if "Content A" in doc.styles:
+        body_style = "Content A"
     else:
         body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
     subtitle_style = _ensure_paragraph_style(doc, "Section Subtitle", base=body_style, bold=True)
