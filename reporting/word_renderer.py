@@ -169,17 +169,60 @@ def _replace_placeholders_in_text(text: str, placeholder_map: Dict[str, str]) ->
 
 def _replace_placeholders_in_runs(paragraph: Paragraph, placeholder_map: Dict[str, str]) -> int:
     replacements = 0
-    for run in paragraph.runs:
-        text = run.text
-        if not text or "{" not in text:
-            continue
-        for placeholder, value in placeholder_map.items():
-            if placeholder in text:
-                replacements += text.count(placeholder)
-                text = text.replace(placeholder, value)
-        if text != run.text:
-            run.text = text
+    if not paragraph.runs or "{" not in paragraph.text:
+        return replacements
+
+    for placeholder, value in placeholder_map.items():
+        while True:
+            runs = paragraph.runs
+            full_text = "".join(run.text for run in runs)
+            start = full_text.find(placeholder)
+            if start == -1:
+                break
+            end = start + len(placeholder)
+            cursor = 0
+            start_run = None
+            end_run = None
+            start_offset = 0
+            end_offset = 0
+            for index, run in enumerate(runs):
+                run_len = len(run.text)
+                if start_run is None and cursor + run_len > start:
+                    start_run = index
+                    start_offset = start - cursor
+                if cursor + run_len >= end:
+                    end_run = index
+                    end_offset = end - cursor
+                    break
+                cursor += run_len
+            if start_run is None or end_run is None:
+                break
+            if start_run == end_run:
+                run = runs[start_run]
+                run.text = run.text[:start_offset] + value + run.text[end_offset:]
+            else:
+                first_run = runs[start_run]
+                last_run = runs[end_run]
+                prefix = first_run.text[:start_offset]
+                suffix = last_run.text[end_offset:]
+                first_run.text = prefix + value + suffix
+                for idx in range(start_run + 1, end_run + 1):
+                    runs[idx].text = ""
+            replacements += 1
     return replacements
+
+
+def _set_cell_text(cell, text: str) -> None:
+    if not cell.paragraphs:
+        cell.add_paragraph(text)
+        return
+    paragraph = cell.paragraphs[0]
+    if paragraph.runs:
+        paragraph.runs[0].text = text
+        for run in paragraph.runs[1:]:
+            run.text = ""
+    else:
+        paragraph.add_run(text)
 
 
 def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Paragraph:
@@ -393,18 +436,21 @@ def _fill_measure_summary_table(
     summary_rows = _collect_measure_summary_rows(project_data, measures, catalog)
     if not summary_rows:
         for cell in target_row.cells:
-            cell.text = ""
+            _set_cell_text(cell, "")
         return True
 
     for index, (title, summary) in enumerate(summary_rows):
         row = target_row if index == 0 else target_table.add_row()
         if row.cells:
-            row.cells[0].text = title
+            _set_cell_text(row.cells[0], title)
         if len(row.cells) > 1:
-            row.cells[1].text = summary
+            _set_cell_text(row.cells[1], summary)
 
     if placeholder in target_row.cells[0].text:
-        target_row.cells[0].text = target_row.cells[0].text.replace(placeholder, "")
+        _set_cell_text(
+            target_row.cells[0],
+            target_row.cells[0].text.replace(placeholder, ""),
+        )
     return True
 
 
@@ -583,7 +629,6 @@ def render_word(
         expanded_block = False
         for placeholder in set(found):
             if placeholder in replacement_map:
-                placeholders_replaced += text.count(placeholder)
                 if (
                     placeholder == "{MEASURE_BLOCK}"
                     and text.strip() == placeholder
@@ -597,6 +642,7 @@ def render_word(
                     expanded_block = True
                     continue
                 if placeholder in block_replacements:
+                    placeholders_replaced += text.count(placeholder)
                     paragraphs = block_paragraphs.get(placeholder, [])
                     if len(paragraphs) > 1 and text.strip() == placeholder:
                         paragraph.text = paragraphs[0]
@@ -610,7 +656,10 @@ def render_word(
                     joined = " ".join(paragraphs) if paragraphs else replacement_map[placeholder]
                     replaced_text = replaced_text.replace(placeholder, joined)
                 else:
-                    replaced_text = replaced_text.replace(placeholder, replacement_map[placeholder])
+                    placeholders_replaced += _replace_placeholders_in_runs(
+                        paragraph, {placeholder: replacement_map[placeholder]}
+                    )
+                    text = paragraph.text
             else:
                 unresolved.add(placeholder)
         if expanded_block:
