@@ -167,6 +167,21 @@ def _replace_placeholders_in_text(text: str, placeholder_map: Dict[str, str]) ->
     return replaced_text, replacements
 
 
+def _replace_placeholders_in_runs(paragraph: Paragraph, placeholder_map: Dict[str, str]) -> int:
+    replacements = 0
+    for run in paragraph.runs:
+        text = run.text
+        if not text or "{" not in text:
+            continue
+        for placeholder, value in placeholder_map.items():
+            if placeholder in text:
+                replacements += text.count(placeholder)
+                text = text.replace(placeholder, value)
+        if text != run.text:
+            run.text = text
+    return replacements
+
+
 def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Paragraph:
     new_p_elm = OxmlElement("w:p")
     paragraph._element.addnext(new_p_elm)
@@ -195,7 +210,10 @@ def _ensure_paragraph_style(
 
 
 def _ensure_measure_styles(doc: Document) -> Dict[str, str]:
-    body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
+    if "content A" in doc.styles:
+        body_style = "content A"
+    else:
+        body_style = _ensure_paragraph_style(doc, "Body", base="Normal", bold=False)
     subtitle_style = _ensure_paragraph_style(doc, "Section Subtitle", base=body_style, bold=True)
     title_style = "Heading 2" if "Heading 2" in doc.styles else "Heading 3"
     return {"body": body_style, "subtitle": subtitle_style, "title": title_style}
@@ -556,6 +574,8 @@ def render_word(
         text = paragraph.text
         if not text or "{" not in text:
             continue
+        placeholders_replaced += _replace_placeholders_in_runs(paragraph, placeholder_map)
+        text = paragraph.text
         found = PLACEHOLDER_PATTERN.findall(text)
         if not found:
             continue
