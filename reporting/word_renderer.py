@@ -6,7 +6,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.enum.text import WD_BREAK, WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.text.paragraph import Paragraph
 
@@ -266,7 +266,8 @@ def _insert_measure_block(
 
     current_para = paragraph
     first = True
-    for measure in measures:
+    total = len(measures)
+    for index, measure in enumerate(measures, start=1):
         title = str(measure.get("measure_title", "")).strip() or "Measure"
         if first:
             current_para = set_paragraph(current_para, title, styles["title"])
@@ -301,6 +302,92 @@ def _insert_measure_block(
             current_para.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
 
         # Notes are summarized in {MEASURE_SUMMARY_ROW}; avoid repeating here.
+        if index < total:
+            current_para = _add_paragraph_after(current_para, "", style=styles["body"])
+            pb_run = current_para.add_run()
+            pb_run.add_break(WD_BREAK.PAGE)
+
+
+def _resolve_measure_summary_text(measure: Dict[str, Any]) -> str:
+    for key in ("notes", "summary", "retrofit_conditions", "existing_conditions"):
+        value = measure.get(key)
+        if value is None:
+            continue
+        text = str(value).strip()
+        if text:
+            return text
+    return ""
+
+
+def _collect_measure_summary_rows(
+    project_data: Dict[str, Any],
+    measures: List[Dict[str, Any]],
+    catalog: Any,
+) -> List[Tuple[str, str]]:
+    rows: List[Tuple[str, str]] = []
+    if measures:
+        for measure in measures:
+            title = str(measure.get("measure_title", "")).strip() or "Measure"
+            summary = _resolve_measure_summary_text(measure)
+            rows.append((title, summary))
+        return rows
+
+    if catalog is None:
+        return rows
+
+    selected_ids = measure_narratives.collect_selected_measure_ids(project_data, catalog=catalog)
+    for measure_id in selected_ids:
+        catalog_measure = catalog.measures.get(measure_id, {})
+        title = (
+            str(catalog_measure.get("title", "")).strip()
+            or str(catalog_measure.get("name", "")).strip()
+            or measure_id
+        )
+        summary = str(catalog_measure.get("summary", "")).strip()
+        rows.append((title, summary))
+    return rows
+
+
+def _fill_measure_summary_table(
+    doc: Document,
+    project_data: Dict[str, Any],
+    measures: List[Dict[str, Any]],
+    catalog: Any,
+) -> bool:
+    placeholder = "{MEASURE_SUMMARY_ROW}"
+    target_table = None
+    target_row = None
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                if placeholder in cell.text:
+                    target_table = table
+                    target_row = row
+                    break
+            if target_row is not None:
+                break
+        if target_row is not None:
+            break
+
+    if target_row is None or target_table is None:
+        return False
+
+    summary_rows = _collect_measure_summary_rows(project_data, measures, catalog)
+    if not summary_rows:
+        for cell in target_row.cells:
+            cell.text = ""
+        return True
+
+    for index, (title, summary) in enumerate(summary_rows):
+        row = target_row if index == 0 else target_table.add_row()
+        if row.cells:
+            row.cells[0].text = title
+        if len(row.cells) > 1:
+            row.cells[1].text = summary
+
+    if placeholder in target_row.cells[0].text:
+        target_row.cells[0].text = target_row.cells[0].text.replace(placeholder, "")
+    return True
 
 
 def _split_block_paragraphs(text: str) -> List[str]:
@@ -462,6 +549,8 @@ def render_word(
     measure_styles = _ensure_measure_styles(doc)
     structured_measures = measure_narratives.collect_structured_measures(project_data)
     measure_fallback_text = block_replacements.get("{MEASURE_BLOCK}", DEFAULT_EMPTY_BLOCK_TEXT)
+    if "{MEASURE_SUMMARY_ROW}" in block_placeholders:
+        _fill_measure_summary_table(doc, project_data, structured_measures, measure_catalog)
 
     for paragraph in _iter_all_paragraphs(doc):
         text = paragraph.text
