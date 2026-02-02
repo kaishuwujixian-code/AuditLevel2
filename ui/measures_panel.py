@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import tkinter as tk
 from tkinter import ttk
@@ -72,7 +72,18 @@ class MeasuresPanel(ttk.Frame):
             self._catalog = load_measure_catalog()
         except Exception:
             self._catalog = None
+        if self._editor and self._catalog:
+            self._editor.set_categories(self._catalog.categories)
         self._populate_catalog_tree()
+
+    def reload_catalog(self, catalog: Optional[MeasureCatalog] = None) -> None:
+        if catalog is not None:
+            self._catalog = catalog
+            if self._editor:
+                self._editor.set_categories(self._catalog.categories)
+            self._populate_catalog_tree()
+            return
+        self._load_catalog()
 
     def _populate_catalog_tree(self) -> None:
         if not self._catalog_tree:

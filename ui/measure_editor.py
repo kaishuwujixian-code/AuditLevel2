@@ -8,7 +8,7 @@ from tkinter import font as tkfont
 from tkinter import ttk
 
 
-MEASURE_CATEGORIES = [
+DEFAULT_MEASURE_CATEGORIES = [
     ("bas", "BAS / Controls"),
     ("boiler", "Boiler / Plant"),
     ("boilers", "Boilers"),
@@ -43,11 +43,12 @@ NUMERIC_FIELDS = [
 
 
 class MeasuresEditor(ttk.Frame):
-    def __init__(self, master: tk.Misc) -> None:
+    def __init__(self, master: tk.Misc, *, categories: Optional[List[dict]] = None) -> None:
         super().__init__(master)
         self._cards: List[_MeasureCard] = []
         self._active_card: Optional[_MeasureCard] = None
         self._text_font = tkfont.nametofont("TkTextFont")
+        self._category_options = _normalize_category_options(categories)
         self._build_ui()
 
     def _build_ui(self) -> None:
@@ -66,6 +67,7 @@ class MeasuresEditor(ttk.Frame):
         card = _MeasureCard(
             self._scroll.content,
             text_font=self._text_font,
+            category_options=self._category_options,
             on_move_up=lambda: self._move_card(card, -1),
             on_move_down=lambda: self._move_card(card, 1),
             on_remove=lambda: self._remove_card(card),
@@ -148,6 +150,11 @@ class MeasuresEditor(ttk.Frame):
         )
         self._set_active_card(target)
 
+    def set_categories(self, categories: List[dict]) -> None:
+        self._category_options = _normalize_category_options(categories)
+        for card in self._cards:
+            card.set_categories(self._category_options)
+
 
 class _MeasureCard:
     def __init__(
@@ -155,12 +162,14 @@ class _MeasureCard:
         master: tk.Misc,
         *,
         text_font: tkfont.Font,
+        category_options: List[tuple[str, str]],
         on_move_up,
         on_move_down,
         on_remove,
         on_activate,
     ) -> None:
         self._text_font = text_font
+        self._category_options = category_options
         self._on_move_up = on_move_up
         self._on_move_down = on_move_down
         self._on_remove = on_remove
@@ -184,14 +193,14 @@ class _MeasureCard:
 
         ttk.Label(header, text="Category").grid(row=0, column=2, sticky="e")
         self._category_var = tk.StringVar()
-        combo = ttk.Combobox(
+        self._category_combo = ttk.Combobox(
             header,
             textvariable=self._category_var,
-            values=[label for _, label in MEASURE_CATEGORIES],
+            values=[label for _, label in self._category_options],
             state="readonly",
             width=16,
         )
-        combo.grid(row=0, column=3, sticky="e", padx=(6, 12))
+        self._category_combo.grid(row=0, column=3, sticky="e", padx=(6, 12))
 
         button_frame = ttk.Frame(header)
         button_frame.grid(row=0, column=4, sticky="e")
@@ -258,7 +267,7 @@ class _MeasureCard:
     def set_data(self, data: Dict[str, Any]) -> None:
         self._measure_id = _normalize_measure_id(data.get("measure_id"))
         self._title_var.set(str(data.get("measure_title", "")))
-        category_label = _label_for_category(data.get("category"))
+        category_label = _label_for_category(data.get("category"), self._category_options)
         self._category_var.set(category_label)
         _set_text(self._existing_text, data.get("existing_conditions"))
         _set_text(self._retrofit_text, data.get("retrofit_conditions"))
@@ -270,7 +279,7 @@ class _MeasureCard:
     def get_data(self) -> Dict[str, Any]:
         payload = {
             "measure_title": self._title_var.get().strip(),
-            "category": _value_for_category(self._category_var.get()),
+            "category": _value_for_category(self._category_var.get(), self._category_options),
             "existing_conditions": _get_text(self._existing_text),
             "retrofit_conditions": _get_text(self._retrofit_text),
             "notes": _get_text(self._notes_text),
@@ -280,6 +289,15 @@ class _MeasureCard:
         for key, var in self._numeric_vars.items():
             payload[key] = _parse_optional_number(var.get())
         return payload
+
+    def set_categories(self, options: List[tuple[str, str]]) -> None:
+        self._category_options = options
+        values = [label for _, label in options]
+        self._category_combo.configure(values=values)
+        current_label = self._category_var.get()
+        if current_label and current_label not in values:
+            code = _value_for_category(current_label, options)
+            self._category_var.set(_label_for_category(code, options))
 
 
 class _ScrollableFrame(ttk.Frame):
@@ -324,8 +342,8 @@ def _parse_optional_number(value: str) -> Optional[float]:
         return None
 
 
-def _label_for_category(value: Any) -> str:
-    for code, label in MEASURE_CATEGORIES:
+def _label_for_category(value: Any, options: List[tuple[str, str]]) -> str:
+    for code, label in options:
         if str(value).strip().lower() == code:
             return label
     if value:
@@ -333,8 +351,8 @@ def _label_for_category(value: Any) -> str:
     return ""
 
 
-def _value_for_category(label: str) -> str:
-    for code, display in MEASURE_CATEGORIES:
+def _value_for_category(label: str, options: List[tuple[str, str]]) -> str:
+    for code, display in options:
         if label == display:
             return code
     return label.strip().lower().replace(" ", "_") if label else ""
@@ -355,3 +373,21 @@ def _has_measure_content(data: Dict[str, Any]) -> bool:
             continue
         return True
     return False
+
+
+def _normalize_category_options(
+    categories: Optional[List[dict]],
+) -> List[tuple[str, str]]:
+    options: List[tuple[str, str]] = []
+    if categories:
+        for entry in categories:
+            if not isinstance(entry, dict):
+                continue
+            code = str(entry.get("code", "")).strip().lower()
+            label = str(entry.get("tab_title", "")).strip() or code
+            if not code:
+                continue
+            options.append((code, label))
+    if not options:
+        options = [(code, label) for code, label in DEFAULT_MEASURE_CATEGORIES]
+    return options
