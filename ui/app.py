@@ -11,6 +11,7 @@ from core.paths import (
     DEFAULT_TEMPLATE_JSON,
     OUTPUT_DIR,
     PROJECTS_DIR,
+    SCHEMAS_DIR,
 )
 from core.project_store import (
     default_output_path_for_project,
@@ -180,7 +181,7 @@ class RetScreenApp:
     def _load_schema(self) -> None:
         try:
             self._schema = load_questionnaire_schema(
-                os.path.join("schemas", "level1_questionnaire.schema.json")
+                os.path.join(SCHEMAS_DIR, "level1_questionnaire.schema.json")
             )
         except Exception as exc:
             self._set_status(f"Schema error: {exc}")
