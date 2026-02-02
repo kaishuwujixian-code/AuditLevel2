@@ -34,6 +34,7 @@ class RetScreenApp:
         self.root = root
         self.root.title("Audit Studio")
         self.root.geometry("1280x720")
+        self._apply_theme()
         self._template: Optional[TemplateData] = None
         self._schema: Optional[Dict] = None
         self._project_data: Optional[Dict] = None
@@ -54,20 +55,20 @@ class RetScreenApp:
 
         button_frame = ttk.Frame(toolbar)
         button_frame.grid(row=0, column=0, sticky="w")
-        ttk.Button(button_frame, text="Open", command=self.open_project_dialog).grid(
+        ttk.Button(button_frame, text="📂 Open", command=self.open_project_dialog).grid(
             row=0, column=0, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="Save", command=self.save_project).grid(
+        ttk.Button(button_frame, text="💾 Save", command=self.save_project).grid(
             row=0, column=1, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="Validate", command=self.validate_project).grid(
+        ttk.Button(button_frame, text="✅ Validate", command=self.validate_project).grid(
             row=0, column=2, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="Generate Report", command=self.generate_report).grid(
+        ttk.Button(button_frame, text="📄 Generate Report", command=self.generate_report).grid(
             row=0, column=3, padx=(0, 6)
         )
         ttk.Button(
-            button_frame, text="Open Output Folder", command=self.open_output_folder
+            button_frame, text="📁 Output Folder", command=self.open_output_folder
         ).grid(row=0, column=4, padx=(0, 6))
 
         content = ttk.Frame(self.root)
@@ -87,12 +88,12 @@ class RetScreenApp:
         self._report_tab = ReportPanel(self._notebook, self.generate_report)
         self._diagnostics_tab = DiagnosticsPanel(self._notebook)
 
-        self._notebook.add(self._inputs_tab, text="Inputs")
-        self._notebook.add(self._measures_tab, text="Measures")
-        self._notebook.add(self._measure_library_tab, text="Measure Library")
-        self._notebook.add(self._checklist_tab, text="Checklist")
-        self._notebook.add(self._report_tab, text="Report")
-        self._notebook.add(self._diagnostics_tab, text="Diagnostics")
+        self._notebook.add(self._inputs_tab, text="📝 Inputs")
+        self._notebook.add(self._measures_tab, text="🧰 Measures")
+        self._notebook.add(self._measure_library_tab, text="📚 Measure Library")
+        self._notebook.add(self._checklist_tab, text="✅ Checklist")
+        self._notebook.add(self._report_tab, text="📄 Report")
+        self._notebook.add(self._diagnostics_tab, text="🩺 Diagnostics")
 
         status_bar = ttk.Label(
             self.root,
@@ -102,6 +103,67 @@ class RetScreenApp:
             padding=(8, 4),
         )
         status_bar.grid(row=2, column=0, sticky="ew")
+
+    def _apply_theme(self) -> None:
+        palette = {
+            "bg": "#F4F7FB",
+            "surface": "#FFFFFF",
+            "accent": "#4C6FFF",
+            "accent_light": "#E8ECFF",
+            "text": "#1F2937",
+            "muted": "#6B7280",
+        }
+        self.root.configure(bg=palette["bg"])
+        style = ttk.Style(self.root)
+        try:
+            style.theme_use("clam")
+        except tk.TclError:
+            pass
+        style.configure("TFrame", background=palette["bg"])
+        style.configure("TLabel", background=palette["bg"], foreground=palette["text"])
+        style.configure("TButton", padding=(10, 4))
+        style.map(
+            "TButton",
+            background=[("active", palette["accent_light"]), ("pressed", palette["accent"])]
+        )
+        style.configure("TNotebook", background=palette["bg"], borderwidth=0)
+        style.configure(
+            "TNotebook.Tab",
+            background=palette["accent_light"],
+            foreground=palette["text"],
+            padding=(12, 6),
+        )
+        style.map(
+            "TNotebook.Tab",
+            background=[("selected", palette["surface"]), ("active", "#DCE3FF")],
+            foreground=[("selected", palette["accent"]), ("active", palette["text"])],
+        )
+        style.configure(
+            "Treeview",
+            background=palette["surface"],
+            fieldbackground=palette["surface"],
+            foreground=palette["text"],
+            borderwidth=0,
+        )
+        style.configure(
+            "Treeview.Heading",
+            background=palette["accent_light"],
+            foreground=palette["text"],
+            relief="flat",
+        )
+        style.map("Treeview", background=[("selected", palette["accent_light"])])
+        style.configure(
+            "TLabelframe",
+            background=palette["bg"],
+            foreground=palette["muted"],
+            borderwidth=1,
+            relief="groove",
+        )
+        style.configure(
+            "TLabelframe.Label",
+            background=palette["bg"],
+            foreground=palette["muted"],
+        )
 
     def _set_status(self, message: str) -> None:
         self._status_var.set(message)
