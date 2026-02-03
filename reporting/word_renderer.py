@@ -644,8 +644,18 @@ def render_word(
                 if placeholder in block_replacements:
                     placeholders_replaced += text.count(placeholder)
                     paragraphs = block_paragraphs.get(placeholder, [])
-                    if len(paragraphs) > 1 and text.strip() == placeholder:
-                        paragraph.text = paragraphs[0]
+                    if len(paragraphs) > 1:
+                        if text.strip() == placeholder:
+                            paragraph.text = paragraphs[0]
+                            current_para = paragraph
+                            for block_text in paragraphs[1:]:
+                                current_para = _add_paragraph_after(
+                                    current_para, block_text, style=paragraph.style
+                                )
+                            expanded_block = True
+                            continue
+                        prefix, suffix = text.split(placeholder, 1)
+                        paragraph.text = f"{prefix}{paragraphs[0]}{suffix}"
                         current_para = paragraph
                         for block_text in paragraphs[1:]:
                             current_para = _add_paragraph_after(
