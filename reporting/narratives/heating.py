@@ -16,6 +16,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives import cooling
+from reporting.narratives.checklists import render_block_appendix
 
 BLOCK_PLACEHOLDERS = ["{Central Heating/Cooling Systems block}"]
 EXPECTED_INPUTS = {
@@ -385,4 +386,7 @@ def render_block(
     if not paragraphs:
         return not_confirmed_sentence("Heating and cooling system details")
 
+    checklist_text = render_block_appendix(project, target_block="heating")
+    if checklist_text:
+        paragraphs.append(checklist_text)
     return "\n\n".join(paragraphs)

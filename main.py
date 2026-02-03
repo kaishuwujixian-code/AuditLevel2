@@ -102,13 +102,6 @@ def _validate_inputs(project_path: str, template_path: str, docx_template_path: 
     if not isinstance(checklist_selections, dict):
         raise ValueError("project.json checklist_selections must be an object.")
 
-    template_checklists = template_data.get("checklists", {})
-    if template_checklists is None:
-        template_checklists = {}
-    if not isinstance(template_checklists, dict):
-        raise ValueError("Template JSON checklists must be an object.")
-
-    warnings = []
     for group_name in sorted(checklist_selections.keys()):
         categories = checklist_selections[group_name]
         if not isinstance(categories, dict):
@@ -119,25 +112,6 @@ def _validate_inputs(project_path: str, template_path: str, docx_template_path: 
                 raise ValueError("checklist_selections categories must be lists.")
             if not all(isinstance(item, str) for item in items):
                 raise ValueError("checklist_selections items must be strings.")
-
-            template_items = []
-            if (
-                isinstance(template_checklists.get(group_name), dict)
-                and isinstance(template_checklists[group_name].get(category_name), list)
-            ):
-                template_items = template_checklists[group_name][category_name]
-            for item in sorted(items):
-                if item not in template_items and template_items:
-                    warnings.append(
-                        f"Warning: checklist item not in template: {group_name} / {category_name} / {item}"
-                    )
-                if not template_items and template_checklists:
-                    warnings.append(
-                        f"Warning: checklist item not in template: {group_name} / {category_name} / {item}"
-                    )
-
-    for warning in warnings:
-        print(warning, file=sys.stderr)
 
     print("OK")
     return 0

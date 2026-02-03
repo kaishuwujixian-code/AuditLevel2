@@ -1,11 +1,14 @@
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 
 import tkinter as tk
 from tkinter import ttk
 
+from core.paths import DEFAULT_TEMPLATE_JSON
 from core.template_store import TemplateData
+from core.template_store import load_template
+from ui.checklist_library_panel import ChecklistLibraryPanel
 
 
 class ChecklistPanel(ttk.Frame):
@@ -13,14 +16,27 @@ class ChecklistPanel(ttk.Frame):
         super().__init__(master)
         self._template = template
         self._vars: Dict[str, Dict[str, Dict[str, tk.BooleanVar]]] = {}
+        self._project_data: Optional[Dict[str, Any]] = None
         self._build_ui()
 
     def _build_ui(self) -> None:
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-        self._scroll = _ScrollableFrame(self)
+        notebook = ttk.Notebook(self)
+        notebook.grid(row=0, column=0, sticky="nsew")
+
+        self._selection_tab = ttk.Frame(notebook)
+        self._selection_tab.columnconfigure(0, weight=1)
+        self._selection_tab.rowconfigure(0, weight=1)
+        self._scroll = _ScrollableFrame(self._selection_tab)
         self._scroll.grid(row=0, column=0, sticky="nsew")
         self._render_checklists()
+        notebook.add(self._selection_tab, text="Selections")
+
+        self._library_tab = ChecklistLibraryPanel(
+            notebook, on_saved=self._on_library_saved
+        )
+        notebook.add(self._library_tab, text="Checklist Library")
 
     def _render_checklists(self) -> None:
         container = self._scroll.content
@@ -42,15 +58,17 @@ class ChecklistPanel(ttk.Frame):
                 category_frame = ttk.LabelFrame(group_frame, text=category_name, padding=8)
                 category_frame.pack(fill="x", padx=10, pady=6)
                 self._vars[group_name][category_name] = {}
-                if not isinstance(items, list):
+                item_list = _extract_items(items)
+                if not item_list:
                     continue
-                for item in items:
+                for item in item_list:
                     var = tk.BooleanVar(value=False)
                     label = ttk.Checkbutton(category_frame, text=str(item), variable=var)
                     label.pack(anchor="w")
                     self._vars[group_name][category_name][str(item)] = var
 
     def load_project(self, project_data: Dict[str, Any]) -> None:
+        self._project_data = project_data
         selections = project_data.get("checklist_selections", {})
         if not isinstance(selections, dict):
             selections = {}
@@ -76,6 +94,15 @@ class ChecklistPanel(ttk.Frame):
                 selections[group_name] = group_payload
         project_data["checklist_selections"] = selections
 
+    def _on_library_saved(self, checklists: Dict[str, dict]) -> None:
+        try:
+            self._template = load_template(DEFAULT_TEMPLATE_JSON)
+        except Exception:
+            self._template = TemplateData({}, [], checklists, [], {}, {})
+        self._render_checklists()
+        if self._project_data:
+            self.load_project(self._project_data)
+
 
 class _ScrollableFrame(ttk.Frame):
     def __init__(self, master: tk.Misc) -> None:
@@ -100,3 +127,25 @@ class _ScrollableFrame(ttk.Frame):
 
     def _on_canvas_configure(self, event: tk.Event) -> None:
         self._canvas.itemconfigure(self._canvas_frame, width=event.width)
+
+
+def _extract_items(value: object) -> list:
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    if isinstance(value, dict):
+        items = value.get("items")
+        if isinstance(items, list):
+            labels: list[str] = []
+            for item in items:
+                if isinstance(item, dict):
+                    label = item.get("label")
+                    if isinstance(label, str) and label.strip():
+                        labels.append(label)
+                    else:
+                        text = item.get("text")
+                        if isinstance(text, str) and text.strip():
+                            labels.append(text)
+                elif item is not None:
+                    labels.append(str(item))
+            return labels
+    return []

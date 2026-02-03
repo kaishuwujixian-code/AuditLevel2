@@ -14,6 +14,7 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
+from reporting.narratives.checklists import render_block_appendix
 
 BLOCK_PLACEHOLDERS = ["{Central Ventilation System Block}"]
 EXPECTED_INPUTS = {
@@ -270,4 +271,7 @@ def render_block(
         )
         paragraphs.append(" ".join(bas_sentences))
 
+    checklist_text = render_block_appendix(project, target_block="ventilation")
+    if checklist_text:
+        paragraphs.append(checklist_text)
     return "\n\n".join(paragraphs)
