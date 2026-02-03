@@ -127,7 +127,7 @@ class ChecklistLibraryPanel(ttk.Frame):
                 category_id = self._tree.insert(group_id, "end", text=category_name, open=True)
                 item_list = _get_category_items(self._checklists, group_name, category_name)
                 for item in item_list:
-                    self._tree.insert(category_id, "end", text=str(item))
+                    self._tree.insert(category_id, "end", text=_item_label(item))
 
     def _on_select(self, _event: tk.Event) -> None:
         selection = self._tree.selection()
@@ -148,8 +148,9 @@ class ChecklistLibraryPanel(ttk.Frame):
         group, category, item = self._selection or ("", "", "")
         if item:
             self._level_var.set("Item")
-            self._label_var.set(item)
-            _set_text(self._item_text, item)
+            item_data = _find_item(self._checklists, group, category, item)
+            self._label_var.set(_item_label(item_data))
+            _set_text(self._item_text, _item_text(item_data))
             self._target_var.set("")
             self._target_combo.configure(state="disabled")
         elif category:
@@ -186,13 +187,13 @@ class ChecklistLibraryPanel(ttk.Frame):
                 messagebox.showerror("Checklist Library", "Item text cannot be empty.")
                 return
             items = _get_category_items(self._checklists, group, category)
-            if item not in items:
+            item_data = _find_item(self._checklists, group, category, item)
+            if item_data is None:
                 return
-            index = items.index(item)
-            items[index] = new_text
-            if label and label != item:
-                items[index] = label
-            self._selection = (group, category, items[index])
+            if label:
+                item_data["label"] = label
+            item_data["text"] = new_text
+            self._selection = (group, category, item_data["label"])
         elif category:
             if not label:
                 messagebox.showerror("Checklist Library", "Category label cannot be empty.")
@@ -264,8 +265,8 @@ class ChecklistLibraryPanel(ttk.Frame):
             messagebox.showinfo("Checklist Library", "Select a category first.")
             return
         items = _get_category_items(self._checklists, group, category)
-        name = _unique_item(items, "New Item")
-        items.append(name)
+        name = _unique_item([_item_label(item) for item in items], "New Item")
+        items.append({"label": name, "text": ""})
         self._selection = (group, category, name)
         self._refresh_tree()
         self._restore_selection()
@@ -276,8 +277,9 @@ class ChecklistLibraryPanel(ttk.Frame):
         group, category, item = self._selection
         if item:
             items = _get_category_items(self._checklists, group, category)
-            if item in items:
-                items.remove(item)
+            item_data = _find_item(self._checklists, group, category, item)
+            if item_data in items:
+                items.remove(item_data)
                 self._selection = (group, category, "")
         elif category:
             categories = self._checklists.get(group, {})
@@ -298,14 +300,15 @@ class ChecklistLibraryPanel(ttk.Frame):
         if not item:
             return
         items = _get_category_items(self._checklists, group, category)
-        if item not in items:
+        item_data = _find_item(self._checklists, group, category, item)
+        if item_data is None:
             return
-        index = items.index(item)
+        index = items.index(item_data)
         new_index = index + offset
         if new_index < 0 or new_index >= len(items):
             return
         items[index], items[new_index] = items[new_index], items[index]
-        self._selection = (group, category, items[new_index])
+        self._selection = (group, category, _item_label(items[new_index]))
         self._refresh_tree()
         self._restore_selection()
 
@@ -369,14 +372,16 @@ def _normalize_checklists(checklists: Dict[str, dict]) -> Dict[str, dict]:
         for category_name, items in categories.items():
             if isinstance(items, list):
                 normalized[group_name][category_name] = {
-                    "items": list(items),
+                    "items": [_item_dict(item) for item in items],
                     "target_block": "misc",
                 }
             elif isinstance(items, dict):
                 item_list = items.get("items", [])
                 target = items.get("target_block", "misc")
                 normalized[group_name][category_name] = {
-                    "items": list(item_list) if isinstance(item_list, list) else [],
+                    "items": [_item_dict(item) for item in item_list]
+                    if isinstance(item_list, list)
+                    else [],
                     "target_block": str(target) if target else "misc",
                 }
     return normalized
@@ -391,7 +396,7 @@ def _get_category_items(
         if isinstance(items, list):
             return items
     if isinstance(category_data, list):
-        return category_data
+        return [_item_dict(item) for item in category_data]
     return []
 
 
@@ -420,3 +425,44 @@ def _value_for_target(label: str, options: list[tuple[str, str]]) -> str:
         if opt_label == label:
             return code
     return options[-1][1] if options else "misc"
+
+
+def _item_dict(value: object) -> dict:
+    if isinstance(value, dict):
+        label = value.get("label")
+        text = value.get("text")
+        return {
+            "label": str(label) if label is not None else "",
+            "text": str(text) if text is not None else str(label or ""),
+        }
+    text = str(value) if value is not None else ""
+    return {"label": text, "text": text}
+
+
+def _item_label(item: object) -> str:
+    if isinstance(item, dict):
+        label = item.get("label")
+        if isinstance(label, str) and label.strip():
+            return label
+        text = item.get("text")
+        return str(text) if text is not None else ""
+    return str(item) if item is not None else ""
+
+
+def _item_text(item: object) -> str:
+    if isinstance(item, dict):
+        text = item.get("text")
+        if isinstance(text, str):
+            return text
+        label = item.get("label")
+        return str(label) if label is not None else ""
+    return str(item) if item is not None else ""
+
+
+def _find_item(
+    checklists: Dict[str, dict], group: str, category: str, label: str
+) -> Optional[dict]:
+    for item in _get_category_items(checklists, group, category):
+        if _item_label(item) == label:
+            return item
+    return None

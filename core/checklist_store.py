@@ -59,10 +59,23 @@ def validate_checklists(checklists: Dict[str, dict]) -> None:
                         f"Checklist category '{group_name} / {category_name}' target_block must be a string."
                     )
             for item in items_list:
-                if not isinstance(item, str):
-                    errors.append(
-                        f"Checklist item in '{group_name} / {category_name}' must be a string."
-                    )
+                if isinstance(item, str):
+                    continue
+                if isinstance(item, dict):
+                    label = item.get("label")
+                    text = item.get("text")
+                    if not isinstance(label, str) or not label.strip():
+                        errors.append(
+                            f"Checklist item in '{group_name} / {category_name}' must have a label."
+                        )
+                    if not isinstance(text, str):
+                        errors.append(
+                            f"Checklist item in '{group_name} / {category_name}' must have text."
+                        )
+                    continue
+                errors.append(
+                    f"Checklist item in '{group_name} / {category_name}' must be a string or object."
+                )
     if errors:
         raise ValueError("Checklist validation failed:\n" + "\n".join(errors))
 

@@ -131,9 +131,21 @@ class _ScrollableFrame(ttk.Frame):
 
 def _extract_items(value: object) -> list:
     if isinstance(value, list):
-        return value
+        return [str(item) for item in value]
     if isinstance(value, dict):
         items = value.get("items")
         if isinstance(items, list):
-            return items
+            labels: list[str] = []
+            for item in items:
+                if isinstance(item, dict):
+                    label = item.get("label")
+                    if isinstance(label, str) and label.strip():
+                        labels.append(label)
+                    else:
+                        text = item.get("text")
+                        if isinstance(text, str) and text.strip():
+                            labels.append(text)
+                elif item is not None:
+                    labels.append(str(item))
+            return labels
     return []
