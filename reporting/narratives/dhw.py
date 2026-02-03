@@ -15,6 +15,7 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
+from reporting.narratives.checklists import render_block_appendix
 
 BLOCK_PLACEHOLDERS = ["{DHW System Block}"]
 EXPECTED_INPUTS = {
@@ -315,4 +316,7 @@ def render_block(
     if recommendations:
         paragraphs.append(" ".join(recommendations))
 
+    checklist_text = render_block_appendix(project, target_block="dhw")
+    if checklist_text:
+        paragraphs.append(checklist_text)
     return "\n\n".join(paragraphs)
