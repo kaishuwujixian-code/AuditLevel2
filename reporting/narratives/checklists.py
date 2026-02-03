@@ -27,15 +27,11 @@ def render_block_appendix(project: Dict[str, Any], target_block: str) -> str:
                 continue
             if not _category_matches_target(template_categories, category_name, target_block):
                 continue
-            sentences = [
-                ensure_sentence(_resolve_item_text(template_categories, category_name, item))
-                for item in items
-                if str(item).strip()
-            ]
-            if not sentences:
-                continue
-            paragraph = f"{category_name}: " + " ".join(sentences)
-            paragraphs.append(paragraph)
+            for item in items:
+                text = _resolve_item_text(template_categories, category_name, item)
+                if not text:
+                    continue
+                paragraphs.append(ensure_sentence(text))
     return "\n\n".join(paragraphs)
 
 
