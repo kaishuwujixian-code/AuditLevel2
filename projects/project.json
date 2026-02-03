@@ -1,0 +1,296 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "boiler_capacity_mbh": "4000",
+    "chiller_tonnage": "300 tons",
+    "city": "Toronto",
+    "client_name": "Novo Property Managerment CharYorkville",
+    "cooling_controls_notes": "No BAS",
+    "cooling_location": "Pent House",
+    "cooling_notes": "",
+    "cooling_serves": [
+      "serves_fancoil",
+      "serves_mua"
+    ],
+    "cooling_system_type": "chiller_cooling_tower",
+    "date_constructed": "2015",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1500 MBH",
+    "dhw_location": "Pent house",
+    "dhw_notes": "",
+    "dhw_system_type": "hx_from_heating_ps",
+    "dhw_tank_capacity_gal": " 500 ",
+    "district_50b69d": "Toronto",
+    "heating_block_override": "",
+    "heating_controls_notes": "No BAS",
+    "heating_location": "Penthouse",
+    "heating_notes": "return temperature too high",
+    "heating_serves": [
+      "serves_fancoil",
+      "serves_mua"
+    ],
+    "heating_system_type": "condensing_boiler",
+    "hvac_system_combos": [
+      "condensing_boiler_ps",
+      "chiller_cooling_tower",
+      "dhw_from_heating_hx",
+      "suite_erv_hrv"
+    ],
+    "measures": [
+      {
+        "category": "bas",
+        "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "bas_install",
+        "measure_title": "Install New Building Automation System (BAS)",
+        "notes": "Install a new central BAS to coordinate boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance.",
+        "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "boiler",
+        "existing_conditions": "The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\n\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\n\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "condensing_boiler_retrofit",
+        "measure_title": "Condensing Boiler Retrofit",
+        "notes": "Replace aging near-condensing boilers with high-efficiency condensing units and improved piping to enable true condensing operation, lowering gas consumption and extending plant life.",
+        "retrofit_conditions": "Mann recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\n\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\n\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions. Piping would be reconfigured to reduce standby losses and protect the boilers from thermal shock.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "mua",
+        "existing_conditions": "Corridor and common-area ventilation is provided by rooftop MUA units with constant-speed supply fans. These fans run at full speed whenever the units are enabled, independent of actual ventilation demand or occupancy. This results in higher electrical consumption and increased wear on motors and drive components.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "mua_vfd_retrofit",
+        "measure_title": "MUA VFD Retrofit",
+        "notes": "Add VFDs to MUA supply fans with BAS integration so airflow tracks actual ventilation demand, cutting fan energy and mechanical wear while maintaining corridor pressure.",
+        "retrofit_conditions": "It is recommended to retrofit the MUA supply fans with variable frequency drives (VFDs) and integrate them with the BAS. Fan speed would be reset based on duct static pressure, temperature, schedule, or occupancy. Under typical conditions, fan speed would be reduced during low-load periods while maintaining the ability to ramp up when higher ventilation rates are required. This measure reduces fan energy use, lowers mechanical stress, extends equipment life, and improves control of building pressurization and corridor comfort.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Several mechanical and electrical systems in the building rely on routine maintenance to maintain efficiency, but many components have not been proactively upgraded or recommissioned. Heat exchangers may have scale or fouling, older motors may be standard-efficiency models, and controls or thermostats may be outdated or non-programmable.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "misc_maintenance_upgrades",
+        "measure_title": "Miscellaneous Maintenance and Efficiency Upgrades",
+        "notes": "Implement a bundle of low-cost maintenance upgrades—cleaning heat exchangers, replacing old motors, improving appliances and thermostats—to recover lost efficiency and reduce failures.",
+        "retrofit_conditions": "It is recommended to implement a package of miscellaneous maintenance and upgrade items. Typical measures include cleaning and descaling heat exchangers, replacing failed or obsolete motors with high-efficiency models, maintaining combustion air paths, upgrading in-suite appliances to ENERGY STAR models as they fail, and replacing non-programmable thermostats with programmable or smart thermostats. These actions reduce long-term maintenance costs, improve system efficiency and extend equipment life with relatively low capital investment.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "No BAS, All LED fixture, garage unheated",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation CO controls"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with outdoor temperature or moisture sensors.",
+        "title": "Hydronic ramp heating"
+      },
+      {
+        "category": "bas",
+        "misc_id": "bas_misc",
+        "text": "Additional BAS-related observations include minor gaps in trend logging and limited visibility into select end-use loads. Integrating remaining standalone controllers into the BAS would improve reporting, enable more consistent scheduling, and simplify ongoing monitoring.",
+        "title": "BAS miscellaneous observations"
+      }
+    ],
+    "number_of_boilers": "3",
+    "number_of_chillers": "1",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "3",
+    "number_of_floors": "47",
+    "number_of_fluid_coolers": "2",
+    "number_of_mua_units": "2",
+    "number_of_rooftop_units": "5",
+    "number_of_suites": "520",
+    "postal_code": "M4R",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "2026-01-15",
+    "site_address": "45 Charles St E",
+    "suite_types": "3 bed room + 2 bed room + studio",
+    "ventilation_airflow_cfm": "700 CFM",
+    "ventilation_block_override": "",
+    "ventilation_location": "Roof top",
+    "ventilation_notes": "",
+    "ventilation_system_type": "mua_hydronic_coil"
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Cooling Related": [
+        "Aging Chiller or Cooling Tower",
+        "No VFD on Cooling tower fan"
+      ],
+      "DHW System": [
+        "Indirect DHW tank observed",
+        "No thermostatic mixing valve"
+      ],
+      "Heating Plant Issue": [
+        "Aging atmospheric boilers",
+        "High boiler count",
+        "Atmospheric boiler serving WSHP"
+      ],
+      "MUA Related": [
+        "MUAs without occupancy scheduling"
+      ],
+      "Operations & Maintenance": [
+        "proprietary BAS system",
+        "Mixed local and BAS controls"
+      ]
+    }
+  },
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "bas",
+      "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "bas_install",
+      "measure_title": "Install New Building Automation System (BAS)",
+      "notes": "Install a new central BAS to coordinate boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance.",
+      "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "boiler",
+      "existing_conditions": "The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\n\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\n\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "condensing_boiler_retrofit",
+      "measure_title": "Condensing Boiler Retrofit",
+      "notes": "Replace aging near-condensing boilers with high-efficiency condensing units and improved piping to enable true condensing operation, lowering gas consumption and extending plant life.",
+      "retrofit_conditions": "Mann recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\n\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\n\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions. Piping would be reconfigured to reduce standby losses and protect the boilers from thermal shock.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "mua",
+      "existing_conditions": "Corridor and common-area ventilation is provided by rooftop MUA units with constant-speed supply fans. These fans run at full speed whenever the units are enabled, independent of actual ventilation demand or occupancy. This results in higher electrical consumption and increased wear on motors and drive components.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "mua_vfd_retrofit",
+      "measure_title": "MUA VFD Retrofit",
+      "notes": "Add VFDs to MUA supply fans with BAS integration so airflow tracks actual ventilation demand, cutting fan energy and mechanical wear while maintaining corridor pressure.",
+      "retrofit_conditions": "It is recommended to retrofit the MUA supply fans with variable frequency drives (VFDs) and integrate them with the BAS. Fan speed would be reset based on duct static pressure, temperature, schedule, or occupancy. Under typical conditions, fan speed would be reduced during low-load periods while maintaining the ability to ramp up when higher ventilation rates are required. This measure reduces fan energy use, lowers mechanical stress, extends equipment life, and improves control of building pressurization and corridor comfort.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Several mechanical and electrical systems in the building rely on routine maintenance to maintain efficiency, but many components have not been proactively upgraded or recommissioned. Heat exchangers may have scale or fouling, older motors may be standard-efficiency models, and controls or thermostats may be outdated or non-programmable.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "misc_maintenance_upgrades",
+      "measure_title": "Miscellaneous Maintenance and Efficiency Upgrades",
+      "notes": "Implement a bundle of low-cost maintenance upgrades—cleaning heat exchangers, replacing old motors, improving appliances and thermostats—to recover lost efficiency and reduce failures.",
+      "retrofit_conditions": "It is recommended to implement a package of miscellaneous maintenance and upgrade items. Typical measures include cleaning and descaling heat exchangers, replacing failed or obsolete motors with high-efficiency models, maintaining combustion air paths, upgrading in-suite appliances to ENERGY STAR models as they fail, and replacing non-programmable thermostats with programmable or smart thermostats. These actions reduce long-term maintenance costs, improve system efficiency and extend equipment life with relatively low capital investment.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation CO controls"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with outdoor temperature or moisture sensors.",
+      "title": "Hydronic ramp heating"
+    },
+    {
+      "category": "bas",
+      "misc_id": "bas_misc",
+      "text": "Additional BAS-related observations include minor gaps in trend logging and limited visibility into select end-use loads. Integrating remaining standalone controllers into the BAS would improve reporting, enable more consistent scheduling, and simplify ongoing monitoring.",
+      "title": "BAS miscellaneous observations"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Heating/Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Toronto",
+    "{ClientName}": "Novo Property Managerment CharYorkville",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "2015",
+    "{DateDocument}": "2026-01-15",
+    "{District}": "Toronto",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.', 'notes': 'Install a new central BAS to coordinate boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Condensing Boiler Retrofit', 'category': 'boiler', 'existing_conditions': 'The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\\n\\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\\n\\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.', 'retrofit_conditions': 'Mann recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\\n\\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\\n\\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions. Piping would be reconfigured to reduce standby losses and protect the boilers from thermal shock.', 'notes': 'Replace aging near-condensing boilers with high-efficiency condensing units and improved piping to enable true condensing operation, lowering gas consumption and extending plant life.', 'measure_id': 'condensing_boiler_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'MUA VFD Retrofit', 'category': 'mua', 'existing_conditions': 'Corridor and common-area ventilation is provided by rooftop MUA units with constant-speed supply fans. These fans run at full speed whenever the units are enabled, independent of actual ventilation demand or occupancy. This results in higher electrical consumption and increased wear on motors and drive components.', 'retrofit_conditions': 'It is recommended to retrofit the MUA supply fans with variable frequency drives (VFDs) and integrate them with the BAS. Fan speed would be reset based on duct static pressure, temperature, schedule, or occupancy. Under typical conditions, fan speed would be reduced during low-load periods while maintaining the ability to ramp up when higher ventilation rates are required. This measure reduces fan energy use, lowers mechanical stress, extends equipment life, and improves control of building pressurization and corridor comfort.', 'notes': 'Add VFDs to MUA supply fans with BAS integration so airflow tracks actual ventilation demand, cutting fan energy and mechanical wear while maintaining corridor pressure.', 'measure_id': 'mua_vfd_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Miscellaneous Maintenance and Efficiency Upgrades', 'category': 'other', 'existing_conditions': 'Several mechanical and electrical systems in the building rely on routine maintenance to maintain efficiency, but many components have not been proactively upgraded or recommissioned. Heat exchangers may have scale or fouling, older motors may be standard-efficiency models, and controls or thermostats may be outdated or non-programmable.', 'retrofit_conditions': 'It is recommended to implement a package of miscellaneous maintenance and upgrade items. Typical measures include cleaning and descaling heat exchangers, replacing failed or obsolete motors with high-efficiency models, maintaining combustion air paths, upgrading in-suite appliances to ENERGY STAR models as they fail, and replacing non-programmable thermostats with programmable or smart thermostats. These actions reduce long-term maintenance costs, improve system efficiency and extend equipment life with relatively low capital investment.', 'notes': 'Implement a bundle of low-cost maintenance upgrades—cleaning heat exchangers, replacing old motors, improving appliances and thermostats—to recover lost efficiency and reduce failures.', 'measure_id': 'misc_maintenance_upgrades', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.', 'notes': 'Install a new central BAS to coordinate boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Condensing Boiler Retrofit', 'category': 'boiler', 'existing_conditions': 'The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\\n\\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\\n\\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.', 'retrofit_conditions': 'Mann recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\\n\\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\\n\\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions. Piping would be reconfigured to reduce standby losses and protect the boilers from thermal shock.', 'notes': 'Replace aging near-condensing boilers with high-efficiency condensing units and improved piping to enable true condensing operation, lowering gas consumption and extending plant life.', 'measure_id': 'condensing_boiler_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'MUA VFD Retrofit', 'category': 'mua', 'existing_conditions': 'Corridor and common-area ventilation is provided by rooftop MUA units with constant-speed supply fans. These fans run at full speed whenever the units are enabled, independent of actual ventilation demand or occupancy. This results in higher electrical consumption and increased wear on motors and drive components.', 'retrofit_conditions': 'It is recommended to retrofit the MUA supply fans with variable frequency drives (VFDs) and integrate them with the BAS. Fan speed would be reset based on duct static pressure, temperature, schedule, or occupancy. Under typical conditions, fan speed would be reduced during low-load periods while maintaining the ability to ramp up when higher ventilation rates are required. This measure reduces fan energy use, lowers mechanical stress, extends equipment life, and improves control of building pressurization and corridor comfort.', 'notes': 'Add VFDs to MUA supply fans with BAS integration so airflow tracks actual ventilation demand, cutting fan energy and mechanical wear while maintaining corridor pressure.', 'measure_id': 'mua_vfd_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Miscellaneous Maintenance and Efficiency Upgrades', 'category': 'other', 'existing_conditions': 'Several mechanical and electrical systems in the building rely on routine maintenance to maintain efficiency, but many components have not been proactively upgraded or recommissioned. Heat exchangers may have scale or fouling, older motors may be standard-efficiency models, and controls or thermostats may be outdated or non-programmable.', 'retrofit_conditions': 'It is recommended to implement a package of miscellaneous maintenance and upgrade items. Typical measures include cleaning and descaling heat exchangers, replacing failed or obsolete motors with high-efficiency models, maintaining combustion air paths, upgrading in-suite appliances to ENERGY STAR models as they fail, and replacing non-programmable thermostats with programmable or smart thermostats. These actions reduce long-term maintenance costs, improve system efficiency and extend equipment life with relatively low capital investment.', 'notes': 'Implement a bundle of low-cost maintenance upgrades—cleaning heat exchangers, replacing old motors, improving appliances and thermostats—to recover lost efficiency and reduce failures.', 'measure_id': 'misc_maintenance_upgrades', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas.', 'misc_id': 'lighting_condition'}, {'title': 'Garage ventilation CO controls', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Hydronic ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with outdoor temperature or moisture sensors.', 'misc_id': 'ramp_heating'}, {'title': 'BAS miscellaneous observations', 'category': 'bas', 'text': 'Additional BAS-related observations include minor gaps in trend logging and limited visibility into select end-use loads. Integrating remaining standalone controllers into the BAS would improve reporting, enable more consistent scheduling, and simplify ongoing monitoring.', 'misc_id': 'bas_misc'}",
+    "{Number of Floors}": "47",
+    "{Number of Suites}": "520",
+    "{Post Code}": "M4R",
+    "{Property Address1}": "45 Charles St E",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "2026-01-15",
+    "{Suite Types}": "3 bed room + 2 bed room + studio"
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "Novo Property Managerment CharYorkville",
+    "prepared_by": "",
+    "report_date": "2026-01-15",
+    "site_address": "45 Charles St E"
+  },
+  "selected_measures": [
+    "condensing_boiler_retrofit",
+    "bas_install",
+    "mua_vfd_retrofit",
+    "enbridge_gas_boiler_optimization_pilot_program",
+    "garage_co_sensors",
+    "booster_pump_vfd",
+    "misc_maintenance_upgrades",
+    "heating_system_recommissioning"
+  ]
+}
