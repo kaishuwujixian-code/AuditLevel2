@@ -17,7 +17,7 @@ def render_block_appendix(project: Dict[str, Any], target_block: str) -> str:
     if not isinstance(template_checklists, dict) or not template_checklists:
         return ""
 
-    paragraphs: List[str] = []
+    lines: List[str] = []
     for group_name, categories in selections.items():
         if not isinstance(categories, dict):
             continue
@@ -31,8 +31,8 @@ def render_block_appendix(project: Dict[str, Any], target_block: str) -> str:
                 text = _resolve_item_text(template_categories, category_name, item)
                 if not text:
                     continue
-                paragraphs.append(ensure_sentence(text))
-    return "\n\n".join(paragraphs)
+                lines.append(ensure_sentence(text))
+    return "\n".join(lines)
 
 
 def _category_matches_target(
