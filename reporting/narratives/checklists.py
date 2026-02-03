@@ -32,7 +32,7 @@ def render_block_appendix(project: Dict[str, Any], target_block: str) -> str:
                 if not text:
                     continue
                 lines.append(ensure_sentence(text))
-    return "\n".join(lines)
+    return "\n\n".join(lines)
 
 
 def _category_matches_target(
