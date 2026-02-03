@@ -6,6 +6,7 @@ from reporting.narratives import (
     further_investigation_sentence,
     get_answer_value,
 )
+from reporting.narratives.checklists import render_block_appendix
 
 BLOCK_PLACEHOLDERS = ["{Miscellaneous Block}"]
 EXPECTED_INPUTS = {
@@ -33,19 +34,31 @@ def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
     context = MiscContext.from_project(project)
+    checklist_text = render_block_appendix(project, target_block="misc")
     if context.override_text and context.items:
-        return "\n\n".join([_render_misc_items(context.items), context.override_text])
+        blocks = [_render_misc_items(context.items), context.override_text]
+        if checklist_text:
+            blocks.append(checklist_text)
+        return "\n\n".join(blocks)
     if context.override_text:
+        if checklist_text:
+            return "\n\n".join([context.override_text, checklist_text])
         return context.override_text
 
     if context.items:
-        return _render_misc_items(context.items)
+        blocks = [_render_misc_items(context.items)]
+        if checklist_text:
+            blocks.append(checklist_text)
+        return "\n\n".join(blocks)
 
     sentences = [
         "No additional miscellaneous systems were noted based on available information.",
         further_investigation_sentence("any supplementary equipment or scope items"),
     ]
-    return " ".join(sentences)
+    text = " ".join(sentences)
+    if checklist_text:
+        return "\n\n".join([text, checklist_text])
+    return text
 
 
 def _collect_misc_items(project: Dict[str, Any]) -> List[Dict[str, Any]]:
