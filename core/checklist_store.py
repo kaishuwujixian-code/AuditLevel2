@@ -46,15 +46,32 @@ def validate_checklists(checklists: Dict[str, dict]) -> None:
             errors.append(f"Checklist group '{group_name}' must be an object.")
             continue
         for category_name, items in categories.items():
-            if not isinstance(items, list):
+            items_list = _extract_items_list(items)
+            if items_list is None:
                 errors.append(
-                    f"Checklist category '{group_name} / {category_name}' must be a list."
+                    f"Checklist category '{group_name} / {category_name}' must be a list or object with items."
                 )
                 continue
-            for item in items:
+            if isinstance(items, dict):
+                target_block = items.get("target_block")
+                if target_block is not None and not isinstance(target_block, str):
+                    errors.append(
+                        f"Checklist category '{group_name} / {category_name}' target_block must be a string."
+                    )
+            for item in items_list:
                 if not isinstance(item, str):
                     errors.append(
                         f"Checklist item in '{group_name} / {category_name}' must be a string."
                     )
     if errors:
         raise ValueError("Checklist validation failed:\n" + "\n".join(errors))
+
+
+def _extract_items_list(value: object) -> List[str] | None:
+    if isinstance(value, list):
+        return value
+    if isinstance(value, dict):
+        items = value.get("items")
+        if isinstance(items, list):
+            return items
+    return None

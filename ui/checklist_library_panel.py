@@ -19,6 +19,12 @@ class ChecklistLibraryPanel(ttk.Frame):
         self._on_saved = on_saved
         self._checklists: Dict[str, dict] = {}
         self._selection: Optional[Tuple[str, str, str]] = None
+        self._target_options = [
+            ("Central Heating/Cooling", "heating"),
+            ("Central Ventilation", "ventilation"),
+            ("DHW", "dhw"),
+            ("Miscellaneous", "misc"),
+        ]
         self._build_ui()
         self._load_checklists()
 
@@ -50,12 +56,22 @@ class ChecklistLibraryPanel(ttk.Frame):
             row=1, column=1, sticky="ew"
         )
 
-        ttk.Label(editor, text="Item text").grid(row=2, column=0, sticky="nw", pady=(8, 0))
+        ttk.Label(editor, text="Target section").grid(row=2, column=0, sticky="w", pady=(8, 0))
+        self._target_var = tk.StringVar()
+        self._target_combo = ttk.Combobox(
+            editor,
+            textvariable=self._target_var,
+            values=[label for label, _ in self._target_options],
+            state="readonly",
+        )
+        self._target_combo.grid(row=2, column=1, sticky="w", pady=(8, 0))
+
+        ttk.Label(editor, text="Item text").grid(row=3, column=0, sticky="nw", pady=(8, 0))
         self._item_text = tk.Text(editor, height=4, wrap="word")
-        self._item_text.grid(row=2, column=1, sticky="ew", pady=(8, 0))
+        self._item_text.grid(row=3, column=1, sticky="ew", pady=(8, 0))
 
         button_row = ttk.Frame(editor)
-        button_row.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(10, 0))
+        button_row.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(10, 0))
         ttk.Button(button_row, text="Apply Changes", command=self._apply_edit).pack(
             side="left", padx=(0, 6)
         )
@@ -67,7 +83,7 @@ class ChecklistLibraryPanel(ttk.Frame):
         )
 
         action_row = ttk.Frame(editor)
-        action_row.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(12, 0))
+        action_row.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(12, 0))
         ttk.Button(action_row, text="New Group", command=self._new_group).pack(
             side="left", padx=(0, 6)
         )
@@ -82,7 +98,7 @@ class ChecklistLibraryPanel(ttk.Frame):
         )
 
         footer = ttk.Frame(editor)
-        footer.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(12, 0))
+        footer.grid(row=6, column=0, columnspan=2, sticky="ew", pady=(12, 0))
         ttk.Button(footer, text="Reload", command=self._load_checklists).pack(
             side="left", padx=(0, 6)
         )
@@ -93,7 +109,7 @@ class ChecklistLibraryPanel(ttk.Frame):
 
     def _load_checklists(self) -> None:
         try:
-            self._checklists = load_template_checklists()
+            self._checklists = _normalize_checklists(load_template_checklists())
         except Exception as exc:
             messagebox.showerror("Checklist Library", f"Load failed: {exc}")
             self._checklists = {}
@@ -109,9 +125,8 @@ class ChecklistLibraryPanel(ttk.Frame):
                 continue
             for category_name, items in categories.items():
                 category_id = self._tree.insert(group_id, "end", text=category_name, open=True)
-                if not isinstance(items, list):
-                    continue
-                for item in items:
+                item_list = _get_category_items(self._checklists, group_name, category_name)
+                for item in item_list:
                     self._tree.insert(category_id, "end", text=str(item))
 
     def _on_select(self, _event: tk.Event) -> None:
@@ -135,20 +150,29 @@ class ChecklistLibraryPanel(ttk.Frame):
             self._level_var.set("Item")
             self._label_var.set(item)
             _set_text(self._item_text, item)
+            self._target_var.set("")
+            self._target_combo.configure(state="disabled")
         elif category:
             self._level_var.set("Category")
             self._label_var.set(category)
             _set_text(self._item_text, "")
+            target = _get_category_target(self._checklists, group, category)
+            self._target_var.set(_label_for_target(target, self._target_options))
+            self._target_combo.configure(state="readonly")
         elif group:
             self._level_var.set("Group")
             self._label_var.set(group)
             _set_text(self._item_text, "")
+            self._target_var.set("")
+            self._target_combo.configure(state="disabled")
         else:
             self._clear_editor()
 
     def _clear_editor(self) -> None:
         self._level_var.set("")
         self._label_var.set("")
+        self._target_var.set("")
+        self._target_combo.configure(state="disabled")
         _set_text(self._item_text, "")
 
     def _apply_edit(self) -> None:
@@ -161,7 +185,7 @@ class ChecklistLibraryPanel(ttk.Frame):
             if not new_text:
                 messagebox.showerror("Checklist Library", "Item text cannot be empty.")
                 return
-            items = self._checklists.get(group, {}).get(category, [])
+            items = _get_category_items(self._checklists, group, category)
             if item not in items:
                 return
             index = items.index(item)
@@ -176,9 +200,13 @@ class ChecklistLibraryPanel(ttk.Frame):
             categories = self._checklists.get(group, {})
             if category not in categories:
                 return
+            target_value = _value_for_target(self._target_var.get(), self._target_options)
             if label != category:
                 categories[label] = categories.pop(category)
                 self._selection = (group, label, "")
+                _set_category_target(categories[label], target_value)
+            else:
+                _set_category_target(categories[category], target_value)
         elif group:
             if not label:
                 messagebox.showerror("Checklist Library", "Group label cannot be empty.")
@@ -225,7 +253,7 @@ class ChecklistLibraryPanel(ttk.Frame):
             return
         categories = self._checklists.get(group, {})
         name = _unique_key(categories, "New Category")
-        categories[name] = []
+        categories[name] = {"items": [], "target_block": "misc"}
         self._selection = (group, name, "")
         self._refresh_tree()
         self._restore_selection()
@@ -235,7 +263,7 @@ class ChecklistLibraryPanel(ttk.Frame):
         if not group or not category:
             messagebox.showinfo("Checklist Library", "Select a category first.")
             return
-        items = self._checklists.get(group, {}).get(category, [])
+        items = _get_category_items(self._checklists, group, category)
         name = _unique_item(items, "New Item")
         items.append(name)
         self._selection = (group, category, name)
@@ -247,7 +275,7 @@ class ChecklistLibraryPanel(ttk.Frame):
             return
         group, category, item = self._selection
         if item:
-            items = self._checklists.get(group, {}).get(category, [])
+            items = _get_category_items(self._checklists, group, category)
             if item in items:
                 items.remove(item)
                 self._selection = (group, category, "")
@@ -269,7 +297,7 @@ class ChecklistLibraryPanel(ttk.Frame):
         group, category, item = self._selection
         if not item:
             return
-        items = self._checklists.get(group, {}).get(category, [])
+        items = _get_category_items(self._checklists, group, category)
         if item not in items:
             return
         index = items.index(item)
@@ -330,3 +358,65 @@ def _unique_item(items: list, base: str) -> str:
         if candidate not in items:
             return candidate
         index += 1
+
+
+def _normalize_checklists(checklists: Dict[str, dict]) -> Dict[str, dict]:
+    normalized: Dict[str, dict] = {}
+    for group_name, categories in checklists.items():
+        if not isinstance(categories, dict):
+            continue
+        normalized[group_name] = {}
+        for category_name, items in categories.items():
+            if isinstance(items, list):
+                normalized[group_name][category_name] = {
+                    "items": list(items),
+                    "target_block": "misc",
+                }
+            elif isinstance(items, dict):
+                item_list = items.get("items", [])
+                target = items.get("target_block", "misc")
+                normalized[group_name][category_name] = {
+                    "items": list(item_list) if isinstance(item_list, list) else [],
+                    "target_block": str(target) if target else "misc",
+                }
+    return normalized
+
+
+def _get_category_items(
+    checklists: Dict[str, dict], group: str, category: str
+) -> list:
+    category_data = checklists.get(group, {}).get(category, {})
+    if isinstance(category_data, dict):
+        items = category_data.get("items", [])
+        if isinstance(items, list):
+            return items
+    if isinstance(category_data, list):
+        return category_data
+    return []
+
+
+def _get_category_target(checklists: Dict[str, dict], group: str, category: str) -> str:
+    category_data = checklists.get(group, {}).get(category, {})
+    if isinstance(category_data, dict):
+        target = category_data.get("target_block", "misc")
+        return str(target or "misc")
+    return "misc"
+
+
+def _set_category_target(category_data: object, target: str) -> None:
+    if isinstance(category_data, dict):
+        category_data["target_block"] = target or "misc"
+
+
+def _label_for_target(value: str, options: list[tuple[str, str]]) -> str:
+    for label, code in options:
+        if code == value:
+            return label
+    return options[-1][0] if options else ""
+
+
+def _value_for_target(label: str, options: list[tuple[str, str]]) -> str:
+    for opt_label, code in options:
+        if opt_label == label:
+            return code
+    return options[-1][1] if options else "misc"

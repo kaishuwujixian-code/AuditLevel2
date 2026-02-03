@@ -58,9 +58,10 @@ class ChecklistPanel(ttk.Frame):
                 category_frame = ttk.LabelFrame(group_frame, text=category_name, padding=8)
                 category_frame.pack(fill="x", padx=10, pady=6)
                 self._vars[group_name][category_name] = {}
-                if not isinstance(items, list):
+                item_list = _extract_items(items)
+                if not item_list:
                     continue
-                for item in items:
+                for item in item_list:
                     var = tk.BooleanVar(value=False)
                     label = ttk.Checkbutton(category_frame, text=str(item), variable=var)
                     label.pack(anchor="w")
@@ -126,3 +127,13 @@ class _ScrollableFrame(ttk.Frame):
 
     def _on_canvas_configure(self, event: tk.Event) -> None:
         self._canvas.itemconfigure(self._canvas_frame, width=event.width)
+
+
+def _extract_items(value: object) -> list:
+    if isinstance(value, list):
+        return value
+    if isinstance(value, dict):
+        items = value.get("items")
+        if isinstance(items, list):
+            return items
+    return []
