@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List
 
 from reporting.narratives import (
+    coerce_bool,
     contains_unknown,
     ensure_sentence,
     first_meaningful_text,
@@ -28,6 +29,9 @@ EXPECTED_INPUTS = {
             "dhw_system_type",
             "hvac.system_combos",
             "hvac_system_combos",
+            "dhw_generation_type",
+            "dhw_boiler_type",
+            "dhw_install_year",
             "number_of_dhw_boilers",
             "dhw_boiler_capacity_mbh",
             "number_of_dhw_tanks",
@@ -37,6 +41,12 @@ EXPECTED_INPUTS = {
             "dhw_recirc_pumps",
             "dhw_storage_notes",
             "dhw_distribution_notes",
+            "dhw_storage_temp_f",
+            "dhw_mixed_temp_f",
+            "dhw_mixing_valve_type",
+            "dhw_equipment_condition",
+            "dhw_recirculation_pumps_operating",
+            "bas_future_integration_feasible",
         ],
     }
 }
@@ -66,6 +76,15 @@ class DHWContext:
     dhw_boiler_capacity_mbh: Any
     number_of_dhw_tanks: Any
     dhw_tank_capacity_gal: Any
+    dhw_generation_type_values: List[str]
+    dhw_boiler_type_values: List[str]
+    dhw_install_year: Any
+    dhw_storage_temp_f: Any
+    dhw_mixed_temp_f: Any
+    dhw_mixing_valve_type_values: List[str]
+    dhw_equipment_condition_values: List[str]
+    dhw_recirculation_pumps_operating: Any
+    bas_future_integration_feasible: Any
 
     @classmethod
     def from_project(
@@ -81,6 +100,27 @@ class DHWContext:
         )
         system_type_values = format_option_values(
             "dhw.system_type", system_type_raw, mapping=mapping
+        )
+        dhw_generation_type_value = get_answer_value(
+            project,
+            ["dhw_generation_type"],
+            section="dhw",
+        )
+        dhw_generation_type_values = format_option_values(
+            "dhw.generation_type", dhw_generation_type_value, mapping=mapping
+        )
+        dhw_boiler_type_value = get_answer_value(
+            project,
+            ["dhw_boiler_type"],
+            section="dhw",
+        )
+        dhw_boiler_type_values = format_option_values(
+            "dhw.boiler_type", dhw_boiler_type_value, mapping=mapping
+        )
+        dhw_install_year = get_answer_value(
+            project,
+            ["dhw_install_year"],
+            section="dhw",
         )
         system_combos_raw = get_answer_value(
             project,
@@ -141,6 +181,42 @@ class DHWContext:
             ["dhw_tank_capacity_gal", "dhw_storage_capacity_gal"],
             section="dhw",
         )
+        dhw_storage_temp_f = get_answer_value(
+            project,
+            ["dhw_storage_temp_f"],
+            section="dhw",
+        )
+        dhw_mixed_temp_f = get_answer_value(
+            project,
+            ["dhw_mixed_temp_f"],
+            section="dhw",
+        )
+        dhw_mixing_valve_type_value = get_answer_value(
+            project,
+            ["dhw_mixing_valve_type"],
+            section="dhw",
+        )
+        dhw_mixing_valve_type_values = format_option_values(
+            "dhw.mixing_valve_type", dhw_mixing_valve_type_value, mapping=mapping
+        )
+        dhw_equipment_condition_value = get_answer_value(
+            project,
+            ["dhw_equipment_condition"],
+            section="dhw",
+        )
+        dhw_equipment_condition_values = format_option_values(
+            "dhw.equipment_condition", dhw_equipment_condition_value, mapping=mapping
+        )
+        dhw_recirculation_pumps_operating = get_answer_value(
+            project,
+            ["dhw_recirculation_pumps_operating"],
+            section="dhw",
+        )
+        bas_future_integration_feasible = get_answer_value(
+            project,
+            ["bas_future_integration_feasible"],
+            section="dhw",
+        )
         return cls(
             audit_level="L1",
             confidence="moderate",
@@ -159,6 +235,15 @@ class DHWContext:
             dhw_boiler_capacity_mbh=dhw_boiler_capacity_mbh,
             number_of_dhw_tanks=number_of_dhw_tanks,
             dhw_tank_capacity_gal=dhw_tank_capacity_gal,
+            dhw_generation_type_values=dhw_generation_type_values,
+            dhw_boiler_type_values=dhw_boiler_type_values,
+            dhw_install_year=dhw_install_year,
+            dhw_storage_temp_f=dhw_storage_temp_f,
+            dhw_mixed_temp_f=dhw_mixed_temp_f,
+            dhw_mixing_valve_type_values=dhw_mixing_valve_type_values,
+            dhw_equipment_condition_values=dhw_equipment_condition_values,
+            dhw_recirculation_pumps_operating=dhw_recirculation_pumps_operating,
+            bas_future_integration_feasible=bas_future_integration_feasible,
         )
 
     def system_unknown(self) -> bool:
@@ -273,15 +358,35 @@ def render_block(
         sentences.append(not_confirmed_sentence("The domestic hot water plant type"))
         sentences.append(further_investigation_sentence("the domestic hot water plant configuration"))
 
+    if context.dhw_generation_type_values:
+        generation_text = human_join(context.dhw_generation_type_values)
+        sentences.append(f"DHW generation is configured as {generation_text}.")
+
+    if context.dhw_boiler_type_values:
+        boiler_type_text = human_join(context.dhw_boiler_type_values)
+        sentences.append(f"DHW boilers are classified as {boiler_type_text}.")
+
+    if context.dhw_install_year:
+        sentences.append(
+            f"DHW boilers were installed around {stringify_value(context.dhw_install_year)}."
+        )
+
     if context.heat_source_text and context.heat_source_text.strip():
         sentences.append(f"The heat source is {context.heat_source_text}.")
-    if isinstance(context.recirc_value, bool):
-        if context.recirc_value:
-            sentences.append("A recirculation loop with circulation pumps was observed.")
-        else:
-            sentences.append("No domestic hot water recirculation loop was observed.")
+    recirc_bool = coerce_bool(context.recirc_value)
+    if recirc_bool is True:
+        sentences.append("A recirculation loop with circulation pumps was observed.")
+    elif recirc_bool is False:
+        sentences.append("No domestic hot water recirculation loop was observed.")
     elif has_meaningful_value(context.recirc_value):
         sentences.append(ensure_sentence(str(context.recirc_value)))
+
+    recirc_pumps_operating = coerce_bool(context.dhw_recirculation_pumps_operating)
+    if recirc_pumps_operating is True:
+        sentences.append("DHW recirculation pumps were operating during the walkthrough.")
+    elif recirc_pumps_operating is False:
+        sentences.append("DHW recirculation pumps were not operating during the walkthrough.")
+
     if context.number_of_dhw_tanks or context.dhw_tank_capacity_gal:
         tank_desc = _format_count_capacity(
             context.number_of_dhw_tanks,
@@ -290,10 +395,30 @@ def render_block(
             "storage tank",
         )
         sentences.append(f"Storage is provided by {tank_desc}.")
+
+    if context.dhw_storage_temp_f:
+        sentences.append(
+            f"DHW storage temperature is maintained at approximately {stringify_value(context.dhw_storage_temp_f)}°F."
+        )
+
+    if context.dhw_mixed_temp_f:
+        sentences.append(
+            f"Mixed water temperature is maintained at approximately {stringify_value(context.dhw_mixed_temp_f)}°F."
+        )
+
+    if context.dhw_mixing_valve_type_values:
+        mixing_text = human_join(context.dhw_mixing_valve_type_values)
+        sentences.append(f"Mixing valve type is {mixing_text}.")
+
     if context.storage_notes_text and context.storage_notes_text.strip():
         sentences.append(ensure_sentence(context.storage_notes_text))
 
-    if context.condition_text:
+    if context.dhw_equipment_condition_values:
+        condition_text = human_join(context.dhw_equipment_condition_values)
+        sentences.append(
+            f"The DHW equipment appears to be in {condition_text} condition based on walkthrough observations."
+        )
+    elif context.condition_text:
         sentences.append(
             f"The DHW equipment appears to be in {context.condition_text} condition based on walkthrough observations."
         )
@@ -304,7 +429,11 @@ def render_block(
             )
         )
 
-    paragraphs.append(" ".join(sentences[:5]))
+    bas_future = coerce_bool(context.bas_future_integration_feasible)
+    if bas_future is True:
+        sentences.append("Future BAS integration for the DHW system appears feasible.")
+
+    paragraphs.append(" ".join(sentences[:7]))
 
     recommendations: list[str] = []
     if not system_unknown:
