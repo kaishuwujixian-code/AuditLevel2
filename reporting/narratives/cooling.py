@@ -4,6 +4,7 @@ from typing import Any, Dict, List
 from reporting.narratives import (
     contains_unknown,
     ensure_sentence,
+    first_meaningful_text,
     format_distribution_values,
     format_option_values,
     further_investigation_sentence,
@@ -14,6 +15,31 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
+from reporting.narratives.checklists import render_block_appendix
+
+BLOCK_PLACEHOLDERS = ["{Central Cooling Systems block}"]
+EXPECTED_INPUTS = {
+    "{Central Cooling Systems block}": {
+        "section": "cooling",
+        "fields": [
+            "cooling_block_override",
+            "cooling_block",
+            "cooling.system_type",
+            "cooling_system_type",
+            "hvac.system_combos",
+            "hvac_system_combos",
+            "cooling_serves",
+            "cooling.serves",
+            "cooling_location",
+            "cooling_controls_notes",
+            "cooling_notes",
+            "number_of_chillers",
+            "chiller_tonnage",
+            "number_of_fluid_coolers",
+            "number_of_rooftop_units",
+        ],
+    }
+}
 
 COMBO_COOLING_TYPE_MAP = {
     "chiller_cooling_tower": "chiller_cooling_tower",
@@ -280,3 +306,23 @@ def render_paragraph(
         sentences.append(ensure_sentence(context.notes_text))
 
     return " ".join(sentence for sentence in sentences[:5] if sentence)
+
+
+def render_block(
+    project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
+) -> str:
+    override_text = first_meaningful_text(
+        [get_answer_value(project, ["cooling_block_override", "cooling_block"])]
+    )
+    if override_text:
+        return override_text
+
+    paragraph = render_paragraph(project, mapping=mapping)
+    if not paragraph:
+        return not_confirmed_sentence("Central cooling system details")
+
+    paragraphs = [paragraph]
+    checklist_text = render_block_appendix(project, target_block="cooling")
+    if checklist_text:
+        paragraphs.append(checklist_text)
+    return "\n\n".join(paragraphs)

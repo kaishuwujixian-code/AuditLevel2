@@ -15,12 +15,11 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
-from reporting.narratives import cooling
 from reporting.narratives.checklists import render_block_appendix
 
-BLOCK_PLACEHOLDERS = ["{Central Heating/Cooling Systems block}"]
+BLOCK_PLACEHOLDERS = ["{Central Heating Systems block}"]
 EXPECTED_INPUTS = {
-    "{Central Heating/Cooling Systems block}": {
+    "{Central Heating Systems block}": {
         "section": "heating",
         "fields": [
             "heating_block_override",
@@ -374,17 +373,9 @@ def render_block(
     if context.override_text:
         return context.override_text
 
-    paragraphs: list[str] = []
-    paragraphs.append(_render_heating_paragraph(context))
-
-    cooling_paragraph = cooling.render_paragraph(
-        project, mapping=mapping, system_type_override=context.cooling_type_raw
-    )
-    if cooling_paragraph:
-        paragraphs.append(cooling_paragraph)
-
-    if not paragraphs:
-        return not_confirmed_sentence("Heating and cooling system details")
+    paragraphs: list[str] = [_render_heating_paragraph(context)]
+    if not paragraphs or not paragraphs[0]:
+        return not_confirmed_sentence("Heating system details")
 
     checklist_text = render_block_appendix(project, target_block="heating")
     if checklist_text:
