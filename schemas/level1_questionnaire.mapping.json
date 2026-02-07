@@ -396,14 +396,28 @@
     {
       "match": {
         "type": "exact",
-        "value": "{Central Heating/Cooling Systems block}"
+        "value": "{Central Heating Systems block}"
       },
       "question": {
         "id": "heating_block_override",
-        "title": "Central heating/cooling systems (manual override)",
+        "title": "Central heating systems (manual override)",
         "type": "notes",
         "section_id": "heating",
-        "help": "Optional manual override for the heating/cooling systems narrative.",
+        "help": "Optional manual override for the heating systems narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Central Cooling Systems block}"
+      },
+      "question": {
+        "id": "cooling_block_override",
+        "title": "Central cooling systems (manual override)",
+        "type": "notes",
+        "section_id": "cooling",
+        "help": "Optional manual override for the cooling systems narrative.",
         "required": false
       }
     },

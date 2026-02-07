@@ -4,7 +4,8 @@
   "generated_at": "2026-01-14T20:02:22+00:00",
   "placeholders": [
     "{Architectural Condition}",
-    "{Central Heating/Cooling Systems block}",
+    "{Central Heating Systems block}",
+    "{Central Cooling Systems block}",
     "{Central Ventilation System Block}",
     "{City}",
     "{ClientName}",
@@ -381,15 +382,15 @@
         },
         {
           "id": "heating_block_override",
-          "title": "Central heating/cooling systems (manual override)",
+          "title": "Central heating systems (manual override)",
           "type": "notes",
           "section_id": "heating",
           "options": [],
           "options_ref": null,
           "placeholder_targets": [
-            "{Central Heating/Cooling Systems block}"
+            "{Central Heating Systems block}"
           ],
-          "help": "Optional manual override for the heating/cooling systems narrative.",
+          "help": "Optional manual override for the heating systems narrative.",
           "required": false
         },
         {
@@ -473,6 +474,19 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Additional notes for the cooling system.",
+          "required": false
+        },
+        {
+          "id": "cooling_block_override",
+          "title": "Central cooling systems (manual override)",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Central Cooling Systems block}"
+          ],
+          "help": "Optional manual override for the cooling systems narrative.",
           "required": false
         },
         {
