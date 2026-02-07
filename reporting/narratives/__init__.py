@@ -128,6 +128,20 @@ def human_join(values: List[str]) -> str:
     return ", ".join(values[:-1]) + f", and {values[-1]}"
 
 
+def coerce_bool(value: Any) -> Optional[bool]:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)) and value in {0, 1}:
+        return bool(value)
+    if isinstance(value, str):
+        cleaned = value.strip().lower()
+        if cleaned in {"true", "yes", "y", "1"}:
+            return True
+        if cleaned in {"false", "no", "n", "0"}:
+            return False
+    return None
+
+
 def ensure_sentence(text: str) -> str:
     cleaned = text.strip()
     if not cleaned:
