@@ -2,11 +2,12 @@ from dataclasses import dataclass
 from typing import Any, Dict, List
 
 from reporting.narratives import (
+    coerce_bool,
     contains_unknown,
     ensure_sentence,
     first_meaningful_text,
-    format_distribution_values,
     format_option_values,
+    format_distribution_values,
     further_investigation_sentence,
     get_answer_value,
     human_join,
@@ -30,8 +31,19 @@ EXPECTED_INPUTS = {
             "hvac_system_combos",
             "number_of_boilers",
             "boiler_capacity_mbh",
+            "bas_integration_level",
+            "outdoor_reset_present",
+            "boiler_type",
+            "boiler_install_year",
+            "boiler_condition",
+            "boiler_pumps_have_vfd",
+            "distribution_pumps_operating_normally",
+            "circulation_issues_reported",
             "hvac.heating_serves",
             "heating_serves",
+            "heating_distribution",
+            "boiler_serves_secondary_dhw",
+            "boiler_serves_misc_loops",
             "heating_notes",
         ],
     }
@@ -69,6 +81,17 @@ class HeatingContext:
     notes_text: str | None
     number_of_boilers: Any
     boiler_capacity_mbh: Any
+    bas_integration_level: Any
+    outdoor_reset_present: Any
+    boiler_type_values: List[str]
+    boiler_install_year: Any
+    boiler_condition_values: List[str]
+    boiler_pumps_have_vfd: Any
+    distribution_pumps_operating_normally: Any
+    circulation_issues_reported: Any
+    heating_distribution_values: List[str]
+    boiler_serves_secondary_dhw: Any
+    boiler_serves_misc_loops: Any
 
     @classmethod
     def from_project(
@@ -157,6 +180,70 @@ class HeatingContext:
             ["boiler_capacity_mbh", "boiler_capacity", "boiler_capacity_mbh_each"],
             section="heating",
         )
+        bas_integration_level = get_answer_value(
+            project,
+            ["bas_integration_level", "bas_integration", "bas_level"],
+            section="heating",
+        )
+        outdoor_reset_present = get_answer_value(
+            project,
+            ["outdoor_reset_present", "outdoor_air_reset"],
+            section="heating",
+        )
+        boiler_type_value = get_answer_value(
+            project,
+            ["boiler_type", "heating_boiler_type"],
+            section="heating",
+        )
+        boiler_type_values = format_option_values(
+            "heating.boiler_type", boiler_type_value, mapping=mapping
+        )
+        boiler_install_year = get_answer_value(
+            project,
+            ["boiler_install_year", "boiler_year_installed"],
+            section="heating",
+        )
+        boiler_condition_value = get_answer_value(
+            project,
+            ["boiler_condition", "heating_boiler_condition"],
+            section="heating",
+        )
+        boiler_condition_values = format_option_values(
+            "boiler.condition", boiler_condition_value, mapping=mapping
+        )
+        boiler_pumps_have_vfd = get_answer_value(
+            project,
+            ["boiler_pumps_have_vfd", "boiler_pumps_vfd"],
+            section="heating",
+        )
+        distribution_pumps_operating_normally = get_answer_value(
+            project,
+            ["distribution_pumps_operating_normally", "distribution_pumps_ok"],
+            section="heating",
+        )
+        circulation_issues_reported = get_answer_value(
+            project,
+            ["circulation_issues_reported", "circulation_issues"],
+            section="heating",
+        )
+        heating_distribution_value = get_answer_value(
+            project,
+            ["heating_distribution", "heating_distribution_type"],
+            section="heating",
+        )
+        heating_distribution_values = format_option_values(
+            "heating.distribution", heating_distribution_value, mapping=mapping
+        )
+        boiler_serves_secondary_dhw = get_answer_value(
+            project,
+            ["boiler_serves_secondary_dhw", "boiler_serves_dhw"],
+            section="heating",
+        )
+        boiler_serves_misc_loops = get_answer_value(
+            project,
+            ["boiler_serves_misc_loops", "boiler_serves_misc"],
+            section="heating",
+        )
         return cls(
             audit_level="L1",
             confidence="moderate",
@@ -180,6 +267,17 @@ class HeatingContext:
             notes_text=notes_text,
             number_of_boilers=number_of_boilers,
             boiler_capacity_mbh=boiler_capacity_mbh,
+            bas_integration_level=bas_integration_level,
+            outdoor_reset_present=outdoor_reset_present,
+            boiler_type_values=boiler_type_values,
+            boiler_install_year=boiler_install_year,
+            boiler_condition_values=boiler_condition_values,
+            boiler_pumps_have_vfd=boiler_pumps_have_vfd,
+            distribution_pumps_operating_normally=distribution_pumps_operating_normally,
+            circulation_issues_reported=circulation_issues_reported,
+            heating_distribution_values=heating_distribution_values,
+            boiler_serves_secondary_dhw=boiler_serves_secondary_dhw,
+            boiler_serves_misc_loops=boiler_serves_misc_loops,
         )
 
     def system_unknown(self) -> bool:
@@ -337,14 +435,33 @@ def _render_heating_paragraph(context: HeatingContext) -> str:
     else:
         sentences.append(not_confirmed_sentence("The heating plant type"))
 
+    if context.boiler_type_values:
+        boiler_type_text = human_join(context.boiler_type_values)
+        sentences.append(f"The boiler plant is composed of {boiler_type_text} boilers.")
+
+    if context.boiler_install_year:
+        sentences.append(
+            f"Boilers were installed around {stringify_value(context.boiler_install_year)}."
+        )
+
     distribution_unknown = context.distribution_unknown()
-    if not distribution_unknown:
+    if context.heating_distribution_values:
+        distribution_text = human_join(context.heating_distribution_values)
+        sentences.append(f"Space heating is delivered via {distribution_text}.")
+    elif not distribution_unknown:
         serves = human_join(context.serves_values)
         sentences.append(f"Heating is distributed through {serves}.")
     else:
         sentences.append(further_investigation_sentence("the heating distribution systems"))
 
-    if context.condition_text:
+    boiler_condition_text = (
+        human_join(context.boiler_condition_values) if context.boiler_condition_values else None
+    )
+    if boiler_condition_text:
+        sentences.append(
+            f"The boilers were observed to be in {boiler_condition_text} condition at the time of the site visit."
+        )
+    elif context.condition_text:
         sentences.append(
             f"The heating equipment appears to be in {context.condition_text} condition based on walkthrough observations."
         )
@@ -355,6 +472,40 @@ def _render_heating_paragraph(context: HeatingContext) -> str:
             )
         )
 
+    bas_level = first_meaningful_text([context.bas_integration_level])
+    if bas_level:
+        bas_level_text = human_join(format_option_values("bas.integration_level", bas_level))
+        sentences.append(f"BAS integration for the heating plant is {bas_level_text}.")
+
+    outdoor_reset = coerce_bool(context.outdoor_reset_present)
+    if outdoor_reset is True:
+        sentences.append("Outdoor-air reset controls are provided for the heating plant.")
+    elif outdoor_reset is False:
+        sentences.append("Outdoor-air reset controls were not observed for the heating plant.")
+
+    boiler_pump_vfd = coerce_bool(context.boiler_pumps_have_vfd)
+    if boiler_pump_vfd is True:
+        sentences.append("Boiler pumps are equipped with variable frequency drives (VFDs).")
+    elif boiler_pump_vfd is False:
+        sentences.append("Boiler pumps appear to be constant-speed (no VFDs observed).")
+
+    pumps_ok = coerce_bool(context.distribution_pumps_operating_normally)
+    circulation_issues = coerce_bool(context.circulation_issues_reported)
+    if pumps_ok is True and circulation_issues is False:
+        sentences.append(
+            "Distribution pumps and associated hydronic piping appear to be operating normally, and no circulation issues were reported."
+        )
+    elif circulation_issues is True:
+        sentences.append("Circulation issues were reported during the walkthrough.")
+
+    serves_dhw = coerce_bool(context.boiler_serves_secondary_dhw)
+    if serves_dhw is True:
+        sentences.append("The boiler plant also serves secondary DHW loads.")
+
+    serves_misc = coerce_bool(context.boiler_serves_misc_loops)
+    if serves_misc is True:
+        sentences.append("The boiler plant also serves miscellaneous or secondary hydronic loops.")
+
     if context.controls_notes_text and context.controls_notes_text.strip():
         sentences.append(ensure_sentence(context.controls_notes_text))
     elif system_types or not distribution_unknown:
@@ -363,7 +514,7 @@ def _render_heating_paragraph(context: HeatingContext) -> str:
     if context.notes_text and context.notes_text.strip():
         sentences.append(ensure_sentence(context.notes_text))
 
-    return " ".join(sentences[:6])
+    return " ".join(sentences[:8])
 
 
 def render_block(
