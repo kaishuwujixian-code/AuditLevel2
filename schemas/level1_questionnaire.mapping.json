@@ -150,6 +150,10 @@
         "value": "suite_erv_hrv"
       },
       {
+        "label": "Suite exhaust only",
+        "value": "suite_exhaust_only"
+      },
+      {
         "label": "Exhaust only",
         "value": "exhaust_only"
       },
@@ -326,6 +330,94 @@
       {
         "label": "No",
         "value": "false"
+      }
+    ],
+    "boolean.yes_no_unknown": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      },
+      {
+        "label": "Unknown",
+        "value": "unknown"
+      }
+    ],
+    "bas.platform": [
+      {
+        "label": "Niagara AX",
+        "value": "niagara_ax"
+      },
+      {
+        "label": "Niagara 4",
+        "value": "niagara_4"
+      },
+      {
+        "label": "Proprietary",
+        "value": "proprietary"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "other_unknown"
+      }
+    ],
+    "common_area.heating_type": [
+      {
+        "label": "Electric fan heater",
+        "value": "electric_fan_heater"
+      },
+      {
+        "label": "Electric radiator",
+        "value": "electric_radiator"
+      },
+      {
+        "label": "Mixed electric",
+        "value": "mixed_electric"
+      }
+    ],
+    "site.visit_season": [
+      {
+        "label": "Heating season",
+        "value": "heating_season"
+      },
+      {
+        "label": "Cooling season",
+        "value": "cooling_season"
+      },
+      {
+        "label": "Shoulder season",
+        "value": "shoulder_season"
+      }
+    ],
+    "exhaust.fan_condition": [
+      {
+        "label": "Aging but functional",
+        "value": "aging_but_functional"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
+      }
+    ],
+    "dhw.piping_condition": [
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
       }
     ],
     "building.arch_condition": [
