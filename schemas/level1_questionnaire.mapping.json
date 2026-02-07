@@ -158,6 +158,176 @@
         "value": "mixed_unknown"
       }
     ],
+    "bas.integration_level": [
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Partial",
+        "value": "partial"
+      },
+      {
+        "label": "Full",
+        "value": "full"
+      }
+    ],
+    "heating.boiler_type": [
+      {
+        "label": "Atmospheric",
+        "value": "atmospheric"
+      },
+      {
+        "label": "Non-condensing",
+        "value": "non_condensing"
+      },
+      {
+        "label": "Near-condensing",
+        "value": "near_condensing"
+      },
+      {
+        "label": "Condensing",
+        "value": "condensing"
+      }
+    ],
+    "boiler.condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair to Good",
+        "value": "fair_to_good"
+      }
+    ],
+    "heating.distribution": [
+      {
+        "label": "Fan coil",
+        "value": "fan_coil"
+      },
+      {
+        "label": "Baseboard",
+        "value": "baseboard"
+      },
+      {
+        "label": "Radiant",
+        "value": "radiant"
+      }
+    ],
+    "cooling.distribution": [
+      {
+        "label": "Fan coil",
+        "value": "fan_coil"
+      },
+      {
+        "label": "Air handler",
+        "value": "air_handler"
+      }
+    ],
+    "suite.cooling_type": [
+      {
+        "label": "Fan coil",
+        "value": "fan_coil"
+      },
+      {
+        "label": "Window and portable AC",
+        "value": "window_and_portable_ac"
+      }
+    ],
+    "cooling.equipment_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      }
+    ],
+    "dhw.generation_type": [
+      {
+        "label": "Central DHW boilers",
+        "value": "central_dhw_boilers"
+      },
+      {
+        "label": "Boiler-fed via heat exchanger",
+        "value": "boiler_fed_via_hx"
+      }
+    ],
+    "dhw.boiler_type": [
+      {
+        "label": "Atmospheric",
+        "value": "atmospheric"
+      },
+      {
+        "label": "Non-condensing",
+        "value": "non_condensing"
+      },
+      {
+        "label": "Condensing",
+        "value": "condensing"
+      }
+    ],
+    "dhw.mixing_valve_type": [
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Mechanical",
+        "value": "mechanical"
+      },
+      {
+        "label": "Flowmix electronic",
+        "value": "flowmix_electronic"
+      }
+    ],
+    "dhw.equipment_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      }
+    ],
+    "mua.heating_type": [
+      {
+        "label": "Gas burner",
+        "value": "gas_burner"
+      },
+      {
+        "label": "Hydronic heating only",
+        "value": "hydronic_heating_only"
+      }
+    ],
+    "boolean.yes_no": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ],
     "building.arch_condition": [
       {
         "label": "Good",
@@ -396,14 +566,28 @@
     {
       "match": {
         "type": "exact",
-        "value": "{Central Heating/Cooling Systems block}"
+        "value": "{Central Heating Systems block}"
       },
       "question": {
         "id": "heating_block_override",
-        "title": "Central heating/cooling systems (manual override)",
+        "title": "Central heating systems (manual override)",
         "type": "notes",
         "section_id": "heating",
-        "help": "Optional manual override for the heating/cooling systems narrative.",
+        "help": "Optional manual override for the heating systems narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Central Cooling Systems block}"
+      },
+      "question": {
+        "id": "cooling_block_override",
+        "title": "Central cooling systems (manual override)",
+        "type": "notes",
+        "section_id": "cooling",
+        "help": "Optional manual override for the cooling systems narrative.",
         "required": false
       }
     },
