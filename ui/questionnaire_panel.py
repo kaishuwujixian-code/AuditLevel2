@@ -25,6 +25,9 @@ class QuestionnairePanel(ttk.Frame):
         self._schema = schema
         self._question_widgets: Dict[str, QuestionWidget] = {}
         self._template_widgets: Dict[str, QuestionWidget] = {}
+        self._question_definitions: Dict[str, Dict[str, Any]] = {}
+        self._section_questions: Dict[ttk.LabelFrame, list[str]] = {}
+        self._section_order: Dict[ttk.Frame, list[ttk.LabelFrame]] = {}
         self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
         self._misc_panel: Optional[MiscPanel] = None
@@ -39,6 +42,9 @@ class QuestionnairePanel(ttk.Frame):
             child.destroy()
         self._question_widgets.clear()
         self._template_widgets.clear()
+        self._question_definitions.clear()
+        self._section_questions.clear()
+        self._section_order.clear()
 
         general_tab = _ScrollableFrame(self._notebook)
         self._notebook.add(general_tab, text="General")
@@ -94,6 +100,8 @@ class QuestionnairePanel(ttk.Frame):
                     "type": "text",
                 }
                 self._add_question(template_frame, question, template_field=True)
+        self._setup_visibility_handlers()
+        self._apply_visibility()
 
     def _add_question(
         self,
@@ -105,15 +113,22 @@ class QuestionnairePanel(ttk.Frame):
         question_id = str(question.get("id", "")).strip()
         if not question_id:
             return
+        self._question_definitions[question_id] = question
         title = question.get("title") or question_id
         question_type = question.get("type", "text")
 
         row = getattr(parent, "next_row", 0)
         parent.next_row = row + 1
-        ttk.Label(parent, text=title).grid(row=row, column=0, sticky="nw", padx=(0, 12), pady=6)
+        row_frame = ttk.Frame(parent)
+        row_frame.grid(row=row, column=0, columnspan=2, sticky="ew", pady=6)
+        row_frame.columnconfigure(1, weight=1)
+        ttk.Label(row_frame, text=title).grid(row=0, column=0, sticky="nw", padx=(0, 12))
 
-        widget = self._create_question_widget(parent, question, row=row)
+        widget = self._create_question_widget(row_frame, question, row=0)
         if widget:
+            widget.metadata["row_frame"] = row_frame
+            widget.metadata["section_frame"] = parent
+            self._section_questions.setdefault(parent, []).append(question_id)
             if template_field:
                 self._template_widgets[question_id] = widget
             else:
@@ -126,6 +141,7 @@ class QuestionnairePanel(ttk.Frame):
         question_type = question.get("type", "text")
         options = question.get("options", [])
         options_ref = question.get("options_ref")
+        value_aliases = question.get("value_aliases") or {}
         if not options and options_ref:
             option_set = self._option_sets.get(options_ref, {})
             options = [
@@ -181,7 +197,12 @@ class QuestionnairePanel(ttk.Frame):
                 question_id,
                 question_type,
                 var,
-                metadata={"label_to_value": label_to_value, "value_to_label": value_to_label},
+                metadata={
+                    "label_to_value": label_to_value,
+                    "value_to_label": value_to_label,
+                    "value_aliases": value_aliases,
+                    "inverse_value_aliases": {v: k for k, v in value_aliases.items()},
+                },
             )
 
         if question_type == "multi_select":
@@ -199,6 +220,10 @@ class QuestionnairePanel(ttk.Frame):
                 question_id,
                 question_type,
                 option_vars,
+                metadata={
+                    "value_aliases": value_aliases,
+                    "inverse_value_aliases": {v: k for k, v in value_aliases.items()},
+                },
             )
 
         return None
@@ -223,11 +248,13 @@ class QuestionnairePanel(ttk.Frame):
             self._set_widget_value(widget, value)
         if self._misc_panel:
             self._misc_panel.load_project(project_data)
+        self._apply_visibility()
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
         answers = project_data.get("answers", {})
         if not isinstance(answers, dict):
             answers = {}
+        answers = dict(answers)
         for question_id, widget in self._question_widgets.items():
             answers[question_id] = self._extract_answer(widget)
 
@@ -247,12 +274,17 @@ class QuestionnairePanel(ttk.Frame):
         if widget.question_type == "single_select":
             label = widget.widget.get()
             mapping = widget.metadata.get("label_to_value", {})
-            return mapping.get(label)
+            value = mapping.get(label)
+            inverse_aliases = widget.metadata.get("inverse_value_aliases", {})
+            if value in inverse_aliases:
+                return inverse_aliases[value]
+            return value
         if widget.question_type == "multi_select":
             selections = []
+            inverse_aliases = widget.metadata.get("inverse_value_aliases", {})
             for value, var in widget.widget:
                 if var.get():
-                    selections.append(value)
+                    selections.append(inverse_aliases.get(value, value))
             return selections
         return None
 
@@ -264,17 +296,29 @@ class QuestionnairePanel(ttk.Frame):
             if value:
                 widget.widget.insert("1.0", str(value))
         elif widget.question_type == "single_select":
+            aliases = widget.metadata.get("value_aliases", {})
             value_to_label = widget.metadata.get("value_to_label", {})
+            if isinstance(value, (list, tuple)):
+                if not value:
+                    value = None
+                elif len(value) == 1:
+                    value = value[0]
+                else:
+                    value = "mixed_unknown" if "mixed_unknown" in value else value[0]
+            if value in aliases:
+                value = aliases[value]
             label = value_to_label.get(value, "" if value is None else str(value))
             widget.widget.set(label)
         elif widget.question_type == "multi_select":
-            values = set(value or [])
+            aliases = widget.metadata.get("value_aliases", {})
+            values = set(aliases.get(item, item) for item in (value or []))
             for option_value, var in widget.widget:
                 var.set(option_value in values)
 
     def _build_form_section(self, parent: ttk.Frame, title: str) -> ttk.LabelFrame:
         section_frame = ttk.LabelFrame(parent, text=title, padding=10)
         section_frame.pack(fill="x", padx=10, pady=6)
+        self._section_order.setdefault(parent, []).append(section_frame)
         section_frame.columnconfigure(1, weight=1)
         section_frame.next_row = 0
         return section_frame
@@ -286,6 +330,98 @@ class QuestionnairePanel(ttk.Frame):
             if question_id.startswith(f"{system}_") or section_id == system:
                 return system
         return ""
+
+    def _setup_visibility_handlers(self) -> None:
+        dependency_map: Dict[str, list[str]] = {}
+        for question_id, question in self._question_definitions.items():
+            show_if = question.get("show_if")
+            if not show_if:
+                continue
+            field = show_if.get("field")
+            if not field:
+                continue
+            dependency_map.setdefault(field, []).append(question_id)
+
+        for controller_id in dependency_map:
+            widget = self._question_widgets.get(controller_id)
+            if not widget:
+                continue
+            if widget.question_type in {"text", "number", "date", "single_select"}:
+                widget.widget.trace_add("write", lambda *_args: self._apply_visibility())
+            elif widget.question_type == "multi_select":
+                for _value, var in widget.widget:
+                    var.trace_add("write", lambda *_args: self._apply_visibility())
+
+    def _apply_visibility(self) -> None:
+        for question_id, question in self._question_definitions.items():
+            show_if = question.get("show_if")
+            widget = self._question_widgets.get(question_id)
+            if not widget or not show_if:
+                continue
+            visible = self._evaluate_show_if(show_if)
+            self._set_question_visibility(widget, visible)
+        self._refresh_section_visibility()
+
+    def _set_question_visibility(self, widget: QuestionWidget, visible: bool) -> None:
+        row_frame = widget.metadata.get("row_frame")
+        if not row_frame:
+            return
+        if visible:
+            row_frame.grid()
+        else:
+            row_frame.grid_remove()
+
+    def _refresh_section_visibility(self) -> None:
+        for container, frames in self._section_order.items():
+            for frame in frames:
+                frame.pack_forget()
+            for frame in frames:
+                question_ids = self._section_questions.get(frame, [])
+                if not question_ids:
+                    frame.pack(fill="x", padx=10, pady=6)
+                    continue
+                any_visible = False
+                for question_id in question_ids:
+                    widget = self._question_widgets.get(question_id)
+                    row_frame = widget.metadata.get("row_frame") if widget else None
+                    if row_frame is not None and row_frame.winfo_ismapped():
+                        any_visible = True
+                        break
+                if any_visible:
+                    frame.pack(fill="x", padx=10, pady=6)
+
+    def _evaluate_show_if(self, show_if: Dict[str, Any]) -> bool:
+        field = show_if.get("field")
+        op = show_if.get("op")
+        expected = show_if.get("value")
+        if not field or not op:
+            return True
+        widget = self._question_widgets.get(field)
+        if not widget:
+            return False
+        current = self._extract_answer(widget)
+
+        if op == "eq":
+            return current == expected
+        if op == "ne":
+            return current != expected
+        if op == "in":
+            if isinstance(current, (list, tuple)):
+                return any(item in expected for item in current or [])
+            return current in (expected or [])
+        if op == "not_in":
+            if isinstance(current, (list, tuple)):
+                return all(item not in expected for item in current or [])
+            return current not in (expected or [])
+        if op == "contains":
+            if isinstance(current, (list, tuple)):
+                return expected in current
+            return False
+        if op == "not_contains":
+            if isinstance(current, (list, tuple)):
+                return expected not in current
+            return True
+        return True
 
 
 class _ScrollableFrame(ttk.Frame):
