@@ -91,7 +91,6 @@
     ],
     "heating_serves_multiple_buildings": "false",
     "heating_system_type": "atmospheric_boiler",
-    "hvac_system_combos": [],
     "loop_temperatures_normal": null,
     "measures": [
       {
@@ -335,7 +334,6 @@
     "{Architectural Condition}": "good",
     "{Central Cooling Systems block}": "",
     "{Central Heating Systems block}": "",
-    "{Central Heating/Cooling Systems block}": "",
     "{Central Ventilation System Block}": "",
     "{City}": "Toronto",
     "{ClientName}": "Novo Property Managerment CharYorkville",

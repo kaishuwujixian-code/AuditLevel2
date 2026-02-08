@@ -502,17 +502,6 @@
           "required": false
         },
         {
-          "id": "hvac_system_combos",
-          "title": "HVAC system combinations",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "hvac.system_combos",
-          "placeholder_targets": [],
-          "help": "Select all applicable central system combinations observed onsite.",
-          "required": false
-        },
-        {
           "id": "bas_integration_level",
           "title": "BAS integration level",
           "type": "single_select",

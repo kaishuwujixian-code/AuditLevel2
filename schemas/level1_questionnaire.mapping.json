@@ -437,52 +437,6 @@
         "label": "Unknown",
         "value": "unknown"
       }
-    ],
-    "hvac.system_combos": [
-      {
-        "label": "WSHP loop + fluid cooler",
-        "value": "wshp_fluid_cooler"
-      },
-      {
-        "label": "WSHP loop (central condenser loop)",
-        "value": "wshp_loop"
-      },
-      {
-        "label": "High-temperature heating loop",
-        "value": "high_temp_heating_loop"
-      },
-      {
-        "label": "Condensing boiler plant (primary-secondary)",
-        "value": "condensing_boiler_ps"
-      },
-      {
-        "label": "Chiller with cooling tower",
-        "value": "chiller_cooling_tower"
-      },
-      {
-        "label": "Air-cooled chiller",
-        "value": "air_cooled_chiller"
-      },
-      {
-        "label": "Separate DHW boilers",
-        "value": "separate_dhw_boilers"
-      },
-      {
-        "label": "DHW via heating heat exchanger",
-        "value": "dhw_from_heating_hx"
-      },
-      {
-        "label": "Central ventilation (MUA/DOAS)",
-        "value": "central_ventilation_mua_doas"
-      },
-      {
-        "label": "Suite ERV/HRV ventilation",
-        "value": "suite_erv_hrv"
-      },
-      {
-        "label": "Exhaust-only ventilation",
-        "value": "exhaust_only"
-      }
     ]
   },
   "rules": [

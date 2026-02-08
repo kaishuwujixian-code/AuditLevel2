@@ -3,7 +3,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -94,7 +94,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -212,7 +212,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -349,7 +349,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -546,7 +546,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -646,7 +646,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -845,7 +845,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -935,7 +935,7 @@ rulesets:
                 - "Outdoor air temperature reset is present; however, full coordination, sequencing optimization, and advanced performance monitoring may be limited due to the hybrid control configuration."
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -1137,4 +1137,3 @@ rulesets:
             then:
               paragraphs:
                 - "Overall, the DHW system is functioning well and is suitably configured for future BAS integration to improve monitoring and temperature optimization."
-
