@@ -809,25 +809,6 @@
               "wshp_loop"
             ]
           }
-        },
-        {
-          "id": "circulation_issues_reported",
-          "title": "Circulation issues reported",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether circulation issues were reported.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "in",
-            "value": [
-              "central_hydronic_boiler_plant",
-              "wshp_loop"
-            ]
-          }
         }
       ]
     },

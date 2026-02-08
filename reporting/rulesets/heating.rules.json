@@ -10,6 +10,45 @@
           "target_block": "heating",
           "rules": [
             {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
               "rule_id": "heating_system_intro_hydronic_boiler",
               "if": {
                 "all": [
@@ -64,6 +103,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -106,6 +153,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -137,6 +192,14 @@
                   {
                     "field": "answers.boiler_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -156,6 +219,14 @@
                     "field": "answers.heating_terminal_type",
                     "op": "contains",
                     "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -230,17 +301,13 @@
                   {
                     "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping appear to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             }
@@ -258,6 +325,45 @@
           "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
             {
               "rule_id": "heating_wshp_loop_intro",
               "if": {
@@ -313,6 +419,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -355,6 +469,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -386,6 +508,14 @@
                   {
                     "field": "answers.boiler_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -405,6 +535,14 @@
                     "field": "answers.heating_terminal_type",
                     "op": "contains",
                     "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -538,27 +676,6 @@
               }
             },
             {
-              "rule_id": "wshp_loop_operation_ok",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.loop_temperatures_normal",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "Loop temperatures and differential readings observed during the site visit were consistent with expected operating conditions.",
-                  "No circulation issues were identified."
-                ]
-              }
-            },
-            {
               "rule_id": "atmospheric_boiler_low_temp_mismatch",
               "if": {
                 "all": [
@@ -664,6 +781,45 @@
           "target_block": "heating",
           "rules": [
             {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
               "rule_id": "heating_intro_central_hydronic_boiler",
               "if": {
                 "all": [
@@ -718,6 +874,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -760,6 +924,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -791,6 +963,14 @@
                   {
                     "field": "answers.boiler_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -810,6 +990,14 @@
                     "field": "answers.heating_terminal_type",
                     "op": "contains",
                     "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -891,26 +1079,80 @@
                 "paragraphs": [
                   "The boiler plant provides space heating to multiple connected buildings."
                 ]
-              }
+              },
+              "priority": 25,
+              "exclusive_group": "heating_loads_fan_coil"
             },
             {
-              "rule_id": "heating_pumps_piping_normal",
+              "rule_id": "heating_loads_other_summary",
+              "role": "load_item",
+              "exclusive_group": "heating_loads_other_summary",
+              "priority": 10,
+              "items": [
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_mua"
+                      }
+                    ]
+                  },
+                  "text": "make-up air unit (MUA) heating coils"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_radiant"
+                      }
+                    ]
+                  },
+                  "text": "radiation distribution"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_ahu"
+                      }
+                    ]
+                  },
+                  "text": "heat exchanger circuits"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_dhw_loop"
+                      }
+                    ]
+                  },
+                  "text": "the secondary domestic hot water (DHW) loop"
+                }
+              ]
+            },
+            {
+              "rule_id": "heating_serves_multiple_buildings",
               "if": {
                 "all": [
                   {
-                    "field": "answers.distribution_pumps_operating_normally",
+                    "field": "answers.heating_serves_multiple_buildings",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             },
@@ -950,6 +1192,45 @@
           "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
             {
               "rule_id": "heating_intro_hydronic_boiler",
               "if": {
@@ -1005,6 +1286,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -1047,6 +1336,14 @@
                       "fair_to_good",
                       "good_to_fair"
                     ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -1078,6 +1375,14 @@
                   {
                     "field": "answers.boiler_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -1097,6 +1402,14 @@
                     "field": "answers.heating_terminal_type",
                     "op": "contains",
                     "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
@@ -1187,17 +1500,13 @@
                   {
                     "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             }
