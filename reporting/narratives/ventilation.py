@@ -16,6 +16,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
+from reporting.rulesets.engine import render_ruleset_block
 
 BLOCK_PLACEHOLDERS = ["{Central Ventilation System Block}"]
 EXPECTED_INPUTS = {
@@ -276,6 +277,19 @@ def render_block(
     context = VentilationContext.from_project(project, mapping=mapping)
     if context.override_text:
         return context.override_text
+
+    ruleset_text = render_ruleset_block(
+        project,
+        ruleset_filename="ventilation.rules.json",
+        target_block="ventilation",
+        block_ref="{Central Ventilation System Block}",
+    )
+    if ruleset_text:
+        paragraphs: list[str] = [ruleset_text]
+        checklist_text = render_block_appendix(project, target_block="ventilation")
+        if checklist_text:
+            paragraphs.append(checklist_text)
+        return "\n\n".join(paragraphs)
 
     paragraphs: list[str] = []
     sentences: list[str] = []

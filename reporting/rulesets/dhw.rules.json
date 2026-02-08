@@ -24,7 +24,10 @@
                 "paragraphs": [
                   "Domestic hot water is generated in the central mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "dhw_system_header",
+              "priority": 10
             },
             {
               "rule_id": "dhw_boiler_count_capacity",
@@ -100,7 +103,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "dhw"
         }
       ]
     },
@@ -128,7 +132,10 @@
                 "paragraphs": [
                   "Domestic hot water (DHW) is generated in the central mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "dhw_system_header",
+              "priority": 20
             },
             {
               "rule_id": "dhw_boiler_count_capacity_install_year",
@@ -248,7 +255,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "dhw"
         }
       ]
     },
@@ -276,7 +284,10 @@
                 "paragraphs": [
                   "Domestic hot water (DHW) is generated in the central mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "dhw_system_header",
+              "priority": 30
             },
             {
               "rule_id": "dhw_boiler_count_capacity_year",
@@ -373,7 +384,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "dhw"
         }
       ]
     },
@@ -402,7 +414,10 @@
                   "Domestic hot water is produced in the central mechanical room.",
                   "The DHW loop receives heat from the boiler plant through a heat exchanger."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "dhw_system_header",
+              "priority": 40
             },
             {
               "rule_id": "dhw_flowmix_present",
@@ -495,7 +510,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "dhw"
         }
       ]
     }
