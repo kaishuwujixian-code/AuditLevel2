@@ -51,10 +51,19 @@ def render_ruleset_block(
                     continue
                 if not _rule_matches(project, rule.get("if")):
                     continue
-                paragraphs = [
-                    _format_paragraph(paragraph, project.get("answers", {}))
-                    for paragraph in _extract_paragraphs(rule)
-                ]
+                if "items" in rule:
+                    rendered_items = _render_items(rule, project)
+                    if not rendered_items:
+                        continue
+                    paragraphs = [
+                        _format_paragraph(paragraph, project.get("answers", {}))
+                        for paragraph in rendered_items
+                    ]
+                else:
+                    paragraphs = [
+                        _format_paragraph(paragraph, project.get("answers", {}))
+                        for paragraph in _extract_paragraphs(rule)
+                    ]
                 paragraphs = [paragraph for paragraph in paragraphs if paragraph]
                 if not paragraphs:
                     continue
@@ -108,6 +117,27 @@ def _extract_paragraphs(rule: Dict[str, Any]) -> Iterable[str]:
     payload = rule.get("then", {})
     paragraphs = payload.get("paragraphs", []) if isinstance(payload, dict) else []
     return [paragraph for paragraph in paragraphs if isinstance(paragraph, str)]
+
+
+def _render_items(rule: Dict[str, Any], project: Dict[str, Any]) -> List[str]:
+    items = rule.get("items")
+    if not isinstance(items, list):
+        return []
+    outputs: List[str] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        if not _rule_matches(project, item.get("if")):
+            continue
+        text = item.get("text")
+        if isinstance(text, str) and text.strip():
+            outputs.append(text.strip())
+    if not outputs:
+        return []
+    if rule.get("role") == "load_item":
+        joined = ", ".join(outputs)
+        return [f"The boiler plant also serves {joined}."]
+    return outputs
 
 
 def _rule_matches(project: Dict[str, Any], condition: Optional[Dict[str, Any]]) -> bool:
