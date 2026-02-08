@@ -1,0 +1,1140 @@
+rulesets:
+  - ruleset_version: 1.0
+    ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING"
+    blocks:
+      - block_id: "central_heating_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          # pizza crust：系统总述
+          - rule_id: "heating_system_intro_hydronic_boiler"
+            if:
+              all:
+                - field: "answers.heating_system_type"
+                  op: "eq"
+                  value: "central_hydronic_boiler"
+            then:
+              paragraphs:
+                - "The building’s heating system is supplied by a central hydronic boiler plant located in the main mechanical room."
+
+          # sauce：锅炉数量 + 容量（参数化）
+          - rule_id: "heating_boiler_count_capacity"
+            if:
+              all:
+                - field: "answers.number_of_boilers"
+                  op: "exists"
+                - field: "answers.boiler_capacity_mbh"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The plant consists of {number_of_boilers} non-condensing boilers, each rated at approximately {boiler_capacity_mbh} MBH, which provide hot water to the space-heating distribution system."
+
+          # topping：末端形式 – baseboard
+          - rule_id: "heating_distribution_baseboard"
+            if:
+              all:
+                - field: "answers.heating_distribution"
+                  op: "eq"
+                  value: "baseboard"
+            then:
+              paragraphs:
+                - "Space heating is delivered to the suites through baseboard heaters."
+
+          # topping：额外 hydronic loads
+          - rule_id: "heating_additional_hydronic_loads"
+            if:
+              any:
+                - field: "answers.boiler_serves_mua"
+                  op: "is_true"
+                - field: "answers.boiler_serves_radiation"
+                  op: "is_true"
+                - field: "answers.boiler_serves_heat_exchanger"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "In addition to suite heating, the boilers also serve other hydronic heating loads, including make-up air unit (MUA) heating coils, radiation, and heat exchanger circuits."
+
+          # topping：运行状态
+          - rule_id: "heating_boiler_condition_fair_good"
+            if:
+              all:
+                - field: "answers.boiler_condition"
+                  op: "in"
+                  value: ["fair", "good", "fair_to_good"]
+            then:
+              paragraphs:
+                - "The boilers were observed to be in fair to good operating condition at the time of the site visit."
+
+          # topping：泵和管道
+          - rule_id: "heating_distribution_pumps_ok"
+            if:
+              all:
+                - field: "answers.distribution_pumps_operating_normally"
+                  op: "is_true"
+                - field: "answers.circulation_issues_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Distribution pumps and associated hydronic piping appear to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough."
+
+          # topping：BAS legacy
+          - rule_id: "heating_bas_legacy_ax"
+            if:
+              all:
+                - field: "answers.bas_platform"
+                  op: "eq"
+                  value: "niagara_ax"
+            then:
+              paragraphs:
+                - "The boiler plant is operating normally; however, the BAS relies on the legacy Niagara AX platform."
+                - "An upgrade to Niagara 4 is recommended to improve supportability, cybersecurity, and future optimization."
+
+
+
+
+      - block_id: "central_cooling_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          - rule_id: "no_central_cooling_intro"
+            if:
+              all:
+                - field: "answers.cooling_central_system_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump."
+
+          - rule_id: "suite_window_portable_ac"
+            if:
+              all:
+                - field: "answers.suite_cooling_type"
+                  op: "eq"
+                  value: "window_and_portable_ac"
+            then:
+              paragraphs:
+                - "Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units."
+
+          - rule_id: "window_ac_efficiency_commentary"
+            if:
+              all:
+                - field: "answers.suite_cooling_type"
+                  op: "eq"
+                  value: "window_and_portable_ac"
+            then:
+              paragraphs:
+                - "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems."
+                - "Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions."
+
+          - rule_id: "window_ac_envelope_impact"
+            if:
+              all:
+                - field: "answers.window_ac_present"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "In addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance."
+                - "Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption."
+
+          - rule_id: "future_wshp_option"
+            if:
+              all:
+                - field: "answers.future_cooling_upgrade_considered"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Installation of a centralized water-source heat pump (WSHP) system could be considered in the short term to mid term."
+
+
+  - ruleset_version: 1.0
+    ruleset_name: "DHW SYSTEM RULESET – CENTRAL NON-CONDENSING BOILERS"
+    blocks:
+      - block_id: "dhw_existing"
+        block_ref: "{DHW System Block}"
+        target_block: "dhw"
+        rules:
+
+          - rule_id: "dhw_intro"
+            if:
+              all:
+                - field: "answers.dhw_generation_type"
+                  op: "eq"
+                  value: "central_dhw_boilers"
+            then:
+              paragraphs:
+                - "Domestic hot water is generated in the central mechanical room."
+
+          - rule_id: "dhw_boiler_count_capacity"
+            if:
+              all:
+                - field: "answers.number_of_dhw_boilers"
+                  op: "exists"
+                - field: "answers.dhw_boiler_capacity_mbh"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The DHW plant consists of {number_of_dhw_boilers} non-condensing DHW boilers, each rated at approximately {dhw_boiler_capacity_mbh} MBH."
+
+          - rule_id: "dhw_condition_ok"
+            if:
+              all:
+                - field: "answers.dhw_piping_condition"
+                  op: "eq"
+                  value: "good"
+            then:
+              paragraphs:
+                - "The boilers, storage tanks, and associated piping appear to be in generally good condition, with no visible leaks or major signs of corrosion."
+
+          - rule_id: "dhw_recirculation_ok"
+            if:
+              all:
+                - field: "answers.dhw_recirculation_pumps_operating"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "DHW recirculation pumps were operating at the time of the visit, and piping insulation was largely intact."
+
+          - rule_id: "dhw_mixing_valve_present"
+            if:
+              all:
+                - field: "answers.dhw_mixing_valve_present"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Mixed-water temperature control is provided through mechanical thermostatic valves set to approximately 120°F, which regulate delivery temperature to the building."
+                - "At the time of the walkthrough, DHW temperatures appeared to be stable."
+
+
+rulesets:
+  - ruleset_version: 1.0
+    ruleset_name: "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS"
+    blocks:
+      - block_id: "central_heating_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          # crust：WSHP 系统总述
+          - rule_id: "heating_wshp_loop_intro"
+            if:
+              all:
+                - field: "answers.heating_system_type"
+                  op: "eq"
+                  value: "wshp_loop"
+            then:
+              paragraphs:
+                - "The building operates with a low-temperature water-source heat pump (WSHP) loop that serves the in-suite heat pumps and maintains year-round operation."
+
+          # topping：公共区域电加热
+          - rule_id: "common_area_electric_heating"
+            if:
+              all:
+                - field: "answers.common_area_heating_type"
+                  op: "in"
+                  value: ["electric_fan_heater", "electric_radiator", "mixed_electric"]
+            then:
+              paragraphs:
+                - "During the walkthrough, common areas were observed to be heated by a combination of electric fan-forced heaters and electric radiators."
+
+          # topping：DHW 独立于 WSHP
+          - rule_id: "dhw_separate_from_wshp"
+            if:
+              all:
+                - field: "answers.dhw_separate_from_wshp"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "A dedicated domestic hot water (DHW) system is present, providing centralized DHW production and operating independently from the WSHP loop."
+
+          # sauce：WSHP loop 由锅炉维持
+          - rule_id: "wshp_loop_boiler_maintenance"
+            if:
+              all:
+                - field: "answers.wshp_loop_temp_f"
+                  op: "exists"
+                - field: "answers.number_of_boilers"
+                  op: "exists"
+                - field: "answers.boiler_capacity_mbh"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The WSHP loop temperature is maintained by {number_of_boilers} atmospheric boilers, each rated at approximately {boiler_capacity_mbh} MBH, assigned to the heating loop."
+                - "The WSHP loop operates at a relatively low temperature of approximately {wshp_loop_temp_f}°F and remains hydraulically isolated from the DHW system."
+
+          # topping：运行状态
+          - rule_id: "wshp_loop_operation_ok"
+            if:
+              all:
+                - field: "answers.loop_temperatures_normal"
+                  op: "is_true"
+                - field: "answers.circulation_issues_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Loop temperatures and differential readings observed during the site visit were generally consistent with expected operating conditions, and no circulation issues were identified."
+
+          # topping：bypass + 非冷凝锅炉不匹配
+          - rule_id: "atmospheric_boiler_low_temp_mismatch"
+            if:
+              all:
+                - field: "answers.boiler_type"
+                  op: "eq"
+                  value: "atmospheric"
+                - field: "answers.wshp_loop_low_temp"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "These atmospheric boilers are designed for high-temperature operation between 130–180°F, while the WSHP loop typically operates at significantly lower temperatures."
+                - "As a result, a bypass valve is installed between the boiler outlet and inlet to maintain boiler return temperatures above the minimum threshold required to prevent condensation and internal damage."
+                - "This operating configuration is inherently inefficient and limits overall system performance."
+
+          # topping：建议更换为冷凝锅炉
+          - rule_id: "recommend_condensing_boilers_for_wshp"
+            if:
+              all:
+                - field: "answers.condensing_boiler_recommended"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Replacing the existing atmospheric boilers with condensing boilers designed for low-temperature operation is recommended."
+                - "This upgrade would allow the system to benefit from the low-temperature WSHP loop and increase heating efficiency from below 80% to approximately 95% or higher."
+
+          # topping：glycol loop
+          - rule_id: "wshp_full_glycol_loop"
+            if:
+              all:
+                - field: "answers.wshp_loop_contains_glycol"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The WSHP system was observed to operate as a full glycol loop."
+                - "A glycol feed tank was present and appeared to be functioning normally."
+
+          # topping：缺少换热器
+          - rule_id: "no_glycol_isolation_heat_exchanger"
+            if:
+              all:
+                - field: "answers.glycol_heat_exchanger_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "No heat exchanger was observed to hydraulically isolate the glycol loop from the building heating loop."
+                - "As a result, glycol is circulated throughout the entire WSHP system."
+
+          # recommendation：加换热器
+          - rule_id: "recommend_glycol_isolation_hx"
+            if:
+              all:
+                - field: "answers.glycol_isolation_recommended"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Mann recommends installing a heat exchanger to hydraulically isolate the glycol loop from the building heating loop."
+                - "This configuration would reduce overall glycol volume, lower ongoing glycol maintenance costs, and improve long-term system serviceability."
+
+          # topping：无 BAS
+          - rule_id: "no_central_bas"
+            if:
+              all:
+                - field: "answers.bas_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "A centralized Building Automation System (BAS) is not present."
+                - "The building instead relies on multiple standalone control panels and local sensors."
+                - "Additional system integration through a BAS would improve equipment scheduling, system monitoring, fault detection, and overall energy performance."
+
+
+
+      - block_id: "central_cooling_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          - rule_id: "cooling_wshp_intro"
+            if:
+              all:
+                - field: "answers.cooling_system_type"
+                  op: "eq"
+                  value: "wshp"
+            then:
+              paragraphs:
+                - "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on a low-temperature hydronic loop."
+
+          - rule_id: "fluid_cooler_heat_rejection"
+            if:
+              all:
+                - field: "answers.fluid_cooler_present"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season."
+
+          - rule_id: "fluid_cooler_seasonal_shutdown"
+            if:
+              all:
+                - field: "answers.site_visit_season"
+                  op: "eq"
+                  value: "heating_season"
+            then:
+              paragraphs:
+                - "At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system."
+
+          - rule_id: "wshp_install_year_condition"
+            if:
+              all:
+                - field: "answers.wshp_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "On-site staff reported that the WSHP system was installed in {wshp_install_year}."
+                - "The WSHP equipment, fluid cooler, and associated hydronic loop were observed to be in generally good mechanical condition."
+
+          - rule_id: "no_wshp_deficiencies"
+            if:
+              all:
+                - field: "answers.wshp_deficiencies_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "No visible leakage or vibration issues were observed during the walkthrough."
+                - "Overall, no major mechanical deficiencies or performance issues were reported by on-site staff at the time of the site visit."
+
+
+  - ruleset_version: 1.0
+    ruleset_name: "VENTILATION SYSTEM RULESET – EXHAUST ONLY / UNKNOWN SUPPLY"
+    blocks:
+      - block_id: "central_ventilation_existing"
+        block_ref: "{Central Ventilation System Block}"
+        target_block: "ventilation"
+        rules:
+
+          - rule_id: "suite_exhaust_systems"
+            if:
+              all:
+                - field: "answers.ventilation_system_type"
+                  op: "eq"
+                  value: "suite_exhaust_only"
+            then:
+              paragraphs:
+                - "Ventilation for the building is provided through exhaust fan systems, including kitchen, dryer, and bathroom exhaust systems serving individual suites."
+                - "Based on interior observations, these exhaust systems appear to operate as independent, direct exhaust systems."
+
+          - rule_id: "no_rooftop_access"
+            if:
+              all:
+                - field: "answers.rooftop_access_available"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Access to rooftop mechanical equipment was not available at the time of the site visit."
+                - "As a result, the presence and configuration of make-up air (MUA) units or air handling units (AHUs) could not be confirmed."
+
+          - rule_id: "no_heat_recovery_observed"
+            if:
+              all:
+                - field: "answers.heat_recovery_observed"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "No evidence of heat recovery associated with these exhaust systems was observed from accessible areas."
+
+          - rule_id: "erv_hrv_uncertain"
+            if:
+              all:
+                - field: "answers.erv_hrv_present"
+                  op: "unknown"
+            then:
+              paragraphs:
+                - "The presence of in-suite energy recovery ventilators (ERVs) or heat recovery ventilators (HRVs) could not be confirmed during the walkthrough."
+
+          - rule_id: "exhaust_fan_condition"
+            if:
+              all:
+                - field: "answers.exhaust_fan_condition"
+                  op: "eq"
+                  value: "aging_but_functional"
+            then:
+              paragraphs:
+                - "The exhaust fan units were observed to be in functional but aging mechanical condition, with no immediate operational failures noted at the time of the site visit."
+
+
+  - ruleset_version: 1.0
+    ruleset_name: "DHW SYSTEM RULESET – ATMOSPHERIC BOILERS WITH ELECTRONIC MIXING VALVE"
+    blocks:
+      - block_id: "dhw_existing"
+        block_ref: "{DHW System Block}"
+        target_block: "dhw"
+        rules:
+
+          - rule_id: "dhw_intro"
+            if:
+              all:
+                - field: "answers.dhw_generation_type"
+                  op: "eq"
+                  value: "central_dhw_boilers"
+            then:
+              paragraphs:
+                - "Domestic hot water (DHW) is generated in the central mechanical room."
+
+          - rule_id: "dhw_boiler_count_capacity_install_year"
+            if:
+              all:
+                - field: "answers.number_of_dhw_boilers"
+                  op: "exists"
+                - field: "answers.dhw_boiler_capacity_mbh"
+                  op: "exists"
+                - field: "answers.dhw_boiler_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The DHW system consists of {number_of_dhw_boilers} atmospheric gas-fired DHW boilers, each rated at approximately {dhw_boiler_capacity_mbh} MBH and installed in {dhw_boiler_install_year}."
+                - "The boilers operate with a DHW supply temperature of approximately {dhw_supply_temp_f}°F."
+
+          - rule_id: "dhw_end_of_life"
+            if:
+              all:
+                - field: "answers.dhw_boilers_original"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The boilers, DHW storage tank, and associated piping were observed to be original to the building and are approaching the end of their expected service life."
+
+          - rule_id: "dhw_pumps_insulation_ok"
+            if:
+              all:
+                - field: "answers.dhw_recirculation_pumps_operating"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "DHW recirculation pumps were operating at the time of the site visit, and piping insulation was largely intact."
+
+          - rule_id: "dhw_storage_tank_gauge_failed"
+            if:
+              all:
+                - field: "answers.dhw_storage_temp_gauge_functional"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "The temperature gauge on the DHW storage tank was not functioning, and recalibration or replacement is required to ensure accurate temperature monitoring."
+
+          - rule_id: "dhw_flowmix_mixing_valve"
+            if:
+              all:
+                - field: "answers.dhw_mixing_valve_type"
+                  op: "eq"
+                  value: "flowmix_electronic"
+            then:
+              paragraphs:
+                - "Mixed-water temperature control is provided through a Flowmix electronic thermostatic mixing valve, which regulates DHW delivery temperature to the building."
+                - "At the time of the walkthrough, DHW supply temperatures appeared stable, and no widespread complaints regarding hot water performance were reported."
+
+          - rule_id: "dhw_replacement_planning"
+            if:
+              all:
+                - field: "answers.dhw_replacement_planning_recommended"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Overall, the DHW system appears to be functioning adequately; however, due to the age of the equipment and the inherent efficiency limitations of atmospheric boilers, short-term replacement planning is recommended to improve reliability, efficiency, and long-term maintainability."
+
+
+rulesets:
+  - ruleset_version: 1.0
+    ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER"
+    blocks:
+      - block_id: "central_heating_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          # crust：系统总述
+          - rule_id: "heating_intro_central_hydronic_boiler"
+            if:
+              all:
+                - field: "answers.heating_system_type"
+                  op: "eq"
+                  value: "central_hydronic_boiler"
+            then:
+              paragraphs:
+                - "The building’s heating system is served by a central hydronic boiler plant located in the main mechanical room."
+
+          # sauce：锅炉数量 / 容量 / 年份
+          - rule_id: "heating_boiler_count_capacity_year"
+            if:
+              all:
+                - field: "answers.number_of_boilers"
+                  op: "exists"
+                - field: "answers.boiler_capacity_mbh"
+                  op: "exists"
+                - field: "answers.boiler_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The plant consists of {number_of_boilers} atmospheric gas-fired heating boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
+
+          # topping：服务楼栋
+          - rule_id: "heating_serves_multiple_buildings"
+            if:
+              all:
+                - field: "answers.heating_serves_multiple_buildings"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The boiler plant provides space heating to multiple connected buildings."
+
+          # topping：fan coil 末端 + hydronic loads
+          - rule_id: "heating_fancoil_and_other_loads"
+            if:
+              all:
+                - field: "answers.heating_distribution"
+                  op: "eq"
+                  value: "fan_coil"
+            then:
+              paragraphs:
+                - "Hot water generated by the boilers is distributed to in-suite fan coil units."
+                - "The system also serves additional hydronic loads, including radiation and heat exchanger circuits."
+
+          # topping：原始设备 + 寿命
+          - rule_id: "heating_boilers_original_end_of_life"
+            if:
+              all:
+                - field: "answers.boilers_original"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The boilers were observed to be original to the building and are approaching the end of their expected service life."
+                - "Short-term replacement planning should be considered."
+
+          # topping：泵和管道
+          - rule_id: "heating_pumps_piping_normal"
+            if:
+              all:
+                - field: "answers.distribution_pumps_operating_normally"
+                  op: "is_true"
+                - field: "answers.circulation_issues_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough."
+
+          # topping：控制方式（无 BAS）
+          - rule_id: "heating_local_controls_no_bas"
+            if:
+              all:
+                - field: "answers.bas_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Boiler control is provided through local onboard controllers."
+                - "Outdoor air temperature reset is present; however, in the absence of full Building Automation System (BAS) integration, opportunities for optimized sequencing, runtime balancing, and seasonal temperature reset are limited."
+
+          # topping：高回水温
+          - rule_id: "heating_high_return_temperature"
+            if:
+              all:
+                - field: "answers.boiler_supply_temp_f"
+                  op: "exists"
+                - field: "answers.boiler_return_temp_f"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}°F and {boiler_return_temp_f}°F, respectively."
+                - "These elevated return water temperatures limit overall system efficiency and indicate operation at higher temperatures than required under part-load conditions."
+
+
+      - block_id: "central_cooling_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          - rule_id: "cooling_central_chiller_intro"
+            if:
+              all:
+                - field: "answers.cooling_system_type"
+                  op: "eq"
+                  value: "central_chiller"
+            then:
+              paragraphs:
+                - "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
+
+          - rule_id: "cooling_chiller_year_service_area"
+            if:
+              all:
+                - field: "answers.chiller_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The chiller was manufactured in {chiller_install_year} and is original to the building, serving multiple connected buildings."
+
+          - rule_id: "cooling_tower_no_vfd"
+            if:
+              all:
+                - field: "answers.cooling_tower_present"
+                  op: "is_true"
+                - field: "answers.cooling_tower_vfd_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Heat rejection is provided via a roof-mounted cooling tower."
+                - "The condenser water system, including the cooling tower fan and condenser water pumps, is not equipped with variable frequency drives (VFDs)."
+
+          - rule_id: "cooling_distribution_condition_ok"
+            if:
+              all:
+                - field: "answers.chilled_water_distribution_condition"
+                  op: "eq"
+                  value: "serviceable"
+            then:
+              paragraphs:
+                - "The chilled-water distribution system appears to be functioning normally, with supply and return piping, pumps, and control valves observed to be in serviceable condition."
+
+          - rule_id: "cooling_fancoil_distribution"
+            if:
+              all:
+                - field: "answers.cooling_distribution"
+                  op: "eq"
+                  value: "fan_coil"
+            then:
+              paragraphs:
+                - "Suite-level cooling is provided by in-suite fan coil units operating under local thermostatic control."
+
+          - rule_id: "cooling_seasonal_shutdown"
+            if:
+              all:
+                - field: "answers.site_visit_season"
+                  op: "eq"
+                  value: "heating_season"
+            then:
+              paragraphs:
+                - "At the time of the site visit, the chiller and cooling tower were seasonally shut down, which is typical for the time of year."
+
+          - rule_id: "cooling_reliable_operation"
+            if:
+              all:
+                - field: "answers.cooling_issues_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season."
+
+
+  - ruleset_version: 1.0
+    ruleset_name: "VENTILATION SYSTEM RULESET – ROOFTOP MUA WITH GAS HEAT AND DX COOLING"
+    blocks:
+      - block_id: "central_ventilation_existing"
+        block_ref: "{Central Ventilation System Block}"
+        target_block: "ventilation"
+        rules:
+
+          - rule_id: "ventilation_mua_intro"
+            if:
+              all:
+                - field: "answers.ventilation_system_type"
+                  op: "eq"
+                  value: "rooftop_mua"
+            then:
+              paragraphs:
+                - "Ventilation for the building is provided by rooftop make-up air (MUA) units serving corridors and other shared common areas."
+
+          - rule_id: "mua_equipment_configuration"
+            if:
+              all:
+                - field: "answers.mua_has_gas_heat"
+                  op: "is_true"
+                - field: "answers.mua_has_dx_cooling"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The MUA units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections."
+
+          - rule_id: "mua_unit_issue_observed"
+            if:
+              all:
+                - field: "answers.mua_operational_issues_observed"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "During the site visit, one MUA unit was observed to not be operating as intended."
+                - "On-site staff reported ongoing maintenance issues associated with this unit."
+
+          - rule_id: "mua_controls_optimization_opportunity"
+            if:
+              all:
+                - field: "answers.bas_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Although the MUA units are in generally fair mechanical condition, the building is not equipped with a centralized Building Automation System (BAS)."
+                - "Integration of the existing VFD-controlled MUA units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring."
+
+
+  - ruleset_version: 1.0
+    ruleset_name: "DHW SYSTEM RULESET – ATMOSPHERIC BOILERS WITH INADEQUATE TEMPERATURE CONTROL"
+    blocks:
+      - block_id: "dhw_existing"
+        block_ref: "{DHW System Block}"
+        target_block: "dhw"
+        rules:
+
+          - rule_id: "dhw_intro"
+            if:
+              all:
+                - field: "answers.dhw_generation_type"
+                  op: "eq"
+                  value: "central_dhw_boilers"
+            then:
+              paragraphs:
+                - "Domestic hot water (DHW) is generated in the central mechanical room."
+
+          - rule_id: "dhw_boiler_count_capacity_year"
+            if:
+              all:
+                - field: "answers.number_of_dhw_boilers"
+                  op: "exists"
+                - field: "answers.dhw_boiler_capacity_mbh"
+                  op: "exists"
+                - field: "answers.dhw_boiler_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The DHW system consists of {number_of_dhw_boilers} atmospheric gas-fired DHW boilers, each rated at approximately {dhw_boiler_capacity_mbh} MBH and installed in {dhw_boiler_install_year}."
+
+          - rule_id: "dhw_end_of_life"
+            if:
+              all:
+                - field: "answers.dhw_boilers_original"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The boilers and DHW storage tanks were observed to be original to the building and are approaching the end of their expected service life."
+                - "Short-term replacement planning should be considered."
+
+          - rule_id: "dhw_storage_temperature_variation"
+            if:
+              all:
+                - field: "answers.dhw_storage_temp_variation_observed"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "DHW storage temperatures varied across the building, with some zones operating below recommended storage temperature ranges."
+
+          - rule_id: "dhw_no_mixing_valves"
+            if:
+              all:
+                - field: "answers.dhw_mixing_valve_present"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Anti-scald mixing valves were not observed at the domestic hot water system."
+                - "In the absence of properly installed and commissioned mixing valves, there is an increased risk of scalding, elevated recirculation temperatures, and higher natural gas consumption."
+
+          - rule_id: "dhw_system_overall_condition"
+            if:
+              all:
+                - field: "answers.dhw_functional"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Overall, the DHW system appears to be functioning adequately; however, targeted control adjustments, valve inspection, or replacement may be warranted where temperature control is not performing as intended."
+
+rulesets:
+  - ruleset_version: 1.0
+    ruleset_name: "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER"
+    blocks:
+      - block_id: "central_heating_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          # crust：系统总述
+          - rule_id: "heating_intro_hydronic_boiler"
+            if:
+              all:
+                - field: "answers.heating_system_type"
+                  op: "eq"
+                  value: "central_hydronic_boiler"
+            then:
+              paragraphs:
+                - "The building’s heating system is served by a central hydronic boiler plant located in the main mechanical room."
+
+          # sauce：锅炉类型 / 数量 / 容量
+          - rule_id: "heating_near_condensing_boilers"
+            if:
+              all:
+                - field: "answers.boiler_type"
+                  op: "eq"
+                  value: "near_condensing"
+                - field: "answers.number_of_boilers"
+                  op: "exists"
+                - field: "answers.boiler_capacity_mbh"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The plant includes {number_of_boilers} near-condensing gas-fired boilers, each rated at approximately {boiler_capacity_mbh} MBH."
+
+          # topping：服务对象
+          - rule_id: "heating_served_loops"
+            if:
+              any:
+                - field: "answers.heating_distribution"
+                  op: "eq"
+                  value: "fan_coil"
+                - field: "answers.boiler_serves_secondary_dhw"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The boilers supply the in-suite fan coil heating system, miscellaneous heating loads, and the secondary domestic hot water (DHW) loop."
+
+          # topping：锅炉泵 VFD
+          - rule_id: "boiler_pumps_with_vfd"
+            if:
+              all:
+                - field: "answers.boiler_pumps_have_vfd"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Boiler circulation pumps are equipped with variable frequency drives (VFDs)."
+
+          # topping：锅炉状态
+          - rule_id: "boiler_condition_fair_good"
+            if:
+              all:
+                - field: "answers.boiler_condition"
+                  op: "in"
+                  value: ["fair", "good", "fair_to_good"]
+            then:
+              paragraphs:
+                - "Overall boiler condition was assessed as fair to good at the time of the site visit."
+                - "No visible leakage or abnormal noise was observed around the boiler plant."
+
+          # topping：分配系统
+          - rule_id: "heating_distribution_pumps_normal"
+            if:
+              all:
+                - field: "answers.distribution_pumps_operating_normally"
+                  op: "is_true"
+                - field: "answers.circulation_issues_reported"
+                  op: "is_false"
+            then:
+              paragraphs:
+                - "Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough."
+
+          # topping：混合控制 / 半 BAS
+          - rule_id: "heating_partial_bas_control"
+            if:
+              all:
+                - field: "answers.bas_integration_level"
+                  op: "eq"
+                  value: "partial"
+            then:
+              paragraphs:
+                - "Boiler plant control is provided through a combination of standalone control panels and partial Building Automation System (BAS) integration."
+                - "Outdoor air temperature reset is present; however, full coordination, sequencing optimization, and advanced performance monitoring may be limited due to the hybrid control configuration."
+
+      - block_id: "central_cooling_existing"
+        block_ref: "{Central Heating/Cooling Systems block}"
+        target_block: "heating"
+        rules:
+
+          - rule_id: "cooling_chiller_intro"
+            if:
+              all:
+                - field: "answers.cooling_system_type"
+                  op: "eq"
+                  value: "central_chiller"
+            then:
+              paragraphs:
+                - "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
+
+          - rule_id: "cooling_chiller_year"
+            if:
+              all:
+                - field: "answers.chiller_install_year"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The chiller was installed in {chiller_install_year}."
+
+          - rule_id: "cooling_condenser_vfd"
+            if:
+              all:
+                - field: "answers.condenser_pump_has_vfd"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The condenser pump is equipped with a variable frequency drive (VFD)."
+
+          - rule_id: "cooling_tower_vfd"
+            if:
+              all:
+                - field: "answers.cooling_tower_present"
+                  op: "is_true"
+                - field: "answers.cooling_tower_has_vfd"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Heat is rejected to a cooling tower, which is equipped with variable frequency drives (VFDs)."
+
+          - rule_id: "cooling_equipment_condition_good"
+            if:
+              all:
+                - field: "answers.cooling_equipment_condition"
+                  op: "eq"
+                  value: "good"
+            then:
+              paragraphs:
+                - "The chiller and condenser water loop equipment were observed to be in good mechanical condition."
+                - "Overall cooling performance is acceptable; however, detailed testing should be completed during the cooling season."
+
+          - rule_id: "cooling_fancoil_distribution"
+            if:
+              all:
+                - field: "answers.cooling_distribution"
+                  op: "eq"
+                  value: "fan_coil"
+            then:
+              paragraphs:
+                - "Suites are cooled by fan coil units controlled locally by in-suite thermostats."
+                - "These fan coils use chilled water from the central plant to provide space cooling."
+
+  - ruleset_version: 1.0
+    ruleset_name: "VENTILATION SYSTEM RULESET – ROOFTOP MUA WITH GAS HEAT AND COOLING COILS"
+    blocks:
+      - block_id: "central_ventilation_existing"
+        block_ref: "{Central Ventilation System Block}"
+        target_block: "ventilation"
+        rules:
+
+          - rule_id: "ventilation_mua_intro"
+            if:
+              all:
+                - field: "answers.ventilation_system_type"
+                  op: "eq"
+                  value: "rooftop_mua"
+            then:
+              paragraphs:
+                - "Ventilation for the building is supplied by rooftop make-up air (MUA) units serving corridors and shared spaces."
+
+          - rule_id: "mua_count"
+            if:
+              all:
+                - field: "answers.mua_count"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "The building is equipped with {mua_count} rooftop MUA units."
+
+          - rule_id: "mua_configuration"
+            if:
+              all:
+                - field: "answers.mua_has_vfd"
+                  op: "is_true"
+                - field: "answers.mua_has_gas_heat"
+                  op: "is_true"
+                - field: "answers.mua_has_cooling_coil"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "The units are equipped with variable frequency drives (VFDs), gas-fired heating burners, and cooling coils connected to the central chiller."
+
+          # topping：部分新设备
+          - rule_id: "mua_partial_replacement"
+            if:
+              all:
+                - field: "answers.mua_partial_replacement"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "One MUA unit has been replaced in recent years, while the remaining units are original to the building and are approaching the end of their service life."
+
+          # topping：运行状态
+          - rule_id: "mua_operating_normally"
+            if:
+              all:
+                - field: "answers.mua_operating_normally"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Despite their age, the MUA units were observed to be in generally good mechanical condition."
+                - "Supply air temperatures and airflow patterns were generally consistent with normal operation."
+
+          # topping：运行总结
+          - rule_id: "mua_overall_performance"
+            if:
+              all:
+                - field: "answers.mua_functional"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Overall, the MUA units are functioning as intended, with opportunities for minor operational improvements through enhanced control."
+
+  - ruleset_version: 1.0
+    ruleset_name: "DHW SYSTEM RULESET – BOILER-FED DHW WITH HEAT EXCHANGER AND FLOWMIX"
+    blocks:
+      - block_id: "dhw_existing"
+        block_ref: "{DHW System Block}"
+        target_block: "dhw"
+        rules:
+
+          - rule_id: "dhw_intro_hx"
+            if:
+              all:
+                - field: "answers.dhw_generation_type"
+                  op: "eq"
+                  value: "boiler_fed_via_hx"
+            then:
+              paragraphs:
+                - "Domestic hot water is produced in the central mechanical room, where the DHW loop receives heat from the boiler plant through a heat exchanger."
+
+          - rule_id: "dhw_flowmix_present"
+            if:
+              all:
+                - field: "answers.dhw_mixing_valve_type"
+                  op: "eq"
+                  value: "flowmix_electronic"
+            then:
+              paragraphs:
+                - "A FlowMix electronic mixing valve is used to regulate domestic hot water delivery temperature."
+
+          - rule_id: "dhw_temperatures_normal"
+            if:
+              all:
+                - field: "answers.dhw_storage_temp_f"
+                  op: "exists"
+                - field: "answers.dhw_mixed_temp_f"
+                  op: "exists"
+            then:
+              paragraphs:
+                - "Observed DHW temperatures were within normal operating range, including a storage tank temperature of approximately {dhw_storage_temp_f}°F and a mixed water temperature of approximately {dhw_mixed_temp_f}°F."
+
+          - rule_id: "dhw_equipment_condition_good"
+            if:
+              all:
+                - field: "answers.dhw_equipment_condition"
+                  op: "eq"
+                  value: "good"
+            then:
+              paragraphs:
+                - "The DHW storage tank, buffer tanks, and associated piping were observed to be in generally good condition, with no visible leaks or signs of corrosion."
+
+          - rule_id: "dhw_pumps_insulation_ok"
+            if:
+              all:
+                - field: "answers.dhw_recirculation_pumps_operating"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "DHW recirculation pumps were operating during the site visit, and piping insulation was largely intact."
+
+          - rule_id: "dhw_future_bas_ready"
+            if:
+              all:
+                - field: "answers.bas_future_integration_feasible"
+                  op: "is_true"
+            then:
+              paragraphs:
+                - "Overall, the DHW system is functioning well and is suitably configured for future BAS integration to improve monitoring and temperature optimization."
+
