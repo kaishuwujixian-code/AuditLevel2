@@ -250,6 +250,10 @@
       {
         "label": "Fair to Good",
         "value": "fair_to_good"
+      },
+      {
+        "label": "Good to Fair",
+        "value": "good_to_fair"
       }
     ],
     "cooling.distribution": [
