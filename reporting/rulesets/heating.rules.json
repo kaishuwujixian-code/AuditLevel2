@@ -1079,14 +1079,72 @@
                 "paragraphs": [
                   "The boiler plant provides space heating to multiple connected buildings."
                 ]
-              }
+              },
+              "priority": 25,
+              "exclusive_group": "heating_loads_fan_coil"
             },
             {
-              "rule_id": "heating_pumps_piping_normal",
+              "rule_id": "heating_loads_other_summary",
+              "role": "load_item",
+              "exclusive_group": "heating_loads_other_summary",
+              "priority": 10,
+              "items": [
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_mua"
+                      }
+                    ]
+                  },
+                  "text": "make-up air unit (MUA) heating coils"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_radiant"
+                      }
+                    ]
+                  },
+                  "text": "radiation distribution"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_ahu"
+                      }
+                    ]
+                  },
+                  "text": "heat exchanger circuits"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_dhw_loop"
+                      }
+                    ]
+                  },
+                  "text": "the secondary domestic hot water (DHW) loop"
+                }
+              ]
+            },
+            {
+              "rule_id": "heating_serves_multiple_buildings",
               "if": {
                 "all": [
                   {
-                    "field": "answers.distribution_pumps_operating_normally",
+                    "field": "answers.heating_serves_multiple_buildings",
                     "op": "is_true"
                   }
                 ]
