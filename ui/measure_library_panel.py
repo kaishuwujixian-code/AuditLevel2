@@ -308,6 +308,13 @@ class MeasureLibraryPanel(ttk.Frame):
         if self._is_new_measure or self._selected_measure_index is not None:
             self._apply_measure()
 
+    def _maybe_apply_measure(self) -> None:
+        measure_id = self._measure_id_var.get().strip()
+        if not measure_id:
+            return
+        if self._is_new_measure or self._selected_measure_index is not None:
+            self._apply_measure()
+
 
 def _set_text(widget: tk.Text, value: Any) -> None:
     widget.delete("1.0", tk.END)
