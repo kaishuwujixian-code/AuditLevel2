@@ -152,17 +152,6 @@
           "required": false
         },
         {
-          "id": "dhw_install_year",
-          "title": "DHW boiler install year",
-          "type": "number",
-          "section_id": "dhw",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Approximate DHW boiler installation year.",
-          "required": false
-        },
-        {
           "id": "dhw_storage_temp_f",
           "title": "DHW storage temperature (°F)",
           "type": "number",
@@ -727,7 +716,7 @@
           "type": "number",
           "section_id": "heating",
           "options": [],
-          "options_ref": null,
+          "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Typical WSHP loop operating temperature.",
           "required": false

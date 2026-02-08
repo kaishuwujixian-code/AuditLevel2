@@ -134,27 +134,21 @@ class MeasureLibraryPanel(ttk.Frame):
         )
         self._measure_category_combo.grid(row=2, column=1, sticky="ew", pady=2)
 
-        ttk.Label(form, text="Legacy Key").grid(row=3, column=0, sticky="w", pady=2)
-        self._measure_legacy_var = tk.StringVar()
-        ttk.Entry(form, textvariable=self._measure_legacy_var).grid(
-            row=3, column=1, sticky="ew", pady=2
-        )
-
         ttk.Label(form, text="Existing Conditions").grid(
-            row=4, column=0, sticky="nw", pady=4
+            row=3, column=0, sticky="nw", pady=4
         )
         self._measure_existing = tk.Text(form, height=4, wrap="word")
-        self._measure_existing.grid(row=4, column=1, sticky="ew", pady=2)
+        self._measure_existing.grid(row=3, column=1, sticky="ew", pady=2)
 
         ttk.Label(form, text="Retrofit Conditions").grid(
-            row=5, column=0, sticky="nw", pady=4
+            row=4, column=0, sticky="nw", pady=4
         )
         self._measure_retrofit = tk.Text(form, height=4, wrap="word")
-        self._measure_retrofit.grid(row=5, column=1, sticky="ew", pady=2)
+        self._measure_retrofit.grid(row=4, column=1, sticky="ew", pady=2)
 
-        ttk.Label(form, text="Summary").grid(row=6, column=0, sticky="nw", pady=4)
+        ttk.Label(form, text="Summary").grid(row=5, column=0, sticky="nw", pady=4)
         self._measure_summary = tk.Text(form, height=4, wrap="word")
-        self._measure_summary.grid(row=6, column=1, sticky="ew", pady=2)
+        self._measure_summary.grid(row=5, column=1, sticky="ew", pady=2)
 
     def _set_status(self, message: str) -> None:
         self._status_var.set(message)
@@ -212,7 +206,6 @@ class MeasureLibraryPanel(ttk.Frame):
         self._measure_id_var.set(str(measure.get("id", "")).strip())
         self._measure_title_var.set(str(measure.get("title", "")).strip())
         self._measure_category_var.set(str(measure.get("category", "")).strip())
-        self._measure_legacy_var.set(str(measure.get("legacy_key", "")).strip())
         _set_text(self._measure_existing, measure.get("existing"))
         _set_text(self._measure_retrofit, measure.get("retrofit"))
         _set_text(self._measure_summary, measure.get("summary"))
@@ -221,7 +214,6 @@ class MeasureLibraryPanel(ttk.Frame):
         self._measure_id_var.set("")
         self._measure_title_var.set("")
         self._measure_category_var.set("")
-        self._measure_legacy_var.set("")
         _set_text(self._measure_existing, "")
         _set_text(self._measure_retrofit, "")
         _set_text(self._measure_summary, "")
@@ -282,7 +274,6 @@ class MeasureLibraryPanel(ttk.Frame):
             "id": measure_id,
             "title": self._measure_title_var.get().strip(),
             "category": self._measure_category_var.get().strip(),
-            "legacy_key": self._measure_legacy_var.get().strip(),
             "existing": _get_text(self._measure_existing),
             "retrofit": _get_text(self._measure_retrofit),
             "summary": _get_text(self._measure_summary),
