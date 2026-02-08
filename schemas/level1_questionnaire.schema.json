@@ -716,7 +716,7 @@
           "type": "number",
           "section_id": "heating",
           "options": [],
-          "options_ref": null,
+          "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Typical WSHP loop operating temperature.",
           "required": false
