@@ -91,7 +91,6 @@
     ],
     "heating_serves_multiple_buildings": "false",
     "heating_system_type": "atmospheric_boiler",
-    "hvac_system_combos": [],
     "loop_temperatures_normal": null,
     "measures": [
       {
