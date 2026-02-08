@@ -23,7 +23,10 @@
                 "paragraphs": [
                   "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_system_header",
+              "priority": 10
             },
             {
               "rule_id": "suite_window_portable_ac",
@@ -94,7 +97,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "cooling"
         }
       ]
     },
@@ -122,7 +126,10 @@
                 "paragraphs": [
                   "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on a low-temperature hydronic loop."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_system_header",
+              "priority": 20
             },
             {
               "rule_id": "fluid_cooler_heat_rejection",
@@ -191,7 +198,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "cooling"
         }
       ]
     },
@@ -219,7 +227,10 @@
                 "paragraphs": [
                   "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_system_header",
+              "priority": 30
             },
             {
               "rule_id": "cooling_chiller_year_service_area",
@@ -329,7 +340,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "cooling"
         }
       ]
     },
@@ -357,7 +369,10 @@
                 "paragraphs": [
                   "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_system_header",
+              "priority": 40
             },
             {
               "rule_id": "cooling_chiller_year",
@@ -448,7 +463,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "cooling"
         }
       ]
     }
