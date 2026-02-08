@@ -488,19 +488,64 @@
     },
     {
       "id": "heating",
-      "title": "Heating",
+      "title": "Heating Terminal Type",
       "questions": [
         {
           "id": "heating_terminal_type",
           "title": "Heating terminal type",
-          "type": "multi_select",
+          "type": "single_select",
           "section_id": "heating",
-          "options": [],
-          "options_ref": "heating.terminal_type",
+          "options": [
+            {
+              "label": "Fan coil (hydronic)",
+              "value": "fan_coil_hydronic"
+            },
+            {
+              "label": "In-suite hydronic baseboard",
+              "value": "in_suite_hydronic_baseboard"
+            },
+            {
+              "label": "Electric baseboard",
+              "value": "electric_baseboard"
+            },
+            {
+              "label": "Electric fan-forced heater",
+              "value": "electric_fan_forced"
+            },
+            {
+              "label": "In-suite heat pump (WSHP)",
+              "value": "in_suite_heat_pump_wshp"
+            },
+            {
+              "label": "Packaged in-suite unit (e.g. MagicPak)",
+              "value": "packaged_in_suite_unit_magicpak"
+            },
+            {
+              "label": "Radiant floor / panel",
+              "value": "radiant"
+            },
+            {
+              "label": "Mixed / unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": null,
           "placeholder_targets": [],
           "help": "Observed in-suite/common-area heating terminals.",
-          "required": false
-        },
+          "required": false,
+          "value_aliases": {
+            "hydronic_baseboard": "in_suite_hydronic_baseboard",
+            "in_suite_wshp": "in_suite_heat_pump_wshp",
+            "packaged_in_suite_unit": "packaged_in_suite_unit_magicpak",
+            "radiant_floor_panel": "radiant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating Heat Source",
+      "questions": [
         {
           "id": "heating_heat_source",
           "title": "Heating heat source",
@@ -511,134 +556,13 @@
           "placeholder_targets": [],
           "help": "Primary central heating heat source.",
           "required": false
-        },
-        {
-          "id": "common_area_heating_type",
-          "title": "Common area heating type",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "common_area.heating_type",
-          "placeholder_targets": [],
-          "help": "Observed common-area electric heating types.",
-          "required": false
-        },
-        {
-          "id": "heating_serves",
-          "title": "Heating serves",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "hvac.heating_serves",
-          "placeholder_targets": [],
-          "help": "Loads and distribution systems served by the heating plant.",
-          "required": false
-        },
-        {
-          "id": "heating_serves_multiple_buildings",
-          "title": "Heating serves multiple buildings",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the heating plant serves multiple connected buildings.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
-          }
-        },
-        {
-          "id": "hydronic_loop_type",
-          "title": "Hydronic / WSHP loop type",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "heating.loop_type",
-          "placeholder_targets": [],
-          "help": "Primary hydronic or WSHP loop temperature regime.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "in",
-            "value": [
-              "central_hydronic_boiler_plant",
-              "wshp_loop"
-            ]
-          }
-        },
-        {
-          "id": "wshp_loop_temp_f",
-          "title": "Loop temperature (°F)",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Typical hydronic/WSHP loop operating temperature.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "in",
-            "value": [
-              "central_hydronic_boiler_plant",
-              "wshp_loop"
-            ]
-          }
-        },
-        {
-          "id": "loop_temperatures_normal",
-          "title": "Loop temperatures normal",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether loop temperatures appear normal.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "in",
-            "value": [
-              "central_hydronic_boiler_plant",
-              "wshp_loop"
-            ]
-          }
-        },
-        {
-          "id": "wshp_loop_contains_glycol",
-          "title": "Loop contains glycol",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the loop contains glycol.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
-        {
-          "id": "dhw_separate_from_wshp",
-          "title": "DHW separate from WSHP loop",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the DHW system operates independently of the WSHP loop.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Central Boiler Plant Details",
+      "questions": [
         {
           "id": "boiler_type",
           "title": "Boiler type",
@@ -784,6 +708,90 @@
           }
         },
         {
+          "id": "heating_location",
+          "title": "Heating location",
+          "type": "text",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of the heating plant equipment.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Loads Served by Heating Plant",
+      "questions": [
+        {
+          "id": "heating_serves",
+          "title": "Heating serves",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [
+            {
+              "label": "Serves fan coil",
+              "value": "serves_fan_coil"
+            },
+            {
+              "label": "Serves radiation",
+              "value": "serves_radiation"
+            },
+            {
+              "label": "Serves MUA heating coils",
+              "value": "serves_mua_heating_coils"
+            },
+            {
+              "label": "Serves heat exchanger circuits",
+              "value": "serves_heat_exchanger_circuits"
+            },
+            {
+              "label": "Serves DHW secondary loop",
+              "value": "serves_dhw_secondary_loop"
+            },
+            {
+              "label": "Serves miscellaneous loops",
+              "value": "serves_misc_loops"
+            },
+            {
+              "label": "Mixed / unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Loads and distribution systems served by the heating plant.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          },
+          "value_aliases": {
+            "serves_fancoil": "serves_fan_coil",
+            "serves_baseboard": "serves_radiation",
+            "serves_radiant": "serves_radiation",
+            "serves_mua": "serves_mua_heating_coils",
+            "serves_ahu": "serves_heat_exchanger_circuits",
+            "serves_dhw_loop": "serves_dhw_secondary_loop"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Distribution / Pumps",
+      "questions": [
+        {
           "id": "distribution_pumps_operating_normally",
           "title": "Distribution pumps operating normally",
           "type": "single_select",
@@ -820,159 +828,22 @@
               "wshp_loop"
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Notes (Facts Only)",
+      "questions": [
         {
-          "id": "wshp_loop_low_temp",
-          "title": "Low loop temperature observed",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the WSHP loop operates at low temperatures.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
-        {
-          "id": "glycol_heat_exchanger_present",
-          "title": "Glycol heat exchanger present",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether a heat exchanger isolates the glycol loop.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
-        {
-          "id": "glycol_isolation_recommended",
-          "title": "Glycol isolation recommended",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Recommendation to add glycol isolation heat exchanger.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
-        {
-          "id": "condensing_boiler_recommended",
-          "title": "Condensing boiler recommended",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Recommendation to replace with condensing boilers.",
-          "required": false,
-          "show_if": {
-            "field": "heating_heat_source",
-            "op": "eq",
-            "value": "wshp_loop"
-          }
-        },
-        {
-          "id": "bas_present",
-          "title": "BAS present",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether a centralized BAS is present.",
-          "required": false
-        },
-        {
-          "id": "bas_integration_level",
-          "title": "BAS integration level",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "bas.integration_level",
-          "placeholder_targets": [],
-          "help": "Extent of BAS integration for the heating plant.",
-          "required": false
-        },
-        {
-          "id": "bas_platform",
-          "title": "BAS platform",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "bas.platform",
-          "placeholder_targets": [],
-          "help": "Primary BAS platform serving the heating plant.",
-          "required": false
-        },
-        {
-          "id": "outdoor_reset_present",
-          "title": "Outdoor air reset present",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether outdoor air reset controls are present.",
-          "required": false
-        },
-        {
-          "id": "heating_location",
-          "title": "Heating location",
-          "type": "text",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Location of the heating plant equipment.",
-          "required": false
-        },
-        {
-          "id": "heating_controls_notes",
-          "title": "Heating controls notes",
+          "id": "heating_notes_facts",
+          "title": "Heating notes (facts only)",
           "type": "notes",
           "section_id": "heating",
           "options": [],
           "options_ref": null,
           "placeholder_targets": [],
-          "help": "Notes about heating controls and sequencing.",
-          "required": false
-        },
-        {
-          "id": "heating_notes",
-          "title": "Heating notes",
-          "type": "notes",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Additional notes for the heating system.",
-          "required": false
-        },
-        {
-          "id": "heating_block_override",
-          "title": "Central heating systems (manual override)",
-          "type": "notes",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [
-            "{Central Heating Systems block}"
-          ],
-          "help": "Optional manual override for the heating systems narrative.",
+          "help": "Facts-only observations about heating system composition and operation.",
           "required": false
         }
       ]
@@ -1366,13 +1237,13 @@
             },
             {
               "id": "savings_gas_m3",
-              "title": "Savings gas (m\u00b3)",
+              "title": "Savings gas (m³)",
               "type": "number",
               "required": false
             },
             {
               "id": "savings_water_m3",
-              "title": "Savings water (m\u00b3)",
+              "title": "Savings water (m³)",
               "type": "number",
               "required": false
             },
