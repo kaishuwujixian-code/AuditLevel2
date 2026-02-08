@@ -185,8 +185,27 @@ class QuestionnaireApp:
                 for opt in options
             }
             var = tk.StringVar()
-            combo = ttk.Combobox(parent, textvariable=var, values=labels, state="readonly")
-            combo.pack(fill="x", pady=(4, 0))
+            container = ttk.Frame(parent)
+            container.pack(fill="x", pady=(4, 0))
+            container.columnconfigure(0, weight=1)
+            combo = ttk.Combobox(container, textvariable=var, values=labels, state="readonly")
+            combo.grid(row=0, column=0, sticky="ew")
+
+            writeup = question.get("writeup")
+            if _has_writeup(writeup):
+                writeup_var = tk.StringVar()
+                writeup_label = ttk.Label(
+                    container, textvariable=writeup_var, wraplength=800
+                )
+                writeup_label.grid(row=1, column=0, sticky="w", pady=(4, 0))
+
+                def _update_writeup(*_args) -> None:
+                    selected_label = var.get()
+                    value = label_to_value.get(selected_label)
+                    writeup_var.set(_resolve_writeup_text(writeup, value, selected_label))
+
+                var.trace_add("write", _update_writeup)
+                _update_writeup()
             return QuestionWidget(
                 question_id,
                 question_type,
@@ -406,3 +425,23 @@ class QuestionnaireApp:
                 for target in question.get("placeholder_targets", []):
                     placeholder_values[target] = value
         return placeholder_values
+
+
+def _has_writeup(writeup: object) -> bool:
+    if isinstance(writeup, dict):
+        return any(str(value).strip() for value in writeup.values())
+    if isinstance(writeup, str):
+        return bool(writeup.strip())
+    return False
+
+
+def _resolve_writeup_text(writeup: object, value: object, label: str) -> str:
+    if isinstance(writeup, dict):
+        if value is not None and value in writeup:
+            return str(writeup[value]).strip()
+        if label and label in writeup:
+            return str(writeup[label]).strip()
+        return ""
+    if isinstance(writeup, str):
+        return writeup.strip()
+    return ""
