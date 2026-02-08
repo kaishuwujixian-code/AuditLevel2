@@ -17,6 +17,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
+from reporting.rulesets.engine import render_ruleset_block
 
 BLOCK_PLACEHOLDERS = ["{DHW System Block}"]
 EXPECTED_INPUTS = {
@@ -342,6 +343,19 @@ def render_block(
     context = DHWContext.from_project(project, mapping=mapping)
     if context.override_text:
         return context.override_text
+
+    ruleset_text = render_ruleset_block(
+        project,
+        ruleset_filename="dhw.rules.json",
+        target_block="dhw",
+        block_ref="{DHW System Block}",
+    )
+    if ruleset_text:
+        paragraphs: list[str] = [ruleset_text]
+        checklist_text = render_block_appendix(project, target_block="dhw")
+        if checklist_text:
+            paragraphs.append(checklist_text)
+        return "\n\n".join(paragraphs)
 
     paragraphs: list[str] = []
     sentences: list[str] = []

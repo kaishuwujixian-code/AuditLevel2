@@ -17,6 +17,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
+from reporting.rulesets.engine import render_ruleset_block
 
 BLOCK_PLACEHOLDERS = ["{Central Heating Systems block}"]
 EXPECTED_INPUTS = {
@@ -56,6 +57,13 @@ COMBO_HEATING_TYPE_MAP = {
     "wshp_fluid_cooler": "wshp_fluid_cooler",
 }
 
+HEAT_SOURCE_TYPE_MAP = {
+    "central_hydronic_boiler_plant": "central_hydronic_boiler_plant",
+    "wshp_loop": "wshp_central",
+    "ashp": "ashp",
+    "electric_resistance_central": "electric_resistance",
+}
+
 
 @dataclass(frozen=True)
 class HeatingContext:
@@ -87,6 +95,8 @@ class HeatingContext:
     boiler_install_year: Any
     boiler_condition_values: List[str]
     boiler_pumps_have_vfd: Any
+    boiler_supply_temp_f: Any
+    boiler_return_temp_f: Any
     distribution_pumps_operating_normally: Any
     circulation_issues_reported: Any
     heating_distribution_values: List[str]
@@ -102,7 +112,12 @@ class HeatingContext:
         )
         system_type_raw = get_answer_value(
             project,
-            ["hvac.heating_system_type", "heating_system_type", "system_type"],
+            [
+                "hvac.heating_system_type",
+                "heating_system_type",
+                "system_type",
+                "heating_heat_source",
+            ],
             section="heating",
         )
         system_type_values = format_option_values(
@@ -216,6 +231,16 @@ class HeatingContext:
             ["boiler_pumps_have_vfd", "boiler_pumps_vfd"],
             section="heating",
         )
+        boiler_supply_temp_f = get_answer_value(
+            project,
+            ["boiler_supply_temp_f", "boiler_supply_temp"],
+            section="heating",
+        )
+        boiler_return_temp_f = get_answer_value(
+            project,
+            ["boiler_return_temp_f", "boiler_return_temp"],
+            section="heating",
+        )
         distribution_pumps_operating_normally = get_answer_value(
             project,
             ["distribution_pumps_operating_normally", "distribution_pumps_ok"],
@@ -273,6 +298,8 @@ class HeatingContext:
             boiler_install_year=boiler_install_year,
             boiler_condition_values=boiler_condition_values,
             boiler_pumps_have_vfd=boiler_pumps_have_vfd,
+            boiler_supply_temp_f=boiler_supply_temp_f,
+            boiler_return_temp_f=boiler_return_temp_f,
             distribution_pumps_operating_normally=distribution_pumps_operating_normally,
             circulation_issues_reported=circulation_issues_reported,
             heating_distribution_values=heating_distribution_values,
@@ -369,6 +396,16 @@ def _render_heating_system(system_type: str, context: HeatingContext) -> str:
         if boiler_desc:
             return f"The building is served by a high-temperature heating loop supported by {boiler_desc}{location}."
         return f"The building is served by a high-temperature heating loop{location}."
+    if system_type == "central_hydronic_boiler_plant":
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            "MBH",
+            "boiler",
+        )
+        if boiler_desc:
+            return f"Heating is provided by a central hydronic boiler plant with {boiler_desc}{location}."
+        return f"Heating is provided by a central hydronic boiler plant{location}."
     if system_type == "electric_resistance":
         return f"Heating is provided by electric resistance equipment{location}."
     if system_type in {"wshp_central", "wshp_fluid_cooler"}:
@@ -392,11 +429,14 @@ def _render_heating_system(system_type: str, context: HeatingContext) -> str:
 
 def _resolve_system_types(system_type_raw: Any) -> List[str]:
     values = _coerce_list(system_type_raw)
-    return [
-        value
-        for value in values
-        if isinstance(value, str) and "unknown" not in value.lower()
-    ]
+    resolved: List[str] = []
+    for value in values:
+        if not isinstance(value, str):
+            continue
+        if "unknown" in value.lower():
+            continue
+        resolved.append(HEAT_SOURCE_TYPE_MAP.get(value, value))
+    return resolved
 
 
 def _resolve_combo_systems(system_combos_raw: Any) -> List[str]:
@@ -438,6 +478,26 @@ def _render_heating_paragraph(context: HeatingContext) -> str:
     if context.boiler_type_values:
         boiler_type_text = human_join(context.boiler_type_values)
         sentences.append(f"The boiler plant is composed of {boiler_type_text} boilers.")
+
+    if not any(
+        system_type
+        in {
+            "condensing_boiler",
+            "condensing_boiler_ps",
+            "atmospheric_boiler",
+            "high_temp_heating_loop",
+            "central_hydronic_boiler_plant",
+        }
+        for system_type in system_types
+    ):
+        boiler_desc = _format_count_capacity(
+            context.number_of_boilers,
+            context.boiler_capacity_mbh,
+            "MBH",
+            "boiler",
+        )
+        if boiler_desc:
+            sentences.append(f"The boiler plant includes {boiler_desc}.")
 
     if context.boiler_install_year:
         sentences.append(
@@ -506,6 +566,13 @@ def _render_heating_paragraph(context: HeatingContext) -> str:
     if serves_misc is True:
         sentences.append("The boiler plant also serves miscellaneous or secondary hydronic loops.")
 
+    if context.boiler_supply_temp_f and context.boiler_return_temp_f:
+        sentences.append(
+            "During the site visit, boiler supply and return temperatures were observed to be "
+            f"approximately {stringify_value(context.boiler_supply_temp_f)}°F and "
+            f"{stringify_value(context.boiler_return_temp_f)}°F, respectively."
+        )
+
     if context.controls_notes_text and context.controls_notes_text.strip():
         sentences.append(ensure_sentence(context.controls_notes_text))
     elif system_types or not distribution_unknown:
@@ -524,9 +591,18 @@ def render_block(
     if context.override_text:
         return context.override_text
 
-    paragraphs: list[str] = [_render_heating_paragraph(context)]
-    if not paragraphs or not paragraphs[0]:
-        return not_confirmed_sentence("Heating system details")
+    ruleset_text = render_ruleset_block(
+        project,
+        ruleset_filename="heating.rules.json",
+        target_block="heating",
+        block_ref="{Central Heating Systems block}",
+    )
+    if ruleset_text:
+        paragraphs: list[str] = [ruleset_text]
+    else:
+        paragraphs = [_render_heating_paragraph(context)]
+        if not paragraphs or not paragraphs[0]:
+            return not_confirmed_sentence("Heating system details")
 
     checklist_text = render_block_appendix(project, target_block="heating")
     if checklist_text:

@@ -25,7 +25,10 @@
                   "Ventilation for the building is provided through exhaust fan systems, including kitchen, dryer, and bathroom exhaust systems serving individual suites.",
                   "Based on interior observations, these exhaust systems appear to operate as independent, direct exhaust systems."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "ventilation_system_header",
+              "priority": 10
             },
             {
               "rule_id": "no_rooftop_access",
@@ -94,7 +97,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "ventilation"
         }
       ]
     },
@@ -122,7 +126,10 @@
                 "paragraphs": [
                   "Ventilation for the building is provided by rooftop make-up air (MUA) units serving corridors and other shared common areas."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "ventilation_system_header",
+              "priority": 20
             },
             {
               "rule_id": "mua_equipment_configuration",
@@ -178,7 +185,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "ventilation"
         }
       ]
     },
@@ -206,7 +214,10 @@
                 "paragraphs": [
                   "Ventilation for the building is supplied by rooftop make-up air (MUA) units serving corridors and shared spaces."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "ventilation_system_header",
+              "priority": 30
             },
             {
               "rule_id": "mua_count",
@@ -299,7 +310,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "ventilation"
         }
       ]
     }
