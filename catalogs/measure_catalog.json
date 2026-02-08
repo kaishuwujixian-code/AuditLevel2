@@ -40,7 +40,6 @@
   "measures": [
     {
       "id": "bas_upgrade",
-      "legacy_key": "BAS Upgrade",
       "title": "Building Automation System Upgrade",
       "category": "bas",
       "existing": "The building’s mechanical systems are currently controlled by a combination of local thermostats and standalone unit controllers. There is limited central monitoring of setpoints, schedules, or alarms. Occupancy patterns have changed since the original systems were installed, and equipment is often left running at full capacity during evenings and weekends.",
@@ -49,7 +48,6 @@
     },
     {
       "id": "condensing_boiler_retrofit",
-      "legacy_key": "Condensing Boiler Retrofit",
       "title": "Condensing Boiler Retrofit",
       "category": "boiler",
       "existing": "The existing heating boilers in the mechanical room are non-condensing, gas-fired LAARS units installed in 2014, with an estimated thermal efficiency of approximately 80%. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\n\nThe boilers also not integrate with BAS, lack advanced control features such as setpoint adjustment based on outdoor air temperature and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\n\nWhile the boilers remain operational and continue to provide reliable heating performance, their age and conventional atmospheric design limit overall system efficiency compared to modern condensing technology. Although there is no immediate need for replacement, planning for a long-term boiler upgrade would allow the building to benefit from improved energy efficiency, reduced operating costs, and enhanced modulation and control capabilities in future years.",
@@ -58,7 +56,6 @@
     },
     {
       "id": "fancoil_to_wshp_short_term",
-      "legacy_key": "Fancoil to WSHP(short term)",
       "title": "Water Source Heat Pump System Conversion",
       "category": "boiler",
       "existing": "The building currently operates with a traditional two-pipe fan coil system that provides either heating or cooling depending on the season. Each suite is equipped with an original fan coil unit that receives hot water from the central boiler plant during the heating season and chilled water from the central chiller and cooling tower during the cooling season.\n\nBecause the system is two-pipe, the fan coils cannot supply heating and cooling simultaneously. A full building changeover is required in the spring and fall to shift between heating and cooling modes. This limitation often results in periods of thermal discomfort during shoulder seasons, as individual suites have no ability to select heating or cooling independently.\n\nThe fan coils are original to the building and have surpassed their expected service life. Aging components, reduced reliability, and declining performance contribute to inconsistent temperature control, elevated maintenance requirements, and reduced energy efficiency",
@@ -67,7 +64,6 @@
     },
     {
       "id": "investigate_electric_heating",
-      "legacy_key": "Investigate Electric Heating",
       "title": "Investigate and Eliminate Sources of Electrical Heating",
       "category": "other",
       "existing": "There is a significant increase in electrical consumption during the winter season, approximately 33% higher than shoulder-season baseload consumption. This is unusual for a building heated primarily by a natural-gas boiler plant. Possible sources of electrical heating include garage ramp heating and resistive electric space heaters. These sources may be operating wastefully or without proper control.",
@@ -76,7 +72,6 @@
     },
     {
       "id": "existing_bas_upgrade",
-      "legacy_key": "Existing BAS Upgrade",
       "title": "Existing BAS Upgrade",
       "category": "bas",
       "existing": "The building’s HVAC systems operate using a mixture of local controls and a legacy building automation system (BAS) that provides limited monitoring capability. The control platform has not been comprehensively updated or recalibrated for several years, and the level of integration varies across equipment. Many components operate with minimal feedback, limited scheduling capability, and reduced visibility into equipment performance. Legacy or partially obsolete control devices are difficult to maintain, prone to failures, and may no longer be fully supported by the manufacturer.",
@@ -85,7 +80,6 @@
     },
     {
       "id": "sub_metering",
-      "legacy_key": "Sub-metering",
       "title": "Electrical Sub-metering",
       "category": "other",
       "existing": "The building is served by a single interval meter and there is currently no electrical sub-metering system in place to monitor power distribution or track the electricity use of individual tenants or loads.",
@@ -94,7 +88,6 @@
     },
     {
       "id": "primary_secondary_boiler_and_dhw_piping",
-      "legacy_key": "Primary-Secondary Boiler and DHW Piping",
       "title": "Primary–Secondary Boiler and DHW Piping Reconfiguration",
       "category": "loop",
       "existing": "The existing piping arrangement fully separates the space-heating and domestic hot water (DHW) systems. Space heating uses a primary loop with a secondary circulating loop, while the DHW system is served by an independent loop with no hydraulic or control integration. This layout limits temperature control during shoulder seasons and can lead to boiler short cycling, overheating, and reduced efficiency.",
@@ -103,7 +96,6 @@
     },
     {
       "id": "mua_hydronic_conversion",
-      "legacy_key": "MUA Hydronic Conversion",
       "title": "MUA Hydronic Conversion",
       "category": "mua",
       "existing": "The building is served by gas-fired rooftop make-up air (MUA) units that supply tempered fresh air to the corridors. Each unit is equipped with a supply fan VFD but there is limited evidence of automated scheduling or airflow reset, and the units likely operate at constant or manually set speeds. The MUAs provide heating through integral gas burners and do not offer mechanical cooling. Components appear to be aging and operational flexibility is limited.",
@@ -112,7 +104,6 @@
     },
     {
       "id": "fan_coil_to_wshp",
-      "legacy_key": "Fan Coil to WSHP",
       "title": "Transition Fan Coils to Water-Source Heat Pump System (Long-Term Strategy)",
       "category": "other",
       "existing": "The building operates a two-pipe fan-coil system with seasonal changeover between boiler heating and chiller cooling. The system cannot provide simultaneous heating and cooling, which limits comfort during shoulder seasons and requires maintaining both the boiler and chiller plants. The existing chiller and fan coils will require major renewal in the coming years, and replacement of the central chiller alone may exceed $1 million.\n\nGiven the scale of the upcoming capital work, the corporation should evaluate long-term alternatives before reinvesting in like-for-like chiller replacement",
@@ -121,7 +112,6 @@
     },
     {
       "id": "ev_charging_stations",
-      "legacy_key": "EV Charging Stations",
       "title": "EV Charging Stations",
       "category": "other",
       "existing": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors.",
@@ -130,7 +120,6 @@
     },
     {
       "id": "bas_install",
-      "legacy_key": "BAS Install",
       "title": "Install New Building Automation System (BAS)",
       "category": "bas",
       "existing": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
@@ -139,7 +128,6 @@
     },
     {
       "id": "common_area_lighting_retrofit",
-      "legacy_key": "Common Area Lighting Retrofit",
       "title": "Common Area and Garage Lighting Retrofit",
       "category": "lighting",
       "existing": "Common areas and the garage are illuminated primarily by 4-ft T8 fluorescent fixtures and CFL spirals controlled by manual switches. These technologies have relatively high energy use and shorter lamp life compared to modern LED lighting.",
@@ -148,7 +136,6 @@
     },
     {
       "id": "outdoor_reset_for_hydronic_heating",
-      "legacy_key": "Outdoor Reset for Hydronic Heating",
       "title": "Outdoor Reset Control for Hydronic Heating System",
       "category": "bas",
       "existing": "The hydronic heating system currently operates at a fixed supply temperature of approximately 150°F regardless of outdoor conditions. Although the boilers are modern condensing units, they are controlled only by local onboard controls with no coordinated outdoor-air reset. Suite pumps operate continuously at constant speed, resulting in low temperature differential, unnecessary gas consumption, and overheating during shoulder seasons.",
@@ -157,7 +144,6 @@
     },
     {
       "id": "mua_vfd_retrofit",
-      "legacy_key": "MUA VFD Retrofit",
       "title": "MUA VFD Retrofit",
       "category": "mua",
       "existing": "Corridor and common-area ventilation is provided by rooftop MUA units with constant-speed supply fans. These fans run at full speed whenever the units are enabled, independent of actual ventilation demand or occupancy. This results in higher electrical consumption and increased wear on motors and drive components.",
@@ -166,7 +152,6 @@
     },
     {
       "id": "bas_recommission_valves",
-      "legacy_key": "BAS Recommission – Valves",
       "title": "BAS Recommissioning – Control Valves",
       "category": "bas",
       "existing": "BAS graphics and trend data indicate that some control valves do not respond correctly to commands, with mismatched command and feedback values. This suggests failed actuators, sensor issues, or incorrect control logic, which can lead to poor temperature control and inefficient operation.",
@@ -175,7 +160,6 @@
     },
     {
       "id": "dhw_repiping_for_condensing_boilers",
-      "legacy_key": "DHW Repiping for Condensing Boilers",
       "title": "DHW Repiping for Condensing Boiler Performance",
       "category": "boiler",
       "existing": "The domestic hot water (DHW) system is piped such that cold domestic water first enters the storage tank and then returns pre-warmed to the condensing boilers. This elevated boiler entering-water temperature results in a very low ΔT across the boilers and prevents them from operating in true condensing mode, reducing seasonal efficiency and increasing gas consumption.",
@@ -184,7 +168,6 @@
     },
     {
       "id": "mua_hydronic_bas_vfd",
-      "legacy_key": "MUA Hydronic + BAS + VFD",
       "title": "MUA Hydronic Conversion with BAS and VFDs",
       "category": "mua",
       "existing": "The building is served by gas-fired DX rooftop MUA units that provide tempered fresh air to corridors. Units have limited modulation capability, appear to operate at constant or manually set speeds, and are not fully integrated with the BAS. Burners, DX sections, and controls are aging, and continuous or high airflow during mild weather contributes to excessive gas and electrical consumption.",
@@ -193,7 +176,6 @@
     },
     {
       "id": "enbridge_gas_boiler_optimization_pilot_program",
-      "legacy_key": "Enbridge Gas Boiler Optimization Pilot Program",
       "title": "Boiler Plant Optimization & Hydronic Balancing",
       "category": "boiler",
       "existing": "The central heating plant consists of eight (8) condensing boilers installed circa 2014. Although the boilers are designed for high-efficiency condensing operation, the system is currently operated with elevated supply-water temperatures, with observed setpoints typically in the range of approximately 140°F to 150°F. Based on operator feedback, these aggressive setpoints are maintained to satisfy the heating demands of the Make-Up Air (MUA) units, which share the primary heating loop, and to compensate for localized flow restrictions within the distribution piping.\n\nUnder these operating conditions, return-water temperatures are likely elevated for much of the heating season, limiting the boilers’ ability to operate in condensing mode and effectively reducing efficiency to non-condensing levels. The existing hydronic configuration does not provide sufficient separation between the higher-temperature MUAloads and the lower-temperature building heating loop, restricting the ability to reset supply temperatures independently.",
@@ -202,7 +184,6 @@
     },
     {
       "id": "gas_co_generation_chp",
-      "legacy_key": "Gas Co-Generation (CHP)",
       "title": "Natural Gas Co-Generation (CHP) System",
       "category": "other",
       "existing": "The building is heated by a central boiler plant that serves space heating, domestic hot water and, where applicable, pool loads. All electricity is purchased from the grid and there is no on-site generation. Existing equipment such as make-up air units may be older or decommissioned, and there is no reuse of waste heat from power generation.",
@@ -211,7 +192,6 @@
     },
     {
       "id": "fan_coil_unit_retrofit",
-      "legacy_key": "Fan Coil Unit Retrofit",
       "title": "Fan Coil Unit Retrofit – Suite Units",
       "category": "other",
       "existing": "Each suite is currently served by a fan-coil unit (FCU) that provides heating and cooling from central hydronic risers. Many FCUs are original to the building and have reached or exceeded their expected service life. The original manufacturer may no longer support the product, making parts replacement and servicing increasingly difficult and leading to comfort and maintenance issues.",
@@ -220,7 +200,6 @@
     },
     {
       "id": "garage_co_sensors",
-      "legacy_key": "Garage CO Sensors",
       "title": "Garage Exhaust CO Sensor Control",
       "category": "other",
       "existing": "Garage exhaust fans are currently controlled by time schedules or manual switches, with no carbon monoxide (CO) detection system. Fans may operate even when pollutant levels are low, and at times CO concentrations can exceed recommended thresholds before fans are activated.",
@@ -229,7 +208,6 @@
     },
     {
       "id": "dhw_condensing_boiler_replacement",
-      "legacy_key": "DHW Condensing Boiler Replacement",
       "title": "Replace DHW Boiler with Condensing Boiler",
       "category": "boiler",
       "existing": "The domestic hot water (DHW) system is currently served by an atmospheric gas-fired boiler that is near or past the end of its typical service life. Atmospheric boilers have relatively low thermal efficiency, high standby losses and limited turndown capability. As equipment ages, efficiency and reliability decline and the risk of failure increases.",
@@ -238,7 +216,6 @@
     },
     {
       "id": "cooling_tower_fan_vfd",
-      "legacy_key": "Cooling Tower Fan VFD",
       "title": "Cooling Tower Fan VFD Retrofit",
       "category": "pumps",
       "existing": "The cooling tower is equipped with constant-speed or multi-speed fan motors that operate at discrete speeds regardless of the actual cooling load. Under part-load conditions, the fans still consume close to full power, resulting in unnecessary electrical usage and increased wear on mechanical components.",
@@ -247,7 +224,6 @@
     },
     {
       "id": "booster_pump_vfd",
-      "legacy_key": "Booster Pump VFD",
       "title": "Booster Pump VFD Retrofit",
       "category": "pumps",
       "existing": "Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.",
@@ -256,7 +232,6 @@
     },
     {
       "id": "misc_maintenance_upgrades",
-      "legacy_key": "Misc Maintenance Upgrades",
       "title": "Miscellaneous Maintenance and Efficiency Upgrades",
       "category": "other",
       "existing": "Several mechanical and electrical systems in the building rely on routine maintenance to maintain efficiency, but many components have not been proactively upgraded or recommissioned. Heat exchangers may have scale or fouling, older motors may be standard-efficiency models, and controls or thermostats may be outdated or non-programmable.",
@@ -265,7 +240,6 @@
     },
     {
       "id": "packaged_heating_cooling_mua",
-      "legacy_key": "Packaged Heating/Cooling MUA",
       "title": "Replace Existing MUA with Packaged Heating/Cooling MUA",
       "category": "mua",
       "existing": "Existing make-up air (MUA) units operate at constant volume with limited runtime scheduling and no demand-based control. Many units provide little or no heating or cooling capability and are not equipped with CO₂ sensors or variable-speed fans, resulting in over-ventilation and higher energy use.",
@@ -274,7 +248,6 @@
     },
     {
       "id": "upper_mua_hydronic_conversion",
-      "legacy_key": "Upper MUA Hydronic Conversion",
       "title": "Convert Upper MUA to Hydronic Heating",
       "category": "mua",
       "existing": "The upper make-up air unit uses an integral atmospheric gas burner to heat 100% outdoor air, often running continuously. This design has relatively low efficiency, high standby losses and limited modulation capability, particularly during part-load conditions.",
@@ -283,7 +256,6 @@
     },
     {
       "id": "solar_preheat_upper_mua",
-      "legacy_key": "Solar Preheat – Upper MUA",
       "title": "Solar Air Pre-Heating for Upper MUA",
       "category": "mua",
       "existing": "The upper MUA currently introduces and heats 100% cold outdoor air during the winter season. All heating energy for this large airflow is provided by the existing heating system, resulting in substantial gas consumption.",
@@ -292,7 +264,6 @@
     },
     {
       "id": "solar_preheat_dhw",
-      "legacy_key": "Solar Preheat – DHW",
       "title": "Solar Pre-Heating for Domestic Hot Water",
       "category": "water",
       "existing": "Domestic hot water is currently produced entirely by gas-fired equipment, with no renewable pre-heating. All hot water load is met by the boiler plant, resulting in higher gas consumption and associated emissions.",
@@ -301,7 +272,6 @@
     },
     {
       "id": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
-      "legacy_key": "DHW retrofit + plate and frame HX + mixing valve",
       "title": "DHW retrofit with plate and frame Heat exchanger",
       "category": "water",
       "existing": "The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank, associated DHW circulation pumps, and portions of the DHW piping were observed to be original to the building and approaching the end of their expected service life. In addition, no anti-scald mixing valve was observed at the DHW storage tank, limiting temperature control and presenting a potential safety concern.Aging indirect tanks typically require periodic internal relining and ongoing maintenance to maintain performance and water quality. As these components continue to age, maintenance requirements and the risk of unplanned service interruptions are expected to increase ",
@@ -310,7 +280,6 @@
     },
     {
       "id": "dry_o_tron_pool_unit",
-      "legacy_key": "Dry-O-Tron Pool Unit",
       "title": "Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit",
       "category": "other",
       "existing": "The swimming pool area is currently served by a conventional air-handling unit and separate exhaust fan. Humidity control is limited, and there is no integrated heat recovery between exhaust and supply air. This can lead to higher space heating loads, condensation issues and comfort complaints in the pool area.",
@@ -319,7 +288,6 @@
     },
     {
       "id": "roof_mua_heat_recovery",
-      "legacy_key": "Roof MUA Heat Recovery",
       "title": "Heat Recovery for Roof MUA and Exhaust Fans",
       "category": "mua",
       "existing": "Roof-level make-up air units and associated exhaust fans currently operate as separate systems, with exhaust air discharged directly outdoors. This configuration wastes the sensible and latent energy contained in the exhaust stream, increasing heating and cooling loads on the supply air systems.",
@@ -328,7 +296,6 @@
     },
     {
       "id": "adding_a_heat_exchanger_to_isolate_the_glycol_tower_loop_from_the_building_loop",
-      "legacy_key": "Adding a Heat Exchanger to Isolate the Glycol Tower Loop from the Building Loop",
       "title": "Adding a Heat Exchanger to Isolate the Glycol Tower Loop from the Building Loop",
       "category": "loop",
       "existing": "The WSHP loop operates with a 25% glycol mixture for freeze protection. A glycol feed system is present; however, the feed tank level was observed to be low at the time of the site visit. The current hydronic configuration also appears to allow glycol to circulate through both the cooling tower loop and the building loop. This arrangement significantly increases the total system glycol volume, resulting in higher chemical cost, more frequent testing, and increased maintenance requirements. Without dedicated hydraulic separation between the tower loop and the building loop, glycol is introduced into portions of the system where freeze protection is not required, complicating long-term operation and increasing the risk of concentration imbalance between loops.\n\nNo major operational issues were reported at the time of the walkthrough, targeted improvements would improve freeze protection reliability, reduce chemical costs, and enhance overall WSHP loop stability.",
@@ -337,7 +304,6 @@
     },
     {
       "id": "gas_dryer_replacement",
-      "legacy_key": "Gas Dryer Replacement",
       "title": "Replace Electric Dryers with Natural Gas Dryers",
       "category": "other",
       "existing": "Common-area laundry facilities currently use electric dryers, which consume a significant amount of electricity for each drying cycle. Electrical operating costs are relatively high compared to equivalent natural-gas-fired equipment.",
@@ -346,7 +312,6 @@
     },
     {
       "id": "gas_unit_heaters_space_heating",
-      "legacy_key": "Gas Unit Heaters – Space Heating",
       "title": "Install Natural Gas Unit Heaters for Space Heating",
       "category": "other",
       "existing": "Space heating in certain areas of the building is currently provided by electric baseboard heaters or other electric resistance equipment. Electric resistance heating has high operating costs and places a large demand on the electrical system.",
@@ -355,7 +320,6 @@
     },
     {
       "id": "new_chiller_replacement",
-      "legacy_key": "New Chiller Replacement",
       "title": "Replace Existing Chiller with High-Efficiency Chiller",
       "category": "other",
       "existing": "The existing chiller is an older unit approaching or exceeding its typical service life and uses an outdated refrigerant. Older chillers generally operate at lower efficiency than modern equipment and may have higher maintenance requirements and reliability concerns.",
@@ -364,7 +328,6 @@
     },
     {
       "id": "common_area_occupancy_sensors",
-      "legacy_key": "Common Area Occupancy Sensors",
       "title": "Common Area Lighting Occupancy Sensors",
       "category": "other",
       "existing": "Common areas such as corridors, stairwells, mechanical rooms and laundry rooms are illuminated by fluorescent or LED fixtures controlled mainly by manual switches. Lights often remain on when spaces are unoccupied, resulting in unnecessary electricity consumption.",
@@ -373,7 +336,6 @@
     },
     {
       "id": "window_retrofit",
-      "legacy_key": "Window Retrofit",
       "title": "Window Retrofit – High-Performance Glazing",
       "category": "other",
       "existing": "The building exterior is glazed with a mix of older single- and double-glazed aluminum-frame windows with relatively high U-values and limited thermal breaks. Large glazing areas increase heat loss in winter and heat gain in summer, contributing to higher heating and cooling loads. Condensation around frames has caused localized damage in some areas.",
@@ -382,7 +344,6 @@
     },
     {
       "id": "window_caulking_upgrade",
-      "legacy_key": "Window Caulking Upgrade",
       "title": "Window Caulking / Weatherstripping Upgrade",
       "category": "other",
       "existing": "Existing windows show signs of aging sealants and caulking around frames, contributing to air leakage and localized condensation. While full window replacement would address both conduction and air leakage, it represents a major capital expense.",
@@ -391,7 +352,6 @@
     },
     {
       "id": "power_factor_correction",
-      "legacy_key": "Power Factor Correction",
       "title": "Install Power Factor Correction Equipment",
       "category": "other",
       "existing": "Large inductive loads such as pumps, fans and chillers reduce the building’s electrical power factor below utility targets, leading to higher apparent power demand and potential penalties or inefficiencies on the electrical system.",
@@ -400,7 +360,6 @@
     },
     {
       "id": "heating_system_recommissioning",
-      "legacy_key": "Heating System Recommissioning",
       "title": "Heating System Recommissioning",
       "category": "other",
       "existing": "The existing boiler plant and associated hydronic systems have been in service for many years. Although some boilers are high-efficiency models, performance can degrade over time due to combustion drift, fouled heat-transfer surfaces, damaged insulation and suboptimal control settings. Standby losses and boiler cycling may be higher than necessary.",
@@ -409,7 +368,6 @@
     },
     {
       "id": "separate_garage_exhaust_from_cooling_tower",
-      "legacy_key": "Separate Garage Exhaust from Cooling Tower",
       "title": "Separate Garage Exhaust from Cooling Tower Well",
       "category": "other",
       "existing": "Garage exhaust air is currently discharged into the same shaft or well that houses the cooling tower. During cooling operation, the tower draws a mixture of outdoor air and warm, contaminated garage exhaust, which can degrade cooling tower performance, reduce capacity on hot days and increase corrosion and fouling risks.",
@@ -418,7 +376,6 @@
     },
     {
       "id": "geothermal_upgrade",
-      "legacy_key": "Geothermal Upgrade",
       "title": "Geothermal Upgrade for Heat Pump Loop",
       "category": "other",
       "existing": "The building uses a central heat pump loop with boilers providing heat in winter and a cooling tower rejecting heat in summer. Boilers and the cooling tower operate year-round to maintain loop temperature, resulting in significant gas and electricity consumption.",

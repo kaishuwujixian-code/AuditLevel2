@@ -8,35 +8,32 @@ from tkinter import ttk
 from core.paths import DEFAULT_TEMPLATE_JSON
 from core.template_store import TemplateData
 from core.template_store import load_template
-from ui.checklist_library_panel import ChecklistLibraryPanel
-
 
 class ChecklistPanel(ttk.Frame):
-    def __init__(self, master: tk.Misc, template: TemplateData) -> None:
+    def __init__(
+        self,
+        master: tk.Misc,
+        template: TemplateData,
+        *,
+        on_saved=None,
+    ) -> None:
         super().__init__(master)
         self._template = template
         self._vars: Dict[str, Dict[str, Dict[str, tk.BooleanVar]]] = {}
         self._project_data: Optional[Dict[str, Any]] = None
+        self._on_saved = on_saved
         self._build_ui()
 
     def _build_ui(self) -> None:
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-        notebook = ttk.Notebook(self)
-        notebook.grid(row=0, column=0, sticky="nsew")
-
-        self._selection_tab = ttk.Frame(notebook)
+        self._selection_tab = ttk.Frame(self)
         self._selection_tab.columnconfigure(0, weight=1)
         self._selection_tab.rowconfigure(0, weight=1)
+        self._selection_tab.grid(row=0, column=0, sticky="nsew")
         self._scroll = _ScrollableFrame(self._selection_tab)
         self._scroll.grid(row=0, column=0, sticky="nsew")
         self._render_checklists()
-        notebook.add(self._selection_tab, text="Selections")
-
-        self._library_tab = ChecklistLibraryPanel(
-            notebook, on_saved=self._on_library_saved
-        )
-        notebook.add(self._library_tab, text="Checklist Library")
 
     def _render_checklists(self) -> None:
         container = self._scroll.content
@@ -102,6 +99,8 @@ class ChecklistPanel(ttk.Frame):
         self._render_checklists()
         if self._project_data:
             self.load_project(self._project_data)
+        if self._on_saved:
+            self._on_saved()
 
 
 class _ScrollableFrame(ttk.Frame):
