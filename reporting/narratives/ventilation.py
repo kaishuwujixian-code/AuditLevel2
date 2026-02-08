@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List
 
 from reporting.narratives import (
+    coerce_bool,
     contains_unknown,
     ensure_sentence,
     first_meaningful_text,
@@ -29,6 +30,13 @@ EXPECTED_INPUTS = {
             "hvac_system_combos",
             "number_of_mua_units",
             "ventilation_airflow_cfm",
+            "mua_has_vfd",
+            "mua_has_gas_heat",
+            "mua_has_cooling_coil",
+            "mua_heating_type",
+            "mua_partial_replacement",
+            "mua_operating_normally",
+            "mua_functional",
             "ventilation_notes",
         ],
     }
@@ -57,6 +65,13 @@ class VentilationContext:
     notes_text: str | None
     number_of_mua_units: Any
     ventilation_airflow_cfm: Any
+    mua_has_vfd: Any
+    mua_has_gas_heat: Any
+    mua_has_cooling_coil: Any
+    mua_heating_type_values: List[str]
+    mua_partial_replacement: Any
+    mua_operating_normally: Any
+    mua_functional: Any
 
     @classmethod
     def from_project(
@@ -106,6 +121,44 @@ class VentilationContext:
             ["ventilation_airflow_cfm", "ventilation_cfm"],
             section="ventilation",
         )
+        mua_has_vfd = get_answer_value(
+            project,
+            ["mua_has_vfd"],
+            section="ventilation",
+        )
+        mua_has_gas_heat = get_answer_value(
+            project,
+            ["mua_has_gas_heat"],
+            section="ventilation",
+        )
+        mua_has_cooling_coil = get_answer_value(
+            project,
+            ["mua_has_cooling_coil"],
+            section="ventilation",
+        )
+        mua_heating_type_value = get_answer_value(
+            project,
+            ["mua_heating_type"],
+            section="ventilation",
+        )
+        mua_heating_type_values = format_option_values(
+            "mua.heating_type", mua_heating_type_value, mapping=mapping
+        )
+        mua_partial_replacement = get_answer_value(
+            project,
+            ["mua_partial_replacement"],
+            section="ventilation",
+        )
+        mua_operating_normally = get_answer_value(
+            project,
+            ["mua_operating_normally"],
+            section="ventilation",
+        )
+        mua_functional = get_answer_value(
+            project,
+            ["mua_functional"],
+            section="ventilation",
+        )
         return cls(
             audit_level="L1",
             confidence="low",
@@ -121,6 +174,13 @@ class VentilationContext:
             notes_text=stringify_value(notes_value),
             number_of_mua_units=number_of_mua_units,
             ventilation_airflow_cfm=ventilation_airflow_cfm,
+            mua_has_vfd=mua_has_vfd,
+            mua_has_gas_heat=mua_has_gas_heat,
+            mua_has_cooling_coil=mua_has_cooling_coil,
+            mua_heating_type_values=mua_heating_type_values,
+            mua_partial_replacement=mua_partial_replacement,
+            mua_operating_normally=mua_operating_normally,
+            mua_functional=mua_functional,
         )
 
     def system_unknown(self) -> bool:
@@ -236,6 +296,36 @@ def render_block(
         sentences.append(
             f"Reported ventilation airflow is approximately {stringify_value(context.ventilation_airflow_cfm)} CFM."
         )
+
+    if context.mua_heating_type_values:
+        heating_type = human_join(context.mua_heating_type_values)
+        sentences.append(f"MUA heating is provided by {heating_type}.")
+
+    mua_vfd = coerce_bool(context.mua_has_vfd)
+    if mua_vfd is True:
+        sentences.append("MUA supply fans are equipped with variable frequency drives (VFDs).")
+    elif mua_vfd is False:
+        sentences.append("MUA supply fans appear to be constant-speed (no VFDs observed).")
+
+    gas_heat = coerce_bool(context.mua_has_gas_heat)
+    if gas_heat is True:
+        sentences.append("MUA units include gas-fired heating sections.")
+
+    cooling_coil = coerce_bool(context.mua_has_cooling_coil)
+    if cooling_coil is True:
+        sentences.append("MUA units include cooling coils for tempering supply air.")
+
+    partial_replacement = coerce_bool(context.mua_partial_replacement)
+    if partial_replacement is True:
+        sentences.append("Partial MUA unit replacements or retrofits were observed.")
+
+    operating_normally = coerce_bool(context.mua_operating_normally)
+    if operating_normally is True:
+        sentences.append("MUA units were observed operating normally during the walkthrough.")
+
+    system_functional = coerce_bool(context.mua_functional)
+    if system_functional is True:
+        sentences.append("The overall MUA system appears functional based on walkthrough observations.")
 
     if context.condition_text:
         sentences.append(
