@@ -301,17 +301,13 @@
                   {
                     "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping appear to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             }
@@ -676,27 +672,6 @@
                   "Each boiler is rated at approximately {boiler_capacity_mbh} MBH and assigned to the heating loop.",
                   "The WSHP loop operates at approximately {wshp_loop_temp_f}°F.",
                   "The loop remains hydraulically isolated from the DHW system."
-                ]
-              }
-            },
-            {
-              "rule_id": "wshp_loop_operation_ok",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.loop_temperatures_normal",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "Loop temperatures and differential readings observed during the site visit were consistent with expected operating conditions.",
-                  "No circulation issues were identified."
                 ]
               }
             },
@@ -1113,17 +1088,13 @@
                   {
                     "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             },
@@ -1471,17 +1442,13 @@
                   {
                     "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
-                  },
-                  {
-                    "field": "answers.circulation_issues_reported",
-                    "op": "is_false"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
-                  "No circulation issues were reported by on-site staff during the walkthrough."
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
               }
             }
