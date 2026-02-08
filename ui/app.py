@@ -24,7 +24,7 @@ from main import _validate_inputs
 from reporting.word_renderer import render_word
 from ui.checklist_panel import ChecklistPanel
 from ui.diagnostics_panel import DiagnosticsPanel
-from ui.measure_library_panel import MeasureLibraryPanel
+from ui.library_panel import LibraryPanel
 from ui.measures_panel import MeasuresPanel
 from ui.questionnaire_panel import QuestionnairePanel
 from ui.report_panel import ReportPanel
@@ -82,19 +82,25 @@ class RetScreenApp:
 
         self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
         self._measures_tab = MeasuresPanel(self._notebook)
-        self._measure_library_tab = MeasureLibraryPanel(
-            self._notebook, on_catalog_saved=self._on_catalog_saved
+        self._checklist_tab = ChecklistPanel(
+            self._notebook,
+            self._template or TemplateData({}, [], {}, [], {}, {}),
+            on_saved=self._on_checklists_saved,
         )
-        self._checklist_tab = ChecklistPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
         self._report_tab = ReportPanel(self._notebook, self.generate_report)
         self._diagnostics_tab = DiagnosticsPanel(self._notebook)
+        self._library_tab = LibraryPanel(
+            self._notebook,
+            on_checklist_saved=self._on_checklists_saved,
+            on_measure_catalog_saved=self._on_catalog_saved,
+        )
 
         self._notebook.add(self._inputs_tab, text="📝 Inputs")
         self._notebook.add(self._measures_tab, text="🧰 Measures")
-        self._notebook.add(self._measure_library_tab, text="📚 Measure Library")
         self._notebook.add(self._checklist_tab, text="✅ Checklist")
         self._notebook.add(self._report_tab, text="📄 Report")
         self._notebook.add(self._diagnostics_tab, text="🩺 Diagnostics")
+        self._notebook.add(self._library_tab, text="📚 Library")
 
         status_bar = ttk.Label(
             self.root,
@@ -186,6 +192,18 @@ class RetScreenApp:
         except Exception as exc:
             self._set_status(f"Schema error: {exc}")
 
+    def _on_checklists_saved(self) -> None:
+        if not os.path.isfile(DEFAULT_TEMPLATE_JSON):
+            self._set_status(f"Template JSON missing: {DEFAULT_TEMPLATE_JSON}")
+            return
+        try:
+            self._template = load_template(DEFAULT_TEMPLATE_JSON)
+        except Exception as exc:
+            self._set_status(f"Template error: {exc}")
+            return
+        if self._project_data:
+            self._checklist_tab.load_project(self._project_data)
+
     def new_project(self) -> None:
         self._project_data = {
             "project_info": {
@@ -253,8 +271,10 @@ class RetScreenApp:
             self._sync_project_data()
             save_project(self._project_path, self._project_data)
             self._set_status(f"Saved project: {self._project_path}")
+            messagebox.showinfo("Project Saved", f"Saved project to:\n{self._project_path}")
         except Exception as exc:
             self._set_status(f"Save failed: {exc}")
+            messagebox.showerror("Save Failed", str(exc))
 
     def generate_report(self) -> None:
         if not self._project_path or not self._project_data:
@@ -276,8 +296,10 @@ class RetScreenApp:
             )
             self._report_tab.update_output(out_path)
             self._set_status(f"Generated: {out_path}")
+            messagebox.showinfo("Report Generated", f"Report generated:\n{out_path}")
         except Exception as exc:
             self._set_status(f"Generate failed: {exc}")
+            messagebox.showerror("Generate Failed", str(exc))
 
     def validate_project(self) -> None:
         if not self._project_path:
