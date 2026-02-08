@@ -144,6 +144,7 @@ class MeasureLibraryPanel(ttk.Frame):
     def _refresh_measure_tree(self) -> None:
         self._measure_tree.delete(*self._measure_tree.get_children())
         self._measure_tree_items: Dict[str, int] = {}
+        self._measure_tree_by_id: Dict[str, str] = {}
         categories = _category_lookup(self._categories)
         category_nodes: Dict[str, str] = {}
         for code, title in categories:
@@ -153,9 +154,12 @@ class MeasureLibraryPanel(ttk.Frame):
         for idx, measure in enumerate(self._measures):
             title = str(measure.get("title", "")).strip()
             category = str(measure.get("category", "")).strip()
+            measure_id = str(measure.get("id", "")).strip()
             parent = category_nodes.get(category, category_nodes.get("", ""))
             item_id = self._measure_tree.insert(parent, "end", text=title or "(Untitled)")
             self._measure_tree_items[item_id] = idx
+            if measure_id:
+                self._measure_tree_by_id[measure_id] = item_id
         for node_id in category_nodes.values():
             self._measure_tree.item(node_id, open=True)
 
@@ -235,10 +239,8 @@ class MeasureLibraryPanel(ttk.Frame):
         )
         self._selected_measure_index = new_index
         self._refresh_measure_tree()
-        for item_id, idx in self._measure_tree_items.items():
-            if idx == new_index:
-                self._measure_tree.selection_set(item_id)
-                break
+        measure_id = str(self._measures[new_index].get("id", "")).strip()
+        self._select_measure_by_id(measure_id)
 
     def _apply_measure(self) -> None:
         measure_id = self._measure_id_var
@@ -265,10 +267,7 @@ class MeasureLibraryPanel(ttk.Frame):
             current = self._measures[self._selected_measure_index]
             current.update(payload)
         self._refresh_measure_tree()
-        for item_id, idx in self._measure_tree_items.items():
-            if idx == self._selected_measure_index:
-                self._measure_tree.selection_set(item_id)
-                break
+        self._select_measure_by_id(measure_id)
 
     def _validate_catalog(self) -> None:
         try:
@@ -308,12 +307,12 @@ class MeasureLibraryPanel(ttk.Frame):
         if self._is_new_measure or self._selected_measure_index is not None:
             self._apply_measure()
 
-    def _maybe_apply_measure(self) -> None:
-        measure_id = self._measure_id_var.get().strip()
+    def _select_measure_by_id(self, measure_id: str) -> None:
         if not measure_id:
             return
-        if self._is_new_measure or self._selected_measure_index is not None:
-            self._apply_measure()
+        item_id = self._measure_tree_by_id.get(measure_id)
+        if item_id:
+            self._measure_tree.selection_set(item_id)
 
 
 def _set_text(widget: tk.Text, value: Any) -> None:
