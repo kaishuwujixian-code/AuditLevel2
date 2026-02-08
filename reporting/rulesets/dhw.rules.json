@@ -1,0 +1,503 @@
+{
+  "rulesets": [
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "DHW SYSTEM RULESET – CENTRAL NON-CONDENSING BOILERS",
+      "blocks": [
+        {
+          "block_id": "dhw_existing",
+          "block_ref": "{DHW System Block}",
+          "target_block": "dhw",
+          "rules": [
+            {
+              "rule_id": "dhw_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_generation_type",
+                    "op": "eq",
+                    "value": "central_dhw_boilers"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Domestic hot water is generated in the central mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_boiler_count_capacity",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_dhw_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The DHW plant consists of {number_of_dhw_boilers} non-condensing DHW boilers.",
+                  "Each boiler is rated at approximately {dhw_boiler_capacity_mbh} MBH."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_condition_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_piping_condition",
+                    "op": "eq",
+                    "value": "good"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, storage tanks, and associated piping appear to be in generally good condition.",
+                  "No visible leaks or major signs of corrosion were observed."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_recirculation_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_recirculation_pumps_operating",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "DHW recirculation pumps were operating at the time of the visit.",
+                  "Piping insulation was largely intact."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_mixing_valve_present",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_mixing_valve_present",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Mixed-water temperature control is provided through mechanical thermostatic valves.",
+                  "These valves regulate delivery temperature to the building.",
+                  "At the time of the walkthrough, DHW temperatures appeared to be stable."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "DHW SYSTEM RULESET – ATMOSPHERIC BOILERS WITH ELECTRONIC MIXING VALVE",
+      "blocks": [
+        {
+          "block_id": "dhw_existing",
+          "block_ref": "{DHW System Block}",
+          "target_block": "dhw",
+          "rules": [
+            {
+              "rule_id": "dhw_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_generation_type",
+                    "op": "eq",
+                    "value": "central_dhw_boilers"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Domestic hot water (DHW) is generated in the central mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_boiler_count_capacity_install_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_dhw_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_supply_temp_f",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The DHW system consists of {number_of_dhw_boilers} atmospheric gas-fired DHW boilers installed in {dhw_boiler_install_year}.",
+                  "Each boiler is rated at approximately {dhw_boiler_capacity_mbh} MBH.",
+                  "The boilers operate with a DHW supply temperature of approximately {dhw_supply_temp_f}°F."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_end_of_life",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_boilers_original",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, DHW storage tank, and associated piping were observed to be original to the building.",
+                  "The equipment is approaching the end of its expected service life."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_pumps_insulation_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_recirculation_pumps_operating",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "DHW recirculation pumps were operating at the time of the site visit.",
+                  "Piping insulation was largely intact."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_storage_tank_gauge_failed",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_storage_temp_gauge_functional",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The temperature gauge on the DHW storage tank was not functioning.",
+                  "Recalibration or replacement is required to ensure accurate temperature monitoring."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_flowmix_mixing_valve",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_mixing_valve_type",
+                    "op": "eq",
+                    "value": "flowmix_electronic"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Mixed-water temperature control is provided through a FlowMix electronic thermostatic mixing valve.",
+                  "The valve regulates DHW delivery temperature to the building.",
+                  "At the time of the walkthrough, DHW supply temperatures appeared stable.",
+                  "No widespread complaints regarding hot water performance were reported."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_replacement_planning",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_replacement_planning_recommended",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Overall, the DHW system appears to be functioning adequately.",
+                  "Due to the age of the equipment and the inherent efficiency limitations of atmospheric boilers, replacement planning is recommended to improve reliability, efficiency, and long-term maintainability."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "DHW SYSTEM RULESET – ATMOSPHERIC BOILERS WITH INADEQUATE TEMPERATURE CONTROL",
+      "blocks": [
+        {
+          "block_id": "dhw_existing",
+          "block_ref": "{DHW System Block}",
+          "target_block": "dhw",
+          "rules": [
+            {
+              "rule_id": "dhw_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_generation_type",
+                    "op": "eq",
+                    "value": "central_dhw_boilers"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Domestic hot water (DHW) is generated in the central mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_boiler_count_capacity_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_dhw_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_boiler_install_year",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The DHW system consists of {number_of_dhw_boilers} atmospheric gas-fired DHW boilers installed in {dhw_boiler_install_year}.",
+                  "Each boiler is rated at approximately {dhw_boiler_capacity_mbh} MBH."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_end_of_life",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_boilers_original",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers and DHW storage tanks were observed to be original to the building.",
+                  "The equipment is approaching the end of its expected service life.",
+                  "Replacement planning should be considered."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_storage_temperature_variation",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_storage_temp_variation_observed",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "DHW storage temperatures varied across the building.",
+                  "Some zones were operating below recommended storage temperature ranges."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_no_mixing_valves",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_mixing_valve_present",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Anti-scald mixing valves were not observed at the domestic hot water system.",
+                  "Without properly installed and commissioned mixing valves, there is an increased risk of scalding and elevated recirculation temperatures.",
+                  "This can increase natural gas consumption."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_system_overall_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_functional",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Overall, the DHW system appears to be functioning adequately.",
+                  "Targeted control adjustments, valve inspection, or replacement may be warranted where temperature control is not performing as intended."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "DHW SYSTEM RULESET – BOILER-FED DHW WITH HEAT EXCHANGER AND FLOWMIX",
+      "blocks": [
+        {
+          "block_id": "dhw_existing",
+          "block_ref": "{DHW System Block}",
+          "target_block": "dhw",
+          "rules": [
+            {
+              "rule_id": "dhw_intro_hx",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_generation_type",
+                    "op": "eq",
+                    "value": "boiler_fed_via_hx"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Domestic hot water is produced in the central mechanical room.",
+                  "The DHW loop receives heat from the boiler plant through a heat exchanger."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_flowmix_present",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_mixing_valve_type",
+                    "op": "eq",
+                    "value": "flowmix_electronic"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A FlowMix electronic mixing valve is used to regulate domestic hot water delivery temperature."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_temperatures_normal",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_storage_temp_f",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.dhw_mixed_temp_f",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Observed DHW temperatures were within normal operating range.",
+                  "The storage tank temperature was approximately {dhw_storage_temp_f}°F.",
+                  "The mixed water temperature was approximately {dhw_mixed_temp_f}°F."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_equipment_condition_good",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_equipment_condition",
+                    "op": "eq",
+                    "value": "good"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The DHW storage tank, buffer tanks, and associated piping were observed to be in generally good condition.",
+                  "No visible leaks or signs of corrosion were observed."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_pumps_insulation_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_recirculation_pumps_operating",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "DHW recirculation pumps were operating during the site visit.",
+                  "Piping insulation was largely intact."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_future_bas_ready",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.bas_future_integration_feasible",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Overall, the DHW system is functioning well.",
+                  "The system is suitably configured for future BAS integration to improve monitoring and temperature optimization."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

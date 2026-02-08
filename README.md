@@ -100,7 +100,7 @@ python -m tools.render_level1 --template templates/level1.docx --project project
 ```
 
 Expected output:
-* `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
+* `{Central Heating Systems block}` and `{Central Cooling Systems block}` render 3–6 sentence paragraphs (not a single word).
 * `{DHW System Block}` and `{Central Ventilation System Block}` render narrative blocks based on system selections.
 * `{Number of Floors}`, `{Number of Suites}`, `{Architectural Condition}` are filled when provided under `answers`.
 
