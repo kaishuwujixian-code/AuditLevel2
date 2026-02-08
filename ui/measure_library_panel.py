@@ -290,6 +290,7 @@ class MeasureLibraryPanel(ttk.Frame):
         except Exception as exc:
             messagebox.showerror("Measure Catalog", f"Save failed:\n{exc}")
             return
+        messagebox.showinfo("Measure Catalog", "Catalog saved successfully.")
         if self._on_catalog_saved:
             try:
                 self._on_catalog_saved(load_measure_catalog(self._catalog_path))

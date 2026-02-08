@@ -93,6 +93,7 @@ class MiscLibraryPanel(ttk.Frame):
             messagebox.showerror("Misc Library", f"Save failed: {exc}")
             self._set_status("Save failed.")
             return
+        messagebox.showinfo("Misc Library", "Catalog saved successfully.")
         self._set_status("Catalog saved.")
 
     def _collect_payload(self) -> Dict[str, Any]:

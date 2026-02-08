@@ -271,8 +271,10 @@ class RetScreenApp:
             self._sync_project_data()
             save_project(self._project_path, self._project_data)
             self._set_status(f"Saved project: {self._project_path}")
+            messagebox.showinfo("Project Saved", f"Saved project to:\n{self._project_path}")
         except Exception as exc:
             self._set_status(f"Save failed: {exc}")
+            messagebox.showerror("Save Failed", str(exc))
 
     def generate_report(self) -> None:
         if not self._project_path or not self._project_data:
@@ -294,8 +296,10 @@ class RetScreenApp:
             )
             self._report_tab.update_output(out_path)
             self._set_status(f"Generated: {out_path}")
+            messagebox.showinfo("Report Generated", f"Report generated:\n{out_path}")
         except Exception as exc:
             self._set_status(f"Generate failed: {exc}")
+            messagebox.showerror("Generate Failed", str(exc))
 
     def validate_project(self) -> None:
         if not self._project_path:
