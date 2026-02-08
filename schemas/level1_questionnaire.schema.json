@@ -491,14 +491,409 @@
       "title": "Heating",
       "questions": [
         {
-          "id": "heating_system_type",
-          "title": "Heating system type",
+          "id": "heating_terminal_type",
+          "title": "Heating terminal type",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "heating.terminal_type",
+          "placeholder_targets": [],
+          "help": "Observed in-suite/common-area heating terminals.",
+          "required": false
+        },
+        {
+          "id": "heating_heat_source",
+          "title": "Heating heat source",
           "type": "single_select",
           "section_id": "heating",
           "options": [],
-          "options_ref": "hvac.heating_system_type",
+          "options_ref": "heating.heat_source",
           "placeholder_targets": [],
-          "help": "Primary heating system type.",
+          "help": "Primary central heating heat source.",
+          "required": false
+        },
+        {
+          "id": "common_area_heating_type",
+          "title": "Common area heating type",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "common_area.heating_type",
+          "placeholder_targets": [],
+          "help": "Observed common-area electric heating types.",
+          "required": false
+        },
+        {
+          "id": "heating_serves",
+          "title": "Heating serves",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "hvac.heating_serves",
+          "placeholder_targets": [],
+          "help": "Loads and distribution systems served by the heating plant.",
+          "required": false
+        },
+        {
+          "id": "heating_serves_multiple_buildings",
+          "title": "Heating serves multiple buildings",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether the heating plant serves multiple connected buildings.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "hydronic_loop_type",
+          "title": "Hydronic / WSHP loop type",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "heating.loop_type",
+          "placeholder_targets": [],
+          "help": "Primary hydronic or WSHP loop temperature regime.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "wshp_loop_temp_f",
+          "title": "Loop temperature (°F)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Typical hydronic/WSHP loop operating temperature.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "loop_temperatures_normal",
+          "title": "Loop temperatures normal",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether loop temperatures appear normal.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "wshp_loop_contains_glycol",
+          "title": "Loop contains glycol",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether the loop contains glycol.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "dhw_separate_from_wshp",
+          "title": "DHW separate from WSHP loop",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether the DHW system operates independently of the WSHP loop.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "boiler_type",
+          "title": "Boiler type",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "heating.boiler_type",
+          "placeholder_targets": [],
+          "help": "Boiler combustion/condensing classification.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "number_of_boilers",
+          "title": "Number of boilers",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central heating boilers.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_capacity_mbh",
+          "title": "Boiler capacity (MBH each)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per boiler in MBH.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_install_year",
+          "title": "Boiler install year",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Approximate boiler installation year.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boilers_original",
+          "title": "Boilers original to building",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether boilers appear original to the building.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_condition",
+          "title": "Boiler condition",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boiler.condition",
+          "placeholder_targets": [],
+          "help": "Observed boiler condition.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_pumps_have_vfd",
+          "title": "Boiler pumps with VFD",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether boiler pumps have VFDs.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_supply_temp_f",
+          "title": "Boiler supply temperature (°F)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed boiler supply temperature during the walkthrough.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "boiler_return_temp_f",
+          "title": "Boiler return temperature (°F)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed boiler return temperature during the walkthrough.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "central_hydronic_boiler_plant"
+          }
+        },
+        {
+          "id": "distribution_pumps_operating_normally",
+          "title": "Distribution pumps operating normally",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Operational status of distribution pumps.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "circulation_issues_reported",
+          "title": "Circulation issues reported",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether circulation issues were reported.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "wshp_loop_low_temp",
+          "title": "Low loop temperature observed",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether the WSHP loop operates at low temperatures.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "glycol_heat_exchanger_present",
+          "title": "Glycol heat exchanger present",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a heat exchanger isolates the glycol loop.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "glycol_isolation_recommended",
+          "title": "Glycol isolation recommended",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Recommendation to add glycol isolation heat exchanger.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "condensing_boiler_recommended",
+          "title": "Condensing boiler recommended",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Recommendation to replace with condensing boilers.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "eq",
+            "value": "wshp_loop"
+          }
+        },
+        {
+          "id": "bas_present",
+          "title": "BAS present",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a centralized BAS is present.",
           "required": false
         },
         {
@@ -524,28 +919,6 @@
           "required": false
         },
         {
-          "id": "bas_present",
-          "title": "BAS present",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether a centralized BAS is present.",
-          "required": false
-        },
-        {
-          "id": "common_area_heating_type",
-          "title": "Common area heating type",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "common_area.heating_type",
-          "placeholder_targets": [],
-          "help": "Observed common-area electric heating types.",
-          "required": false
-        },
-        {
           "id": "outdoor_reset_present",
           "title": "Outdoor air reset present",
           "type": "single_select",
@@ -554,281 +927,6 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether outdoor air reset controls are present.",
-          "required": false
-        },
-        {
-          "id": "boiler_type",
-          "title": "Boiler type",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "heating.boiler_type",
-          "placeholder_targets": [],
-          "help": "Boiler combustion/condensing classification.",
-          "required": false
-        },
-        {
-          "id": "boiler_install_year",
-          "title": "Boiler install year",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Approximate boiler installation year.",
-          "required": false
-        },
-        {
-          "id": "boiler_supply_temp_f",
-          "title": "Boiler supply temperature (°F)",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Observed boiler supply temperature during the walkthrough.",
-          "required": false
-        },
-        {
-          "id": "boiler_return_temp_f",
-          "title": "Boiler return temperature (°F)",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Observed boiler return temperature during the walkthrough.",
-          "required": false
-        },
-        {
-          "id": "boilers_original",
-          "title": "Boilers original to building",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether boilers appear original to the building.",
-          "required": false
-        },
-        {
-          "id": "heating_serves_multiple_buildings",
-          "title": "Heating serves multiple buildings",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the heating plant serves multiple connected buildings.",
-          "required": false
-        },
-        {
-          "id": "boiler_condition",
-          "title": "Boiler condition",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boiler.condition",
-          "placeholder_targets": [],
-          "help": "Observed boiler condition.",
-          "required": false
-        },
-        {
-          "id": "boiler_pumps_have_vfd",
-          "title": "Boiler pumps with VFD",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether boiler pumps have VFDs.",
-          "required": false
-        },
-        {
-          "id": "distribution_pumps_operating_normally",
-          "title": "Distribution pumps operating normally",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Operational status of distribution pumps.",
-          "required": false
-        },
-        {
-          "id": "circulation_issues_reported",
-          "title": "Circulation issues reported",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether circulation issues were reported.",
-          "required": false
-        },
-        {
-          "id": "heating_serves",
-          "title": "Heating serves",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "hvac.heating_serves",
-          "placeholder_targets": [],
-          "help": "Distribution systems served by the heating plant.",
-          "required": false
-        },
-        {
-          "id": "heating_distribution",
-          "title": "Heating distribution type",
-          "type": "multi_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "heating.distribution",
-          "placeholder_targets": [],
-          "help": "Primary terminal distribution types for heating.",
-          "required": false
-        },
-        {
-          "id": "dhw_separate_from_wshp",
-          "title": "DHW separate from WSHP loop",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the DHW system operates independently of the WSHP loop.",
-          "required": false
-        },
-        {
-          "id": "wshp_loop_temp_f",
-          "title": "WSHP loop temperature (°F)",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Typical WSHP loop operating temperature.",
-          "required": false
-        },
-        {
-          "id": "loop_temperatures_normal",
-          "title": "Loop temperatures normal",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether loop temperatures appear normal.",
-          "required": false
-        },
-        {
-          "id": "wshp_loop_low_temp",
-          "title": "WSHP loop low temperature",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether WSHP loop operates at low temperatures.",
-          "required": false
-        },
-        {
-          "id": "condensing_boiler_recommended",
-          "title": "Condensing boiler recommended",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Recommendation to replace with condensing boilers.",
-          "required": false
-        },
-        {
-          "id": "wshp_loop_contains_glycol",
-          "title": "WSHP loop contains glycol",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the WSHP loop contains glycol.",
-          "required": false
-        },
-        {
-          "id": "glycol_heat_exchanger_present",
-          "title": "Glycol heat exchanger present",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether a heat exchanger isolates the glycol loop.",
-          "required": false
-        },
-        {
-          "id": "glycol_isolation_recommended",
-          "title": "Glycol isolation recommended",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Recommendation to add glycol isolation heat exchanger.",
-          "required": false
-        },
-        {
-          "id": "boiler_serves_secondary_dhw",
-          "title": "Boiler serves DHW loop",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the boiler plant serves secondary DHW loads.",
-          "required": false
-        },
-        {
-          "id": "boiler_serves_mua",
-          "title": "Boiler serves MUA coils",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the boiler plant serves MUA heating coils.",
-          "required": false
-        },
-        {
-          "id": "boiler_serves_radiation",
-          "title": "Boiler serves radiation",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the boiler plant serves radiant heating circuits.",
-          "required": false
-        },
-        {
-          "id": "boiler_serves_heat_exchanger",
-          "title": "Boiler serves heat exchanger circuits",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the boiler plant serves heat exchanger circuits.",
-          "required": false
-        },
-        {
-          "id": "boiler_serves_misc_loops",
-          "title": "Boiler serves miscellaneous loops",
-          "type": "single_select",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether the boiler plant serves miscellaneous hydronic loops.",
           "required": false
         },
         {
@@ -875,28 +973,6 @@
             "{Central Heating Systems block}"
           ],
           "help": "Optional manual override for the heating systems narrative.",
-          "required": false
-        },
-        {
-          "id": "number_of_boilers",
-          "title": "Number of boilers",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Count of central heating boilers.",
-          "required": false
-        },
-        {
-          "id": "boiler_capacity_mbh",
-          "title": "Boiler capacity (MBH each)",
-          "type": "number",
-          "section_id": "heating",
-          "options": [],
-          "options_ref": null,
-          "placeholder_targets": [],
-          "help": "Nominal capacity per boiler in MBH.",
           "required": false
         }
       ]

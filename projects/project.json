@@ -10,11 +10,6 @@
     "boiler_install_year": "2002",
     "boiler_pumps_have_vfd": "true",
     "boiler_return_temp_f": "160",
-    "boiler_serves_heat_exchanger": "true",
-    "boiler_serves_misc_loops": "true",
-    "boiler_serves_mua": "true",
-    "boiler_serves_radiation": null,
-    "boiler_serves_secondary_dhw": null,
     "boiler_supply_temp_f": "145",
     "boiler_type": "atmospheric",
     "boilers_original": "true",
@@ -80,8 +75,9 @@
     "heat_recovery_observed": "false",
     "heating_block_override": "",
     "heating_controls_notes": "No BAS",
-    "heating_distribution": [
-      "fan_coil"
+    "heating_heat_source": "central_hydronic_boiler_plant",
+    "heating_terminal_type": [
+      "fan_coil_hydronic"
     ],
     "heating_location": "Pent House",
     "heating_notes": "return temperature too high",
@@ -90,7 +86,7 @@
       "serves_mua"
     ],
     "heating_serves_multiple_buildings": "false",
-    "heating_system_type": "atmospheric_boiler",
+    "hydronic_loop_type": "high_temp_hydronic_loop",
     "loop_temperatures_normal": null,
     "measures": [
       {

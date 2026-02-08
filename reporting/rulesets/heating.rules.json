@@ -14,9 +14,9 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_system_type",
+                    "field": "answers.heating_heat_source",
                     "op": "eq",
-                    "value": "central_hydronic_boiler"
+                    "value": "central_hydronic_boiler_plant"
                   }
                 ]
               },
@@ -54,9 +54,9 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_distribution",
-                    "op": "eq",
-                    "value": "baseboard"
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "hydronic_baseboard"
                   }
                 ]
               },
@@ -71,16 +71,24 @@
               "if": {
                 "any": [
                   {
-                    "field": "answers.boiler_serves_mua",
-                    "op": "is_true"
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
                   },
                   {
-                    "field": "answers.boiler_serves_radiation",
-                    "op": "is_true"
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
                   },
                   {
-                    "field": "answers.boiler_serves_heat_exchanger",
-                    "op": "is_true"
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_misc_loops"
                   }
                 ]
               },
@@ -170,7 +178,7 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_system_type",
+                    "field": "answers.heating_heat_source",
                     "op": "eq",
                     "value": "wshp_loop"
                   }
@@ -396,9 +404,9 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_system_type",
+                    "field": "answers.heating_heat_source",
                     "op": "eq",
-                    "value": "central_hydronic_boiler"
+                    "value": "central_hydronic_boiler_plant"
                   }
                 ]
               },
@@ -455,9 +463,9 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_distribution",
-                    "op": "eq",
-                    "value": "fan_coil"
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
                   }
                 ]
               },
@@ -565,9 +573,9 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_system_type",
+                    "field": "answers.heating_heat_source",
                     "op": "eq",
-                    "value": "central_hydronic_boiler"
+                    "value": "central_hydronic_boiler_plant"
                   }
                 ]
               },
@@ -609,13 +617,14 @@
               "if": {
                 "any": [
                   {
-                    "field": "answers.heating_distribution",
-                    "op": "eq",
-                    "value": "fan_coil"
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
                   },
                   {
-                    "field": "answers.boiler_serves_secondary_dhw",
-                    "op": "is_true"
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
                   }
                 ]
               },
