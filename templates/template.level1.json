@@ -80,7 +80,7 @@
             "text": "Constant-speed cooling tower operation increases electrical consumption and limits seasonal optimization."
           }
         ],
-        "target_block": "heating"
+        "target_block": "cooling"
       },
       "MUA Related": {
         "items": [
