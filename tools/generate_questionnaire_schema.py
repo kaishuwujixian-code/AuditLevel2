@@ -91,6 +91,7 @@ def _normalize_options(options: Optional[list]) -> List[dict]:
 
 def _normalize_question(question: dict) -> dict:
     title = question.get("title") or question["id"].replace("_", " ").title()
+    writeup = question.get("writeup")
     return {
         "id": question["id"],
         "title": title,
@@ -100,6 +101,7 @@ def _normalize_question(question: dict) -> dict:
         "options_ref": question.get("options_ref"),
         "placeholder_targets": question.get("placeholder_targets", []),
         "help": question.get("help", ""),
+        "writeup": writeup,
         "required": bool(question.get("required", False)),
     }
 
@@ -114,6 +116,12 @@ def _merge_question(existing: dict, incoming: dict) -> dict:
         merged["options"] = incoming["options"]
     if not merged.get("options_ref") and incoming.get("options_ref"):
         merged["options_ref"] = incoming["options_ref"]
+    if merged.get("writeup") in (None, "", {}) and incoming.get("writeup") not in (
+        None,
+        "",
+        {},
+    ):
+        merged["writeup"] = incoming["writeup"]
     return merged
 
 
@@ -154,6 +162,8 @@ def generate_schema(placeholders_path: str, mapping_path: str, out_path: str) ->
 
         if matched_rule:
             question_data = dict(matched_rule.get("question", {}))
+            if "writeup" not in question_data and "writeup" in matched_rule:
+                question_data["writeup"] = matched_rule.get("writeup")
             question_id = question_data.get("id")
             if not question_id:
                 raise ValueError("Mapping rule is missing question id.")

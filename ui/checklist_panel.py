@@ -9,14 +9,23 @@ from core.paths import DEFAULT_TEMPLATE_JSON
 from core.template_store import TemplateData
 from core.template_store import load_template
 from ui.checklist_library_panel import ChecklistLibraryPanel
+from ui.measure_library_panel import MeasureLibraryPanel
+from ui.misc_library_panel import MiscLibraryPanel
 
 
 class ChecklistPanel(ttk.Frame):
-    def __init__(self, master: tk.Misc, template: TemplateData) -> None:
+    def __init__(
+        self,
+        master: tk.Misc,
+        template: TemplateData,
+        *,
+        on_measure_catalog_saved=None,
+    ) -> None:
         super().__init__(master)
         self._template = template
         self._vars: Dict[str, Dict[str, Dict[str, tk.BooleanVar]]] = {}
         self._project_data: Optional[Dict[str, Any]] = None
+        self._on_measure_catalog_saved = on_measure_catalog_saved
         self._build_ui()
 
     def _build_ui(self) -> None:
@@ -33,10 +42,26 @@ class ChecklistPanel(ttk.Frame):
         self._render_checklists()
         notebook.add(self._selection_tab, text="Selections")
 
-        self._library_tab = ChecklistLibraryPanel(
-            notebook, on_saved=self._on_library_saved
+        self._library_tab = ttk.Frame(notebook)
+        self._library_tab.columnconfigure(0, weight=1)
+        self._library_tab.rowconfigure(0, weight=1)
+        library_notebook = ttk.Notebook(self._library_tab)
+        library_notebook.grid(row=0, column=0, sticky="nsew")
+
+        self._checklist_library_panel = ChecklistLibraryPanel(
+            library_notebook, on_saved=self._on_library_saved
         )
-        notebook.add(self._library_tab, text="Checklist Library")
+        library_notebook.add(self._checklist_library_panel, text="Checklist Library")
+
+        self._measure_library_panel = MeasureLibraryPanel(
+            library_notebook, on_catalog_saved=self._on_measure_catalog_saved
+        )
+        library_notebook.add(self._measure_library_panel, text="Measure Library")
+
+        self._misc_library_panel = MiscLibraryPanel(library_notebook)
+        library_notebook.add(self._misc_library_panel, text="Misc Library")
+
+        notebook.add(self._library_tab, text="Library")
 
     def _render_checklists(self) -> None:
         container = self._scroll.content

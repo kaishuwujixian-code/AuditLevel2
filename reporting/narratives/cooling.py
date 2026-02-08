@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from typing import Any, Dict, List
 
 from reporting.narratives import (
+    coerce_bool,
     contains_unknown,
     ensure_sentence,
+    first_meaningful_text,
     format_distribution_values,
     format_option_values,
     further_investigation_sentence,
@@ -14,6 +16,40 @@ from reporting.narratives import (
     stringify_value,
     uncertainty_sentence,
 )
+from reporting.narratives.checklists import render_block_appendix
+
+BLOCK_PLACEHOLDERS = ["{Central Cooling Systems block}"]
+EXPECTED_INPUTS = {
+    "{Central Cooling Systems block}": {
+        "section": "cooling",
+        "fields": [
+            "cooling_block_override",
+            "cooling_block",
+            "cooling.system_type",
+            "cooling_system_type",
+            "hvac.system_combos",
+            "hvac_system_combos",
+            "cooling_central_system_present",
+            "cooling_serves",
+            "cooling.serves",
+            "cooling_distribution",
+            "suite_cooling_type",
+            "cooling_location",
+            "cooling_controls_notes",
+            "cooling_notes",
+            "chiller_manufacturer",
+            "chiller_install_year",
+            "cooling_equipment_condition",
+            "condenser_pump_has_vfd",
+            "cooling_tower_present",
+            "cooling_tower_has_vfd",
+            "number_of_chillers",
+            "chiller_tonnage",
+            "number_of_fluid_coolers",
+            "number_of_rooftop_units",
+        ],
+    }
+}
 
 COMBO_COOLING_TYPE_MAP = {
     "chiller_cooling_tower": "chiller_cooling_tower",
@@ -39,6 +75,15 @@ class CoolingContext:
     chiller_tonnage: Any
     number_of_fluid_coolers: Any
     number_of_rooftop_units: Any
+    cooling_central_system_present: Any
+    cooling_distribution_values: List[str]
+    suite_cooling_type_values: List[str]
+    chiller_manufacturer: Any
+    chiller_install_year: Any
+    cooling_equipment_condition_values: List[str]
+    condenser_pump_has_vfd: Any
+    cooling_tower_present: Any
+    cooling_tower_has_vfd: Any
 
     @classmethod
     def from_project(
@@ -104,6 +149,60 @@ class CoolingContext:
             ["number_of_rooftop_units", "rtu_count"],
             section="cooling",
         )
+        cooling_central_system_present = get_answer_value(
+            project,
+            ["cooling_central_system_present", "central_cooling_present"],
+            section="cooling",
+        )
+        cooling_distribution_value = get_answer_value(
+            project,
+            ["cooling_distribution", "cooling_distribution_type"],
+            section="cooling",
+        )
+        cooling_distribution_values = format_option_values(
+            "cooling.distribution", cooling_distribution_value, mapping=mapping
+        )
+        suite_cooling_type_value = get_answer_value(
+            project,
+            ["suite_cooling_type"],
+            section="cooling",
+        )
+        suite_cooling_type_values = format_option_values(
+            "suite.cooling_type", suite_cooling_type_value, mapping=mapping
+        )
+        chiller_manufacturer = get_answer_value(
+            project,
+            ["chiller_manufacturer"],
+            section="cooling",
+        )
+        chiller_install_year = get_answer_value(
+            project,
+            ["chiller_install_year"],
+            section="cooling",
+        )
+        cooling_equipment_condition_value = get_answer_value(
+            project,
+            ["cooling_equipment_condition"],
+            section="cooling",
+        )
+        cooling_equipment_condition_values = format_option_values(
+            "cooling.equipment_condition", cooling_equipment_condition_value, mapping=mapping
+        )
+        condenser_pump_has_vfd = get_answer_value(
+            project,
+            ["condenser_pump_has_vfd"],
+            section="cooling",
+        )
+        cooling_tower_present = get_answer_value(
+            project,
+            ["cooling_tower_present"],
+            section="cooling",
+        )
+        cooling_tower_has_vfd = get_answer_value(
+            project,
+            ["cooling_tower_has_vfd"],
+            section="cooling",
+        )
         return cls(
             audit_level="L1",
             system_type_raw=system_type_raw,
@@ -119,6 +218,15 @@ class CoolingContext:
             chiller_tonnage=chiller_tonnage,
             number_of_fluid_coolers=number_of_fluid_coolers,
             number_of_rooftop_units=number_of_rooftop_units,
+            cooling_central_system_present=cooling_central_system_present,
+            cooling_distribution_values=cooling_distribution_values,
+            suite_cooling_type_values=suite_cooling_type_values,
+            chiller_manufacturer=chiller_manufacturer,
+            chiller_install_year=chiller_install_year,
+            cooling_equipment_condition_values=cooling_equipment_condition_values,
+            condenser_pump_has_vfd=condenser_pump_has_vfd,
+            cooling_tower_present=cooling_tower_present,
+            cooling_tower_has_vfd=cooling_tower_has_vfd,
         )
 
     def system_unknown(self) -> bool:
@@ -259,13 +367,56 @@ def render_paragraph(
             sentence for sentence in (_render_cooling_system(value, context) for value in system_types) if sentence
         )
     else:
-        sentences.append(not_confirmed_sentence("The central cooling system type"))
+        central_present = coerce_bool(context.cooling_central_system_present)
+        if central_present is False:
+            sentences.append("No central cooling plant was identified during the walkthrough.")
+        else:
+            sentences.append(not_confirmed_sentence("The central cooling system type"))
 
-    if not context.distribution_unknown():
+    if context.cooling_distribution_values:
+        distribution_text = human_join(context.cooling_distribution_values)
+        sentences.append(f"Cooling is distributed through {distribution_text}.")
+    elif not context.distribution_unknown():
         serves = human_join(context.serves_values)
         sentences.append(f"Cooling is distributed through {serves}.")
     elif not context.system_unknown():
         sentences.append(further_investigation_sentence("the cooling distribution systems"))
+
+    if context.suite_cooling_type_values:
+        suite_cooling = human_join(context.suite_cooling_type_values)
+        sentences.append(f"Suite-level cooling is primarily provided by {suite_cooling}.")
+
+    if context.chiller_manufacturer or context.chiller_install_year:
+        manufacturer = stringify_value(context.chiller_manufacturer)
+        install_year = stringify_value(context.chiller_install_year)
+        if manufacturer and install_year:
+            sentences.append(f"The chiller plant includes {manufacturer} equipment installed around {install_year}.")
+        elif manufacturer:
+            sentences.append(f"The chiller plant includes {manufacturer} equipment.")
+        elif install_year:
+            sentences.append(f"The chiller plant was installed around {install_year}.")
+
+    if context.cooling_equipment_condition_values:
+        condition_text = human_join(context.cooling_equipment_condition_values)
+        sentences.append(
+            f"Central cooling equipment appears to be in {condition_text} condition based on walkthrough observations."
+        )
+
+    condenser_vfd = coerce_bool(context.condenser_pump_has_vfd)
+    if condenser_vfd is True:
+        sentences.append("Condenser water pumps are equipped with variable frequency drives (VFDs).")
+    elif condenser_vfd is False:
+        sentences.append("Condenser water pumps appear to be constant-speed (no VFDs observed).")
+
+    tower_present = coerce_bool(context.cooling_tower_present)
+    tower_vfd = coerce_bool(context.cooling_tower_has_vfd)
+    if tower_present is True:
+        if tower_vfd is True:
+            sentences.append("Cooling tower fans are equipped with variable frequency drives (VFDs).")
+        elif tower_vfd is False:
+            sentences.append("Cooling tower fans appear to be constant-speed (no VFDs observed).")
+    elif tower_present is False:
+        sentences.append("No cooling tower was observed during the walkthrough.")
 
     if context.controls_notes_text and context.controls_notes_text.strip():
         sentences.append(ensure_sentence(context.controls_notes_text))
@@ -279,4 +430,24 @@ def render_paragraph(
     if context.notes_text and context.notes_text.strip():
         sentences.append(ensure_sentence(context.notes_text))
 
-    return " ".join(sentence for sentence in sentences[:5] if sentence)
+    return " ".join(sentence for sentence in sentences[:7] if sentence)
+
+
+def render_block(
+    project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
+) -> str:
+    override_text = first_meaningful_text(
+        [get_answer_value(project, ["cooling_block_override", "cooling_block"])]
+    )
+    if override_text:
+        return override_text
+
+    paragraph = render_paragraph(project, mapping=mapping)
+    if not paragraph:
+        return not_confirmed_sentence("Central cooling system details")
+
+    paragraphs = [paragraph]
+    checklist_text = render_block_appendix(project, target_block="cooling")
+    if checklist_text:
+        paragraphs.append(checklist_text)
+    return "\n\n".join(paragraphs)

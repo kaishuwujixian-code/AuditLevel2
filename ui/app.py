@@ -24,7 +24,6 @@ from main import _validate_inputs
 from reporting.word_renderer import render_word
 from ui.checklist_panel import ChecklistPanel
 from ui.diagnostics_panel import DiagnosticsPanel
-from ui.measure_library_panel import MeasureLibraryPanel
 from ui.measures_panel import MeasuresPanel
 from ui.questionnaire_panel import QuestionnairePanel
 from ui.report_panel import ReportPanel
@@ -82,16 +81,16 @@ class RetScreenApp:
 
         self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
         self._measures_tab = MeasuresPanel(self._notebook)
-        self._measure_library_tab = MeasureLibraryPanel(
-            self._notebook, on_catalog_saved=self._on_catalog_saved
+        self._checklist_tab = ChecklistPanel(
+            self._notebook,
+            self._template or TemplateData({}, [], {}, [], {}, {}),
+            on_measure_catalog_saved=self._on_catalog_saved,
         )
-        self._checklist_tab = ChecklistPanel(self._notebook, self._template or TemplateData({}, [], {}, [], {}, {}))
         self._report_tab = ReportPanel(self._notebook, self.generate_report)
         self._diagnostics_tab = DiagnosticsPanel(self._notebook)
 
         self._notebook.add(self._inputs_tab, text="📝 Inputs")
         self._notebook.add(self._measures_tab, text="🧰 Measures")
-        self._notebook.add(self._measure_library_tab, text="📚 Measure Library")
         self._notebook.add(self._checklist_tab, text="✅ Checklist")
         self._notebook.add(self._report_tab, text="📄 Report")
         self._notebook.add(self._diagnostics_tab, text="🩺 Diagnostics")
