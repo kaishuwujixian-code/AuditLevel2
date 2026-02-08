@@ -25,7 +25,10 @@
                   "The building’s heating system is supplied by a central hydronic boiler plant.",
                   "The boiler plant is located in the main mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 10
             },
             {
               "rule_id": "heating_boiler_count_capacity",
@@ -160,7 +163,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "heating"
         }
       ]
     },
@@ -189,7 +193,10 @@
                   "The building operates with a low-temperature water-source heat pump (WSHP) loop.",
                   "The loop serves the in-suite heat pumps and supports year-round operation."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
             },
             {
               "rule_id": "common_area_electric_heating",
@@ -386,7 +393,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "heating"
         }
       ]
     },
@@ -415,7 +423,10 @@
                   "The building’s heating system is served by a central hydronic boiler plant.",
                   "The boiler plant is located in the main mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
             },
             {
               "rule_id": "heating_boiler_count_capacity_year",
@@ -555,7 +566,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "heating"
         }
       ]
     },
@@ -584,7 +596,10 @@
                   "The building’s heating system is served by a central hydronic boiler plant.",
                   "The boiler plant is located in the main mechanical room."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 30
             },
             {
               "rule_id": "heating_near_condensing_boilers",
@@ -712,7 +727,8 @@
                 ]
               }
             }
-          ]
+          ],
+          "target_section": "heating"
         }
       ]
     }

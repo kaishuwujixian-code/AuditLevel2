@@ -31,7 +31,7 @@ def render_ruleset_block(
     rulesets = load_rulesets(os.path.join(RULESETS_DIR, ruleset_filename))
     if not rulesets:
         return ""
-    paragraphs: List[str] = []
+    matches: List[Dict[str, Any]] = []
     for ruleset in rulesets:
         blocks = ruleset.get("blocks", [])
         if not isinstance(blocks, list):
@@ -39,7 +39,10 @@ def render_ruleset_block(
         for block in blocks:
             if not isinstance(block, dict):
                 continue
-            if str(block.get("target_block", "")).strip().lower() != target_block:
+            block_target = str(
+                block.get("target_section") or block.get("target_block", "")
+            ).strip().lower()
+            if block_target != target_block:
                 continue
             if block_ref and str(block.get("block_ref")) != block_ref:
                 continue
@@ -48,11 +51,57 @@ def render_ruleset_block(
                     continue
                 if not _rule_matches(project, rule.get("if")):
                     continue
-                for paragraph in _extract_paragraphs(rule):
-                    rendered = _format_paragraph(paragraph, project.get("answers", {}))
-                    if rendered:
-                        paragraphs.append(rendered)
-    return "\n".join(paragraphs).strip()
+                paragraphs = [
+                    _format_paragraph(paragraph, project.get("answers", {}))
+                    for paragraph in _extract_paragraphs(rule)
+                ]
+                paragraphs = [paragraph for paragraph in paragraphs if paragraph]
+                if not paragraphs:
+                    continue
+                matches.append(
+                    {
+                        "target_section": block_target,
+                        "role": str(rule.get("role", "")).strip().lower(),
+                        "exclusive_group": str(
+                            rule.get("exclusive_group") or rule.get("rule_id") or ""
+                        ).strip(),
+                        "priority": int(rule.get("priority") or 0),
+                        "paragraphs": paragraphs,
+                    }
+                )
+    if not matches:
+        return ""
+    return "\n".join(_render_sections(matches)).strip()
+
+
+def _render_sections(matches: List[Dict[str, Any]]) -> List[str]:
+    sections: Dict[str, List[Dict[str, Any]]] = {}
+    for match in matches:
+        sections.setdefault(match["target_section"], []).append(match)
+    output: List[str] = []
+    for section in sections.values():
+        selected = _select_exclusive_groups(section)
+        headers = [rule for rule in selected if rule["role"] == "system_header"]
+        bodies = [rule for rule in selected if rule["role"] != "system_header"]
+        if headers:
+            headers.sort(key=lambda item: item["priority"], reverse=True)
+            output.extend(headers[0]["paragraphs"])
+        bodies.sort(key=lambda item: item["priority"], reverse=True)
+        for rule in bodies:
+            output.extend(rule["paragraphs"])
+    return output
+
+
+def _select_exclusive_groups(matches: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for match in matches:
+        group = match.get("exclusive_group") or ""
+        grouped.setdefault(group, []).append(match)
+    selected: List[Dict[str, Any]] = []
+    for group_matches in grouped.values():
+        group_matches.sort(key=lambda item: item["priority"], reverse=True)
+        selected.append(group_matches[0])
+    return selected
 
 
 def _extract_paragraphs(rule: Dict[str, Any]) -> Iterable[str]:
