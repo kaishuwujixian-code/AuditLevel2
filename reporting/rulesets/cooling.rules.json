@@ -6,8 +6,8 @@
       "blocks": [
         {
           "block_id": "central_cooling_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
-          "target_block": "heating",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
           "rules": [
             {
               "rule_id": "no_central_cooling_intro",
@@ -104,8 +104,8 @@
       "blocks": [
         {
           "block_id": "central_cooling_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
-          "target_block": "heating",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
           "rules": [
             {
               "rule_id": "cooling_wshp_intro",
@@ -201,8 +201,8 @@
       "blocks": [
         {
           "block_id": "central_cooling_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
-          "target_block": "heating",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
           "rules": [
             {
               "rule_id": "cooling_central_chiller_intro",
@@ -339,8 +339,8 @@
       "blocks": [
         {
           "block_id": "central_cooling_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
-          "target_block": "heating",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
           "rules": [
             {
               "rule_id": "cooling_chiller_intro",

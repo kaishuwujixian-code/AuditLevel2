@@ -6,7 +6,7 @@
       "blocks": [
         {
           "block_id": "central_heating_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
+          "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
             {
@@ -162,7 +162,7 @@
       "blocks": [
         {
           "block_id": "central_heating_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
+          "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
             {
@@ -388,7 +388,7 @@
       "blocks": [
         {
           "block_id": "central_heating_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
+          "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
             {
@@ -557,7 +557,7 @@
       "blocks": [
         {
           "block_id": "central_heating_existing",
-          "block_ref": "{Central Heating/Cooling Systems block}",
+          "block_ref": "{Central Heating Systems block}",
           "target_block": "heating",
           "rules": [
             {
