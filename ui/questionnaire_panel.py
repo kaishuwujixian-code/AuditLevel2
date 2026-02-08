@@ -28,6 +28,7 @@ class QuestionnairePanel(ttk.Frame):
         self._question_definitions: Dict[str, Dict[str, Any]] = {}
         self._section_questions: Dict[ttk.LabelFrame, list[str]] = {}
         self._section_order: Dict[ttk.Frame, list[ttk.LabelFrame]] = {}
+        self._question_visibility: Dict[str, bool] = {}
         self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
         self._misc_panel: Optional[MiscPanel] = None
@@ -45,6 +46,7 @@ class QuestionnairePanel(ttk.Frame):
         self._question_definitions.clear()
         self._section_questions.clear()
         self._section_order.clear()
+        self._question_visibility.clear()
 
         general_tab = _ScrollableFrame(self._notebook)
         self._notebook.add(general_tab, text="General")
@@ -356,10 +358,10 @@ class QuestionnairePanel(ttk.Frame):
         for question_id, question in self._question_definitions.items():
             show_if = question.get("show_if")
             widget = self._question_widgets.get(question_id)
-            if not widget or not show_if:
-                continue
-            visible = self._evaluate_show_if(show_if)
-            self._set_question_visibility(widget, visible)
+            visible = self._evaluate_show_if(show_if) if show_if else True
+            self._question_visibility[question_id] = visible
+            if widget:
+                self._set_question_visibility(widget, visible)
         self._refresh_section_visibility()
 
     def _set_question_visibility(self, widget: QuestionWidget, visible: bool) -> None:
@@ -380,17 +382,12 @@ class QuestionnairePanel(ttk.Frame):
                 if not question_ids:
                     frame.pack(fill="x", padx=10, pady=6)
                     continue
-                any_visible = False
-                for question_id in question_ids:
-                    widget = self._question_widgets.get(question_id)
-                    row_frame = widget.metadata.get("row_frame") if widget else None
-                    if row_frame is not None and row_frame.winfo_ismapped():
-                        any_visible = True
-                        break
-                if any_visible:
+                if any(self._question_visibility.get(question_id, True) for question_id in question_ids):
                     frame.pack(fill="x", padx=10, pady=6)
 
-    def _evaluate_show_if(self, show_if: Dict[str, Any]) -> bool:
+    def _evaluate_show_if(self, show_if: Optional[Dict[str, Any]]) -> bool:
+        if not show_if:
+            return True
         field = show_if.get("field")
         op = show_if.get("op")
         expected = show_if.get("value")
@@ -398,7 +395,7 @@ class QuestionnairePanel(ttk.Frame):
             return True
         widget = self._question_widgets.get(field)
         if not widget:
-            return False
+            return True
         current = self._extract_answer(widget)
 
         if op == "eq":
