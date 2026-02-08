@@ -3,7 +3,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -11,9 +11,9 @@ rulesets:
           - rule_id: "heating_system_intro_hydronic_boiler"
             if:
               all:
-                - field: "answers.heating_system_type"
+                - field: "answers.heating_heat_source"
                   op: "eq"
-                  value: "central_hydronic_boiler"
+                  value: "central_hydronic_boiler_plant"
             then:
               paragraphs:
                 - "The building’s heating system is supplied by a central hydronic boiler plant located in the main mechanical room."
@@ -34,9 +34,9 @@ rulesets:
           - rule_id: "heating_distribution_baseboard"
             if:
               all:
-                - field: "answers.heating_distribution"
-                  op: "eq"
-                  value: "baseboard"
+                - field: "answers.heating_terminal_type"
+                  op: "contains"
+                  value: "hydronic_baseboard"
             then:
               paragraphs:
                 - "Space heating is delivered to the suites through baseboard heaters."
@@ -45,12 +45,18 @@ rulesets:
           - rule_id: "heating_additional_hydronic_loads"
             if:
               any:
-                - field: "answers.boiler_serves_mua"
-                  op: "is_true"
-                - field: "answers.boiler_serves_radiation"
-                  op: "is_true"
-                - field: "answers.boiler_serves_heat_exchanger"
-                  op: "is_true"
+                - field: "answers.heating_serves"
+                  op: "contains"
+                  value: "serves_mua"
+                - field: "answers.heating_serves"
+                  op: "contains"
+                  value: "serves_radiant"
+                - field: "answers.heating_serves"
+                  op: "contains"
+                  value: "serves_dhw_loop"
+                - field: "answers.heating_serves"
+                  op: "contains"
+                  value: "serves_misc_loops"
             then:
               paragraphs:
                 - "In addition to suite heating, the boilers also serve other hydronic heating loads, including make-up air unit (MUA) heating coils, radiation, and heat exchanger circuits."
@@ -94,7 +100,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -212,7 +218,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -220,7 +226,7 @@ rulesets:
           - rule_id: "heating_wshp_loop_intro"
             if:
               all:
-                - field: "answers.heating_system_type"
+                - field: "answers.heating_heat_source"
                   op: "eq"
                   value: "wshp_loop"
             then:
@@ -349,7 +355,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -546,7 +552,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -554,9 +560,9 @@ rulesets:
           - rule_id: "heating_intro_central_hydronic_boiler"
             if:
               all:
-                - field: "answers.heating_system_type"
+                - field: "answers.heating_heat_source"
                   op: "eq"
-                  value: "central_hydronic_boiler"
+                  value: "central_hydronic_boiler_plant"
             then:
               paragraphs:
                 - "The building’s heating system is served by a central hydronic boiler plant located in the main mechanical room."
@@ -589,9 +595,9 @@ rulesets:
           - rule_id: "heating_fancoil_and_other_loads"
             if:
               all:
-                - field: "answers.heating_distribution"
-                  op: "eq"
-                  value: "fan_coil"
+                - field: "answers.heating_terminal_type"
+                  op: "contains"
+                  value: "fan_coil_hydronic"
             then:
               paragraphs:
                 - "Hot water generated by the boilers is distributed to in-suite fan coil units."
@@ -646,7 +652,7 @@ rulesets:
 
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -845,7 +851,7 @@ rulesets:
     ruleset_name: "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER"
     blocks:
       - block_id: "central_heating_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Heating Systems block}"
         target_block: "heating"
         rules:
 
@@ -853,9 +859,9 @@ rulesets:
           - rule_id: "heating_intro_hydronic_boiler"
             if:
               all:
-                - field: "answers.heating_system_type"
+                - field: "answers.heating_heat_source"
                   op: "eq"
-                  value: "central_hydronic_boiler"
+                  value: "central_hydronic_boiler_plant"
             then:
               paragraphs:
                 - "The building’s heating system is served by a central hydronic boiler plant located in the main mechanical room."
@@ -879,11 +885,12 @@ rulesets:
           - rule_id: "heating_served_loops"
             if:
               any:
-                - field: "answers.heating_distribution"
-                  op: "eq"
-                  value: "fan_coil"
-                - field: "answers.boiler_serves_secondary_dhw"
-                  op: "is_true"
+                - field: "answers.heating_terminal_type"
+                  op: "contains"
+                  value: "fan_coil_hydronic"
+                - field: "answers.heating_serves"
+                  op: "contains"
+                  value: "serves_dhw_loop"
             then:
               paragraphs:
                 - "The boilers supply the in-suite fan coil heating system, miscellaneous heating loads, and the secondary domestic hot water (DHW) loop."
@@ -935,7 +942,7 @@ rulesets:
                 - "Outdoor air temperature reset is present; however, full coordination, sequencing optimization, and advanced performance monitoring may be limited due to the hybrid control configuration."
 
       - block_id: "central_cooling_existing"
-        block_ref: "{Central Heating/Cooling Systems block}"
+        block_ref: "{Central Cooling Systems block}"
         target_block: "heating"
         rules:
 
@@ -1137,4 +1144,3 @@ rulesets:
             then:
               paragraphs:
                 - "Overall, the DHW system is functioning well and is suitably configured for future BAS integration to improve monitoring and temperature optimization."
-

@@ -64,14 +64,10 @@ Minimal `project.json` example that produces HVAC/DHW/ventilation narrative bloc
     "number_of_floors": "12",
     "number_of_suites": "180",
     "architectural_condition": "fair",
-    "hvac_system_combos": [
-      "wshp_fluid_cooler",
-      "condensing_boiler_ps",
-      "separate_dhw_boilers",
-      "central_ventilation_mua_doas"
-    ],
-    "heating_system_type": "condensing_boiler",
+    "heating_heat_source": "central_hydronic_boiler_plant",
+    "heating_terminal_type": ["fan_coil_hydronic"],
     "heating_serves": ["serves_fancoil", "serves_ahu"],
+    "hydronic_loop_type": "high_temp_hydronic_loop",
     "number_of_boilers": 2,
     "boiler_capacity_mbh": 2500,
     "cooling_system_type": "chiller_cooling_tower",
@@ -100,7 +96,7 @@ python -m tools.render_level1 --template templates/level1.docx --project project
 ```
 
 Expected output:
-* `{Central Heating/Cooling Systems block}` renders as a 3–6 sentence paragraph (not a single word).
+* `{Central Heating Systems block}` and `{Central Cooling Systems block}` render 3–6 sentence paragraphs (not a single word).
 * `{DHW System Block}` and `{Central Ventilation System Block}` render narrative blocks based on system selections.
 * `{Number of Floors}`, `{Number of Suites}`, `{Architectural Condition}` are filled when provided under `answers`.
 

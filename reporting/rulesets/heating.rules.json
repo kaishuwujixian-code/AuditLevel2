@@ -1,0 +1,720 @@
+{
+  "rulesets": [
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_system_intro_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building’s heating system is supplied by a central hydronic boiler plant.",
+                  "The boiler plant is located in the main mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_boiler_count_capacity",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The plant consists of {number_of_boilers} non-condensing boilers.",
+                  "Each boiler is rated at approximately {boiler_capacity_mbh} MBH.",
+                  "The boilers provide hot water to the space-heating distribution system."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_distribution_baseboard",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "hydronic_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered to the suites through baseboard heaters."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_additional_hydronic_loads",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_misc_loops"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In addition to suite heating, the boilers also serve other hydronic heating loads.",
+                  "These loads include make-up air unit (MUA) heating coils, radiation, and heat exchanger circuits."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_boiler_condition_fair_good",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "fair",
+                      "good",
+                      "fair_to_good"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be in fair to good operating condition during the site visit."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_distribution_pumps_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.circulation_issues_reported",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Distribution pumps and associated hydronic piping appear to be operating normally.",
+                  "No circulation issues were reported by on-site staff during the walkthrough."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_bas_legacy_ax",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.bas_platform",
+                    "op": "eq",
+                    "value": "niagara_ax"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boiler plant is operating normally.",
+                  "The BAS relies on the legacy Niagara AX platform.",
+                  "An upgrade to a newer Niagara platform is recommended to improve supportability, cybersecurity, and future optimization."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_wshp_loop_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building operates with a low-temperature water-source heat pump (WSHP) loop.",
+                  "The loop serves the in-suite heat pumps and supports year-round operation."
+                ]
+              }
+            },
+            {
+              "rule_id": "common_area_electric_heating",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.common_area_heating_type",
+                    "op": "in",
+                    "value": [
+                      "electric_fan_heater",
+                      "electric_radiator",
+                      "mixed_electric"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "During the walkthrough, common areas were observed to be heated by a combination of electric fan-forced heaters and electric radiators."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_separate_from_wshp",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_separate_from_wshp",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A dedicated domestic hot water (DHW) system is present.",
+                  "The DHW system operates independently from the WSHP loop."
+                ]
+              }
+            },
+            {
+              "rule_id": "wshp_loop_boiler_maintenance",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_loop_temp_f",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop temperature is maintained by {number_of_boilers} atmospheric boilers.",
+                  "Each boiler is rated at approximately {boiler_capacity_mbh} MBH and assigned to the heating loop.",
+                  "The WSHP loop operates at approximately {wshp_loop_temp_f}°F.",
+                  "The loop remains hydraulically isolated from the DHW system."
+                ]
+              }
+            },
+            {
+              "rule_id": "wshp_loop_operation_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.loop_temperatures_normal",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.circulation_issues_reported",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Loop temperatures and differential readings observed during the site visit were consistent with expected operating conditions.",
+                  "No circulation issues were identified."
+                ]
+              }
+            },
+            {
+              "rule_id": "atmospheric_boiler_low_temp_mismatch",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "eq",
+                    "value": "atmospheric"
+                  },
+                  {
+                    "field": "answers.wshp_loop_low_temp",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "These atmospheric boilers are designed for higher-temperature operation, while the WSHP loop typically runs at lower temperatures.",
+                  "A bypass valve is installed between the boiler outlet and inlet to maintain boiler return temperatures above the minimum threshold required to prevent condensation and internal damage.",
+                  "This operating configuration is inefficient and limits overall system performance."
+                ]
+              }
+            },
+            {
+              "rule_id": "recommend_condensing_boilers_for_wshp",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.condensing_boiler_recommended",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Replacing the existing atmospheric boilers with condensing boilers designed for low-temperature operation is recommended.",
+                  "This upgrade would allow the system to benefit from the low-temperature WSHP loop and increase heating efficiency."
+                ]
+              }
+            },
+            {
+              "rule_id": "wshp_full_glycol_loop",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_loop_contains_glycol",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP system was observed to operate as a full glycol loop.",
+                  "A glycol feed tank was present and appeared to be functioning normally."
+                ]
+              }
+            },
+            {
+              "rule_id": "no_glycol_isolation_heat_exchanger",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.glycol_heat_exchanger_present",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No heat exchanger was observed to hydraulically isolate the glycol loop from the building heating loop.",
+                  "As a result, glycol is circulated throughout the entire WSHP system."
+                ]
+              }
+            },
+            {
+              "rule_id": "recommend_glycol_isolation_hx",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.glycol_isolation_recommended",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Mann recommends installing a heat exchanger to hydraulically isolate the glycol loop from the building heating loop.",
+                  "This configuration would reduce overall glycol volume, lower ongoing glycol maintenance costs, and improve long-term system serviceability."
+                ]
+              }
+            },
+            {
+              "rule_id": "no_central_bas",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.bas_present",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A centralized Building Automation System (BAS) is not present.",
+                  "The building instead relies on multiple standalone control panels and local sensors.",
+                  "Additional system integration through a BAS would improve equipment scheduling, system monitoring, fault detection, and overall energy performance."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_intro_central_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building’s heating system is served by a central hydronic boiler plant.",
+                  "The boiler plant is located in the main mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_boiler_count_capacity_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The plant consists of {number_of_boilers} atmospheric gas-fired heating boilers manufactured in {boiler_install_year}.",
+                  "Each boiler is rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_serves_multiple_buildings",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_serves_multiple_buildings",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boiler plant provides space heating to multiple connected buildings."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_fancoil_and_other_loads",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Hot water generated by the boilers is distributed to in-suite fan coil units.",
+                  "The system also serves additional hydronic loads, including radiation and heat exchanger circuits."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_boilers_original_end_of_life",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building.",
+                  "The boilers are approaching the end of their expected service life.",
+                  "Short-term replacement planning should be considered."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_pumps_piping_normal",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.circulation_issues_reported",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
+                  "No circulation issues were reported by on-site staff during the walkthrough."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_local_controls_no_bas",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.bas_present",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Boiler control is provided through local onboard controllers.",
+                  "Outdoor air temperature reset is present.",
+                  "In the absence of full Building Automation System (BAS) integration, opportunities for optimized sequencing, runtime balancing, and seasonal temperature reset are limited."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_high_return_temperature",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_supply_temp_f",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_return_temp_f",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}°F and {boiler_return_temp_f}°F, respectively.",
+                  "These elevated return water temperatures limit overall system efficiency.",
+                  "They indicate operation at higher temperatures than required under part-load conditions."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_intro_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building’s heating system is served by a central hydronic boiler plant.",
+                  "The boiler plant is located in the main mechanical room."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_near_condensing_boilers",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "eq",
+                    "value": "near_condensing"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The plant includes {number_of_boilers} near-condensing gas-fired boilers.",
+                  "Each boiler is rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_served_loops",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers supply the in-suite fan coil heating system, miscellaneous heating loads, and the secondary domestic hot water (DHW) loop."
+                ]
+              }
+            },
+            {
+              "rule_id": "boiler_pumps_with_vfd",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_pumps_have_vfd",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Boiler circulation pumps are equipped with variable frequency drives (VFDs)."
+                ]
+              }
+            },
+            {
+              "rule_id": "boiler_condition_fair_good",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "fair",
+                      "good",
+                      "fair_to_good"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Overall boiler condition was assessed as fair to good at the time of the site visit.",
+                  "No visible leakage or abnormal noise was observed around the boiler plant."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_distribution_pumps_normal",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.circulation_issues_reported",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally.",
+                  "No circulation issues were reported by on-site staff during the walkthrough."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_partial_bas_control",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.bas_integration_level",
+                    "op": "eq",
+                    "value": "partial"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Boiler plant control is provided through a combination of standalone control panels and partial Building Automation System (BAS) integration.",
+                  "Outdoor air temperature reset is present.",
+                  "Full coordination, sequencing optimization, and advanced performance monitoring may be limited due to the hybrid control configuration."
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

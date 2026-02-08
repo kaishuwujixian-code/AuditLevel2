@@ -1,43 +1,79 @@
 {
   "option_sets": {
-    "hvac.heating_system_type": [
+    "heating.terminal_type": [
       {
-        "label": "Condensing boiler",
-        "value": "condensing_boiler"
+        "label": "Fan coil (hydronic)",
+        "value": "fan_coil_hydronic"
       },
       {
-        "label": "Atmospheric boiler",
-        "value": "atmospheric_boiler"
+        "label": "In-suite hydronic baseboard",
+        "value": "hydronic_baseboard"
       },
       {
-        "label": "Electric resistance",
-        "value": "electric_resistance"
+        "label": "Electric baseboard",
+        "value": "electric_baseboard"
       },
       {
-        "label": "Heat pump loop (WSHP)",
-        "value": "wshp_central"
+        "label": "Electric fan-forced heater",
+        "value": "electric_fan_forced"
       },
       {
-        "label": "WSHP loop with fluid cooler",
-        "value": "wshp_fluid_cooler"
+        "label": "In-suite heat pump (WSHP)",
+        "value": "in_suite_wshp"
       },
       {
-        "label": "Air-source heat pump",
+        "label": "Packaged in-suite unit (e.g. MagicPak)",
+        "value": "packaged_in_suite_unit"
+      },
+      {
+        "label": "Radiant floor / panel",
+        "value": "radiant_floor_panel"
+      },
+      {
+        "label": "Mixed / unknown",
+        "value": "mixed_unknown"
+      }
+    ],
+    "heating.heat_source": [
+      {
+        "label": "Central hydronic boiler plant",
+        "value": "central_hydronic_boiler_plant"
+      },
+      {
+        "label": "Water-source heat pump (WSHP loop)",
+        "value": "wshp_loop"
+      },
+      {
+        "label": "Air-source heat pump (ASHP)",
         "value": "ashp"
       },
       {
-        "label": "Other / Unknown",
-        "value": "other_unknown"
+        "label": "Electric resistance (central)",
+        "value": "electric_resistance_central"
+      },
+      {
+        "label": "None / Unknown",
+        "value": "none_unknown"
+      }
+    ],
+    "heating.loop_type": [
+      {
+        "label": "High-temperature hydronic loop",
+        "value": "high_temp_hydronic_loop"
+      },
+      {
+        "label": "Low-temperature WSHP loop",
+        "value": "low_temp_wshp_loop"
       }
     ],
     "hvac.heating_serves": [
       {
-        "label": "Serves WSHP",
-        "value": "serves_wshp"
-      },
-      {
         "label": "Serves fan coil",
         "value": "serves_fancoil"
+      },
+      {
+        "label": "Serves baseboard",
+        "value": "serves_baseboard"
       },
       {
         "label": "Serves radiant",
@@ -52,8 +88,12 @@
         "value": "serves_mua"
       },
       {
-        "label": "Mixed / Unknown",
-        "value": "mixed_unknown"
+        "label": "Serves DHW loop",
+        "value": "serves_dhw_loop"
+      },
+      {
+        "label": "Serves miscellaneous loops",
+        "value": "serves_misc_loops"
       }
     ],
     "dhw.system_type": [
@@ -210,20 +250,6 @@
       {
         "label": "Fair to Good",
         "value": "fair_to_good"
-      }
-    ],
-    "heating.distribution": [
-      {
-        "label": "Fan coil",
-        "value": "fan_coil"
-      },
-      {
-        "label": "Baseboard",
-        "value": "baseboard"
-      },
-      {
-        "label": "Radiant",
-        "value": "radiant"
       }
     ],
     "cooling.distribution": [
@@ -436,52 +462,6 @@
       {
         "label": "Unknown",
         "value": "unknown"
-      }
-    ],
-    "hvac.system_combos": [
-      {
-        "label": "WSHP loop + fluid cooler",
-        "value": "wshp_fluid_cooler"
-      },
-      {
-        "label": "WSHP loop (central condenser loop)",
-        "value": "wshp_loop"
-      },
-      {
-        "label": "High-temperature heating loop",
-        "value": "high_temp_heating_loop"
-      },
-      {
-        "label": "Condensing boiler plant (primary-secondary)",
-        "value": "condensing_boiler_ps"
-      },
-      {
-        "label": "Chiller with cooling tower",
-        "value": "chiller_cooling_tower"
-      },
-      {
-        "label": "Air-cooled chiller",
-        "value": "air_cooled_chiller"
-      },
-      {
-        "label": "Separate DHW boilers",
-        "value": "separate_dhw_boilers"
-      },
-      {
-        "label": "DHW via heating heat exchanger",
-        "value": "dhw_from_heating_hx"
-      },
-      {
-        "label": "Central ventilation (MUA/DOAS)",
-        "value": "central_ventilation_mua_doas"
-      },
-      {
-        "label": "Suite ERV/HRV ventilation",
-        "value": "suite_erv_hrv"
-      },
-      {
-        "label": "Exhaust-only ventilation",
-        "value": "exhaust_only"
       }
     ]
   },

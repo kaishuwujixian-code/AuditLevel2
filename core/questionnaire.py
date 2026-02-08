@@ -7,7 +7,8 @@ from typing import Any, Dict, Iterable, List
 
 
 BLOCK_PLACEHOLDERS = {
-    "{Central Heating/Cooling Systems block}",
+    "{Central Cooling Systems block}",
+    "{Central Heating Systems block}",
     "{Central Ventilation System Block}",
     "{DHW System Block}",
     "{MEASURE_BLOCK}",
