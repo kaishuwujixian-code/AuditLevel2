@@ -182,8 +182,7 @@
                     "field": "answers.heating_heat_source",
                     "op": "in",
                     "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
+                      "central_hydronic_boiler_plant"
                     ]
                   }
                 ]
@@ -516,8 +515,7 @@
                     "field": "answers.heating_heat_source",
                     "op": "in",
                     "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
+                      "central_hydronic_boiler_plant"
                     ]
                   }
                 ]
@@ -982,8 +980,7 @@
                     "field": "answers.heating_heat_source",
                     "op": "in",
                     "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
+                      "central_hydronic_boiler_plant"
                     ]
                   }
                 ]
@@ -1406,8 +1403,7 @@
                     "field": "answers.heating_heat_source",
                     "op": "in",
                     "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
+                      "central_hydronic_boiler_plant"
                     ]
                   }
                 ]
@@ -1488,8 +1484,7 @@
                     "field": "answers.heating_heat_source",
                     "op": "in",
                     "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
+                      "central_hydronic_boiler_plant"
                     ]
                   }
                 ]

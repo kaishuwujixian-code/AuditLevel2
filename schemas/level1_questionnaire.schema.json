@@ -575,8 +575,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -591,8 +594,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -607,8 +613,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -623,8 +632,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -639,8 +651,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -655,8 +670,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -671,8 +689,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -687,8 +708,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -703,8 +727,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         },
         {
@@ -719,8 +746,11 @@
           "required": false,
           "show_if": {
             "field": "heating_heat_source",
-            "op": "eq",
-            "value": "central_hydronic_boiler_plant"
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
           }
         }
       ]
