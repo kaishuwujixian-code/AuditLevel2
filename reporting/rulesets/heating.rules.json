@@ -69,113 +69,7 @@
               "priority": 10
             },
             {
-              "rule_id": "heating_boiler_equipment_full",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boilers_original",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_with_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_basic",
+              "rule_id": "heating_boiler_facts",
               "if": {
                 "all": [
                   {
@@ -209,7 +103,69 @@
                   "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
               },
-              "exclusive_group": "boiler_equipment_summary",
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "priority": 20,
               "role": "equipment_detail"
             },
@@ -447,113 +403,7 @@
               "priority": 20
             },
             {
-              "rule_id": "heating_boiler_equipment_full",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boilers_original",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_with_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_basic",
+              "rule_id": "heating_boiler_facts",
               "if": {
                 "all": [
                   {
@@ -587,7 +437,69 @@
                   "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
               },
-              "exclusive_group": "boiler_equipment_summary",
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "priority": 20,
               "role": "equipment_detail"
             },
@@ -957,113 +869,7 @@
               "priority": 20
             },
             {
-              "rule_id": "heating_boiler_equipment_full",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boilers_original",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_with_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_basic",
+              "rule_id": "heating_boiler_facts",
               "if": {
                 "all": [
                   {
@@ -1097,7 +903,69 @@
                   "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
               },
-              "exclusive_group": "boiler_equipment_summary",
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "priority": 20,
               "role": "equipment_detail"
             },
@@ -1427,113 +1295,7 @@
               "priority": 30
             },
             {
-              "rule_id": "heating_boiler_equipment_full",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boilers_original",
-                    "op": "is_true"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_with_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_capacity_mbh",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_type",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_install_year",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
-                ]
-              },
-              "exclusive_group": "boiler_equipment_summary",
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_equipment_basic",
+              "rule_id": "heating_boiler_facts",
               "if": {
                 "all": [
                   {
@@ -1567,7 +1329,69 @@
                   "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
               },
-              "exclusive_group": "boiler_equipment_summary",
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "priority": 20,
               "role": "equipment_detail"
             },

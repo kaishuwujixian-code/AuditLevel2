@@ -25,7 +25,7 @@
                 ]
               },
               "role": "system_header",
-              "exclusive_group": "cooling_system_header",
+              "exclusive_group": "cooling_no_central_header",
               "priority": 10
             },
             {
@@ -43,7 +43,8 @@
                 "paragraphs": [
                   "Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "window_ac_efficiency_commentary",
@@ -61,7 +62,8 @@
                   "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems.",
                   "Typical window and portable air-conditioning units operate with relatively low coefficients of performance compared to high-efficiency heat pump systems."
                 ]
-              }
+              },
+              "role": "finding"
             },
             {
               "rule_id": "window_ac_envelope_impact",
@@ -79,7 +81,8 @@
                   "Improper sealing around window installations may allow uncontrolled air infiltration during the heating season.",
                   "This can increase heat loss, draft complaints, and overall space-heating energy consumption."
                 ]
-              }
+              },
+              "role": "finding"
             },
             {
               "rule_id": "future_wshp_option",
@@ -95,7 +98,8 @@
                 "paragraphs": [
                   "Installation of a centralized water-source heat pump (WSHP) system could be considered in the near term."
                 ]
-              }
+              },
+              "role": "finding"
             }
           ],
           "target_section": "cooling"
@@ -117,8 +121,11 @@
                 "all": [
                   {
                     "field": "answers.cooling_system_type",
-                    "op": "eq",
-                    "value": "wshp"
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
                   }
                 ]
               },
@@ -128,7 +135,7 @@
                 ]
               },
               "role": "system_header",
-              "exclusive_group": "cooling_system_header",
+              "exclusive_group": "cooling_wshp_header",
               "priority": 20
             },
             {
@@ -138,6 +145,14 @@
                   {
                     "field": "answers.fluid_cooler_present",
                     "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
                   }
                 ]
               },
@@ -145,7 +160,8 @@
                 "paragraphs": [
                   "Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "fluid_cooler_seasonal_shutdown",
@@ -155,6 +171,14 @@
                     "field": "answers.site_visit_season",
                     "op": "eq",
                     "value": "heating_season"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
                   }
                 ]
               },
@@ -162,24 +186,58 @@
                 "paragraphs": [
                   "At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system."
                 ]
-              }
+              },
+              "role": "performance"
             },
             {
-              "rule_id": "wshp_install_year_condition",
+              "rule_id": "wshp_install_year",
               "if": {
                 "all": [
                   {
                     "field": "answers.wshp_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "On-site staff reported that the WSHP system was installed in {wshp_install_year}.",
+                  "On-site staff reported that the WSHP system was installed in {wshp_install_year}."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "wshp_equipment_condition_good",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_deficiencies_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
                   "The WSHP equipment, fluid cooler, and associated hydronic loop were observed to be in generally good mechanical condition."
                 ]
-              }
+              },
+              "role": "condition"
             },
             {
               "rule_id": "no_wshp_deficiencies",
@@ -188,15 +246,48 @@
                   {
                     "field": "answers.wshp_deficiencies_reported",
                     "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "No visible leakage or vibration issues were observed during the walkthrough.",
+                  "No visible leakage or vibration issues were observed during the walkthrough."
+                ]
+              },
+              "role": "condition"
+            },
+            {
+              "rule_id": "wshp_performance_reliable",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_deficiencies_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
                   "No major mechanical deficiencies or performance issues were reported by on-site staff at the time of the site visit."
                 ]
-              }
+              },
+              "role": "performance"
             }
           ],
           "target_section": "cooling"
@@ -219,7 +310,7 @@
                   {
                     "field": "answers.cooling_system_type",
                     "op": "eq",
-                    "value": "central_chiller"
+                    "value": "chiller_cooling_tower"
                   }
                 ]
               },
@@ -229,25 +320,58 @@
                 ]
               },
               "role": "system_header",
-              "exclusive_group": "cooling_system_header",
+              "exclusive_group": "cooling_chiller_tower_header",
               "priority": 30
             },
             {
-              "rule_id": "cooling_chiller_year_service_area",
+              "rule_id": "cooling_chiller_install_year",
               "if": {
                 "all": [
                   {
                     "field": "answers.chiller_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "The chiller was manufactured in {chiller_install_year} and is original to the building.",
-                  "The chiller serves multiple connected buildings."
+                  "Chiller installation is dated to {chiller_install_year}."
                 ]
-              }
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_tower_present",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_tower_present",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heat rejection is provided via a roof-mounted cooling tower."
+                ]
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_tower_no_vfd",
@@ -258,17 +382,25 @@
                     "op": "is_true"
                   },
                   {
-                    "field": "answers.cooling_tower_vfd_present",
+                    "field": "answers.cooling_tower_has_vfd",
                     "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Heat rejection is provided via a roof-mounted cooling tower.",
-                  "The condenser water system, including the cooling tower fan and condenser water pumps, is not equipped with variable frequency drives (VFDs)."
+                  "The cooling tower fan is not equipped with variable frequency drives (VFDs)."
                 ]
-              }
+              },
+              "role": "finding"
             },
             {
               "rule_id": "cooling_distribution_condition_ok",
@@ -278,6 +410,14 @@
                     "field": "answers.chilled_water_distribution_condition",
                     "op": "eq",
                     "value": "serviceable"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
                   }
                 ]
               },
@@ -286,7 +426,8 @@
                   "The chilled-water distribution system appears to be functioning normally.",
                   "Supply and return piping, pumps, and control valves were observed to be in serviceable condition."
                 ]
-              }
+              },
+              "role": "condition"
             },
             {
               "rule_id": "cooling_fancoil_distribution",
@@ -296,6 +437,14 @@
                     "field": "answers.cooling_distribution",
                     "op": "eq",
                     "value": "fan_coil"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
                   }
                 ]
               },
@@ -303,7 +452,8 @@
                 "paragraphs": [
                   "Suite-level cooling is provided by in-suite fan coil units operating under local thermostatic control."
                 ]
-              }
+              },
+              "role": "loads"
             },
             {
               "rule_id": "cooling_seasonal_shutdown",
@@ -313,6 +463,14 @@
                     "field": "answers.site_visit_season",
                     "op": "eq",
                     "value": "heating_season"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
                   }
                 ]
               },
@@ -321,7 +479,30 @@
                   "At the time of the site visit, the chiller and cooling tower were seasonally shut down.",
                   "This is typical for the time of year."
                 ]
-              }
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_no_physical_deficiencies",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_issues_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_cooling_tower"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No major physical deficiencies were identified during the walkthrough."
+                ]
+              },
+              "role": "condition"
             },
             {
               "rule_id": "cooling_reliable_operation",
@@ -330,15 +511,20 @@
                   {
                     "field": "answers.cooling_issues_reported",
                     "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_cooling_tower"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "No major physical deficiencies were identified during the walkthrough.",
                   "Building staff reported generally reliable operation during the most recent cooling season."
                 ]
-              }
+              },
+              "role": "performance"
             }
           ],
           "target_section": "cooling"
@@ -347,7 +533,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – WATER-COOLED CHILLER",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -355,23 +541,23 @@
           "target_block": "cooling",
           "rules": [
             {
-              "rule_id": "cooling_chiller_intro",
+              "rule_id": "cooling_chiller_water_intro",
               "if": {
                 "all": [
                   {
                     "field": "answers.cooling_system_type",
                     "op": "eq",
-                    "value": "central_chiller"
+                    "value": "chiller_water"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
+                  "Cooling is provided by a central water-cooled chiller served by a condenser water loop."
                 ]
               },
               "role": "system_header",
-              "exclusive_group": "cooling_system_header",
+              "exclusive_group": "cooling_chiller_water_header",
               "priority": 40
             },
             {
@@ -381,6 +567,11 @@
                   {
                     "field": "answers.chiller_install_year",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
                   }
                 ]
               },
@@ -388,7 +579,8 @@
                 "paragraphs": [
                   "The chiller was installed in {chiller_install_year}."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_condenser_vfd",
@@ -397,6 +589,11 @@
                   {
                     "field": "answers.condenser_pump_has_vfd",
                     "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
                   }
                 ]
               },
@@ -404,7 +601,8 @@
                 "paragraphs": [
                   "The condenser pump is equipped with a variable frequency drive (VFD)."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_tower_vfd",
@@ -417,6 +615,11 @@
                   {
                     "field": "answers.cooling_tower_has_vfd",
                     "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
                   }
                 ]
               },
@@ -424,7 +627,8 @@
                 "paragraphs": [
                   "Heat is rejected to a cooling tower, which is equipped with variable frequency drives (VFDs)."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_equipment_condition_good",
@@ -434,34 +638,174 @@
                     "field": "answers.cooling_equipment_condition",
                     "op": "eq",
                     "value": "good"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "The chiller and condenser water loop equipment were observed to be in good mechanical condition.",
-                  "Overall cooling performance is acceptable.",
-                  "Detailed testing should be completed during the cooling season."
+                  "The chiller and condenser water loop equipment were observed to be in good mechanical condition."
                 ]
-              }
+              },
+              "role": "condition"
             },
             {
-              "rule_id": "cooling_fancoil_distribution",
+              "rule_id": "cooling_equipment_performance_ok",
               "if": {
                 "all": [
                   {
-                    "field": "answers.cooling_distribution",
+                    "field": "answers.cooling_equipment_condition",
                     "op": "eq",
-                    "value": "fan_coil"
+                    "value": "good"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Suites are cooled by fan coil units controlled locally by in-suite thermostats.",
-                  "These fan coils use chilled water from the central plant to provide space cooling."
+                  "Overall cooling performance is acceptable."
                 ]
-              }
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_equipment_testing_recommendation",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_equipment_condition",
+                    "op": "eq",
+                    "value": "good"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Detailed testing should be completed during the cooling season."
+                ]
+              },
+              "role": "finding"
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL COOLING RULESET – AIR-COOLED CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_chiller_air_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_air"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by a central air-cooled chiller."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_chiller_air_header",
+              "priority": 50
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL COOLING RULESET – DX AND PTAC",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_packaged_dx_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "packaged_rooftop_dx"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by packaged rooftop DX units."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_dx_packaged_header",
+              "priority": 60
+            },
+            {
+              "rule_id": "cooling_split_dx_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "split_dx"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by split DX systems."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_dx_split_header",
+              "priority": 61
+            },
+            {
+              "rule_id": "cooling_ptac_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "ptac"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by packaged terminal air conditioners (PTACs)."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_ptac_header",
+              "priority": 62
             }
           ],
           "target_section": "cooling"
