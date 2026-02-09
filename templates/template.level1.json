@@ -80,8 +80,8 @@
             "text": "The cooling tower fan operates at constant speed with no VFD installed, which increases electrical consumption and limits opportunities for seasonal and part-load optimization."
           },
           {
-            "label": "No VFD on Condenser Fan",
-            "text": "The condenser fan operates at constant speed with no VFD installed, which increases electrical energy consumption and limits opportunities for part-load and seasonal optimization."
+            "label": "No VFD on Condenser Pump",
+            "text": "The condenser Pump operates at constant speed with no VFD installed, which increases electrical energy consumption and limits opportunities for part-load and seasonal optimization."
           },
           {
             "label": "No Centralized BAS for Cooling System",
