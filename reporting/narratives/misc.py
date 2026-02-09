@@ -89,9 +89,9 @@ def _render_misc_items(items: List[Dict[str, Any]]) -> str:
         title = str(item.get("title", "")).strip()
         text = str(item.get("text", "")).strip()
         if title and text:
-            blocks.append(f"{title}: {text}")
+            blocks.append(f"{title}:\n{text}")
         elif text:
             blocks.append(text)
         elif title:
-            blocks.append(title)
+            blocks.append(f"{title}:")
     return "\n\n".join(blocks)
