@@ -55,14 +55,13 @@
                   {
                     "field": "answers.heating_heat_source",
                     "op": "eq",
-                    "value": "central_hydronic_boiler_plant"
+                    "value": "electric_resistance_central"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "The building’s heating system is supplied by a central hydronic boiler plant.",
-                  "The boiler plant is located in the main mechanical room."
+                  "Heating is provided by electric resistance equipment."
                 ]
               },
               "role": "system_header",
@@ -1008,6 +1007,61 @@
                   "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
                 ]
               },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_boiler_equipment_full",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
+                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "exclusive_group": "boiler_equipment_summary",
               "priority": 20,
               "role": "equipment_detail"
@@ -1199,7 +1253,65 @@
                 "paragraphs": [
                   "The boiler plant provides space heating to multiple connected buildings."
                 ]
-              }
+              },
+              "priority": 25,
+              "exclusive_group": "heating_loads_fan_coil"
+            },
+            {
+              "rule_id": "heating_loads_other_summary",
+              "role": "load_item",
+              "exclusive_group": "heating_loads_other_summary",
+              "priority": 10,
+              "items": [
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_mua"
+                      }
+                    ]
+                  },
+                  "text": "make-up air unit (MUA) heating coils"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_radiant"
+                      }
+                    ]
+                  },
+                  "text": "radiation distribution"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_ahu"
+                      }
+                    ]
+                  },
+                  "text": "heat exchanger circuits"
+                },
+                {
+                  "if": {
+                    "all": [
+                      {
+                        "field": "answers.heating_serves",
+                        "op": "contains",
+                        "value": "serves_dhw_loop"
+                      }
+                    ]
+                  },
+                  "text": "the secondary domestic hot water (DHW) loop"
+                }
+              ]
             },
             {
               "rule_id": "heating_pumps_piping_normal",
@@ -1519,9 +1631,8 @@
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_terminal_type",
-                    "op": "contains",
-                    "value": "fan_coil_hydronic"
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
                   },
                   {
                     "field": "answers.heating_heat_source",
@@ -1598,20 +1709,42 @@
               ]
             },
             {
-              "rule_id": "boiler_pumps_with_vfd",
+              "rule_id": "heating_boiler_equipment_basic",
               "if": {
                 "all": [
                   {
-                    "field": "answers.boiler_pumps_have_vfd",
-                    "op": "is_true"
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Boiler circulation pumps are equipped with variable frequency drives (VFDs)."
+                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
-              }
+              },
+              "exclusive_group": "boiler_equipment_summary",
+              "priority": 40
             },
             {
               "rule_id": "heating_distribution_pumps_normal",
