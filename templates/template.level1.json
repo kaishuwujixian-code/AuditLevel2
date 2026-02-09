@@ -65,6 +65,10 @@
           {
             "label": "No VFD on Suite Pump",
             "text": "Absence of VFDs limits turndown capability and reduces part-load efficiency. Constant-speed pumps result in unnecessary energy consumption during part-load operation."
+          },
+          {
+            "label": "No BAS On Heating Boiler",
+            "text": "A centralized Building Automation System (BAS) is not present. The building instead relies on multiple standalone control panels and local sensors. Additional system integration through a BAS would improve equipment scheduling, system monitoring, fault detection, and overall energy performance"
           }
         ],
         "target_block": "heating"
