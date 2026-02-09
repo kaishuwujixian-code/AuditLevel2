@@ -6,6 +6,7 @@ from tkinter import ttk
 from ui.checklist_library_panel import ChecklistLibraryPanel
 from ui.measure_library_panel import MeasureLibraryPanel
 from ui.misc_library_panel import MiscLibraryPanel
+from ui.ruleset_library_panel import RulesetLibraryPanel
 
 
 class LibraryPanel(ttk.Frame):
@@ -39,3 +40,6 @@ class LibraryPanel(ttk.Frame):
 
         misc_panel = MiscLibraryPanel(notebook)
         notebook.add(misc_panel, text="Misc Library")
+
+        ruleset_panel = RulesetLibraryPanel(notebook)
+        notebook.add(ruleset_panel, text="Ruleset Library")
