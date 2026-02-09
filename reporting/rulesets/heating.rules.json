@@ -1162,11 +1162,10 @@
               },
               "then": {
                 "paragraphs": [
-                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}°F and {boiler_return_temp_f}°F, respectively.",
-                  "These elevated return water temperatures limit overall system efficiency.",
-                  "They indicate operation at higher temperatures than required under part-load conditions."
+                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}°F and {boiler_return_temp_f}°F, respectively."
                 ]
-              }
+              },
+              "role": "performance"
             },
             {
               "rule_id": "heating_wshp_loop_boiler_support",
