@@ -11,27 +11,27 @@
         "items": [
           {
             "label": "Legacy BAS platform",
-            "text": "Legacy BAS platforms provide limited visibility and control, increasing operational risk and constraining future optimization."
+            "text": "A legacy Building Automation System (BAS) platform was identified at the building. While the system remains functional, legacy BAS platforms typically provide limited system visibility, data resolution, and control flexibility compared to modern platforms. This condition increases operational risk, restricts system-level coordination, and may constrain future optimization, expansion, or integration with newer mechanical and control upgrades."
           },
           {
-            "label": "proprietary BAS system",
-            "text": "Proprietary control systems increase dependence on vendor support and may raise long-term maintenance and upgrade costs."
+            "label": "Proprietary BAS system",
+            "text": "A proprietary control system was identified at the building. Such systems typically increase reliance on vendor-specific support, which may result in higher long-term maintenance costs and reduced flexibility for future system upgrades or integration."
           },
           {
             "label": "Mixed local and BAS controls",
-            "text": "Mixed control strategies reduce system transparency and complicate troubleshooting and optimization."
+            "text": "A mix of local controls and BAS-controlled systems was identified at the building. This mixed control strategy reduces system transparency and can complicate troubleshooting, coordination, and overall system optimization"
           },
           {
-            "label": "No in-suite thermostats",
-            "text": "Lack of in-suite thermostats limits occupant comfort control and can lead to overheating and increased energy use."
+            "label": "No In-Suite Thermostats:",
+            "text": "In-suite thermostats were not observed at the building. The absence of in-suite temperature control limits occupant comfort control and may contribute to overheating and increased energy consumption."
           },
           {
             "label": "Deteriorated window caulking",
-            "text": "Deteriorated caulking allows air infiltration, increasing heating demand and reducing occupant comfort."
+            "text": "Deteriorated window caulking was observed at the building. This condition allows air infiltration, increasing heating demand and reducing occupant comfort."
           },
           {
-            "label": "Supplemental electric heaters installed",
-            "text": "Supplemental electric heaters indicate envelope deficiencies and increase electrical energy consumption."
+            "label": "Has In-Suite Supplemental Electric Heaters",
+            "text": "Supplemental electric heaters were observed in some suites. The use of these heaters may indicate building envelope or heating system deficiencies and contributes to increased electrical energy consumption."
           }
         ],
         "target_block": "misc"
@@ -40,35 +40,31 @@
         "items": [
           {
             "label": "Aging atmospheric boilers",
-            "text": "Aging atmospheric boilers operate at lower efficiency and increase fuel consumption, maintenance effort, and long-term replacement risk."
+            "text": "As atmospheric units, the boilers operate without condensing capability and are therefore significantly less efficient than modern sealed-combustion or condensing boiler systems. As a result, short-term replacement planning should be considered to improve system reliability, reduce fuel consumption, and enhance overall heating efficiency."
           },
           {
-            "label": "High boiler count",
-            "text": "A high number of boilers increases maintenance complexity, spare parts requirements, and overall lifecycle costs."
+            "label": "Too Many Boilers in Service",
+            "text": "The heating plant includes a relatively high number of boilers, which increases maintenance complexity, spare parts requirements, and overall lifecycle costs. This configuration can also complicate system sequencing and balancing, particularly under part-load conditions."
           },
           {
-            "label": "Non-condensing boiler operation",
-            "text": "Non-condensing boiler operation limits efficiency gains and prevents low-temperature system optimization."
+            "label": "Condensing Boiler Operation without Condensing Capability(High return-water temperatures)",
+            "text": "The boilers are high-efficiency condensing units; however, they are currently operating without effective condensing due to elevated return-water temperatures. This operating condition limits achievable efficiency gains and restricts the ability to operate the heating system at lower supply and return water temperatures. As a result, opportunities for system optimization are constrained, and compatibility with low-temperature, high-efficiency heating strategies is reduced."
           },
           {
-            "label": "Atmospheric boiler serving WSHP",
-            "text": "however these atmospheric boilers are only suited for high temperature operating conditions between 130-180F, while WSHP loop operates at 70-90F, meaning that a bypass valve is installed between the boiler outlet and inlet to inject boiler outlet water directly into the boiler inlet water to keep the boiler inlet water temperature above 130F to prevent condensation operation and damage to the boiler. This is very inefficient and the boiler should be replaced with condensing boilers are designed for low temperature condensing operation and benefit from the low temperature WSHP loop to increase efficiency from <80% to 95%+."
+            "label": "Atmospheric Boilers Serving Low-Temperature WSHP Loop",
+            "text": "The water-source heat pump (WSHP) loop operates at low supply temperatures, typically in the range of 70–90°F. However, the existing atmospheric boilers are designed for high-temperature operation, generally requiring inlet water temperatures above approximately 130°F to avoid flue gas condensation and potential equipment damage.\n\nTo accommodate this mismatch, a bypass arrangement has been implemented to recirculate hot boiler outlet water back to the boiler inlet in order to maintain minimum inlet temperature requirements. While this approach allows continued boiler operation, it results in inefficient energy use, elevated return temperatures, and reduced overall system efficiency.\n\nCondensing boilers are specifically designed for low-temperature, condensing operation and are well suited to systems serving WSHP loops. Replacing the existing atmospheric boilers with high-efficiency condensing boilers would eliminate the need for bypass operation, allow effective use of low-temperature return water, and improve boiler efficiency from below 80% to approximately 95% or higher, while better aligning the boiler plant with the WSHP system."
           },
           {
-            "label": "High supply water temperature",
-            "text": "Elevated supply-water temperatures indicate limited control optimization and reduce opportunities for energy savings."
+            "label": "High Supply and Return Water Temperatures (Limited Outdoor Reset)",
+            "text": "The boilers are operating at or near design supply temperatures, resulting in elevated supply and return water temperatures. This operating condition may indicate limited outdoor air temperature reset and/or a lack of effective modulating control. Operating at consistently high water temperatures reduces opportunities for control optimization, increases distribution and standby heat losses, and limits potential energy savings, particularly during part-load and shoulder-season conditions."
           },
           {
-            "label": "High return water temperature",
-            "text": "High return-water temperatures reduce boiler efficiency and prevent effective condensing operation."
-          },
-          {
-            "label": "No VFD on Suite Pump",
-            "text": "Absence of VFDs limits turndown capability and reduces part-load efficiency. Constant-speed pumps result in unnecessary energy consumption during part-load operation."
+            "label": "No VFD on Suite Circulation Pumps",
+            "text": "Suite circulation pumps were observed to operate at constant speed with no VFDs installed. The absence of VFDs limits turndown capability and reduces part-load efficiency, resulting in unnecessary energy consumption during periods of reduced heating demand."
           },
           {
             "label": "No BAS On Heating Boiler",
-            "text": "A centralized Building Automation System (BAS) is not present. The building instead relies on multiple standalone control panels and local sensors. Additional system integration through a BAS would improve equipment scheduling, system monitoring, fault detection, and overall energy performance"
+            "text": "A centralized Building Automation System (BAS) is not present for the heating boiler plant. The system relies on multiple standalone control panels and local sensors, which limits coordinated control and system-level visibility. Additional integration through a BAS would improve equipment scheduling, system monitoring, fault detection, and overall heating system energy performance."
           }
         ],
         "target_block": "heating"
@@ -77,11 +73,35 @@
         "items": [
           {
             "label": "Aging Chiller or Cooling Tower",
-            "text": "Aging cooling equipment increases electrical demand and requires medium-term lifecycle planning."
+            "text": "Aging cooling equipment was identified within the cooling system. As cooling equipment ages, efficiency typically declines, resulting in increased electrical demand, higher maintenance requirements, and reduced reliability. Medium-term lifecycle planning should be considered to address future replacement needs and maintain efficient cooling system operation."
           },
           {
             "label": "No VFD on Cooling tower fan",
-            "text": "Constant-speed cooling tower operation increases electrical consumption and limits seasonal optimization."
+            "text": "The cooling tower fan operates at constant speed with no VFD installed, which increases electrical consumption and limits opportunities for seasonal and part-load optimization."
+          },
+          {
+            "label": "No VFD on Condenser Fan",
+            "text": "The condenser fan operates at constant speed with no VFD installed, which increases electrical energy consumption and limits opportunities for part-load and seasonal optimization."
+          },
+          {
+            "label": "No Centralized BAS for Cooling System",
+            "text": "A centralized Building Automation System (BAS) is not present for the cooling system. Integrating the chiller plant into a BAS would enable proper equipment sequencing, temperature and pressure reset control, and demand-based operation, resulting in significant improvements in system efficiency and overall performance."
+          },
+          {
+            "label": "Chiller and Cooling Tower: Shutdown in Winter",
+            "text": "At the time of the site visit, the chiller and cooling tower were seasonally shut down, which is typical for the current season. No physical deficiencies were observed during the visual inspection, and site staff reported reliable operation during the most recent cooling season."
+          },
+          {
+            "label": "Chiller and Cooling Tower: Operate in Summer",
+            "text": "During the cooling season, the chiller and cooling tower are in regular operation. Based on site observations and discussions with on-site staff, the cooling system operates as intended under typical summer conditions. No abnormal noise, vibration, or performance issues were reported, and no significant operational issues were reported during the most recent cooling season."
+          },
+          {
+            "label": "WSHP: Fluid Cooler Not Isolated from System Loop",
+            "text": "At the time of the site visit, the fluid cooler was not in operation; however, the isolation valves were not closed, and the fluid cooler remained hydraulically connected to the WSHP loop. As a result, water was continuously circulating through the fluid cooler, causing the WSHP loop to be unintentionally cooled while the boilers were simultaneously heating the loop. This operating condition represents inefficient system operation and results in unnecessary energy use. The fluid cooler should be properly isolated from the WSHP loop during the heating season to prevent avoidable heat loss and improve overall system efficiency."
+          },
+          {
+            "label": "Full-Building Glycol Distribution Observed",
+            "text": "The current hydronic configuration appears to circulate glycol throughout the entire building loop, with no dedicated heat exchanger separating the cooling tower (fluid cooler) loop from the building water loop. This arrangement significantly increases total glycol volume, leading to higher chemical costs, more frequent testing, and increased maintenance requirements. Distributing glycol to the full building loop where freeze protection is not required also complicates long-term operation and increases the risk of contamination or concentration imbalance between loops.\n\nInstalling a dedicated heat exchanger between the glycol tower loop and the building water loop would limit glycol to only the portions of the system requiring freeze protection, thereby reducing glycol consumption and improving system maintainability"
           }
         ],
         "target_block": "cooling"
@@ -89,16 +109,16 @@
       "MUA Related": {
         "items": [
           {
-            "label": "MUAs without occupancy scheduling",
-            "text": "MUAs operating without occupancy-based scheduling increase energy use during low-demand periods."
+            "label": "No VFD on MUA",
+            "text": "Although the MUA units are in generally fair mechanical condition, the supply fans are not equipped with variable frequency drives (VFDs), limiting airflow modulation, part-load efficiency, and overall control flexibility."
           },
           {
-            "label": "VFD potential on pumps/fans",
-            "text": "VFD potential on pumps/fans"
+            "label": "MUA Unit Failed Observed",
+            "text": "During the site visit, one MUA unit was observed to not be operating as intended.\n\nOn-site staff reported ongoing maintenance issues associated with this unit."
           },
           {
-            "label": "Hydronic balancing review",
-            "text": "Hydronic balancing review"
+            "label": "MUA has VFD but No connect with BAS",
+            "text": "Although the MUA units are in generally fair mechanical condition, the building is not equipped with a centralized Building Automation System (BAS).\n\nIntegration of the existing VFD-controlled MUA units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring."
           }
         ],
         "target_block": "ventilation"
