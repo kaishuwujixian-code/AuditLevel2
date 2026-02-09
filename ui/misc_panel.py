@@ -63,6 +63,11 @@ class MiscPanel(ttk.Frame):
         answers["misc_items"] = items
         project_data["answers"] = answers
 
+    def clear_items(self) -> None:
+        if not self._editor:
+            return
+        self._editor.set_items([])
+
     def _load_catalog(self) -> None:
         if not self._catalog_tree or not self._editor:
             return

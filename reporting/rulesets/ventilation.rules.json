@@ -15,8 +15,11 @@
                 "all": [
                   {
                     "field": "answers.ventilation_system_type",
-                    "op": "eq",
-                    "value": "suite_exhaust_only"
+                    "op": "in",
+                    "value": [
+                      "suite_exhaust_only",
+                      "exhaust_only"
+                    ]
                   }
                 ]
               },
@@ -45,7 +48,8 @@
                   "Access to rooftop mechanical equipment was not available at the time of the site visit.",
                   "The presence and configuration of make-up air (MUA) units or air handling units (AHUs) could not be confirmed."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "no_heat_recovery_observed",
@@ -61,7 +65,8 @@
                 "paragraphs": [
                   "No evidence of heat recovery associated with these exhaust systems was observed from accessible areas."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "erv_hrv_uncertain",
@@ -77,7 +82,8 @@
                 "paragraphs": [
                   "The presence of in-suite energy recovery ventilators (ERVs) or heat recovery ventilators (HRVs) could not be confirmed during the walkthrough."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "exhaust_fan_condition",
@@ -95,7 +101,8 @@
                   "The exhaust fan units were observed to be in functional but aging mechanical condition.",
                   "No immediate operational failures were noted at the time of the site visit."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             }
           ],
           "target_section": "ventilation"
@@ -117,8 +124,12 @@
                 "all": [
                   {
                     "field": "answers.ventilation_system_type",
-                    "op": "eq",
-                    "value": "rooftop_mua"
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
                   }
                 ]
               },
@@ -132,6 +143,32 @@
               "priority": 20
             },
             {
+              "rule_id": "mua_count",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.mua_count",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.ventilation_system_type",
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building is equipped with {mua_count} rooftop MUA units."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "mua_equipment_configuration",
               "if": {
                 "all": [
@@ -142,6 +179,15 @@
                   {
                     "field": "answers.mua_has_dx_cooling",
                     "op": "is_true"
+                  },
+                  {
+                    "field": "answers.ventilation_system_type",
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
                   }
                 ]
               },
@@ -149,41 +195,8 @@
                 "paragraphs": [
                   "The MUA units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections."
                 ]
-              }
-            },
-            {
-              "rule_id": "mua_unit_issue_observed",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.mua_operational_issues_observed",
-                    "op": "is_true"
-                  }
-                ]
               },
-              "then": {
-                "paragraphs": [
-                  "During the site visit, one MUA unit was observed to not be operating as intended.",
-                  "On-site staff reported ongoing maintenance issues associated with this unit."
-                ]
-              }
-            },
-            {
-              "rule_id": "mua_controls_optimization_opportunity",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.bas_present",
-                    "op": "is_false"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "Although the MUA units are in generally fair mechanical condition, the building is not equipped with a centralized Building Automation System (BAS).",
-                  "Integration of the existing VFD-controlled MUA units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring."
-                ]
-              }
+              "role": "equipment_detail"
             }
           ],
           "target_section": "ventilation"
@@ -205,8 +218,12 @@
                 "all": [
                   {
                     "field": "answers.ventilation_system_type",
-                    "op": "eq",
-                    "value": "rooftop_mua"
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
                   }
                 ]
               },
@@ -226,6 +243,15 @@
                   {
                     "field": "answers.mua_count",
                     "op": "exists"
+                  },
+                  {
+                    "field": "answers.ventilation_system_type",
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
                   }
                 ]
               },
@@ -233,7 +259,8 @@
                 "paragraphs": [
                   "The building is equipped with {mua_count} rooftop MUA units."
                 ]
-              }
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "mua_configuration",
@@ -250,6 +277,15 @@
                   {
                     "field": "answers.mua_has_cooling_coil",
                     "op": "is_true"
+                  },
+                  {
+                    "field": "answers.ventilation_system_type",
+                    "op": "in",
+                    "value": [
+                      "mua_gas_rooftop",
+                      "mua_hydronic_coil",
+                      "mua_corridor"
+                    ]
                   }
                 ]
               },
@@ -257,58 +293,64 @@
                 "paragraphs": [
                   "The units are equipped with variable frequency drives (VFDs), gas-fired heating burners, and cooling coils connected to the central chiller."
                 ]
-              }
-            },
+              },
+              "role": "equipment_detail"
+            }
+          ],
+          "target_section": "ventilation"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "VENTILATION SYSTEM RULESET – DOAS / AHU",
+      "blocks": [
+        {
+          "block_id": "central_ventilation_existing",
+          "block_ref": "{Central Ventilation System Block}",
+          "target_block": "ventilation",
+          "rules": [
             {
-              "rule_id": "mua_partial_replacement",
+              "rule_id": "ventilation_doas_intro",
               "if": {
                 "all": [
                   {
-                    "field": "answers.mua_partial_replacement",
-                    "op": "is_true"
+                    "field": "answers.ventilation_system_type",
+                    "op": "eq",
+                    "value": "doas"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "One MUA unit has been replaced in recent years.",
-                  "The remaining units are original to the building and are approaching the end of their service life."
+                  "Ventilation for the building is provided by a dedicated outdoor air system (DOAS) or air handling unit (AHU)."
                 ]
-              }
+              },
+              "role": "system_header",
+              "exclusive_group": "ventilation_system_header",
+              "priority": 40
             },
             {
-              "rule_id": "mua_operating_normally",
+              "rule_id": "ventilation_airflow_summary",
               "if": {
                 "all": [
                   {
-                    "field": "answers.mua_operating_normally",
-                    "op": "is_true"
+                    "field": "answers.ventilation_airflow_cfm",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.ventilation_system_type",
+                    "op": "eq",
+                    "value": "doas"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Despite their age, the MUA units were observed to be in generally good mechanical condition.",
-                  "Supply air temperatures and airflow patterns were generally consistent with normal operation."
-                ]
-              }
-            },
-            {
-              "rule_id": "mua_overall_performance",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.mua_functional",
-                    "op": "is_true"
-                  }
+                  "The ventilation system is designed to deliver approximately {ventilation_airflow_cfm} CFM of outdoor air."
                 ]
               },
-              "then": {
-                "paragraphs": [
-                  "Overall, the MUA units are functioning as intended.",
-                  "There are opportunities for minor operational improvements through enhanced control."
-                ]
-              }
+              "role": "equipment_detail"
             }
           ],
           "target_section": "ventilation"

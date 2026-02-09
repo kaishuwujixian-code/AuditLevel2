@@ -29,12 +29,18 @@ class QuestionnairePanel(ttk.Frame):
         self._section_questions: Dict[ttk.LabelFrame, list[str]] = {}
         self._section_order: Dict[ttk.Frame, list[ttk.LabelFrame]] = {}
         self._question_visibility: Dict[str, bool] = {}
+        self._tab_frames: Dict[str, ttk.Frame] = {}
         self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
         self._misc_panel: Optional[MiscPanel] = None
+        toolbar = ttk.Frame(self)
+        toolbar.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 0))
+        ttk.Button(toolbar, text="Clear Current Tab", command=self._clear_current_tab).pack(
+            side="right"
+        )
         self._notebook = ttk.Notebook(self)
-        self._notebook.grid(row=0, column=0, sticky="nsew")
-        self.rowconfigure(0, weight=1)
+        self._notebook.grid(row=1, column=0, sticky="nsew")
+        self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
         self._build_sections()
 
@@ -50,6 +56,7 @@ class QuestionnairePanel(ttk.Frame):
 
         general_tab = _ScrollableFrame(self._notebook)
         self._notebook.add(general_tab, text="General")
+        self._tab_frames["general"] = general_tab.content
 
         system_tabs = {
             "heating": _ScrollableFrame(self._notebook),
@@ -61,6 +68,8 @@ class QuestionnairePanel(ttk.Frame):
         self._notebook.add(system_tabs["cooling"], text="Cooling")
         self._notebook.add(system_tabs["dhw"], text="DHW")
         self._notebook.add(system_tabs["ventilation"], text="Ventilation")
+        for key, frame in system_tabs.items():
+            self._tab_frames[key] = frame.content
         self._misc_panel = MiscPanel(self._notebook)
         self._notebook.add(self._misc_panel, text="Misc")
 
@@ -104,6 +113,38 @@ class QuestionnairePanel(ttk.Frame):
                 self._add_question(template_frame, question, template_field=True)
         self._setup_visibility_handlers()
         self._apply_visibility()
+        self._notebook.select(general_tab)
+
+    def _clear_current_tab(self) -> None:
+        selected = self._notebook.select()
+        if not selected:
+            return
+        tab = self._notebook.nametowidget(selected)
+        if self._misc_panel and tab is self._misc_panel:
+            self._misc_panel.clear_items()
+            return
+        if isinstance(tab, _ScrollableFrame):
+            self._clear_tab_widgets(tab.content)
+            return
+
+    def _clear_tab_widgets(self, container: ttk.Frame) -> None:
+        for widget in list(self._question_widgets.values()) + list(self._template_widgets.values()):
+            row_frame = widget.metadata.get("row_frame")
+            if not row_frame or not _is_descendant(row_frame, container):
+                continue
+            self._clear_widget_value(widget)
+        self._apply_visibility()
+
+    def _clear_widget_value(self, widget: QuestionWidget) -> None:
+        if widget.question_type in {"text", "number", "date"}:
+            widget.widget.set("")
+        elif widget.question_type == "notes":
+            widget.widget.delete("1.0", tk.END)
+        elif widget.question_type == "single_select":
+            widget.widget.set("")
+        elif widget.question_type == "multi_select":
+            for _value, var in widget.widget:
+                var.set(False)
 
     def _add_question(
         self,
@@ -467,3 +508,12 @@ def _resolve_writeup_text(writeup: object, value: object, label: str) -> str:
     if isinstance(writeup, str):
         return writeup.strip()
     return ""
+
+
+def _is_descendant(widget: tk.Misc, ancestor: tk.Misc) -> bool:
+    current = widget
+    while current is not None:
+        if current is ancestor:
+            return True
+        current = current.master
+    return False

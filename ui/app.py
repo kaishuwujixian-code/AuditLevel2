@@ -2,6 +2,7 @@ import io
 import os
 import subprocess
 import sys
+from datetime import datetime
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from typing import Dict, Optional
@@ -13,11 +14,7 @@ from core.paths import (
     PROJECTS_DIR,
     SCHEMAS_DIR,
 )
-from core.project_store import (
-    default_output_path_for_project,
-    load_project,
-    save_project,
-)
+from core.project_store import load_project, save_project
 from core.questionnaire import load_questionnaire_schema
 from core.template_store import TemplateData, load_template
 from main import _validate_inputs
@@ -26,6 +23,7 @@ from ui.checklist_panel import ChecklistPanel
 from ui.diagnostics_panel import DiagnosticsPanel
 from ui.library_panel import LibraryPanel
 from ui.measures_panel import MeasuresPanel
+from ui.project_dashboard_panel import ProjectDashboardPanel
 from ui.questionnaire_panel import QuestionnairePanel
 from ui.report_panel import ReportPanel
 
@@ -80,6 +78,12 @@ class RetScreenApp:
         self._notebook = ttk.Notebook(content)
         self._notebook.grid(row=0, column=0, sticky="nsew", padx=6, pady=6)
 
+        self._dashboard_tab = ProjectDashboardPanel(
+            self._notebook,
+            projects_dir=PROJECTS_DIR,
+            on_open=self.load_project,
+            on_new=self.new_project,
+        )
         self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
         self._measures_tab = MeasuresPanel(self._notebook)
         self._checklist_tab = ChecklistPanel(
@@ -95,6 +99,7 @@ class RetScreenApp:
             on_measure_catalog_saved=self._on_catalog_saved,
         )
 
+        self._notebook.add(self._dashboard_tab, text="🏠 Dashboard")
         self._notebook.add(self._inputs_tab, text="📝 Inputs")
         self._notebook.add(self._measures_tab, text="🧰 Measures")
         self._notebook.add(self._checklist_tab, text="✅ Checklist")
@@ -233,6 +238,7 @@ class RetScreenApp:
             self._project_path = project_path
             self._load_project_into_tabs()
             self._set_status(f"Loaded project: {project_path}")
+            self._dashboard_tab.refresh_projects()
         except Exception as exc:
             self._set_status(f"Error loading project: {exc}")
 
@@ -255,23 +261,25 @@ class RetScreenApp:
             self._checklist_tab.load_project(self._project_data)
 
     def save_project(self) -> None:
-        if not self._project_path or not self._project_data:
-            path = filedialog.asksaveasfilename(
-                title="Save project.json",
-                initialdir=PROJECTS_DIR,
-                defaultextension=".json",
-                filetypes=[("Project JSON", "*.json")],
-                initialfile="project.json",
-            )
-            if not path:
-                self._set_status("Save cancelled.")
-                return
-            self._project_path = path
+        if not self._project_data:
+            return
+        path = filedialog.asksaveasfilename(
+            title="Save project.json",
+            initialdir=PROJECTS_DIR,
+            defaultextension=".json",
+            filetypes=[("Project JSON", "*.json")],
+            initialfile=self._default_project_filename(),
+        )
+        if not path:
+            self._set_status("Save cancelled.")
+            return
+        self._project_path = path
         try:
             self._sync_project_data()
             save_project(self._project_path, self._project_data)
             self._set_status(f"Saved project: {self._project_path}")
             messagebox.showinfo("Project Saved", f"Saved project to:\n{self._project_path}")
+            self._dashboard_tab.refresh_projects()
         except Exception as exc:
             self._set_status(f"Save failed: {exc}")
             messagebox.showerror("Save Failed", str(exc))
@@ -286,9 +294,16 @@ class RetScreenApp:
             self._sync_project_data()
             save_project(self._project_path, self._project_data)
             os.makedirs(OUTPUT_DIR, exist_ok=True)
-            out_path = default_output_path_for_project(
-                self._project_data, self._project_path, OUTPUT_DIR
+            out_path = filedialog.asksaveasfilename(
+                title="Save report",
+                initialdir=OUTPUT_DIR,
+                defaultextension=".docx",
+                filetypes=[("Word Document", "*.docx")],
+                initialfile=self._default_report_filename(),
             )
+            if not out_path:
+                self._set_status("Report generation cancelled.")
+                return
             render_word(
                 template_path=DEFAULT_TEMPLATE_DOCX,
                 project_json_path=self._project_path,
@@ -366,6 +381,32 @@ class RetScreenApp:
         self._inputs_tab.update_project(self._project_data)
         self._measures_tab.update_project(self._project_data)
         self._checklist_tab.update_project(self._project_data)
+
+    def _default_project_filename(self) -> str:
+        name = self._project_display_name()
+        if not name:
+            return "project.json"
+        return f"{name}.json"
+
+    def _default_report_filename(self) -> str:
+        name = self._project_display_name()
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+        if not name:
+            name = "report"
+        return f"{name}_{timestamp}.docx"
+
+    def _project_display_name(self) -> str:
+        if not self._project_data:
+            return "project"
+        project_info = self._project_data.get("project_info", {})
+        if not isinstance(project_info, dict):
+            project_info = {}
+        name = str(project_info.get("building_name") or "").strip()
+        if not name:
+            name = str(project_info.get("site_address") or "").strip()
+        if not name and self._project_path:
+            name = os.path.splitext(os.path.basename(self._project_path))[0]
+        return name.replace("/", "-").replace("\\", "-") or "project"
 
     def _on_catalog_saved(self, catalog) -> None:
         self._measures_tab.reload_catalog(catalog)
