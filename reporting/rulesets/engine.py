@@ -216,9 +216,49 @@ def _get_field_value(project: Dict[str, Any], field: str) -> Any:
 def _format_paragraph(text: str, answers: Dict[str, Any]) -> str:
     def _replace(match: re.Match[str]) -> str:
         key = match.group(1)
+        if key == "boiler_serves_summary":
+            return _build_boiler_serves_summary(answers)
         if key in answers:
             value = stringify_value(answers.get(key))
             return value if value is not None else ""
         return ""
 
     return re.sub(r"{([^{}]+)}", _replace, text).strip()
+
+
+def _coerce_list(value: Any) -> List[Any]:
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple, set)):
+        return list(value)
+    return [value]
+
+
+def _human_join(values: List[str]) -> str:
+    if not values:
+        return ""
+    if len(values) == 1:
+        return values[0]
+    if len(values) == 2:
+        return f"{values[0]} and {values[1]}"
+    return ", ".join(values[:-1]) + f", and {values[-1]}"
+
+
+def _build_boiler_serves_summary(answers: Dict[str, Any]) -> str:
+    items: List[str] = []
+    terminal_types = _coerce_list(answers.get("heating_terminal_type"))
+    if any("fan_coil_hydronic" in str(value) for value in terminal_types):
+        items.append("the in-suite fan coil units")
+
+    serves_values = _coerce_list(answers.get("heating_serves"))
+    serves_map = {
+        "serves_mua": "make-up air unit (MUA) heating coils",
+        "serves_radiant": "radiation distribution",
+        "serves_ahu": "associated heat exchanger circuits",
+        "serves_dhw_loop": "the secondary domestic hot water (DHW) loop",
+    }
+    for key, label in serves_map.items():
+        if key in serves_values:
+            items.append(label)
+
+    return _human_join(items)
