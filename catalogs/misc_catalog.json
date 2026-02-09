@@ -127,6 +127,18 @@
       "title": "Heated Garage",
       "category": "garage",
       "text": "The parking garage is heated by unit heaters to maintain temperatures above freezing during winter operation. The unit heaters were observed to be in serviceable condition at the time of the site visit and provide localized space heating to the garage area."
+    },
+    {
+      "id": "envelope_condition_good",
+      "title": "Envelope Condition (Good)",
+      "category": "window",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended."
+    },
+    {
+      "id": "envelope_condition_poor",
+      "title": "Envelope Condition (Poor)",
+      "category": "window",
+      "text": "The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort."
     }
   ]
 }
