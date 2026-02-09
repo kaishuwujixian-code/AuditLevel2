@@ -55,14 +55,13 @@
                   {
                     "field": "answers.heating_heat_source",
                     "op": "eq",
-                    "value": "central_hydronic_boiler_plant"
+                    "value": "electric_resistance_central"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "The building’s heating system is supplied by a central hydronic boiler plant.",
-                  "The boiler plant is located in the main mechanical room."
+                  "Heating is provided by electric resistance equipment."
                 ]
               },
               "role": "system_header",
@@ -121,7 +120,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 40
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_with_condition",
@@ -171,7 +171,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 30
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_basic",
@@ -209,7 +210,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 20
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_loads_fan_coil",
@@ -309,7 +311,62 @@
                   "No circulation issues were reported by on-site staff during the walkthrough.",
                   "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
-              }
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
             }
           ],
           "target_section": "heating"
@@ -372,13 +429,17 @@
                     "field": "answers.heating_heat_source",
                     "op": "eq",
                     "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "in_suite_heat_pump_wshp"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "The building operates with a low-temperature water-source heat pump (WSHP) loop.",
-                  "The loop serves the in-suite heat pumps and supports year-round operation."
+                  "The building operates with a low-temperature water-source heat pump (WSHP) loop serving the in-suite heat pumps and supporting year-round operation."
                 ]
               },
               "role": "system_header",
@@ -437,7 +498,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 50
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_with_condition",
@@ -487,7 +549,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 40
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_basic",
@@ -525,7 +588,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 30
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_loads_fan_coil",
@@ -765,6 +829,58 @@
                   "This configuration would reduce overall glycol volume, lower ongoing glycol maintenance costs, and improve long-term system serviceability."
                 ]
               }
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
             }
           ],
           "target_section": "heating"
@@ -891,8 +1007,64 @@
                   "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
                 ]
               },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_boiler_equipment_full",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.boiler_condition",
+                    "op": "in",
+                    "value": [
+                      "poor",
+                      "fair",
+                      "good",
+                      "fair_to_good",
+                      "good_to_fair"
+                    ]
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH.",
+                  "The boilers were observed to be original to the building and in {boiler_condition} condition at the time of the site visit."
+                ]
+              },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 50
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_with_condition",
@@ -942,7 +1114,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 40
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_basic",
@@ -980,7 +1153,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 30
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_loads_fan_coil",
@@ -1140,11 +1314,11 @@
               ]
             },
             {
-              "rule_id": "heating_serves_multiple_buildings",
+              "rule_id": "heating_pumps_piping_normal",
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_serves_multiple_buildings",
+                    "field": "answers.distribution_pumps_operating_normally",
                     "op": "is_true"
                   }
                 ]
@@ -1154,7 +1328,10 @@
                   "No circulation issues were reported by on-site staff during the walkthrough.",
                   "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
-              }
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
             },
             {
               "rule_id": "heating_high_return_temperature",
@@ -1177,6 +1354,58 @@
                   "They indicate operation at higher temperatures than required under part-load conditions."
                 ]
               }
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
             }
           ],
           "target_section": "heating"
@@ -1304,7 +1533,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 60
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_with_condition",
@@ -1354,7 +1584,8 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 50
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_boiler_equipment_basic",
@@ -1392,16 +1623,16 @@
                 ]
               },
               "exclusive_group": "boiler_equipment_summary",
-              "priority": 40
+              "priority": 20,
+              "role": "equipment_detail"
             },
             {
               "rule_id": "heating_loads_fan_coil",
               "if": {
                 "all": [
                   {
-                    "field": "answers.heating_terminal_type",
-                    "op": "contains",
-                    "value": "fan_coil_hydronic"
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
                   },
                   {
                     "field": "answers.heating_heat_source",
@@ -1478,20 +1709,42 @@
               ]
             },
             {
-              "rule_id": "boiler_pumps_with_vfd",
+              "rule_id": "heating_boiler_equipment_basic",
               "if": {
                 "all": [
                   {
-                    "field": "answers.boiler_pumps_have_vfd",
-                    "op": "is_true"
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Boiler circulation pumps are equipped with variable frequency drives (VFDs)."
+                  "The plant consists of {number_of_boilers} {boiler_type} boilers manufactured in {boiler_install_year}, each rated at approximately {boiler_capacity_mbh} MBH."
                 ]
-              }
+              },
+              "exclusive_group": "boiler_equipment_summary",
+              "priority": 40
             },
             {
               "rule_id": "heating_distribution_pumps_normal",
@@ -1508,7 +1761,62 @@
                   "No circulation issues were reported by on-site staff during the walkthrough.",
                   "Distribution pumps and associated hydronic piping were observed to be operating normally."
                 ]
-              }
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
             }
           ],
           "target_section": "heating"

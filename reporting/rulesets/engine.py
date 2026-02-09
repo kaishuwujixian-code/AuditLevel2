@@ -88,6 +88,12 @@ def _render_sections(matches: List[Dict[str, Any]]) -> List[str]:
     for match in matches:
         sections.setdefault(match["target_section"], []).append(match)
     output: List[str] = []
+    role_order = {
+        "system_header": 0,
+        "plant_support": 1,
+        "equipment_detail": 2,
+        "operation_notes": 3,
+    }
     for section in sections.values():
         selected = _select_exclusive_groups(section)
         headers = [rule for rule in selected if rule["role"] == "system_header"]
@@ -95,7 +101,12 @@ def _render_sections(matches: List[Dict[str, Any]]) -> List[str]:
         if headers:
             headers.sort(key=lambda item: item["priority"], reverse=True)
             output.extend(headers[0]["paragraphs"])
-        bodies.sort(key=lambda item: item["priority"], reverse=True)
+        bodies.sort(
+            key=lambda item: (
+                role_order.get(item["role"], 10),
+                -item["priority"],
+            )
+        )
         for rule in bodies:
             output.extend(rule["paragraphs"])
     return output
