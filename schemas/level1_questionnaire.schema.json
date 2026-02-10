@@ -872,7 +872,12 @@
           "options_ref": "cooling.system_type",
           "placeholder_targets": [],
           "help": "Primary cooling system type.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_central_system_present",
@@ -883,7 +888,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether a central cooling plant is present.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_serves",
@@ -894,7 +904,12 @@
           "options_ref": "hvac.heating_serves",
           "placeholder_targets": [],
           "help": "Distribution systems served by the cooling plant.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_distribution",
@@ -905,7 +920,12 @@
           "options_ref": "cooling.distribution",
           "placeholder_targets": [],
           "help": "Primary cooling distribution approach.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "suite_cooling_type",
@@ -949,7 +969,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether a fluid cooler is present for heat rejection.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "wshp_install_year",
@@ -960,7 +985,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Approximate installation year for WSHP equipment.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "wshp_deficiencies_reported",
@@ -971,7 +1001,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether deficiencies were reported for the WSHP system.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_issues_reported",
@@ -982,7 +1017,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether cooling issues were reported.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "site_visit_season",
@@ -1004,7 +1044,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Location of the cooling plant equipment.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "chiller_manufacturer",
@@ -1015,7 +1060,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Primary chiller manufacturer, if known.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "chiller_install_year",
@@ -1026,7 +1076,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Approximate installation year for chillers.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_equipment_condition",
@@ -1037,7 +1092,12 @@
           "options_ref": "cooling.equipment_condition",
           "placeholder_targets": [],
           "help": "Observed condition of central cooling equipment.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "condenser_pump_has_vfd",
@@ -1048,7 +1108,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether condenser pumps are equipped with VFDs.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_tower_present",
@@ -1059,7 +1124,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether a cooling tower is present.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_tower_has_vfd",
@@ -1070,7 +1140,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether cooling tower fans are equipped with VFDs.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_tower_vfd_present",
@@ -1081,7 +1156,12 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether cooling tower fan VFDs are present.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_controls_notes",
@@ -1092,7 +1172,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Notes about cooling controls and sequencing.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "cooling_notes",
@@ -1127,7 +1212,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Count of central chillers.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "chiller_tonnage",
@@ -1138,7 +1228,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Nominal capacity per chiller in tons.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "number_of_fluid_coolers",
@@ -1149,7 +1244,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Count of fluid coolers serving the WSHP or condenser loop.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         },
         {
           "id": "number_of_rooftop_units",
@@ -1160,7 +1260,12 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Count of packaged rooftop DX units, if applicable.",
-          "required": false
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "ne",
+            "value": "window_and_portable_ac"
+          }
         }
       ]
     },

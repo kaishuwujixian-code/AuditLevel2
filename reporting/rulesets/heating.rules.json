@@ -69,9 +69,67 @@
               "priority": 10
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -348,9 +406,67 @@
               "priority": 20
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -759,9 +875,67 @@
               "priority": 20
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -1073,9 +1247,67 @@
               "priority": 30
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
