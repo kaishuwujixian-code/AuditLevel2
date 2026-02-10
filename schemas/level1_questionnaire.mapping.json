@@ -36,6 +36,10 @@
     ],
     "heating.heat_source": [
       {
+        "label": "In-suite Magic-Pak unit",
+        "value": "in_suite_magic_pak_unit"
+      },
+      {
         "label": "Central hydronic boiler plant",
         "value": "central_hydronic_boiler_plant"
       },
@@ -123,6 +127,10 @@
       }
     ],
     "cooling.system_type": [
+      {
+        "label": "In-suite Magic-Pak unit",
+        "value": "in_suite_magic_pak_unit"
+      },
       {
         "label": "Chiller & cooling tower",
         "value": "chiller_cooling_tower"
@@ -470,6 +478,28 @@
       {
         "label": "Unknown",
         "value": "unknown"
+      }
+    ],
+    "system.mechanical_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair to Good",
+        "value": "fair_to_good"
+      },
+      {
+        "label": "Good to Fair",
+        "value": "good_to_fair"
       }
     ]
   },
