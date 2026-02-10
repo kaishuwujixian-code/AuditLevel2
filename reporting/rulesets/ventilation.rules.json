@@ -2,7 +2,7 @@
   "rulesets": [
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "VENTILATION SYSTEM RULESET – EXHAUST ONLY / UNKNOWN SUPPLY",
+      "ruleset_name": "VENTILATION SYSTEM RULESET \u2013 EXHAUST ONLY / UNKNOWN SUPPLY",
       "blocks": [
         {
           "block_id": "central_ventilation_existing",
@@ -86,23 +86,14 @@
               "role": "equipment_detail"
             },
             {
-              "rule_id": "exhaust_fan_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.exhaust_fan_condition",
-                    "op": "eq",
-                    "value": "aging_but_functional"
-                  }
-                ]
-              },
+              "rule_id": "ventilation_system_mechanical_condition",
               "then": {
                 "paragraphs": [
-                  "The exhaust fan units were observed to be in functional but aging mechanical condition.",
-                  "No immediate operational failures were noted at the time of the site visit."
+                  "The existing central ventilation equipment was observed to be in {ventilation_system_condition_text} condition."
                 ]
               },
-              "role": "equipment_detail"
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "ventilation"
@@ -111,7 +102,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "VENTILATION SYSTEM RULESET – ROOFTOP MUA WITH GAS HEAT AND DX COOLING",
+      "ruleset_name": "VENTILATION SYSTEM RULESET \u2013 ROOFTOP MUA WITH GAS HEAT AND DX COOLING",
       "blocks": [
         {
           "block_id": "central_ventilation_existing",
@@ -197,6 +188,16 @@
                 ]
               },
               "role": "equipment_detail"
+            },
+            {
+              "rule_id": "ventilation_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing central ventilation equipment was observed to be in {ventilation_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "ventilation"
@@ -205,7 +206,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "VENTILATION SYSTEM RULESET – ROOFTOP MUA WITH GAS HEAT AND COOLING COILS",
+      "ruleset_name": "VENTILATION SYSTEM RULESET \u2013 ROOFTOP MUA WITH GAS HEAT AND COOLING COILS",
       "blocks": [
         {
           "block_id": "central_ventilation_existing",
@@ -295,6 +296,16 @@
                 ]
               },
               "role": "equipment_detail"
+            },
+            {
+              "rule_id": "ventilation_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing central ventilation equipment was observed to be in {ventilation_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "ventilation"
@@ -303,7 +314,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "VENTILATION SYSTEM RULESET – DOAS / AHU",
+      "ruleset_name": "VENTILATION SYSTEM RULESET \u2013 DOAS / AHU",
       "blocks": [
         {
           "block_id": "central_ventilation_existing",
@@ -351,6 +362,16 @@
                 ]
               },
               "role": "equipment_detail"
+            },
+            {
+              "rule_id": "ventilation_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing central ventilation equipment was observed to be in {ventilation_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "ventilation"
