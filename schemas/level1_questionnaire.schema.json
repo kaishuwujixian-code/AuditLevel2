@@ -86,17 +86,6 @@
           "required": false
         },
         {
-          "id": "dhw_piping_condition",
-          "title": "DHW piping condition",
-          "type": "single_select",
-          "section_id": "dhw",
-          "options": [],
-          "options_ref": "dhw.piping_condition",
-          "placeholder_targets": [],
-          "help": "Observed condition of DHW piping.",
-          "required": false
-        },
-        {
           "id": "dhw_mixing_valve_present",
           "title": "DHW mixing valve present",
           "type": "single_select",
@@ -978,28 +967,6 @@
           "required": false
         },
         {
-          "id": "window_ac_present",
-          "title": "Window AC present",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether window AC units are present.",
-          "required": false
-        },
-        {
-          "id": "future_cooling_upgrade_considered",
-          "title": "Future cooling upgrade considered",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether future cooling upgrades are being considered.",
-          "required": false
-        },
-        {
           "id": "fluid_cooler_present",
           "title": "Fluid cooler present",
           "type": "single_select",
@@ -1209,25 +1176,6 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether cooling tower fans are equipped with VFDs.",
-          "required": false,
-          "show_if": {
-            "field": "suite_cooling_type",
-            "op": "not_in",
-            "value": [
-              "window_and_portable_ac",
-              "magic_pak_unit"
-            ]
-          }
-        },
-        {
-          "id": "cooling_tower_vfd_present",
-          "title": "Cooling tower VFD present",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether cooling tower fan VFDs are present.",
           "required": false,
           "show_if": {
             "field": "suite_cooling_type",
@@ -1562,17 +1510,6 @@
           "required": false
         },
         {
-          "id": "exhaust_fan_condition",
-          "title": "Exhaust fan condition",
-          "type": "single_select",
-          "section_id": "ventilation",
-          "options": [],
-          "options_ref": "exhaust.fan_condition",
-          "placeholder_targets": [],
-          "help": "Observed condition of exhaust fans.",
-          "required": false
-        },
-        {
           "id": "mua_has_dx_cooling",
           "title": "MUA DX cooling present",
           "type": "single_select",
@@ -1581,17 +1518,6 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether MUA units include DX cooling sections.",
-          "required": false
-        },
-        {
-          "id": "mua_operational_issues_observed",
-          "title": "MUA operational issues observed",
-          "type": "single_select",
-          "section_id": "ventilation",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether operational issues were observed with MUA units.",
           "required": false
         },
         {
