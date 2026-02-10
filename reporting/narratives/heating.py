@@ -30,6 +30,7 @@ EXPECTED_INPUTS = {
             "heating_system_type",
             "hvac.system_combos",
             "hvac_system_combos",
+            "boilers",
             "number_of_boilers",
             "boiler_capacity_mbh",
             "bas_integration_level",
