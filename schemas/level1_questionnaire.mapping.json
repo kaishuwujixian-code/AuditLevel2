@@ -272,6 +272,10 @@
         "value": "fan_coil"
       },
       {
+        "label": "In-Suite Magic-Pak Unit",
+        "value": "magic_pak_unit"
+      },
+      {
         "label": "Window and portable AC",
         "value": "window_and_portable_ac"
       }

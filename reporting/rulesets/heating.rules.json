@@ -49,6 +49,28 @@
               "exclusive_group": "heating_distribution_summary"
             },
             {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
               "rule_id": "heating_system_intro_hydronic_boiler",
               "if": {
                 "all": [
@@ -69,9 +91,67 @@
               "priority": 10
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -323,6 +403,28 @@
               "exclusive_group": "heating_distribution_summary"
             },
             {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
               "rule_id": "heating_wshp_loop_intro",
               "if": {
                 "all": [
@@ -348,9 +450,67 @@
               "priority": 20
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -738,6 +898,28 @@
               "exclusive_group": "heating_distribution_summary"
             },
             {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
               "rule_id": "heating_intro_central_hydronic_boiler",
               "if": {
                 "all": [
@@ -759,9 +941,67 @@
               "priority": 20
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"
@@ -1052,6 +1292,28 @@
               "exclusive_group": "heating_distribution_summary"
             },
             {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
               "rule_id": "heating_intro_hydronic_boiler",
               "if": {
                 "all": [
@@ -1073,9 +1335,67 @@
               "priority": 30
             },
             {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "heating_boiler_summary_bullet",
               "if": {
                 "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
                   {
                     "field": "answers.number_of_boilers",
                     "op": "exists"

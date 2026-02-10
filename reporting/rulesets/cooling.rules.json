@@ -16,6 +16,11 @@
                   {
                     "field": "answers.cooling_central_system_present",
                     "op": "is_false"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "ne",
+                    "value": "window_and_portable_ac"
                   }
                 ]
               },
@@ -29,25 +34,28 @@
               "priority": 10
             },
             {
-              "rule_id": "suite_window_portable_ac",
+              "rule_id": "suite_magic_pak_unit",
               "if": {
                 "all": [
                   {
                     "field": "answers.suite_cooling_type",
                     "op": "eq",
-                    "value": "window_and_portable_ac"
+                    "value": "magic_pak_unit"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units."
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
             },
             {
-              "rule_id": "window_ac_efficiency_commentary",
+              "rule_id": "suite_window_portable_ac_summary",
               "if": {
                 "all": [
                   {
@@ -59,47 +67,12 @@
               },
               "then": {
                 "paragraphs": [
-                  "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems.",
-                  "Typical window and portable air-conditioning units operate with relatively low coefficients of performance compared to high-efficiency heat pump systems."
+                  "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.",
+                  "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.",
+                  "In addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a centralized air-source heat pump (ASHP) system could be considered in a short term to mid term."
                 ]
               },
-              "role": "finding"
-            },
-            {
-              "rule_id": "window_ac_envelope_impact",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.window_ac_present",
-                    "op": "is_true"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "In addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance.",
-                  "Improper sealing around window installations may allow uncontrolled air infiltration during the heating season.",
-                  "This can increase heat loss, draft complaints, and overall space-heating energy consumption."
-                ]
-              },
-              "role": "finding"
-            },
-            {
-              "rule_id": "future_wshp_option",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.future_cooling_upgrade_considered",
-                    "op": "is_true"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "Installation of a centralized water-source heat pump (WSHP) system could be considered in the near term."
-                ]
-              },
-              "role": "finding"
+              "role": "equipment_detail"
             }
           ],
           "target_section": "cooling"
@@ -137,6 +110,27 @@
               "role": "system_header",
               "exclusive_group": "cooling_wshp_header",
               "priority": 20
+            },
+            {
+              "rule_id": "suite_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "fluid_cooler_heat_rejection",
@@ -322,6 +316,27 @@
               "role": "system_header",
               "exclusive_group": "cooling_chiller_tower_header",
               "priority": 30
+            },
+            {
+              "rule_id": "suite_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_chiller_install_year",
@@ -561,6 +576,27 @@
               "priority": 40
             },
             {
+              "rule_id": "suite_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
               "rule_id": "cooling_chiller_year",
               "if": {
                 "all": [
@@ -732,6 +768,27 @@
               "role": "system_header",
               "exclusive_group": "cooling_chiller_air_header",
               "priority": 50
+            },
+            {
+              "rule_id": "suite_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail"
             }
           ],
           "target_section": "cooling"
@@ -766,6 +823,27 @@
               "role": "system_header",
               "exclusive_group": "cooling_dx_packaged_header",
               "priority": 60
+            },
+            {
+              "rule_id": "suite_magic_pak_unit",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
+                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail"
             },
             {
               "rule_id": "cooling_split_dx_intro",
