@@ -2,7 +2,7 @@
   "rulesets": [
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "DHW SYSTEM RULESET – CENTRAL DHW BOILERS",
+      "ruleset_name": "DHW SYSTEM RULESET \u2013 CENTRAL DHW BOILERS",
       "blocks": [
         {
           "block_id": "dhw_existing",
@@ -141,7 +141,7 @@
               },
               "then": {
                 "paragraphs": [
-                  "The boilers operate with a DHW supply temperature of approximately {dhw_supply_temp_f}°F."
+                  "The boilers operate with a DHW supply temperature of approximately {dhw_supply_temp_f}\u00b0F."
                 ]
               },
               "role": "performance"
@@ -193,30 +193,6 @@
                 ]
               },
               "role": "equipment_detail"
-            },
-            {
-              "rule_id": "dhw_piping_condition_good",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.dhw_generation_type",
-                    "op": "eq",
-                    "value": "central_dhw_boilers"
-                  },
-                  {
-                    "field": "answers.dhw_piping_condition",
-                    "op": "eq",
-                    "value": "good"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The boilers, storage tanks, and associated piping appear to be in generally good condition.",
-                  "No visible leaks or major signs of corrosion were observed."
-                ]
-              },
-              "role": "condition"
             },
             {
               "rule_id": "dhw_recirculation_pumps_operating",
@@ -405,6 +381,16 @@
                 ]
               },
               "role": "finding"
+            },
+            {
+              "rule_id": "dhw_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing domestic hot water equipment was observed to be in {dhw_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "dhw"
@@ -413,7 +399,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "DHW SYSTEM RULESET – BOILER-FED VIA HEAT EXCHANGER",
+      "ruleset_name": "DHW SYSTEM RULESET \u2013 BOILER-FED VIA HEAT EXCHANGER",
       "blocks": [
         {
           "block_id": "dhw_existing",
@@ -486,35 +472,11 @@
               "then": {
                 "paragraphs": [
                   "Observed DHW temperatures were within normal operating range.",
-                  "The storage tank temperature was approximately {dhw_storage_temp_f}°F.",
-                  "The mixed water temperature was approximately {dhw_mixed_temp_f}°F."
+                  "The storage tank temperature was approximately {dhw_storage_temp_f}\u00b0F.",
+                  "The mixed water temperature was approximately {dhw_mixed_temp_f}\u00b0F."
                 ]
               },
               "role": "performance"
-            },
-            {
-              "rule_id": "dhw_equipment_condition_good",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.dhw_generation_type",
-                    "op": "eq",
-                    "value": "boiler_fed_via_hx"
-                  },
-                  {
-                    "field": "answers.dhw_equipment_condition",
-                    "op": "eq",
-                    "value": "good"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The DHW storage tank, buffer tanks, and associated piping were observed to be in generally good condition.",
-                  "No visible leaks or signs of corrosion were observed."
-                ]
-              },
-              "role": "condition"
             },
             {
               "rule_id": "dhw_recirculation_pumps_operating_hx",
@@ -559,6 +521,16 @@
                 ]
               },
               "role": "finding"
+            },
+            {
+              "rule_id": "dhw_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing domestic hot water equipment was observed to be in {dhw_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "dhw"

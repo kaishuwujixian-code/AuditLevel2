@@ -471,6 +471,28 @@
         "label": "Unknown",
         "value": "unknown"
       }
+    ],
+    "system.mechanical_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair to Good",
+        "value": "fair_to_good"
+      },
+      {
+        "label": "Good to Fair",
+        "value": "good_to_fair"
+      }
     ]
   },
   "rules": [

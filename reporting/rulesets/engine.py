@@ -218,6 +218,16 @@ def _get_field_value(project: Dict[str, Any], field: str) -> Any:
 def _format_paragraph(text: str, answers: Dict[str, Any]) -> str:
     def _replace(match: re.Match[str]) -> str:
         key = match.group(1)
+        if key == "mechanical_condition":
+            return _get_system_condition(answers, "heating_system_condition")
+        if key == "heating_system_condition_text":
+            return _get_system_condition(answers, "heating_system_condition")
+        if key == "cooling_system_condition_text":
+            return _get_system_condition(answers, "cooling_system_condition")
+        if key == "ventilation_system_condition_text":
+            return _get_system_condition(answers, "ventilation_system_condition")
+        if key == "dhw_system_condition_text":
+            return _get_system_condition(answers, "dhw_system_condition")
         if key == "boiler_serves_summary":
             return _build_boiler_serves_summary(answers)
         if key == "boilers_total":
@@ -230,6 +240,13 @@ def _format_paragraph(text: str, answers: Dict[str, Any]) -> str:
         return ""
 
     return re.sub(r"{([^{}]+)}", _replace, text).strip()
+
+
+def _get_system_condition(answers: Dict[str, Any], answer_key: str) -> str:
+    value = answers.get(answer_key)
+    if not has_meaningful_value(value):
+        return "fair to good"
+    return str(value).replace("_", " ").strip()
 
 
 def _coerce_list(value: Any) -> List[Any]:

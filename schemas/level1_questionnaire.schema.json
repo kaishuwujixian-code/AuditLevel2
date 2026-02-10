@@ -76,7 +76,7 @@
         },
         {
           "id": "dhw_supply_temp_f",
-          "title": "DHW supply temperature (°F)",
+          "title": "DHW supply temperature (\u00b0F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
@@ -153,7 +153,7 @@
         },
         {
           "id": "dhw_storage_temp_f",
-          "title": "DHW storage temperature (°F)",
+          "title": "DHW storage temperature (\u00b0F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
@@ -164,7 +164,7 @@
         },
         {
           "id": "dhw_mixed_temp_f",
-          "title": "Mixed water temperature (°F)",
+          "title": "Mixed water temperature (\u00b0F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
@@ -698,7 +698,7 @@
         },
         {
           "id": "boiler_supply_temp_f",
-          "title": "Boiler supply temperature (°F)",
+          "title": "Boiler supply temperature (\u00b0F)",
           "type": "number",
           "section_id": "heating",
           "options": [],
@@ -717,7 +717,7 @@
         },
         {
           "id": "boiler_return_temp_f",
-          "title": "Boiler return temperature (°F)",
+          "title": "Boiler return temperature (\u00b0F)",
           "type": "number",
           "section_id": "heating",
           "options": [],
@@ -1353,13 +1353,13 @@
             },
             {
               "id": "savings_gas_m3",
-              "title": "Savings gas (m³)",
+              "title": "Savings gas (m\u00b3)",
               "type": "number",
               "required": false
             },
             {
               "id": "savings_water_m3",
-              "title": "Savings water (m³)",
+              "title": "Savings water (m\u00b3)",
               "type": "number",
               "required": false
             },
@@ -1647,6 +1647,74 @@
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Design supply or exhaust airflow in CFM, if known.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating Mechanical Condition",
+      "questions": [
+        {
+          "id": "heating_system_condition",
+          "title": "Heating Mechanical Condition",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing heating equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling Mechanical Condition",
+      "questions": [
+        {
+          "id": "cooling_system_condition",
+          "title": "Cooling Mechanical Condition",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing cooling equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ventilation",
+      "title": "Ventilation Mechanical Condition",
+      "questions": [
+        {
+          "id": "ventilation_system_condition",
+          "title": "Ventilation Mechanical Condition",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing central ventilation equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "dhw",
+      "title": "DHW Mechanical Condition",
+      "questions": [
+        {
+          "id": "dhw_system_condition",
+          "title": "DHW Mechanical Condition",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing domestic hot water equipment.",
           "required": false
         }
       ]

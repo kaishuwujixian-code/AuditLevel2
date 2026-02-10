@@ -2,7 +2,7 @@
   "rulesets": [
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILER + NO CENTRAL COOLING",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -49,7 +49,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
@@ -68,11 +68,21 @@
               "then": {
                 "paragraphs": [
                   "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.",
-                  "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.",
+                  "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5\u20135.0 under favorable conditions.",
                   "In addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a centralized air-source heat pump (ASHP) system could be considered in a short term to mid term."
                 ]
               },
               "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"
@@ -81,7 +91,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WSHP LOOP WITH ATMOSPHERIC BOILERS",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -127,7 +137,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
@@ -209,31 +219,6 @@
               "role": "equipment_detail"
             },
             {
-              "rule_id": "wshp_equipment_condition_good",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.wshp_deficiencies_reported",
-                    "op": "is_false"
-                  },
-                  {
-                    "field": "answers.cooling_system_type",
-                    "op": "in",
-                    "value": [
-                      "wshp_cooling",
-                      "fluid_cooler"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The WSHP equipment, fluid cooler, and associated hydronic loop were observed to be in generally good mechanical condition."
-                ]
-              },
-              "role": "condition"
-            },
-            {
               "rule_id": "no_wshp_deficiencies",
               "if": {
                 "all": [
@@ -282,6 +267,16 @@
                 ]
               },
               "role": "performance"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"
@@ -290,7 +285,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILERS + FAN COIL + CHILLER",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -333,7 +328,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
@@ -416,33 +411,6 @@
                 ]
               },
               "role": "finding"
-            },
-            {
-              "rule_id": "cooling_distribution_condition_ok",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.chilled_water_distribution_condition",
-                    "op": "eq",
-                    "value": "serviceable"
-                  },
-                  {
-                    "field": "answers.cooling_system_type",
-                    "op": "in",
-                    "value": [
-                      "chiller_cooling_tower",
-                      "chiller_water"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The chilled-water distribution system appears to be functioning normally.",
-                  "Supply and return piping, pumps, and control valves were observed to be in serviceable condition."
-                ]
-              },
-              "role": "condition"
             },
             {
               "rule_id": "cooling_fancoil_distribution",
@@ -540,6 +508,16 @@
                 ]
               },
               "role": "performance"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"
@@ -548,7 +526,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – WATER-COOLED CHILLER",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WATER-COOLED CHILLER",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -591,7 +569,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
@@ -667,29 +645,6 @@
               "role": "equipment_detail"
             },
             {
-              "rule_id": "cooling_equipment_condition_good",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.cooling_equipment_condition",
-                    "op": "eq",
-                    "value": "good"
-                  },
-                  {
-                    "field": "answers.cooling_system_type",
-                    "op": "eq",
-                    "value": "chiller_water"
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The chiller and condenser water loop equipment were observed to be in good mechanical condition."
-                ]
-              },
-              "role": "condition"
-            },
-            {
               "rule_id": "cooling_equipment_performance_ok",
               "if": {
                 "all": [
@@ -734,6 +689,16 @@
                 ]
               },
               "role": "finding"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"
@@ -742,7 +707,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL COOLING RULESET – AIR-COOLED CHILLER",
+      "ruleset_name": "CENTRAL COOLING RULESET \u2013 AIR-COOLED CHILLER",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -785,10 +750,20 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"
@@ -797,7 +772,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL COOLING RULESET – DX AND PTAC",
+      "ruleset_name": "CENTRAL COOLING RULESET \u2013 DX AND PTAC",
       "blocks": [
         {
           "block_id": "central_cooling_existing",
@@ -840,7 +815,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail"
@@ -884,6 +859,16 @@
               "role": "system_header",
               "exclusive_group": "cooling_ptac_header",
               "priority": 62
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "cooling"

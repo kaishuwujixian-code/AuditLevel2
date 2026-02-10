@@ -2,7 +2,7 @@
   "rulesets": [
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILER + NO CENTRAL COOLING",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILER + NO CENTRAL COOLING",
       "blocks": [
         {
           "block_id": "central_heating_existing",
@@ -64,7 +64,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail",
@@ -208,7 +208,7 @@
               "then": {
                 "paragraphs": [
                   "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
-                  "• {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
                 ]
               },
               "priority": 20,
@@ -235,43 +235,6 @@
               "then": {
                 "paragraphs": [
                   "The boilers were observed to be original to the building."
-                ]
-              },
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
                 ]
               },
               "priority": 20,
@@ -348,6 +311,35 @@
               "role": "equipment_detail",
               "priority": 50,
               "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "heating"
@@ -356,7 +348,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – WSHP LOOP WITH ATMOSPHERIC BOILERS",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WSHP LOOP WITH ATMOSPHERIC BOILERS",
       "blocks": [
         {
           "block_id": "central_heating_existing",
@@ -418,7 +410,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail",
@@ -567,7 +559,7 @@
               "then": {
                 "paragraphs": [
                   "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
-                  "• {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
                 ]
               },
               "priority": 20,
@@ -594,43 +586,6 @@
               "then": {
                 "paragraphs": [
                   "The boilers were observed to be original to the building."
-                ]
-              },
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
                 ]
               },
               "priority": 20,
@@ -696,7 +651,7 @@
                 "paragraphs": [
                   "The WSHP loop temperature is maintained by {number_of_boilers} atmospheric boilers.",
                   "Each boiler is rated at approximately {boiler_capacity_mbh} MBH and assigned to the heating loop.",
-                  "The WSHP loop operates at approximately {wshp_loop_temp_f}°F.",
+                  "The WSHP loop operates at approximately {wshp_loop_temp_f}\u00b0F.",
                   "The loop remains hydraulically isolated from the DHW system."
                 ]
               }
@@ -843,6 +798,35 @@
               "role": "equipment_detail",
               "priority": 50,
               "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "heating"
@@ -851,7 +835,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – HYDRONIC BOILERS + FAN COIL + CHILLER",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILERS + FAN COIL + CHILLER",
       "blocks": [
         {
           "block_id": "central_heating_existing",
@@ -913,7 +897,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail",
@@ -932,7 +916,7 @@
               },
               "then": {
                 "paragraphs": [
-                  "The building’s heating system is served by a central hydronic boiler plant.",
+                  "The building\u2019s heating system is served by a central hydronic boiler plant.",
                   "The boiler plant is located in the main mechanical room."
                 ]
               },
@@ -1058,7 +1042,7 @@
               "then": {
                 "paragraphs": [
                   "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
-                  "• {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
                 ]
               },
               "priority": 20,
@@ -1085,43 +1069,6 @@
               "then": {
                 "paragraphs": [
                   "The boilers were observed to be original to the building."
-                ]
-              },
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
                 ]
               },
               "priority": 20,
@@ -1181,7 +1128,7 @@
               },
               "then": {
                 "paragraphs": [
-                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}°F and {boiler_return_temp_f}°F, respectively."
+                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}\u00b0F and {boiler_return_temp_f}\u00b0F, respectively."
                 ]
               },
               "role": "performance"
@@ -1237,6 +1184,35 @@
               "role": "equipment_detail",
               "priority": 50,
               "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "heating"
@@ -1245,7 +1221,7 @@
     },
     {
       "ruleset_version": "1.0",
-      "ruleset_name": "CENTRAL HEATING & COOLING RULESET – NEAR-CONDENSING BOILERS + FAN COIL + CHILLER",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 NEAR-CONDENSING BOILERS + FAN COIL + CHILLER",
       "blocks": [
         {
           "block_id": "central_heating_existing",
@@ -1307,7 +1283,7 @@
                   "In-Suite Magic-Pak Unit (Heating and Cooling):",
                   "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
-                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump–based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
               },
               "role": "equipment_detail",
@@ -1326,7 +1302,7 @@
               },
               "then": {
                 "paragraphs": [
-                  "The building’s heating system is served by a central hydronic boiler plant.",
+                  "The building\u2019s heating system is served by a central hydronic boiler plant.",
                   "The boiler plant is located in the main mechanical room."
                 ]
               },
@@ -1452,7 +1428,7 @@
               "then": {
                 "paragraphs": [
                   "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
-                  "• {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
                 ]
               },
               "priority": 20,
@@ -1479,43 +1455,6 @@
               "then": {
                 "paragraphs": [
                   "The boilers were observed to be original to the building."
-                ]
-              },
-              "priority": 20,
-              "role": "equipment_detail"
-            },
-            {
-              "rule_id": "heating_boiler_condition",
-              "if": {
-                "all": [
-                  {
-                    "field": "answers.number_of_boilers",
-                    "op": "exists"
-                  },
-                  {
-                    "field": "answers.boiler_condition",
-                    "op": "in",
-                    "value": [
-                      "poor",
-                      "fair",
-                      "good",
-                      "fair_to_good",
-                      "good_to_fair"
-                    ]
-                  },
-                  {
-                    "field": "answers.heating_heat_source",
-                    "op": "in",
-                    "value": [
-                      "central_hydronic_boiler_plant",
-                      "wshp_loop"
-                    ]
-                  }
-                ]
-              },
-              "then": {
-                "paragraphs": [
-                  "The boilers were observed to be in {boiler_condition} condition at the time of the site visit."
                 ]
               },
               "priority": 20,
@@ -1592,6 +1531,35 @@
               "role": "equipment_detail",
               "priority": 50,
               "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
             }
           ],
           "target_section": "heating"
