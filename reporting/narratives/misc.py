@@ -89,9 +89,13 @@ def _render_misc_items(items: List[Dict[str, Any]]) -> str:
         title = str(item.get("title", "")).strip()
         text = str(item.get("text", "")).strip()
         if title and text:
-            blocks.append(f"{title}:\n{text}")
+            blocks.append(f"{_underline_text(title + ':')}\n\n{text}")
         elif text:
             blocks.append(text)
         elif title:
-            blocks.append(f"{title}:")
+            blocks.append(_underline_text(title + ":"))
     return "\n\n".join(blocks)
+
+
+def _underline_text(text: str) -> str:
+    return "".join(f"{char}\u0332" if not char.isspace() else char for char in text)
