@@ -51,18 +51,22 @@
             {
               "rule_id": "heating_magic_pak_unit",
               "if": {
-                "all": [
+                "any": [
                   {
                     "field": "answers.heating_terminal_type",
                     "op": "eq",
                     "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
-                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
                   "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
@@ -397,18 +401,22 @@
             {
               "rule_id": "heating_magic_pak_unit",
               "if": {
-                "all": [
+                "any": [
                   {
                     "field": "answers.heating_terminal_type",
                     "op": "eq",
                     "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
-                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
                   "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
@@ -884,18 +892,22 @@
             {
               "rule_id": "heating_magic_pak_unit",
               "if": {
-                "all": [
+                "any": [
                   {
                     "field": "answers.heating_terminal_type",
                     "op": "eq",
                     "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
-                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
                   "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
@@ -1270,18 +1282,22 @@
             {
               "rule_id": "heating_magic_pak_unit",
               "if": {
-                "all": [
+                "any": [
                   {
                     "field": "answers.heating_terminal_type",
                     "op": "eq",
                     "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
                   }
                 ]
               },
               "then": {
                 "paragraphs": [
-                  "In-Suite Magic-Pak Unit (Heating and Cooling):",
-                  "Based on the site observation, the suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
                   "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
                   "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
                 ]
