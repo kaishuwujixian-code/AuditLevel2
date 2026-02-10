@@ -172,6 +172,8 @@ def _evaluate_condition(project: Dict[str, Any], condition: Any) -> bool:
     current = _get_field_value(project, field)
     if op == "exists":
         return has_meaningful_value(current)
+    if op == "not_exists":
+        return not has_meaningful_value(current)
     if op == "eq":
         return current == expected
     if op == "ne":
@@ -218,6 +220,10 @@ def _format_paragraph(text: str, answers: Dict[str, Any]) -> str:
         key = match.group(1)
         if key == "boiler_serves_summary":
             return _build_boiler_serves_summary(answers)
+        if key == "boilers_total":
+            return _build_boilers_total(answers)
+        if key == "boiler_group_details":
+            return _build_boiler_group_details(answers)
         if key in answers:
             value = stringify_value(answers.get(key))
             return value if value is not None else ""
@@ -262,3 +268,77 @@ def _build_boiler_serves_summary(answers: Dict[str, Any]) -> str:
             items.append(label)
 
     return _human_join(items)
+
+
+def _coerce_int(value: Any) -> Optional[int]:
+    if value is None:
+        return None
+    try:
+        return int(float(str(value).strip()))
+    except (TypeError, ValueError):
+        return None
+
+
+def _coerce_boiler_groups(answers: Dict[str, Any]) -> List[Dict[str, Any]]:
+    boilers = answers.get("boilers")
+    if not isinstance(boilers, list):
+        return []
+    groups = []
+    for group in boilers:
+        if not isinstance(group, dict):
+            continue
+        if not any(
+            has_meaningful_value(group.get(key))
+            for key in ("quantity", "boiler_type", "capacity_mbh", "install_year", "condition")
+        ):
+            continue
+        groups.append(group)
+    return groups
+
+
+def _build_boilers_total(answers: Dict[str, Any]) -> str:
+    groups = _coerce_boiler_groups(answers)
+    if not groups:
+        return ""
+    quantities = [_coerce_int(group.get("quantity")) for group in groups]
+    totals = [qty for qty in quantities if qty is not None]
+    if totals:
+        return str(sum(totals))
+    return str(len(groups))
+
+
+def _build_boiler_group_details(answers: Dict[str, Any]) -> str:
+    groups = _coerce_boiler_groups(answers)
+    if not groups:
+        return ""
+    serves_summary = _build_boiler_serves_summary(answers)
+    details = []
+    for group in groups:
+        quantity_value = stringify_value(group.get("quantity")) or "1"
+        quantity_count = _coerce_int(group.get("quantity"))
+        boiler_type = stringify_value(group.get("boiler_type")) or ""
+        capacity = stringify_value(group.get("capacity_mbh")) or ""
+        install_year = stringify_value(group.get("install_year")) or ""
+        condition = stringify_value(group.get("condition")) or ""
+
+        boiler_label = "boiler" if quantity_count == 1 else "boilers"
+        header_parts = [quantity_value]
+        if boiler_type:
+            header_parts.append(boiler_type)
+        header_parts.append(boiler_label)
+        sentence = f"• {' '.join(header_parts)}"
+        if capacity:
+            sentence += f" rated at approximately {capacity} MBH each"
+        if install_year:
+            sentence += f", manufactured in {install_year}"
+        if condition:
+            sentence += f", in {condition} condition"
+        if serves_summary:
+            sentence += (
+                f", which serve as the primary heating boilers, supplying hot water to "
+                f"{serves_summary}."
+            )
+        else:
+            sentence += "."
+        details.append(sentence)
+    return "\n".join(details)
