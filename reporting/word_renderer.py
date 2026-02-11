@@ -6,6 +6,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_BREAK, WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.shared import Inches
@@ -470,29 +471,46 @@ def _fill_measure_summary_table(
         return True
 
     body_style = "Content A" if "Content A" in doc.styles else None
+    try:
+        target_table.autofit = False
+    except Exception:
+        pass
+
     for index, (title, summary) in enumerate(summary_rows, start=1):
         row = target_row if index == 1 else target_table.add_row()
         if len(row.cells) >= 3:
+            _set_cell_width(row.cells[0], 0.85)
+            _set_cell_width(row.cells[1], 2.25)
+            _set_cell_width(row.cells[2], 5.90)
+
             _set_cell_text(row.cells[0], str(index))
             _set_cell_paragraph_style_and_alignment(
                 row.cells[0], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
             )
-            _set_cell_width(row.cells[0], 0.65)
+            row.cells[0].vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
             _set_cell_text(row.cells[1], title)
-            _set_cell_paragraph_style_and_alignment(row.cells[1], style=body_style)
+            _set_cell_paragraph_style_and_alignment(
+                row.cells[1], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.LEFT
+            )
+            row.cells[1].vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
+
             _set_cell_text(row.cells[2], summary)
-            _set_cell_paragraph_style_and_alignment(row.cells[2], style=body_style)
+            _set_cell_paragraph_style_and_alignment(
+                row.cells[2], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.LEFT
+            )
+            row.cells[2].vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
         elif len(row.cells) == 2:
             _set_cell_text(row.cells[0], f"Measure {index} – {title}")
-            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style)
+            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.LEFT)
             _set_cell_text(row.cells[1], summary)
-            _set_cell_paragraph_style_and_alignment(row.cells[1], style=body_style)
+            _set_cell_paragraph_style_and_alignment(row.cells[1], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.LEFT)
         elif len(row.cells) == 1:
             _set_cell_text(
                 row.cells[0],
                 f"Measure {index} – {title} — {summary}" if summary else f"Measure {index} – {title}",
             )
-            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style)
+            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.LEFT)
 
     for cell in target_row.cells:
         if placeholder in cell.text:

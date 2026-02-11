@@ -27,13 +27,17 @@ class MiscLibraryPanel(ttk.Frame):
         list_frame = ttk.Frame(self)
         list_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 8), pady=6)
         list_frame.columnconfigure(0, weight=1)
-        list_frame.rowconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
+
+        controls_row = ttk.Frame(list_frame)
+        controls_row.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        ttk.Button(controls_row, text="Sort A-Z", command=self._sort_alphabetically).pack(side="left")
 
         self._tree = ttk.Treeview(list_frame, show="tree", selectmode="browse")
-        self._tree.grid(row=0, column=0, sticky="nsew")
+        self._tree.grid(row=1, column=0, sticky="nsew")
         scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self._tree.yview)
         self._tree.configure(yscrollcommand=scroll.set)
-        scroll.grid(row=0, column=1, sticky="ns")
+        scroll.grid(row=1, column=1, sticky="ns")
         self._tree.bind("<<TreeviewSelect>>", self._on_select)
 
         editor = ttk.Frame(self)
@@ -88,6 +92,31 @@ class MiscLibraryPanel(ttk.Frame):
             side="left", padx=(0, 6)
         )
         ttk.Button(footer, text="Save", command=self._save_catalog).pack(side="left")
+
+    def _sort_alphabetically(self) -> None:
+        self._maybe_apply_item()
+        selected_item_id = self._item_id if self._item_id else ""
+        category_title_by_code = {
+            str(item.get("code", "")).strip(): str(item.get("title", "")).strip().lower()
+            for item in self._categories
+            if isinstance(item, dict)
+        }
+        self._categories.sort(
+            key=lambda item: (
+                str(item.get("title", "")).strip().lower(),
+                str(item.get("code", "")).strip().lower(),
+            )
+        )
+        self._items.sort(
+            key=lambda item: (
+                category_title_by_code.get(str(item.get("category", "")).strip(), "~"),
+                str(item.get("title", "")).strip().lower(),
+            )
+        )
+        self._refresh_tree()
+        self._refresh_category_combo()
+        if selected_item_id:
+            self._select_item_by_id(selected_item_id)
 
     def _load_catalog(self) -> None:
         try:
