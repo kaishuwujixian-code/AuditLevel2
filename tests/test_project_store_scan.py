@@ -32,3 +32,16 @@ def test_scan_project_summaries_includes_flat_json_and_project_json(tmp_path):
     assert "8 Hillcrest" in names
     assert "Example Building" in names
     assert "Nested Project" in names
+
+
+def test_scan_project_summaries_uses_filename_for_flat_json_without_building_name(tmp_path):
+    projects_dir = tmp_path / "projects"
+    projects_dir.mkdir()
+
+    _write_project(projects_dir / "8 Hillcrest Ave.json", building_name="")
+
+    summaries, errors = scan_project_summaries(str(projects_dir))
+
+    assert not errors
+    assert len(summaries) == 1
+    assert summaries[0].name == "8 Hillcrest Ave"

@@ -148,7 +148,11 @@ def scan_project_summaries(projects_dir: str) -> Tuple[List[ProjectSummary], Lis
             name = str(project_info.get("building_name") or "").strip()
             folder = os.path.dirname(path)
             if not name:
-                name = os.path.basename(folder)
+                filename = os.path.basename(path)
+                if filename.lower() == "project.json":
+                    name = os.path.basename(folder)
+                else:
+                    name = os.path.splitext(filename)[0].strip() or os.path.basename(folder)
             summaries.append(ProjectSummary(name=name, path=path, folder=folder))
         except Exception as exc:  # pragma: no cover - defensive
             errors.append(f"{path}: {exc}")
