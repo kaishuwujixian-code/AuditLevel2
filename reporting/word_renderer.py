@@ -8,6 +8,7 @@ from docx import Document
 from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.text import WD_BREAK, WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
+from docx.shared import Inches
 from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
@@ -225,6 +226,28 @@ def _set_cell_text(cell, text: str) -> None:
         paragraph.add_run(text)
 
 
+
+
+def _set_cell_paragraph_style_and_alignment(cell, *, style: str | None = None, alignment: int | None = None) -> None:
+    if not cell.paragraphs:
+        cell.add_paragraph("")
+    paragraph = cell.paragraphs[0]
+    if style:
+        try:
+            paragraph.style = style
+        except Exception:
+            pass
+    if alignment is not None:
+        paragraph.alignment = alignment
+
+
+def _set_cell_width(cell, width_inches: float) -> None:
+    try:
+        cell.width = Inches(width_inches)
+    except Exception:
+        return
+
+
 def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Paragraph:
     new_p_elm = OxmlElement("w:p")
     paragraph._element.addnext(new_p_elm)
@@ -308,6 +331,13 @@ def _label_for_category(value: Any) -> Optional[str]:
     return MEASURE_CATEGORY_LABELS.get(text.lower(), text)
 
 
+def _format_measure_heading(index: int, title: str) -> str:
+    clean_title = title.strip() if isinstance(title, str) else ""
+    if not clean_title:
+        clean_title = "Measure"
+    return f"Measure {index} – {clean_title}"
+
+
 def _insert_measure_block(
     paragraph: Paragraph,
     measures: List[Dict[str, Any]],
@@ -329,7 +359,7 @@ def _insert_measure_block(
     first = True
     total = len(measures)
     for index, measure in enumerate(measures, start=1):
-        title = str(measure.get("measure_title", "")).strip() or "Measure"
+        title = _format_measure_heading(index, str(measure.get("measure_title", "")).strip())
         if first:
             current_para = set_paragraph(current_para, title, styles["title"])
             first = False
@@ -439,18 +469,34 @@ def _fill_measure_summary_table(
             _set_cell_text(cell, "")
         return True
 
-    for index, (title, summary) in enumerate(summary_rows):
-        row = target_row if index == 0 else target_table.add_row()
-        if row.cells:
-            _set_cell_text(row.cells[0], title)
-        if len(row.cells) > 1:
+    body_style = "Content A" if "Content A" in doc.styles else None
+    for index, (title, summary) in enumerate(summary_rows, start=1):
+        row = target_row if index == 1 else target_table.add_row()
+        if len(row.cells) >= 3:
+            _set_cell_text(row.cells[0], str(index))
+            _set_cell_paragraph_style_and_alignment(
+                row.cells[0], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
+            )
+            _set_cell_width(row.cells[0], 0.65)
+            _set_cell_text(row.cells[1], title)
+            _set_cell_paragraph_style_and_alignment(row.cells[1], style=body_style)
+            _set_cell_text(row.cells[2], summary)
+            _set_cell_paragraph_style_and_alignment(row.cells[2], style=body_style)
+        elif len(row.cells) == 2:
+            _set_cell_text(row.cells[0], f"Measure {index} – {title}")
+            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style)
             _set_cell_text(row.cells[1], summary)
+            _set_cell_paragraph_style_and_alignment(row.cells[1], style=body_style)
+        elif len(row.cells) == 1:
+            _set_cell_text(
+                row.cells[0],
+                f"Measure {index} – {title} — {summary}" if summary else f"Measure {index} – {title}",
+            )
+            _set_cell_paragraph_style_and_alignment(row.cells[0], style=body_style)
 
-    if placeholder in target_row.cells[0].text:
-        _set_cell_text(
-            target_row.cells[0],
-            target_row.cells[0].text.replace(placeholder, ""),
-        )
+    for cell in target_row.cells:
+        if placeholder in cell.text:
+            _set_cell_text(cell, cell.text.replace(placeholder, ""))
     return True
 
 

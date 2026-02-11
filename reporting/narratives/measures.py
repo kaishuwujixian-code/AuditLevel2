@@ -81,11 +81,11 @@ def render_block(
     ordered = _order_selected_measures(context.selected_measures, catalog)
 
     sections: List[str] = []
-    for measure_id in ordered:
+    for index, measure_id in enumerate(ordered, start=1):
         override = context.measure_overrides.get(measure_id, {})
         title = _resolve_measure_title(measure_id, override, catalog)
         narrative = _render_measure_narrative(measure_id, override, catalog)
-        block = _format_measure_block(title, narrative)
+        block = _format_measure_block(index, title, narrative)
         sections.append(block)
 
     return "\n\n".join(section for section in sections if section)
@@ -386,8 +386,17 @@ def _build_notes_section(notes_override: str) -> str:
     return "Notes: " + ensure_sentence(str(notes_override).strip())
 
 
-def _format_measure_block(title: str, narrative: str) -> str:
-    heading = f"Measure \u2013 {title}" if title else "Measure"
+
+
+def _format_measure_heading(index: int, title: str) -> str:
+    clean_title = title.strip() if isinstance(title, str) else ""
+    if not clean_title:
+        clean_title = "Measure"
+    return f"Measure {index} – {clean_title}"
+
+
+def _format_measure_block(index: int, title: str, narrative: str) -> str:
+    heading = _format_measure_heading(index, title)
     if narrative and narrative.strip():
         return "\n\n".join([heading, narrative.strip()])
     return heading
@@ -395,11 +404,11 @@ def _format_measure_block(title: str, narrative: str) -> str:
 
 def _render_structured_text_block(measures: List[Dict[str, Any]]) -> str:
     sections = []
-    for measure in measures:
+    for index, measure in enumerate(measures, start=1):
         title = str(measure.get("measure_title", "")).strip() or "Measure"
         existing = str(measure.get("existing_conditions", "")).strip()
         retrofit = str(measure.get("retrofit_conditions", "")).strip()
-        parts = [f"Measure – {title}"]
+        parts = [_format_measure_heading(index, title)]
         if existing:
             parts.append(f"Existing Conditions: {existing}")
         if retrofit:

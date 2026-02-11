@@ -31,13 +31,22 @@ def _slugify(value: str) -> str:
 
 def _find_project_files(projects_dir: str) -> List[str]:
     project_files: List[str] = []
+    fallback_json_files: List[str] = []
     if not os.path.isdir(projects_dir):
         return project_files
+
     for root, _dirs, files in os.walk(projects_dir):
         for filename in files:
-            if filename == "project.json":
+            lower_name = filename.lower()
+            if lower_name == "project.json":
                 project_files.append(os.path.join(root, filename))
-    return sorted(project_files)
+                continue
+            if lower_name.endswith(".json"):
+                fallback_json_files.append(os.path.join(root, filename))
+
+    all_candidates = {path for path in project_files}
+    all_candidates.update(path for path in fallback_json_files if os.path.basename(path).lower() != "project.json")
+    return sorted(all_candidates)
 
 
 def _load_project(path: str) -> dict:
@@ -139,7 +148,11 @@ def scan_project_summaries(projects_dir: str) -> Tuple[List[ProjectSummary], Lis
             name = str(project_info.get("building_name") or "").strip()
             folder = os.path.dirname(path)
             if not name:
-                name = os.path.basename(folder)
+                filename = os.path.basename(path)
+                if filename.lower() == "project.json":
+                    name = os.path.basename(folder)
+                else:
+                    name = os.path.splitext(filename)[0].strip() or os.path.basename(folder)
             summaries.append(ProjectSummary(name=name, path=path, folder=folder))
         except Exception as exc:  # pragma: no cover - defensive
             errors.append(f"{path}: {exc}")

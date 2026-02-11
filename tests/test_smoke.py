@@ -65,7 +65,7 @@ def test_project_roundtrip_and_render(tmp_path: Path) -> None:
     )
     assert "{MEASURE_BLOCK}" not in rendered_text
     assert "{FINDINGS_BLOCK}" not in rendered_text
-    assert "Measure – Condensing Boiler Retrofit" in rendered_text
+    assert "Measure 1 – Condensing Boiler Retrofit" in rendered_text
     assert "Existing Conditions:" in rendered_text
     assert "Override narrative for BAS upgrade." in rendered_text
     assert "Safety Hazards:" in rendered_text

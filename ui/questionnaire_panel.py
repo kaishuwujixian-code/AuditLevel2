@@ -145,6 +145,8 @@ class QuestionnairePanel(ttk.Frame):
         elif widget.question_type == "multi_select":
             for _value, var in widget.widget:
                 var.set(False)
+        elif widget.question_type == "boiler_groups":
+            self._set_boiler_group_rows(widget, [])
 
     def _add_question(
         self,
@@ -269,6 +271,94 @@ class QuestionnairePanel(ttk.Frame):
                 },
             )
 
+
+        if question_type == "boiler_groups":
+            container = ttk.Frame(parent)
+            container.grid(row=row, column=1, sticky="ew", pady=6)
+            container.columnconfigure(0, weight=1)
+
+            rows_container = ttk.Frame(container)
+            rows_container.grid(row=0, column=0, sticky="ew")
+            rows_container.columnconfigure(0, weight=1)
+
+            row_defs: list[dict[str, Any]] = []
+
+            controls = ttk.Frame(container)
+            controls.grid(row=1, column=0, sticky="w", pady=(6, 0))
+
+            group_type_options = self._option_sets.get("heating.boiler_type", {})
+            condition_options = self._option_sets.get("boiler.condition", {})
+
+            def _add_row(values: Dict[str, Any] | None = None) -> None:
+                values = values if isinstance(values, dict) else {}
+                row_idx = len(row_defs)
+                row_frame = ttk.LabelFrame(rows_container, text=f"Boiler Group {row_idx + 1}", padding=8)
+                row_frame.grid(row=row_idx, column=0, sticky="ew", pady=(0, 6))
+                for col in range(0, 8, 2):
+                    row_frame.columnconfigure(col + 1, weight=1)
+
+                quantity_var = tk.StringVar(value="" if values.get("quantity") is None else str(values.get("quantity")))
+                capacity_var = tk.StringVar(value="" if values.get("capacity_mbh") is None else str(values.get("capacity_mbh")))
+                install_year_var = tk.StringVar(value="" if values.get("install_year") is None else str(values.get("install_year")))
+
+                boiler_type_values = list(group_type_options.keys())
+                boiler_type_labels = [group_type_options[v] for v in boiler_type_values]
+                boiler_type_label_to_value = {group_type_options[value]: value for value in boiler_type_values}
+                boiler_type_value_to_label = {value: group_type_options[value] for value in boiler_type_values}
+                boiler_type_var = tk.StringVar(value=boiler_type_value_to_label.get(values.get("boiler_type"), ""))
+
+                condition_values = list(condition_options.keys())
+                condition_labels = [condition_options[v] for v in condition_values]
+                condition_label_to_value = {condition_options[value]: value for value in condition_values}
+                condition_value_to_label = {value: condition_options[value] for value in condition_values}
+                condition_var = tk.StringVar(value=condition_value_to_label.get(values.get("condition"), ""))
+
+                ttk.Label(row_frame, text="Quantity").grid(row=0, column=0, sticky="w", padx=(0, 6), pady=2)
+                ttk.Entry(row_frame, textvariable=quantity_var, width=10).grid(row=0, column=1, sticky="ew", padx=(0, 12), pady=2)
+                ttk.Label(row_frame, text="Type").grid(row=0, column=2, sticky="w", padx=(0, 6), pady=2)
+                ttk.Combobox(row_frame, textvariable=boiler_type_var, values=boiler_type_labels, state="readonly").grid(row=0, column=3, sticky="ew", padx=(0, 12), pady=2)
+
+                ttk.Label(row_frame, text="Capacity (MBH each)").grid(row=1, column=0, sticky="w", padx=(0, 6), pady=2)
+                ttk.Entry(row_frame, textvariable=capacity_var, width=14).grid(row=1, column=1, sticky="ew", padx=(0, 12), pady=2)
+                ttk.Label(row_frame, text="Install year").grid(row=1, column=2, sticky="w", padx=(0, 6), pady=2)
+                ttk.Entry(row_frame, textvariable=install_year_var, width=10).grid(row=1, column=3, sticky="ew", padx=(0, 12), pady=2)
+
+                ttk.Label(row_frame, text="Condition").grid(row=2, column=0, sticky="w", padx=(0, 6), pady=2)
+                ttk.Combobox(row_frame, textvariable=condition_var, values=condition_labels, state="readonly").grid(row=2, column=1, sticky="ew", padx=(0, 12), pady=2)
+
+                row_defs.append(
+                    {
+                        "frame": row_frame,
+                        "quantity": quantity_var,
+                        "boiler_type": boiler_type_var,
+                        "capacity_mbh": capacity_var,
+                        "install_year": install_year_var,
+                        "condition": condition_var,
+                        "boiler_type_label_to_value": boiler_type_label_to_value,
+                        "condition_label_to_value": condition_label_to_value,
+                    }
+                )
+
+            def _remove_last_row() -> None:
+                if not row_defs:
+                    return
+                row_def = row_defs.pop()
+                frame = row_def.get("frame")
+                if frame:
+                    frame.destroy()
+
+            ttk.Button(controls, text="Add boiler group", command=lambda: _add_row()).pack(side="left")
+            ttk.Button(controls, text="Remove last", command=_remove_last_row).pack(side="left", padx=(6, 0))
+
+            return QuestionWidget(
+                question_id,
+                question_type,
+                row_defs,
+                metadata={
+                    "add_row": _add_row,
+                },
+            )
+
         return None
 
     def load_project(self, project_data: Dict[str, Any]) -> None:
@@ -301,6 +391,29 @@ class QuestionnairePanel(ttk.Frame):
         for question_id, widget in self._question_widgets.items():
             answers[question_id] = self._extract_answer(widget)
 
+        boiler_groups = answers.get("boilers")
+        if isinstance(boiler_groups, list) and boiler_groups:
+            quantities: list[int] = []
+            for group in boiler_groups:
+                if not isinstance(group, dict):
+                    continue
+                try:
+                    quantities.append(int(float(str(group.get("quantity", "")).strip())))
+                except (TypeError, ValueError):
+                    continue
+            if quantities:
+                answers["number_of_boilers"] = sum(quantities)
+            first_group = next((group for group in boiler_groups if isinstance(group, dict)), None)
+            if first_group:
+                if first_group.get("capacity_mbh"):
+                    answers["boiler_capacity_mbh"] = first_group.get("capacity_mbh")
+                if first_group.get("boiler_type"):
+                    answers["boiler_type"] = first_group.get("boiler_type")
+                if first_group.get("install_year"):
+                    answers["boiler_install_year"] = first_group.get("install_year")
+                if first_group.get("condition"):
+                    answers["boiler_condition"] = first_group.get("condition")
+
         template_fields: Dict[str, Any] = {}
         for placeholder, widget in self._template_widgets.items():
             template_fields[placeholder] = self._extract_answer(widget)
@@ -329,6 +442,26 @@ class QuestionnairePanel(ttk.Frame):
                 if var.get():
                     selections.append(inverse_aliases.get(value, value))
             return selections
+        if widget.question_type == "boiler_groups":
+            groups = []
+            for row in widget.widget:
+                quantity = row["quantity"].get().strip()
+                boiler_type_label = row["boiler_type"].get().strip()
+                capacity_mbh = row["capacity_mbh"].get().strip()
+                install_year = row["install_year"].get().strip()
+                condition_label = row["condition"].get().strip()
+                boiler_type = row["boiler_type_label_to_value"].get(boiler_type_label, "")
+                condition = row["condition_label_to_value"].get(condition_label, "")
+                group = {
+                    "quantity": quantity,
+                    "boiler_type": boiler_type,
+                    "capacity_mbh": capacity_mbh,
+                    "install_year": install_year,
+                    "condition": condition,
+                }
+                if any(str(value).strip() for value in group.values()):
+                    groups.append(group)
+            return groups
         return None
 
     def _set_widget_value(self, widget: QuestionWidget, value: Any) -> None:
@@ -357,6 +490,22 @@ class QuestionnairePanel(ttk.Frame):
             values = set(aliases.get(item, item) for item in (value or []))
             for option_value, var in widget.widget:
                 var.set(option_value in values)
+        elif widget.question_type == "boiler_groups":
+            groups = value if isinstance(value, list) else []
+            self._set_boiler_group_rows(widget, groups)
+
+    def _set_boiler_group_rows(self, widget: QuestionWidget, groups: list[dict[str, Any]]) -> None:
+        if widget.question_type != "boiler_groups":
+            return
+        while widget.widget:
+            row_def = widget.widget.pop()
+            frame = row_def.get("frame")
+            if frame:
+                frame.destroy()
+        add_row = widget.metadata.get("add_row")
+        if callable(add_row):
+            for group in groups:
+                add_row(group)
 
     def _build_form_section(self, parent: ttk.Frame, title: str) -> ttk.LabelFrame:
         section_frame = ttk.LabelFrame(parent, text=title, padding=10)
