@@ -6,6 +6,8 @@ from typing import Dict, Optional, Tuple
 import tkinter as tk
 from tkinter import messagebox, ttk
 
+from ui.ui_state import load_ui_state, save_ui_state
+
 from core.checklist_store import (
     load_template_checklists,
     save_template_checklists,
@@ -25,24 +27,53 @@ class ChecklistLibraryPanel(ttk.Frame):
             ("DHW", "dhw"),
             ("Miscellaneous", "misc"),
         ]
+        self._search_var = tk.StringVar(value="")
         self._build_ui()
         self._load_checklists()
 
     def _build_ui(self) -> None:
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        self._tree = ttk.Treeview(self, show="tree")
-        self._tree.grid(row=0, column=0, sticky="nsew", padx=(0, 8), pady=6)
+        self._paned = ttk.PanedWindow(self, orient="horizontal")
+        self._paned.grid(row=0, column=0, sticky="nsew")
+
+        list_frame = ttk.Frame(self)
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
+
+        search_row = ttk.Frame(list_frame)
+        search_row.grid(row=0, column=0, sticky="ew", padx=(0, 8), pady=(6, 2))
+        search_row.columnconfigure(1, weight=1)
+        ttk.Label(search_row, text="Search").grid(row=0, column=0, sticky="w", padx=(0, 6))
+        self._search_entry = ttk.Entry(search_row, textvariable=self._search_var)
+        self._search_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(search_row, text="Clear", command=lambda: self._search_var.set("")).grid(
+            row=0, column=2, padx=(6, 0)
+        )
+        ttk.Button(search_row, text="Sort A-Z", command=self._sort_alphabetically).grid(
+            row=0, column=3, padx=(6, 0)
+        )
+        self._search_var.trace_add("write", lambda *_args: self._refresh_tree())
+
+        tree_frame = ttk.Frame(list_frame)
+        tree_frame.grid(row=1, column=0, sticky="nsew", padx=(0, 8), pady=(0, 6))
+        tree_frame.columnconfigure(0, weight=1)
+        tree_frame.rowconfigure(0, weight=1)
+
+        self._tree = ttk.Treeview(tree_frame, show="tree")
+        self._tree.grid(row=0, column=0, sticky="nsew")
         self._tree.bind("<<TreeviewSelect>>", self._on_select)
 
-        scroll = ttk.Scrollbar(self, orient="vertical", command=self._tree.yview)
-        self._tree.configure(yscrollcommand=scroll.set)
-        scroll.grid(row=0, column=0, sticky="nse", padx=(0, 8), pady=6)
+        yscroll = ttk.Scrollbar(tree_frame, orient="vertical", command=self._tree.yview)
+        xscroll = ttk.Scrollbar(tree_frame, orient="horizontal", command=self._tree.xview)
+        self._tree.configure(yscrollcommand=yscroll.set, xscrollcommand=xscroll.set)
+        yscroll.grid(row=0, column=1, sticky="ns")
+        xscroll.grid(row=1, column=0, sticky="ew")
 
         editor = ttk.Frame(self)
-        editor.grid(row=0, column=1, sticky="nsew", pady=6)
         editor.columnconfigure(1, weight=1)
+        editor.rowconfigure(3, weight=1)
 
         ttk.Label(editor, text="Level").grid(row=0, column=0, sticky="w", pady=(0, 4))
         self._level_var = tk.StringVar(value="")
@@ -67,8 +98,15 @@ class ChecklistLibraryPanel(ttk.Frame):
         self._target_combo.grid(row=2, column=1, sticky="w", pady=(8, 0))
 
         ttk.Label(editor, text="Item text").grid(row=3, column=0, sticky="nw", pady=(8, 0))
-        self._item_text = tk.Text(editor, height=4, wrap="word")
-        self._item_text.grid(row=3, column=1, sticky="ew", pady=(8, 0))
+        text_frame = ttk.Frame(editor)
+        text_frame.grid(row=3, column=1, sticky="nsew", pady=(8, 0))
+        text_frame.columnconfigure(0, weight=1)
+        text_frame.rowconfigure(0, weight=1)
+        self._item_text = tk.Text(text_frame, height=10, wrap="word")
+        self._item_text.grid(row=0, column=0, sticky="nsew")
+        text_scroll = ttk.Scrollbar(text_frame, orient="vertical", command=self._item_text.yview)
+        self._item_text.configure(yscrollcommand=text_scroll.set)
+        text_scroll.grid(row=0, column=1, sticky="ns")
 
         button_row = ttk.Frame(editor)
         button_row.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(10, 0))
@@ -107,6 +145,58 @@ class ChecklistLibraryPanel(ttk.Frame):
         )
         ttk.Button(footer, text="Save", command=self._save).pack(side="left")
 
+        self._paned.add(list_frame, weight=2)
+        self._paned.add(editor, weight=5)
+
+        self.after(20, self._restore_paned_position)
+        self._paned.bind("<ButtonRelease-1>", lambda _e: self._save_paned_position(), add=True)
+
+        self.bind_all("<Control-s>", self._handle_ctrl_s, add=True)
+        self.bind_all("<Control-f>", self._handle_ctrl_f, add=True)
+        self.bind_all("<Control-Return>", self._handle_ctrl_enter, add=True)
+
+    def _restore_paned_position(self) -> None:
+        state = load_ui_state("checklist_library")
+        pos = state.get("sash")
+        if isinstance(pos, int) and pos > 120:
+            try:
+                self._paned.sashpos(0, pos)
+            except Exception:
+                pass
+
+    def _save_paned_position(self) -> None:
+        try:
+            pos = int(self._paned.sashpos(0))
+        except Exception:
+            return
+        save_ui_state("checklist_library", {"sash": pos})
+
+    def _handle_ctrl_s(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._save()
+            return "break"
+        return ""
+
+    def _handle_ctrl_f(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._search_entry.focus_set()
+            self._search_entry.selection_range(0, tk.END)
+            return "break"
+        return ""
+
+    def _handle_ctrl_enter(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._apply_edit()
+            return "break"
+        return ""
+
+    def _sort_alphabetically(self) -> None:
+        selection = self._selection
+        self._checklists = _sorted_checklists(self._checklists)
+        self._refresh_tree()
+        self._selection = selection
+        self._restore_selection()
+
     def _load_checklists(self) -> None:
         try:
             self._checklists = _normalize_checklists(load_template_checklists())
@@ -119,15 +209,27 @@ class ChecklistLibraryPanel(ttk.Frame):
 
     def _refresh_tree(self) -> None:
         self._tree.delete(*self._tree.get_children())
+        term = self._search_var.get().strip().lower()
         for group_name, categories in self._checklists.items():
-            group_id = self._tree.insert("", "end", text=group_name, open=True)
             if not isinstance(categories, dict):
                 continue
-            for category_name, items in categories.items():
-                category_id = self._tree.insert(group_id, "end", text=category_name, open=True)
+            group_match = bool(term and term in group_name.lower())
+            visible_categories = []
+            for category_name in categories.keys():
                 item_list = _get_category_items(self._checklists, group_name, category_name)
-                for item in item_list:
-                    self._tree.insert(category_id, "end", text=_item_label(item))
+                labels = [_item_label(item) for item in item_list]
+                category_match = bool(term and term in category_name.lower())
+                matching_labels = [label for label in labels if term and term in label.lower()]
+                if not term or group_match or category_match or matching_labels:
+                    visible_categories.append((category_name, labels, matching_labels, category_match))
+            if term and not group_match and not visible_categories:
+                continue
+            group_id = self._tree.insert("", "end", text=group_name, open=True)
+            for category_name, labels, matching_labels, category_match in visible_categories:
+                category_id = self._tree.insert(group_id, "end", text=category_name, open=True)
+                labels_to_show = labels if (not term or group_match or category_match) else matching_labels
+                for label in labels_to_show:
+                    self._tree.insert(category_id, "end", text=label)
 
     def _on_select(self, _event: tk.Event) -> None:
         selection = self._tree.selection()
@@ -385,6 +487,28 @@ def _normalize_checklists(checklists: Dict[str, dict]) -> Dict[str, dict]:
                     "target_block": str(target) if target else "misc",
                 }
     return normalized
+
+
+def _sorted_checklists(checklists: Dict[str, dict]) -> Dict[str, dict]:
+    sorted_groups: Dict[str, dict] = {}
+    for group_name in sorted(checklists.keys(), key=lambda value: value.lower()):
+        categories = checklists.get(group_name, {})
+        if not isinstance(categories, dict):
+            continue
+        sorted_categories: Dict[str, dict] = {}
+        for category_name in sorted(categories.keys(), key=lambda value: value.lower()):
+            category_data = categories.get(category_name, {})
+            if not isinstance(category_data, dict):
+                continue
+            target_block = str(category_data.get("target_block", "misc") or "misc")
+            items = [dict(item) if isinstance(item, dict) else _item_dict(item) for item in _get_category_items(checklists, group_name, category_name)]
+            items.sort(key=lambda item: _item_label(item).lower())
+            sorted_categories[category_name] = {
+                "items": items,
+                "target_block": target_block,
+            }
+        sorted_groups[group_name] = sorted_categories
+    return sorted_groups
 
 
 def _get_category_items(

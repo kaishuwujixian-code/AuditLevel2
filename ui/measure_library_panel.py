@@ -41,17 +41,21 @@ class MeasureLibraryPanel(ttk.Frame):
         list_frame = ttk.Frame(self)
         list_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 8), pady=6)
         list_frame.columnconfigure(0, weight=1)
-        list_frame.rowconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
+
+        controls_row = ttk.Frame(list_frame)
+        controls_row.grid(row=0, column=0, sticky="ew", pady=(0, 6))
+        ttk.Button(controls_row, text="Sort A-Z", command=self._sort_alphabetically).pack(side="left")
 
         self._measure_tree = ttk.Treeview(
             list_frame, show="tree", selectmode="browse"
         )
-        self._measure_tree.grid(row=0, column=0, sticky="nsew")
+        self._measure_tree.grid(row=1, column=0, sticky="nsew")
         measure_scroll = ttk.Scrollbar(
             list_frame, orient="vertical", command=self._measure_tree.yview
         )
         self._measure_tree.configure(yscrollcommand=measure_scroll.set)
-        measure_scroll.grid(row=0, column=1, sticky="ns")
+        measure_scroll.grid(row=1, column=1, sticky="ns")
         self._measure_tree.bind("<<TreeviewSelect>>", self._on_measure_select)
 
         editor = ttk.Frame(self)
@@ -120,6 +124,30 @@ class MeasureLibraryPanel(ttk.Frame):
             side="left", padx=(0, 6)
         )
         ttk.Button(footer, text="Save", command=self._save_catalog).pack(side="left")
+
+    def _sort_alphabetically(self) -> None:
+        self._maybe_apply_measure()
+        selected_measure_id = self._measure_id_var if self._measure_id_var else ""
+        category_title_by_code = {
+            str(item.get("code", "")).strip(): str(item.get("tab_title", "")).strip().lower()
+            for item in self._categories
+            if isinstance(item, dict)
+        }
+        self._categories.sort(
+            key=lambda item: (
+                str(item.get("tab_title", "")).strip().lower(),
+                str(item.get("code", "")).strip().lower(),
+            )
+        )
+        self._measures.sort(
+            key=lambda item: (
+                category_title_by_code.get(str(item.get("category", "")).strip(), "~"),
+                str(item.get("title", "")).strip().lower(),
+            )
+        )
+        self._refresh_measure_tree()
+        if selected_measure_id:
+            self._select_measure_by_id(selected_measure_id)
 
     def _load_catalog(self) -> None:
         try:
