@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {"code": "plant", "title": "Plant"},
+    {"code": "distribution", "title": "Distribution"},
+    {"code": "controls", "title": "Controls"}
+  ],
+  "items": [
+    {
+      "id": "air_cooled_chiller",
+      "title": "Air-cooled chiller",
+      "category": "plant",
+      "text": "Cooling is provided by a central air-cooled chiller system. Equipment appeared to be operating as intended based on available site observations."
+    },
+    {
+      "id": "cooling_distribution",
+      "title": "Cooling distribution observations",
+      "category": "distribution",
+      "text": "Chilled water is distributed to major cooling loads throughout the building. Piping, valves, and pumps were observed in generally serviceable condition during the walkthrough."
+    },
+    {
+      "id": "cooling_controls",
+      "title": "Cooling controls",
+      "category": "controls",
+      "text": "Cooling system control is handled through BAS schedules and setpoints. Sequence verification and trend analysis are recommended for additional optimization opportunities."
+    }
+  ]
+}

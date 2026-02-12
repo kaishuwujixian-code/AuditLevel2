@@ -8,6 +8,7 @@ from tkinter import ttk
 
 from core.questionnaire import apply_answers_to_project, collect_template_placeholders
 from reporting.narratives import load_option_sets
+from ui.library_items_panel import LibraryItemsPanel
 from ui.misc_panel import MiscPanel
 
 
@@ -33,6 +34,7 @@ class QuestionnairePanel(ttk.Frame):
         self._option_sets = load_option_sets()
         self._template_fields = collect_template_placeholders(schema)
         self._misc_panel: Optional[MiscPanel] = None
+        self._system_library_panels: Dict[str, LibraryItemsPanel] = {}
         toolbar = ttk.Frame(self)
         toolbar.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 0))
         ttk.Button(toolbar, text="Clear Current Tab", command=self._clear_current_tab).pack(
@@ -58,18 +60,40 @@ class QuestionnairePanel(ttk.Frame):
         self._notebook.add(general_tab, text="General")
         self._tab_frames["general"] = general_tab.content
 
-        system_tabs = {
-            "heating": _ScrollableFrame(self._notebook),
-            "cooling": _ScrollableFrame(self._notebook),
-            "dhw": _ScrollableFrame(self._notebook),
-            "ventilation": _ScrollableFrame(self._notebook),
+        self._system_library_panels = {
+            "heating": LibraryItemsPanel(
+                self._notebook,
+                storage_key="heating_items",
+                catalog_filename="heating_catalog.json",
+                title="Heating Library",
+                item_label="Heating",
+            ),
+            "cooling": LibraryItemsPanel(
+                self._notebook,
+                storage_key="cooling_items",
+                catalog_filename="cooling_catalog.json",
+                title="Cooling Library",
+                item_label="Cooling",
+            ),
+            "dhw": LibraryItemsPanel(
+                self._notebook,
+                storage_key="dhw_items",
+                catalog_filename="dhw_catalog.json",
+                title="DHW Library",
+                item_label="DHW",
+            ),
+            "ventilation": LibraryItemsPanel(
+                self._notebook,
+                storage_key="ventilation_items",
+                catalog_filename="ventilation_catalog.json",
+                title="Ventilation Library",
+                item_label="Ventilation",
+            ),
         }
-        self._notebook.add(system_tabs["heating"], text="Heating")
-        self._notebook.add(system_tabs["cooling"], text="Cooling")
-        self._notebook.add(system_tabs["dhw"], text="DHW")
-        self._notebook.add(system_tabs["ventilation"], text="Ventilation")
-        for key, frame in system_tabs.items():
-            self._tab_frames[key] = frame.content
+        self._notebook.add(self._system_library_panels["heating"], text="Heating")
+        self._notebook.add(self._system_library_panels["cooling"], text="Cooling")
+        self._notebook.add(self._system_library_panels["dhw"], text="DHW")
+        self._notebook.add(self._system_library_panels["ventilation"], text="Ventilation")
         self._misc_panel = MiscPanel(self._notebook)
         self._notebook.add(self._misc_panel, text="Misc")
 
@@ -81,16 +105,15 @@ class QuestionnairePanel(ttk.Frame):
                 continue
             section_id = str(section.get("id", "")).strip().lower()
             section_title = section.get("title", "Section")
-            default_tab = section_id if section_id in system_tabs else "general"
+            default_tab = section_id if section_id in self._system_library_panels else "general"
             for question in section.get("questions", []):
                 if question.get("type") in {"measure_select", "measure_list", "misc_list"}:
                     continue
                 question_section = self._resolve_system_section(question)
                 tab_key = question_section or default_tab
-                if tab_key in system_tabs:
-                    container = system_tabs[tab_key].content
-                else:
-                    container = general_container
+                if tab_key in self._system_library_panels:
+                    continue
+                container = general_container
                 frame_key = (tab_key, section_title)
                 if frame_key not in section_frames:
                     section_frames[frame_key] = self._build_form_section(
@@ -123,6 +146,10 @@ class QuestionnairePanel(ttk.Frame):
         if self._misc_panel and tab is self._misc_panel:
             self._misc_panel.clear_items()
             return
+        for panel in self._system_library_panels.values():
+            if tab is panel:
+                panel.clear_items()
+                return
         if isinstance(tab, _ScrollableFrame):
             self._clear_tab_widgets(tab.content)
             return
@@ -381,6 +408,8 @@ class QuestionnairePanel(ttk.Frame):
             self._set_widget_value(widget, value)
         if self._misc_panel:
             self._misc_panel.load_project(project_data)
+        for panel in self._system_library_panels.values():
+            panel.load_project(project_data)
         self._apply_visibility()
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
@@ -421,6 +450,8 @@ class QuestionnairePanel(ttk.Frame):
         apply_answers_to_project(project_data, answers, self._schema, template_fields)
         if self._misc_panel:
             self._misc_panel.update_project(project_data)
+        for panel in self._system_library_panels.values():
+            panel.update_project(project_data)
 
     def _extract_answer(self, widget: QuestionWidget) -> Any:
         if widget.question_type in {"text", "number", "date"}:

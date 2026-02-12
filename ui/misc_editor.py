@@ -15,8 +15,9 @@ class MiscCategory:
 
 
 class MiscEditor(ttk.Frame):
-    def __init__(self, master: tk.Misc) -> None:
+    def __init__(self, master: tk.Misc, *, item_label: str = "Misc") -> None:
         super().__init__(master)
+        self._item_label = item_label
         self._cards: List[_MiscCard] = []
         self._active_card: Optional[_MiscCard] = None
         self._categories: List[MiscCategory] = []
@@ -27,7 +28,7 @@ class MiscEditor(ttk.Frame):
         self.columnconfigure(0, weight=1)
         toolbar = ttk.Frame(self)
         toolbar.grid(row=0, column=0, sticky="ew", pady=(0, 6))
-        ttk.Button(toolbar, text="Add Misc Item", command=self.add_item).pack(side="left")
+        ttk.Button(toolbar, text=f"Add {self._item_label} Item", command=self.add_item).pack(side="left")
 
         self._scroll = _ScrollableFrame(self)
         self._scroll.grid(row=1, column=0, sticky="nsew")
@@ -48,6 +49,7 @@ class MiscEditor(ttk.Frame):
     def add_item(self, data: Optional[Dict[str, Any]] = None) -> _MiscCard:
         card = _MiscCard(
             self._scroll.content,
+            item_label=self._item_label,
             text_font=self._text_font,
             categories=self._categories,
             on_move_up=lambda: self._move_card(card, -1),
@@ -136,6 +138,7 @@ class _MiscCard:
         self,
         master: tk.Misc,
         *,
+        item_label: str,
         text_font: tkfont.Font,
         categories: List[MiscCategory],
         on_move_up,
@@ -144,13 +147,14 @@ class _MiscCard:
         on_activate,
     ) -> None:
         self._text_font = text_font
+        self._item_label = item_label
         self._categories = categories
         self._on_move_up = on_move_up
         self._on_move_down = on_move_down
         self._on_remove = on_remove
         self._on_activate = on_activate
         self._misc_id: Optional[str] = None
-        self.frame = ttk.Labelframe(master, text="Misc Item")
+        self.frame = ttk.Labelframe(master, text=f"{self._item_label} Item")
         self._build_ui()
         self._bind_activate()
 
@@ -202,7 +206,7 @@ class _MiscCard:
         self._category_combo.configure(values=[cat.title for cat in self._categories])
 
     def update_index(self, index: int, total: int, *, active: bool) -> None:
-        label = f"Misc Item {index}"
+        label = f"{self._item_label} Item {index}"
         if active:
             label = f"{label} (selected)"
         self.frame.configure(text=label)

@@ -7,6 +7,7 @@ from reporting.narratives import (
     get_answer_value,
 )
 from reporting.narratives.checklists import render_block_appendix
+from reporting.narratives.library_items import collect_items, render_items
 
 BLOCK_PLACEHOLDERS = ["{Miscellaneous Block}"]
 EXPECTED_INPUTS = {
@@ -27,7 +28,7 @@ class MiscContext:
         override_text = first_meaningful_text(
             [get_answer_value(project, ["misc_block_override", "misc_block", "misc_notes"])]
         )
-        return cls(override_text=override_text, items=_collect_misc_items(project))
+        return cls(override_text=override_text, items=collect_items(project, "misc_items"))
 
 
 def render_block(
@@ -61,41 +62,5 @@ def render_block(
     return text
 
 
-def _collect_misc_items(project: Dict[str, Any]) -> List[Dict[str, Any]]:
-    answers = project.get("answers", {}) if isinstance(project, dict) else {}
-    items = None
-    if isinstance(answers, dict):
-        items = answers.get("misc_items")
-    if items is None:
-        items = project.get("misc_items") if isinstance(project, dict) else None
-    if not isinstance(items, list):
-        return []
-    return [item for item in items if isinstance(item, dict) and _has_content(item)]
-
-
-def _has_content(item: Dict[str, Any]) -> bool:
-    for value in item.values():
-        if value is None:
-            continue
-        if isinstance(value, str) and not value.strip():
-            continue
-        return True
-    return False
-
-
 def _render_misc_items(items: List[Dict[str, Any]]) -> str:
-    blocks: List[str] = []
-    for item in items:
-        title = str(item.get("title", "")).strip()
-        text = str(item.get("text", "")).strip()
-        if title and text:
-            blocks.append(f"{_underline_text(title + ':')}\n\n{text}")
-        elif text:
-            blocks.append(text)
-        elif title:
-            blocks.append(_underline_text(title + ":"))
-    return "\n\n".join(blocks)
-
-
-def _underline_text(text: str) -> str:
-    return "".join(f"{char}\u0332" if not char.isspace() else char for char in text)
+    return render_items(items)

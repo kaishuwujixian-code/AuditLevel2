@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {"code": "system", "title": "System"},
+    {"code": "equipment", "title": "Equipment"},
+    {"code": "controls", "title": "Controls"}
+  ],
+  "items": [
+    {
+      "id": "central_ahu_ventilation",
+      "title": "Central AHU ventilation",
+      "category": "system",
+      "text": "Ventilation is provided through central air-handling equipment with outdoor-air intake and return/exhaust paths serving occupied areas."
+    },
+    {
+      "id": "garage_exhaust_controls",
+      "title": "Garage exhaust with demand control",
+      "category": "equipment",
+      "text": "Garage ventilation is controlled by carbon monoxide sensing with demand-based exhaust fan operation. This approach helps reduce fan runtime during low-occupancy periods."
+    },
+    {
+      "id": "ventilation_controls_bas",
+      "title": "Ventilation controls via BAS",
+      "category": "controls",
+      "text": "Ventilation schedules and operating setpoints are integrated into BAS controls. Further trend review can help confirm outdoor-air control performance under varying occupancy."
+    }
+  ]
+}

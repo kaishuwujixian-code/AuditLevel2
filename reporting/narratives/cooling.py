@@ -17,7 +17,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
-from reporting.rulesets.engine import render_ruleset_block
+from reporting.narratives.library_items import collect_items, render_items
 
 BLOCK_PLACEHOLDERS = ["{Central Cooling Systems block}"]
 EXPECTED_INPUTS = {
@@ -43,6 +43,7 @@ EXPECTED_INPUTS = {
             "cooling_location",
             "cooling_controls_notes",
             "cooling_notes",
+            "cooling_items",
             "chiller_manufacturer",
             "chiller_install_year",
             "cooling_equipment_condition",
@@ -445,17 +446,13 @@ def render_block(
     override_text = first_meaningful_text(
         [get_answer_value(project, ["cooling_block_override", "cooling_block"])]
     )
-    if override_text:
-        return override_text
-
-    ruleset_text = render_ruleset_block(
-        project,
-        ruleset_filename="cooling.rules.json",
-        target_block="cooling",
-        block_ref="{Central Cooling Systems block}",
-    )
-    if ruleset_text:
-        paragraphs = [ruleset_text]
+    library_items = collect_items(project, "cooling_items")
+    if override_text and library_items:
+        paragraphs = [render_items(library_items), override_text]
+    elif override_text:
+        paragraphs = [override_text]
+    elif library_items:
+        paragraphs = [render_items(library_items)]
     else:
         paragraph = render_paragraph(project, mapping=mapping)
         if not paragraph:
