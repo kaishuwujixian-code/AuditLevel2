@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import tempfile
 
 
 def _get_resource_root() -> str:
@@ -12,9 +13,34 @@ def _get_resource_root() -> str:
     return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
+def _is_writable_dir(path: str) -> bool:
+    if not os.path.isdir(path):
+        return False
+    try:
+        with tempfile.NamedTemporaryFile(dir=path, delete=True):
+            return True
+    except OSError:
+        return False
+
+
 def _get_app_root() -> str:
+    env_root = os.environ.get("AUDITSTUDIO_APP_ROOT")
+    if env_root:
+        return os.path.abspath(os.path.expanduser(env_root))
+
+    resource_root = _get_resource_root()
     if not getattr(sys, "frozen", False):
-        return _get_resource_root()
+        return resource_root
+
+    portable_mode = os.environ.get("AUDITSTUDIO_PORTABLE", "").strip().lower()
+    if portable_mode in {"1", "true", "yes", "on"}:
+        return resource_root
+
+    # Prefer a "portable" data folder beside the packaged executable when writable,
+    # and fall back to %APPDATA% for installed/locked-down locations.
+    if _is_writable_dir(resource_root):
+        return resource_root
+
     appdata = os.environ.get("APPDATA") or os.path.expanduser("~")
     return os.path.join(appdata, "AuditStudio")
 
