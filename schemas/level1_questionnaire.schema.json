@@ -76,24 +76,13 @@
         },
         {
           "id": "dhw_supply_temp_f",
-          "title": "DHW supply temperature (\u00b0F)",
+          "title": "DHW supply temperature (°F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
           "options_ref": null,
           "placeholder_targets": [],
           "help": "Observed DHW supply temperature.",
-          "required": false
-        },
-        {
-          "id": "dhw_piping_condition",
-          "title": "DHW piping condition",
-          "type": "single_select",
-          "section_id": "dhw",
-          "options": [],
-          "options_ref": "dhw.piping_condition",
-          "placeholder_targets": [],
-          "help": "Observed condition of DHW piping.",
           "required": false
         },
         {
@@ -153,7 +142,7 @@
         },
         {
           "id": "dhw_storage_temp_f",
-          "title": "DHW storage temperature (\u00b0F)",
+          "title": "DHW storage temperature (°F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
@@ -164,7 +153,7 @@
         },
         {
           "id": "dhw_mixed_temp_f",
-          "title": "Mixed water temperature (\u00b0F)",
+          "title": "Mixed water temperature (°F)",
           "type": "number",
           "section_id": "dhw",
           "options": [],
@@ -587,6 +576,25 @@
           }
         },
         {
+          "id": "boilers",
+          "title": "Boiler groups (for mixed capacities/types)",
+          "type": "boiler_groups",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Add one row per boiler group when capacities/types differ.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
           "id": "number_of_boilers",
           "title": "Number of boilers",
           "type": "number",
@@ -702,7 +710,7 @@
         },
         {
           "id": "boiler_supply_temp_f",
-          "title": "Boiler supply temperature (\u00b0F)",
+          "title": "Boiler supply temperature (°F)",
           "type": "number",
           "section_id": "heating",
           "options": [],
@@ -721,7 +729,7 @@
         },
         {
           "id": "boiler_return_temp_f",
-          "title": "Boiler return temperature (\u00b0F)",
+          "title": "Boiler return temperature (°F)",
           "type": "number",
           "section_id": "heating",
           "options": [],
@@ -959,28 +967,6 @@
           "required": false
         },
         {
-          "id": "window_ac_present",
-          "title": "Window AC present",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether window AC units are present.",
-          "required": false
-        },
-        {
-          "id": "future_cooling_upgrade_considered",
-          "title": "Future cooling upgrade considered",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether future cooling upgrades are being considered.",
-          "required": false
-        },
-        {
           "id": "fluid_cooler_present",
           "title": "Fluid cooler present",
           "type": "single_select",
@@ -1201,25 +1187,6 @@
           }
         },
         {
-          "id": "cooling_tower_vfd_present",
-          "title": "Cooling tower VFD present",
-          "type": "single_select",
-          "section_id": "cooling",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether cooling tower fan VFDs are present.",
-          "required": false,
-          "show_if": {
-            "field": "suite_cooling_type",
-            "op": "not_in",
-            "value": [
-              "window_and_portable_ac",
-              "magic_pak_unit"
-            ]
-          }
-        },
-        {
           "id": "cooling_controls_notes",
           "title": "Cooling controls notes",
           "type": "notes",
@@ -1424,13 +1391,13 @@
             },
             {
               "id": "savings_gas_m3",
-              "title": "Savings gas (m\u00b3)",
+              "title": "Savings gas (m³)",
               "type": "number",
               "required": false
             },
             {
               "id": "savings_water_m3",
-              "title": "Savings water (m\u00b3)",
+              "title": "Savings water (m³)",
               "type": "number",
               "required": false
             },
@@ -1543,17 +1510,6 @@
           "required": false
         },
         {
-          "id": "exhaust_fan_condition",
-          "title": "Exhaust fan condition",
-          "type": "single_select",
-          "section_id": "ventilation",
-          "options": [],
-          "options_ref": "exhaust.fan_condition",
-          "placeholder_targets": [],
-          "help": "Observed condition of exhaust fans.",
-          "required": false
-        },
-        {
           "id": "mua_has_dx_cooling",
           "title": "MUA DX cooling present",
           "type": "single_select",
@@ -1562,17 +1518,6 @@
           "options_ref": "boolean.yes_no",
           "placeholder_targets": [],
           "help": "Whether MUA units include DX cooling sections.",
-          "required": false
-        },
-        {
-          "id": "mua_operational_issues_observed",
-          "title": "MUA operational issues observed",
-          "type": "single_select",
-          "section_id": "ventilation",
-          "options": [],
-          "options_ref": "boolean.yes_no",
-          "placeholder_targets": [],
-          "help": "Whether operational issues were observed with MUA units.",
           "required": false
         },
         {
