@@ -13,8 +13,17 @@ def _get_resource_root() -> str:
 
 
 def _get_app_root() -> str:
+    env_root = os.environ.get("AUDITSTUDIO_APP_ROOT")
+    if env_root:
+        return os.path.abspath(os.path.expanduser(env_root))
+
     if not getattr(sys, "frozen", False):
         return _get_resource_root()
+
+    portable_mode = os.environ.get("AUDITSTUDIO_PORTABLE", "").strip().lower()
+    if portable_mode in {"1", "true", "yes", "on"}:
+        return _get_resource_root()
+
     appdata = os.environ.get("APPDATA") or os.path.expanduser("~")
     return os.path.join(appdata, "AuditStudio")
 
