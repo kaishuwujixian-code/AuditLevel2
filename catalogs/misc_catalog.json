@@ -139,6 +139,12 @@
       "title": "Envelope Condition (Poor)",
       "category": "window",
       "text": "The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort."
+    },
+    {
+      "id": "window_condition_aging_double_pane",
+      "title": "Window condition (Aging double pane)",
+      "category": "window",
+      "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy."
     }
   ]
 }
