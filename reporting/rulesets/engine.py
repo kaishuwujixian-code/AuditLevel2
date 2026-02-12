@@ -5,11 +5,8 @@ import os
 import re
 from typing import Any, Dict, Iterable, List, Optional
 
-from core.paths import REPO_ROOT
+from core.paths import RULESETS_DIR
 from reporting.narratives import coerce_bool, has_meaningful_value, stringify_value
-
-
-RULESETS_DIR = os.path.join(REPO_ROOT, "reporting", "rulesets")
 
 
 def load_rulesets(path: str) -> List[Dict[str, Any]]:

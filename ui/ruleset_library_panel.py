@@ -8,12 +8,12 @@ from typing import Any, Dict, List, Optional, Tuple
 import tkinter as tk
 from tkinter import messagebox, ttk
 
-from core.paths import REPO_ROOT, SCHEMAS_DIR
+from core.paths import RULESETS_DIR, SCHEMAS_DIR
 from reporting.narratives import load_option_sets
 from ui.ui_state import load_ui_state, save_ui_state
 
 
-RULESET_DIR = os.path.join(REPO_ROOT, "reporting", "rulesets")
+RULESET_DIR = RULESETS_DIR
 SCHEMA_PATH = os.path.join(SCHEMAS_DIR, "level1_questionnaire.schema.json")
 
 
