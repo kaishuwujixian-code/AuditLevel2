@@ -12,6 +12,7 @@ from core.measure_catalog import (
     validate_measure_catalog_data,
 )
 from core.paths import DEFAULT_MEASURE_CATALOG
+from ui.ui_state import load_ui_state, save_ui_state
 
 
 class MeasureLibraryPanel(ttk.Frame):
@@ -29,34 +30,55 @@ class MeasureLibraryPanel(ttk.Frame):
         self._selected_measure_index: Optional[int] = None
         self._is_new_measure = False
         self._measure_id_var = ""
+        self._search_var = tk.StringVar(value="")
         self._build_ui()
         self._load_catalog()
 
     def _build_ui(self) -> None:
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-        self._build_measures_tab()
 
-    def _build_measures_tab(self) -> None:
+        self._paned = ttk.PanedWindow(self, orient="horizontal")
+        self._paned.grid(row=0, column=0, sticky="nsew")
+
         list_frame = ttk.Frame(self)
-        list_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 8), pady=6)
         list_frame.columnconfigure(0, weight=1)
-        list_frame.rowconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
 
-        self._measure_tree = ttk.Treeview(
-            list_frame, show="tree", selectmode="browse"
+        search_row = ttk.Frame(list_frame)
+        search_row.grid(row=0, column=0, sticky="ew", padx=(6, 8), pady=(6, 2))
+        search_row.columnconfigure(1, weight=1)
+        ttk.Label(search_row, text="Search").grid(row=0, column=0, sticky="w", padx=(0, 6))
+        self._search_entry = ttk.Entry(search_row, textvariable=self._search_var)
+        self._search_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(search_row, text="Clear", command=lambda: self._search_var.set("")).grid(
+            row=0, column=2, padx=(6, 0)
         )
+        ttk.Button(search_row, text="Sort A-Z", command=self._sort_alphabetically).grid(
+            row=0, column=3, padx=(6, 0)
+        )
+        self._search_var.trace_add("write", lambda *_args: self._refresh_measure_tree())
+
+        tree_frame = ttk.Frame(list_frame)
+        tree_frame.grid(row=1, column=0, sticky="nsew", padx=(6, 8), pady=(0, 6))
+        tree_frame.columnconfigure(0, weight=1)
+        tree_frame.rowconfigure(0, weight=1)
+
+        self._measure_tree = ttk.Treeview(tree_frame, show="tree", selectmode="browse")
         self._measure_tree.grid(row=0, column=0, sticky="nsew")
-        measure_scroll = ttk.Scrollbar(
-            list_frame, orient="vertical", command=self._measure_tree.yview
-        )
-        self._measure_tree.configure(yscrollcommand=measure_scroll.set)
-        measure_scroll.grid(row=0, column=1, sticky="ns")
         self._measure_tree.bind("<<TreeviewSelect>>", self._on_measure_select)
 
+        yscroll = ttk.Scrollbar(tree_frame, orient="vertical", command=self._measure_tree.yview)
+        xscroll = ttk.Scrollbar(tree_frame, orient="horizontal", command=self._measure_tree.xview)
+        self._measure_tree.configure(yscrollcommand=yscroll.set, xscrollcommand=xscroll.set)
+        yscroll.grid(row=0, column=1, sticky="ns")
+        xscroll.grid(row=1, column=0, sticky="ew")
+
         editor = ttk.Frame(self)
-        editor.grid(row=0, column=1, sticky="nsew", pady=6, padx=(0, 6))
         editor.columnconfigure(1, weight=1)
+        editor.rowconfigure(2, weight=1)
+        editor.rowconfigure(3, weight=1)
+        editor.rowconfigure(4, weight=1)
 
         ttk.Label(editor, text="Label").grid(row=0, column=0, sticky="w", pady=2)
         self._measure_title_var = tk.StringVar()
@@ -74,18 +96,15 @@ class MeasureLibraryPanel(ttk.Frame):
         ttk.Label(editor, text="Existing Conditions").grid(
             row=2, column=0, sticky="nw", pady=4
         )
-        self._measure_existing = tk.Text(editor, height=4, wrap="word")
-        self._measure_existing.grid(row=2, column=1, sticky="ew", pady=2)
+        self._measure_existing = self._build_text_with_scroll(editor, row=2, column=1)
 
         ttk.Label(editor, text="Retrofit Conditions").grid(
             row=3, column=0, sticky="nw", pady=4
         )
-        self._measure_retrofit = tk.Text(editor, height=4, wrap="word")
-        self._measure_retrofit.grid(row=3, column=1, sticky="ew", pady=2)
+        self._measure_retrofit = self._build_text_with_scroll(editor, row=3, column=1)
 
         ttk.Label(editor, text="Summary").grid(row=4, column=0, sticky="nw", pady=4)
-        self._measure_summary = tk.Text(editor, height=4, wrap="word")
-        self._measure_summary.grid(row=4, column=1, sticky="ew", pady=2)
+        self._measure_summary = self._build_text_with_scroll(editor, row=4, column=1)
 
         button_row = ttk.Frame(editor)
         button_row.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(10, 0))
@@ -107,9 +126,7 @@ class MeasureLibraryPanel(ttk.Frame):
         ttk.Button(action_row, text="Duplicate", command=self._duplicate_measure).pack(
             side="left", padx=(0, 6)
         )
-        ttk.Button(action_row, text="Delete", command=self._delete_measure).pack(
-            side="left"
-        )
+        ttk.Button(action_row, text="Delete", command=self._delete_measure).pack(side="left")
 
         footer = ttk.Frame(editor)
         footer.grid(row=7, column=0, columnspan=2, sticky="ew", pady=(12, 0))
@@ -120,6 +137,87 @@ class MeasureLibraryPanel(ttk.Frame):
             side="left", padx=(0, 6)
         )
         ttk.Button(footer, text="Save", command=self._save_catalog).pack(side="left")
+
+        self._paned.add(list_frame, weight=2)
+        self._paned.add(editor, weight=5)
+
+        self.after(20, self._restore_paned_position)
+        self._paned.bind("<ButtonRelease-1>", lambda _e: self._save_paned_position(), add=True)
+
+        self.bind_all("<Control-s>", self._handle_ctrl_s, add=True)
+        self.bind_all("<Control-f>", self._handle_ctrl_f, add=True)
+        self.bind_all("<Control-Return>", self._handle_ctrl_enter, add=True)
+
+    def _build_text_with_scroll(self, parent: ttk.Frame, *, row: int, column: int) -> tk.Text:
+        frame = ttk.Frame(parent)
+        frame.grid(row=row, column=column, sticky="nsew", pady=2)
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(0, weight=1)
+        text = tk.Text(frame, height=8, wrap="word")
+        text.grid(row=0, column=0, sticky="nsew")
+        scroll = ttk.Scrollbar(frame, orient="vertical", command=text.yview)
+        text.configure(yscrollcommand=scroll.set)
+        scroll.grid(row=0, column=1, sticky="ns")
+        return text
+
+    def _restore_paned_position(self) -> None:
+        state = load_ui_state("measure_library")
+        pos = state.get("sash")
+        if isinstance(pos, int) and pos > 120:
+            try:
+                self._paned.sashpos(0, pos)
+            except Exception:
+                pass
+
+    def _save_paned_position(self) -> None:
+        try:
+            pos = int(self._paned.sashpos(0))
+        except Exception:
+            return
+        save_ui_state("measure_library", {"sash": pos})
+
+    def _handle_ctrl_s(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._save_catalog()
+            return "break"
+        return ""
+
+    def _handle_ctrl_f(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._search_entry.focus_set()
+            self._search_entry.selection_range(0, tk.END)
+            return "break"
+        return ""
+
+    def _handle_ctrl_enter(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._apply_measure()
+            return "break"
+        return ""
+
+    def _sort_alphabetically(self) -> None:
+        self._maybe_apply_measure()
+        selected_measure_id = self._measure_id_var if self._measure_id_var else ""
+        category_title_by_code = {
+            str(item.get("code", "")).strip(): str(item.get("tab_title", "")).strip().lower()
+            for item in self._categories
+            if isinstance(item, dict)
+        }
+        self._categories.sort(
+            key=lambda item: (
+                str(item.get("tab_title", "")).strip().lower(),
+                str(item.get("code", "")).strip().lower(),
+            )
+        )
+        self._measures.sort(
+            key=lambda item: (
+                category_title_by_code.get(str(item.get("category", "")).strip(), "~"),
+                str(item.get("title", "")).strip().lower(),
+            )
+        )
+        self._refresh_measure_tree()
+        if selected_measure_id:
+            self._select_measure_by_id(selected_measure_id)
 
     def _load_catalog(self) -> None:
         try:
@@ -147,20 +245,32 @@ class MeasureLibraryPanel(ttk.Frame):
         self._measure_tree_by_id: Dict[str, str] = {}
         categories = _category_lookup(self._categories)
         category_nodes: Dict[str, str] = {}
+        term = self._search_var.get().strip().lower()
+
         for code, title in categories:
             category_nodes[code] = self._measure_tree.insert("", "end", text=title)
         if "" not in category_nodes:
             category_nodes[""] = self._measure_tree.insert("", "end", text="Uncategorized")
+
+        visible_counts: Dict[str, int] = {key: 0 for key in category_nodes}
         for idx, measure in enumerate(self._measures):
             title = str(measure.get("title", "")).strip()
             category = str(measure.get("category", "")).strip()
-            measure_id = str(measure.get("id", "")).strip()
+            item_id = str(measure.get("id", "")).strip()
+            if term and term not in title.lower() and term not in category.lower():
+                continue
             parent = category_nodes.get(category, category_nodes.get("", ""))
-            item_id = self._measure_tree.insert(parent, "end", text=title or "(Untitled)")
-            self._measure_tree_items[item_id] = idx
-            if measure_id:
-                self._measure_tree_by_id[measure_id] = item_id
-        for node_id in category_nodes.values():
+            node_id = self._measure_tree.insert(parent, "end", text=title or "(Untitled)")
+            self._measure_tree_items[node_id] = idx
+            if item_id:
+                self._measure_tree_by_id[item_id] = node_id
+            cat_key = category if category in visible_counts else ""
+            visible_counts[cat_key] = visible_counts.get(cat_key, 0) + 1
+
+        for key, node_id in list(category_nodes.items()):
+            if visible_counts.get(key, 0) == 0:
+                self._measure_tree.delete(node_id)
+                continue
             self._measure_tree.item(node_id, open=True)
 
     def _refresh_category_combo(self) -> None:
