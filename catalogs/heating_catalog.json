@@ -1,0 +1,27 @@
+{
+  "categories": [
+    {"code": "plant", "title": "Plant"},
+    {"code": "distribution", "title": "Distribution"},
+    {"code": "controls", "title": "Controls"}
+  ],
+  "items": [
+    {
+      "id": "condensing_boiler_plant",
+      "title": "Condensing boiler plant",
+      "category": "plant",
+      "text": "The building is served by a central condensing boiler plant. Boilers appeared operational at the time of the walkthrough and no immediate reliability issues were reported by operations staff."
+    },
+    {
+      "id": "heating_distribution",
+      "title": "Heating distribution observations",
+      "category": "distribution",
+      "text": "Heating is distributed through the building hydronic loop and associated terminal units. Distribution pumps and associated piping were observed in generally serviceable condition during the site visit."
+    },
+    {
+      "id": "heating_controls_bas",
+      "title": "Heating controls via BAS",
+      "category": "controls",
+      "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements."
+    }
+  ]
+}

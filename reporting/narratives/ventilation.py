@@ -16,7 +16,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
-from reporting.rulesets.engine import render_ruleset_block
+from reporting.narratives.library_items import collect_items, render_items
 
 BLOCK_PLACEHOLDERS = ["{Central Ventilation System Block}"]
 EXPECTED_INPUTS = {
@@ -44,6 +44,7 @@ EXPECTED_INPUTS = {
             "mua_operating_normally",
             "mua_functional",
             "ventilation_notes",
+            "ventilation_items",
         ],
     }
 }
@@ -280,17 +281,17 @@ def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
     context = VentilationContext.from_project(project, mapping=mapping)
+    library_items = collect_items(project, "ventilation_items")
+    if context.override_text and library_items:
+        paragraphs: list[str] = [render_items(library_items), context.override_text]
+        checklist_text = render_block_appendix(project, target_block="ventilation")
+        if checklist_text:
+            paragraphs.append(checklist_text)
+        return "\n\n".join(paragraphs)
     if context.override_text:
         return context.override_text
-
-    ruleset_text = render_ruleset_block(
-        project,
-        ruleset_filename="ventilation.rules.json",
-        target_block="ventilation",
-        block_ref="{Central Ventilation System Block}",
-    )
-    if ruleset_text:
-        paragraphs: list[str] = [ruleset_text]
+    if library_items:
+        paragraphs = [render_items(library_items)]
         checklist_text = render_block_appendix(project, target_block="ventilation")
         if checklist_text:
             paragraphs.append(checklist_text)

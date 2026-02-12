@@ -17,7 +17,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
-from reporting.rulesets.engine import render_ruleset_block
+from reporting.narratives.library_items import collect_items, render_items
 
 BLOCK_PLACEHOLDERS = ["{Central Heating Systems block}"]
 EXPECTED_INPUTS = {
@@ -47,6 +47,7 @@ EXPECTED_INPUTS = {
             "boiler_serves_secondary_dhw",
             "boiler_serves_misc_loops",
             "heating_notes",
+            "heating_items",
         ],
     }
 }
@@ -589,17 +590,13 @@ def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
     context = HeatingContext.from_project(project, mapping=mapping)
-    if context.override_text:
-        return context.override_text
-
-    ruleset_text = render_ruleset_block(
-        project,
-        ruleset_filename="heating.rules.json",
-        target_block="heating",
-        block_ref="{Central Heating Systems block}",
-    )
-    if ruleset_text:
-        paragraphs: list[str] = [ruleset_text]
+    library_items = collect_items(project, "heating_items")
+    if context.override_text and library_items:
+        paragraphs: list[str] = [render_items(library_items), context.override_text]
+    elif context.override_text:
+        paragraphs = [context.override_text]
+    elif library_items:
+        paragraphs = [render_items(library_items)]
     else:
         paragraphs = [_render_heating_paragraph(context)]
         if not paragraphs or not paragraphs[0]:
