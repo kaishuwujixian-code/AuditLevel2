@@ -33,6 +33,7 @@ EXPECTED_INPUTS = {
             "dhw_generation_type",
             "dhw_boiler_type",
             "dhw_install_year",
+            "dhw_boiler_install_year",
             "number_of_dhw_boilers",
             "dhw_boiler_capacity_mbh",
             "number_of_dhw_tanks",
@@ -40,6 +41,12 @@ EXPECTED_INPUTS = {
             "dhw_heat_source",
             "dhw_recirc",
             "dhw_recirc_pumps",
+            "dhw_supply_temp_f",
+            "dhw_mixing_valve_present",
+            "dhw_storage_temp_gauge_functional",
+            "dhw_storage_temp_variation_observed",
+            "dhw_boilers_original",
+            "dhw_functional",
             "dhw_storage_notes",
             "dhw_distribution_notes",
             "dhw_storage_temp_f",
@@ -120,7 +127,7 @@ class DHWContext:
         )
         dhw_install_year = get_answer_value(
             project,
-            ["dhw_install_year"],
+            ["dhw_install_year", "dhw_boiler_install_year"],
             section="dhw",
         )
         system_combos_raw = get_answer_value(
