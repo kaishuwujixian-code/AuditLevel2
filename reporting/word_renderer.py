@@ -53,6 +53,23 @@ def _iter_paragraphs_in_tables(tables: Iterable) -> Iterable:
                     yield paragraph
 
 
+def _iter_all_tables(tables: Iterable) -> Iterable:
+    for table in tables:
+        yield table
+        for row in table.rows:
+            for cell in row.cells:
+                for nested_table in _iter_all_tables(cell.tables):
+                    yield nested_table
+
+
+def _apply_autofit_to_content(doc: Document) -> None:
+    for table in _iter_all_tables(doc.tables):
+        try:
+            table.autofit = True
+        except Exception:
+            continue
+
+
 def _iter_all_paragraphs(doc: Document) -> Iterable:
     for paragraph in doc.paragraphs:
         yield paragraph
@@ -472,17 +489,13 @@ def _fill_measure_summary_table(
 
     body_style = "Content A" if "Content A" in doc.styles else None
     try:
-        target_table.autofit = False
+        target_table.autofit = True
     except Exception:
         pass
 
     for index, (title, summary) in enumerate(summary_rows, start=1):
         row = target_row if index == 1 else target_table.add_row()
         if len(row.cells) >= 3:
-            _set_cell_width(row.cells[0], 0.85)
-            _set_cell_width(row.cells[1], 2.25)
-            _set_cell_width(row.cells[2], 5.90)
-
             _set_cell_text(row.cells[0], str(index))
             _set_cell_paragraph_style_and_alignment(
                 row.cells[0], style=body_style, alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
@@ -740,6 +753,8 @@ def render_word(
             continue
         if replaced_text != text:
             paragraph.text = replaced_text
+
+    _apply_autofit_to_content(doc)
 
     output_dir = os.path.dirname(out_path)
     if output_dir:
