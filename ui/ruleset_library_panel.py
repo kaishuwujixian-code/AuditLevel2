@@ -10,6 +10,7 @@ from tkinter import messagebox, ttk
 
 from core.paths import REPO_ROOT, SCHEMAS_DIR
 from reporting.narratives import load_option_sets
+from ui.ui_state import load_ui_state, save_ui_state
 
 
 RULESET_DIR = os.path.join(REPO_ROOT, "reporting", "rulesets")
@@ -46,6 +47,7 @@ class RulesetLibraryPanel(ttk.Frame):
         self._schema_fields: List[str] = []
         self._field_options: Dict[str, List[str]] = {}
         self._condition_rows: List[Tuple[ttk.Frame, tk.StringVar, tk.StringVar, tk.StringVar, ttk.Combobox, ttk.Entry]] = []
+        self._search_var = tk.StringVar(value="")
         self._build_schema_fields()
         self._build_ui()
         self._load_rulesets()
@@ -79,24 +81,47 @@ class RulesetLibraryPanel(ttk.Frame):
         self._schema_fields.sort()
 
     def _build_ui(self) -> None:
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        list_frame = ttk.Frame(self)
-        list_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 8), pady=6)
-        list_frame.columnconfigure(0, weight=1)
-        list_frame.rowconfigure(0, weight=1)
+        self._paned = ttk.PanedWindow(self, orient="horizontal")
+        self._paned.grid(row=0, column=0, sticky="nsew")
 
-        self._tree = ttk.Treeview(list_frame, show="tree", selectmode="browse")
+        list_frame = ttk.Frame(self)
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
+
+        search_row = ttk.Frame(list_frame)
+        search_row.grid(row=0, column=0, sticky="ew", padx=(6, 8), pady=(6, 2))
+        search_row.columnconfigure(1, weight=1)
+        ttk.Label(search_row, text="Search").grid(row=0, column=0, sticky="w", padx=(0, 6))
+        self._search_entry = ttk.Entry(search_row, textvariable=self._search_var)
+        self._search_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(search_row, text="Clear", command=lambda: self._search_var.set("")).grid(
+            row=0, column=2, padx=(6, 0)
+        )
+        ttk.Button(search_row, text="Sort A-Z", command=self._sort_alphabetically).grid(
+            row=0, column=3, padx=(6, 0)
+        )
+        self._search_var.trace_add("write", lambda *_args: self._refresh_tree())
+
+        tree_wrap = ttk.Frame(list_frame)
+        tree_wrap.grid(row=1, column=0, sticky="nsew", padx=(6, 8), pady=(0, 6))
+        tree_wrap.columnconfigure(0, weight=1)
+        tree_wrap.rowconfigure(0, weight=1)
+
+        self._tree = ttk.Treeview(tree_wrap, show="tree", selectmode="browse")
         self._tree.grid(row=0, column=0, sticky="nsew")
-        scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self._tree.yview)
-        self._tree.configure(yscrollcommand=scroll.set)
-        scroll.grid(row=0, column=1, sticky="ns")
+        yscroll = ttk.Scrollbar(tree_wrap, orient="vertical", command=self._tree.yview)
+        xscroll = ttk.Scrollbar(tree_wrap, orient="horizontal", command=self._tree.xview)
+        self._tree.configure(yscrollcommand=yscroll.set, xscrollcommand=xscroll.set)
+        yscroll.grid(row=0, column=1, sticky="ns")
+        xscroll.grid(row=1, column=0, sticky="ew")
         self._tree.bind("<<TreeviewSelect>>", self._on_select)
 
         editor = ttk.Frame(self)
-        editor.grid(row=0, column=1, sticky="nsew", padx=(0, 6), pady=6)
         editor.columnconfigure(1, weight=1)
+        editor.rowconfigure(9, weight=1)
 
         ttk.Label(editor, text="Level").grid(row=0, column=0, sticky="w", pady=2)
         self._level_var = tk.StringVar(value="")
@@ -148,8 +173,15 @@ class RulesetLibraryPanel(ttk.Frame):
         )
 
         ttk.Label(editor, text="Narrative text").grid(row=9, column=0, sticky="nw", pady=2)
-        self._paragraph_text = tk.Text(editor, height=6, wrap="word")
-        self._paragraph_text.grid(row=9, column=1, sticky="ew", pady=2)
+        text_wrap = ttk.Frame(editor)
+        text_wrap.grid(row=9, column=1, sticky="nsew", pady=2)
+        text_wrap.columnconfigure(0, weight=1)
+        text_wrap.rowconfigure(0, weight=1)
+        self._paragraph_text = tk.Text(text_wrap, height=10, wrap="word")
+        self._paragraph_text.grid(row=0, column=0, sticky="nsew")
+        paragraph_scroll = ttk.Scrollbar(text_wrap, orient="vertical", command=self._paragraph_text.yview)
+        self._paragraph_text.configure(yscrollcommand=paragraph_scroll.set)
+        paragraph_scroll.grid(row=0, column=1, sticky="ns")
 
         button_row = ttk.Frame(editor)
         button_row.grid(row=10, column=0, columnspan=2, sticky="ew", pady=(10, 0))
@@ -182,6 +214,111 @@ class RulesetLibraryPanel(ttk.Frame):
         )
         ttk.Button(footer, text="Save", command=self._save_rulesets).pack(side="left")
 
+        self._paned.add(list_frame, weight=2)
+        self._paned.add(editor, weight=5)
+
+        self.after(20, self._restore_paned_position)
+        self._paned.bind("<ButtonRelease-1>", lambda _e: self._save_paned_position(), add=True)
+
+        self.bind_all("<Control-s>", self._handle_ctrl_s, add=True)
+        self.bind_all("<Control-f>", self._handle_ctrl_f, add=True)
+        self.bind_all("<Control-Return>", self._handle_ctrl_enter, add=True)
+
+    def _restore_paned_position(self) -> None:
+        state = load_ui_state("ruleset_library")
+        pos = state.get("sash")
+        if isinstance(pos, int) and pos > 120:
+            try:
+                self._paned.sashpos(0, pos)
+            except Exception:
+                pass
+
+    def _save_paned_position(self) -> None:
+        try:
+            pos = int(self._paned.sashpos(0))
+        except Exception:
+            return
+        save_ui_state("ruleset_library", {"sash": pos})
+
+    def _handle_ctrl_s(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._save_rulesets()
+            return "break"
+        return ""
+
+    def _handle_ctrl_f(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._search_entry.focus_set()
+            self._search_entry.selection_range(0, tk.END)
+            return "break"
+        return ""
+
+    def _handle_ctrl_enter(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._apply_changes()
+            return "break"
+        return ""
+
+    def _sort_alphabetically(self) -> None:
+        selected_labels = self._selected_path_labels()
+        self._rulesets.sort(
+            key=lambda ruleset: str(ruleset.get("ruleset_name", "Ruleset")).lower()
+        )
+        for ruleset in self._rulesets:
+            blocks = ruleset.get("blocks", [])
+            if not isinstance(blocks, list):
+                continue
+            blocks.sort(key=lambda block: str(block.get("block_id", "Block")).lower())
+            for block in blocks:
+                rules = block.get("rules", []) if isinstance(block, dict) else []
+                if isinstance(rules, list):
+                    rules.sort(key=lambda rule: str(rule.get("rule_id", "Rule")).lower())
+        self._refresh_tree()
+        self._restore_selection_by_labels(*selected_labels)
+
+    def _selected_path_labels(self) -> tuple[str, str, str]:
+        if not self._selection:
+            return ("", "", "")
+        ruleset = self._rulesets[self._selection.ruleset_index]
+        ruleset_name = str(ruleset.get("ruleset_name", "Ruleset"))
+        block_name = ""
+        rule_name = ""
+        if self._selection.block_index is not None:
+            block = ruleset.get("blocks", [])[self._selection.block_index]
+            if isinstance(block, dict):
+                block_name = str(block.get("block_id", "Block"))
+                if self._selection.rule_index is not None:
+                    rule = block.get("rules", [])[self._selection.rule_index]
+                    if isinstance(rule, dict):
+                        rule_name = str(rule.get("rule_id", "Rule"))
+        return (ruleset_name, block_name, rule_name)
+
+    def _restore_selection_by_labels(self, ruleset_name: str, block_name: str, rule_name: str) -> None:
+        if not ruleset_name:
+            return
+        for ruleset_node in self._tree.get_children(""):
+            if self._tree.item(ruleset_node, "text") != ruleset_name:
+                continue
+            if not block_name:
+                self._tree.selection_set(ruleset_node)
+                self._tree.focus(ruleset_node)
+                self._on_select(None)
+                return
+            for block_node in self._tree.get_children(ruleset_node):
+                if self._tree.item(block_node, "text") != block_name:
+                    continue
+                if not rule_name:
+                    self._tree.selection_set(block_node)
+                    self._tree.focus(block_node)
+                    self._on_select(None)
+                    return
+                for rule_node in self._tree.get_children(block_node):
+                    if self._tree.item(rule_node, "text") == rule_name:
+                        self._tree.selection_set(rule_node)
+                        self._tree.focus(rule_node)
+                        self._on_select(None)
+                        return
+
     def _load_rulesets(self) -> None:
         self._rulesets = []
         self._ruleset_files = []
@@ -213,18 +350,35 @@ class RulesetLibraryPanel(ttk.Frame):
     def _refresh_tree(self) -> None:
         self._tree.delete(*self._tree.get_children())
         self._tree_index: Dict[str, Selection] = {}
+        term = self._search_var.get().strip().lower()
         for r_index, ruleset in enumerate(self._rulesets):
-            ruleset_name = ruleset.get("ruleset_name", "Ruleset")
-            ruleset_node = self._tree.insert("", "end", text=ruleset_name, open=True)
-            self._tree_index[ruleset_node] = Selection(ruleset_index=r_index)
-            for b_index, block in enumerate(ruleset.get("blocks", [])):
-                block_label = block.get("block_id", "Block")
-                block_node = self._tree.insert(ruleset_node, "end", text=block_label, open=True)
-                self._tree_index[block_node] = Selection(ruleset_index=r_index, block_index=b_index)
+            ruleset_name = str(ruleset.get("ruleset_name", "Ruleset"))
+            blocks = ruleset.get("blocks", [])
+            ruleset_match = term and term in ruleset_name.lower()
+            visible_blocks = []
+            for b_index, block in enumerate(blocks):
+                if not isinstance(block, dict):
+                    continue
+                block_label = str(block.get("block_id", "Block"))
+                block_match = term and term in block_label.lower()
+                visible_rules = []
                 for rule_index, rule in enumerate(block.get("rules", []) or []):
                     if not isinstance(rule, dict):
                         continue
-                    rule_label = rule.get("rule_id", "Rule")
+                    rule_label = str(rule.get("rule_id", "Rule"))
+                    if not term or ruleset_match or block_match or term in rule_label.lower():
+                        visible_rules.append((rule_index, rule_label))
+                if not term or ruleset_match or block_match or visible_rules:
+                    visible_blocks.append((b_index, block_label, visible_rules))
+            if term and not ruleset_match and not visible_blocks:
+                continue
+
+            ruleset_node = self._tree.insert("", "end", text=ruleset_name, open=True)
+            self._tree_index[ruleset_node] = Selection(ruleset_index=r_index)
+            for b_index, block_label, visible_rules in visible_blocks:
+                block_node = self._tree.insert(ruleset_node, "end", text=block_label, open=True)
+                self._tree_index[block_node] = Selection(ruleset_index=r_index, block_index=b_index)
+                for rule_index, rule_label in visible_rules:
                     rule_node = self._tree.insert(block_node, "end", text=rule_label)
                     self._tree_index[rule_node] = Selection(
                         ruleset_index=r_index, block_index=b_index, rule_index=rule_index

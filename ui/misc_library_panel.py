@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 from core.misc_catalog import DEFAULT_MISC_CATALOG, load_misc_catalog, save_misc_catalog_data, validate_misc_catalog_data
+from ui.ui_state import load_ui_state, save_ui_state
 
 
 class MiscLibraryPanel(ttk.Frame):
@@ -17,28 +18,52 @@ class MiscLibraryPanel(ttk.Frame):
         self._selected_index: Optional[int] = None
         self._is_new_item = False
         self._item_id = ""
+        self._search_var = tk.StringVar(value="")
         self._build_ui()
         self._load_catalog()
 
     def _build_ui(self) -> None:
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        list_frame = ttk.Frame(self)
-        list_frame.grid(row=0, column=0, sticky="nsew", padx=(6, 8), pady=6)
-        list_frame.columnconfigure(0, weight=1)
-        list_frame.rowconfigure(0, weight=1)
+        self._paned = ttk.PanedWindow(self, orient="horizontal")
+        self._paned.grid(row=0, column=0, sticky="nsew")
 
-        self._tree = ttk.Treeview(list_frame, show="tree", selectmode="browse")
+        list_frame = ttk.Frame(self)
+        list_frame.columnconfigure(0, weight=1)
+        list_frame.rowconfigure(1, weight=1)
+
+        search_row = ttk.Frame(list_frame)
+        search_row.grid(row=0, column=0, sticky="ew", padx=(6, 8), pady=(6, 2))
+        search_row.columnconfigure(1, weight=1)
+        ttk.Label(search_row, text="Search").grid(row=0, column=0, sticky="w", padx=(0, 6))
+        self._search_entry = ttk.Entry(search_row, textvariable=self._search_var)
+        self._search_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(search_row, text="Clear", command=lambda: self._search_var.set("")).grid(
+            row=0, column=2, padx=(6, 0)
+        )
+        ttk.Button(search_row, text="Sort A-Z", command=self._sort_alphabetically).grid(
+            row=0, column=3, padx=(6, 0)
+        )
+        self._search_var.trace_add("write", lambda *_args: self._refresh_tree())
+
+        tree_frame = ttk.Frame(list_frame)
+        tree_frame.grid(row=1, column=0, sticky="nsew", padx=(6, 8), pady=(0, 6))
+        tree_frame.columnconfigure(0, weight=1)
+        tree_frame.rowconfigure(0, weight=1)
+
+        self._tree = ttk.Treeview(tree_frame, show="tree", selectmode="browse")
         self._tree.grid(row=0, column=0, sticky="nsew")
-        scroll = ttk.Scrollbar(list_frame, orient="vertical", command=self._tree.yview)
-        self._tree.configure(yscrollcommand=scroll.set)
-        scroll.grid(row=0, column=1, sticky="ns")
         self._tree.bind("<<TreeviewSelect>>", self._on_select)
+        yscroll = ttk.Scrollbar(tree_frame, orient="vertical", command=self._tree.yview)
+        xscroll = ttk.Scrollbar(tree_frame, orient="horizontal", command=self._tree.xview)
+        self._tree.configure(yscrollcommand=yscroll.set, xscrollcommand=xscroll.set)
+        yscroll.grid(row=0, column=1, sticky="ns")
+        xscroll.grid(row=1, column=0, sticky="ew")
 
         editor = ttk.Frame(self)
-        editor.grid(row=0, column=1, sticky="nsew", padx=(0, 6), pady=6)
         editor.columnconfigure(1, weight=1)
+        editor.rowconfigure(2, weight=1)
 
         ttk.Label(editor, text="Label").grid(row=0, column=0, sticky="w", pady=2)
         self._title_var = tk.StringVar()
@@ -54,8 +79,15 @@ class MiscLibraryPanel(ttk.Frame):
         self._category_combo.grid(row=1, column=1, sticky="ew", pady=2)
 
         ttk.Label(editor, text="Notes").grid(row=2, column=0, sticky="nw", pady=4)
-        self._text = tk.Text(editor, height=6, wrap="word")
-        self._text.grid(row=2, column=1, sticky="ew", pady=2)
+        text_frame = ttk.Frame(editor)
+        text_frame.grid(row=2, column=1, sticky="nsew", pady=2)
+        text_frame.columnconfigure(0, weight=1)
+        text_frame.rowconfigure(0, weight=1)
+        self._text = tk.Text(text_frame, height=10, wrap="word")
+        self._text.grid(row=0, column=0, sticky="nsew")
+        text_scroll = ttk.Scrollbar(text_frame, orient="vertical", command=self._text.yview)
+        self._text.configure(yscrollcommand=text_scroll.set)
+        text_scroll.grid(row=0, column=1, sticky="ns")
 
         button_row = ttk.Frame(editor)
         button_row.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(10, 0))
@@ -88,6 +120,76 @@ class MiscLibraryPanel(ttk.Frame):
             side="left", padx=(0, 6)
         )
         ttk.Button(footer, text="Save", command=self._save_catalog).pack(side="left")
+
+        self._paned.add(list_frame, weight=2)
+        self._paned.add(editor, weight=5)
+
+        self.after(20, self._restore_paned_position)
+        self._paned.bind("<ButtonRelease-1>", lambda _e: self._save_paned_position(), add=True)
+
+        self.bind_all("<Control-s>", self._handle_ctrl_s, add=True)
+        self.bind_all("<Control-f>", self._handle_ctrl_f, add=True)
+        self.bind_all("<Control-Return>", self._handle_ctrl_enter, add=True)
+
+    def _restore_paned_position(self) -> None:
+        state = load_ui_state("misc_library")
+        pos = state.get("sash")
+        if isinstance(pos, int) and pos > 120:
+            try:
+                self._paned.sashpos(0, pos)
+            except Exception:
+                pass
+
+    def _save_paned_position(self) -> None:
+        try:
+            pos = int(self._paned.sashpos(0))
+        except Exception:
+            return
+        save_ui_state("misc_library", {"sash": pos})
+
+    def _handle_ctrl_s(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._save_catalog()
+            return "break"
+        return ""
+
+    def _handle_ctrl_f(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._search_entry.focus_set()
+            self._search_entry.selection_range(0, tk.END)
+            return "break"
+        return ""
+
+    def _handle_ctrl_enter(self, _event: tk.Event) -> str:
+        if self.winfo_ismapped():
+            self._apply_item()
+            return "break"
+        return ""
+
+    def _sort_alphabetically(self) -> None:
+        self._maybe_apply_item()
+        selected_item_id = self._item_id if self._item_id else ""
+        category_title_by_code = {
+            str(item.get("code", "")).strip(): str(item.get("title", "")).strip().lower()
+            for item in self._categories
+            if isinstance(item, dict)
+        }
+        self._categories.sort(
+            key=lambda item: (
+                str(item.get("title", "")).strip().lower(),
+                str(item.get("code", "")).strip().lower(),
+            )
+        )
+        self._items.sort(
+            key=lambda item: (
+                category_title_by_code.get(str(item.get("category", "")).strip(), "~"),
+                str(item.get("title", "")).strip().lower(),
+            )
+        )
+        self._refresh_tree()
+        self._refresh_category_combo()
+        if selected_item_id:
+            self._select_item_by_id(selected_item_id)
 
     def _load_catalog(self) -> None:
         try:
@@ -131,20 +233,31 @@ class MiscLibraryPanel(ttk.Frame):
         self._tree_by_id: Dict[str, str] = {}
         categories = _category_lookup(self._categories)
         category_nodes: Dict[str, str] = {}
+        term = self._search_var.get().strip().lower()
         for code, title in categories:
             category_nodes[code] = self._tree.insert("", "end", text=title)
         if "" not in category_nodes:
             category_nodes[""] = self._tree.insert("", "end", text="Uncategorized")
+
+        visible_counts: Dict[str, int] = {key: 0 for key in category_nodes}
         for idx, item in enumerate(self._items):
             title = str(item.get("title", "")).strip()
             category = str(item.get("category", "")).strip()
             item_id = str(item.get("id", "")).strip()
+            if term and term not in title.lower() and term not in category.lower():
+                continue
             parent = category_nodes.get(category, category_nodes.get("", ""))
             node_id = self._tree.insert(parent, "end", text=title or "(Untitled)")
             self._tree_items[node_id] = idx
             if item_id:
                 self._tree_by_id[item_id] = node_id
-        for node_id in category_nodes.values():
+            cat_key = category if category in visible_counts else ""
+            visible_counts[cat_key] = visible_counts.get(cat_key, 0) + 1
+
+        for key, node_id in list(category_nodes.items()):
+            if visible_counts.get(key, 0) == 0:
+                self._tree.delete(node_id)
+                continue
             self._tree.item(node_id, open=True)
 
     def _refresh_category_combo(self) -> None:
