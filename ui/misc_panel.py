@@ -16,6 +16,7 @@ class MiscPanel(ttk.Frame):
         self._catalog_tree: Optional[ttk.Treeview] = None
         self._editor: Optional[MiscEditor] = None
         self._catalog_items: Dict[str, str] = {}
+        self._search_var = tk.StringVar(value="")
         self._build_ui()
         self._load_catalog()
 
@@ -27,15 +28,42 @@ class MiscPanel(ttk.Frame):
 
         catalog_frame = ttk.Frame(paned, padding=(6, 6))
         catalog_frame.columnconfigure(0, weight=1)
-        catalog_frame.rowconfigure(1, weight=1)
+        catalog_frame.rowconfigure(2, weight=1)
         ttk.Label(catalog_frame, text="Miscellaneous Library").grid(row=0, column=0, sticky="w")
-        self._catalog_tree = ttk.Treeview(catalog_frame, show="tree")
-        self._catalog_tree.grid(row=1, column=0, sticky="nsew", pady=(6, 0))
-        catalog_scroll = ttk.Scrollbar(
-            catalog_frame, orient="vertical", command=self._catalog_tree.yview
+
+        search_row = ttk.Frame(catalog_frame)
+        search_row.grid(row=1, column=0, sticky="ew", pady=(6, 0))
+        search_row.columnconfigure(1, weight=1)
+        ttk.Label(search_row, text="Search").grid(row=0, column=0, sticky="w", padx=(0, 6))
+        search_entry = ttk.Entry(search_row, textvariable=self._search_var)
+        search_entry.grid(row=0, column=1, sticky="ew")
+        ttk.Button(search_row, text="Clear", command=lambda: self._search_var.set("")).grid(
+            row=0, column=2, padx=(6, 0)
         )
-        self._catalog_tree.configure(yscrollcommand=catalog_scroll.set)
-        catalog_scroll.grid(row=1, column=1, sticky="ns", pady=(6, 0))
+        ttk.Button(search_row, text="Sort A-Z", command=self._sort_catalog_alphabetically).grid(
+            row=0, column=3, padx=(6, 0)
+        )
+
+        tree_wrap = ttk.Frame(catalog_frame)
+        tree_wrap.grid(row=2, column=0, sticky="nsew", pady=(6, 0))
+        tree_wrap.columnconfigure(0, weight=1)
+        tree_wrap.rowconfigure(0, weight=1)
+
+        self._catalog_tree = ttk.Treeview(tree_wrap, show="tree")
+        self._catalog_tree.grid(row=0, column=0, sticky="nsew")
+        catalog_scroll = ttk.Scrollbar(
+            tree_wrap, orient="vertical", command=self._catalog_tree.yview
+        )
+        catalog_xscroll = ttk.Scrollbar(
+            tree_wrap, orient="horizontal", command=self._catalog_tree.xview
+        )
+        self._catalog_tree.configure(
+            yscrollcommand=catalog_scroll.set,
+            xscrollcommand=catalog_xscroll.set,
+        )
+        catalog_scroll.grid(row=0, column=1, sticky="ns")
+        catalog_xscroll.grid(row=1, column=0, sticky="ew")
+        self._search_var.trace_add("write", lambda *_args: self._populate_catalog_tree())
         self._catalog_tree.bind("<<TreeviewSelect>>", self._on_catalog_select)
         paned.add(catalog_frame, weight=1)
 
@@ -79,6 +107,22 @@ class MiscPanel(ttk.Frame):
             self._editor.set_categories(self._catalog.categories)
         self._populate_catalog_tree()
 
+    def _sort_catalog_alphabetically(self) -> None:
+        if not self._catalog:
+            return
+        self._catalog.categories = sorted(
+            self._catalog.categories,
+            key=lambda category: str(category.get("title", "") or category.get("code", "")).strip().lower(),
+        )
+        self._catalog.order = sorted(
+            self._catalog.order,
+            key=lambda item_id: str(
+                self._catalog.items.get(item_id, {}).get("title")
+                or item_id
+            ).strip().lower(),
+        )
+        self._populate_catalog_tree()
+
     def _populate_catalog_tree(self) -> None:
         if not self._catalog_tree:
             return
@@ -89,20 +133,29 @@ class MiscPanel(ttk.Frame):
             return
 
         category_nodes: Dict[str, str] = {}
+        term = self._search_var.get().strip().lower()
         for category in self._catalog.categories:
             code = str(category.get("code", "")).strip()
             label = str(category.get("title", "")).strip() or code or "Other"
             category_nodes[code] = self._catalog_tree.insert("", "end", text=label)
 
+        visible_by_category: Dict[str, int] = {key: 0 for key in category_nodes}
         for item_id in self._catalog.order:
             item = self._catalog.items.get(item_id, {})
             category = str(item.get("category") or "").strip()
             parent = category_nodes.get(category, "")
-            title = item.get("title") or item_id
+            title = str(item.get("title") or item_id)
+            if term and term not in title.lower() and term not in category.lower():
+                continue
             row_id = self._catalog_tree.insert(parent, "end", text=title)
             self._catalog_items[row_id] = item_id
+            if category in visible_by_category:
+                visible_by_category[category] += 1
 
-        for node_id in category_nodes.values():
+        for code, node_id in list(category_nodes.items()):
+            if visible_by_category.get(code, 0) == 0:
+                self._catalog_tree.delete(node_id)
+                continue
             self._catalog_tree.item(node_id, open=True)
 
     def _on_catalog_select(self, _event: tk.Event) -> None:
