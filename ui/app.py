@@ -24,6 +24,7 @@ from ui.diagnostics_panel import DiagnosticsPanel
 from ui.library_panel import LibraryPanel
 from ui.measures_panel import MeasuresPanel
 from ui.project_dashboard_panel import ProjectDashboardPanel
+from ui.project_notes_panel import ProjectNotesPanel
 from ui.questionnaire_panel import QuestionnairePanel
 from ui.report_panel import ReportPanel
 
@@ -86,6 +87,7 @@ class RetScreenApp:
         )
         self._inputs_tab = QuestionnairePanel(self._notebook, self._schema or {})
         self._measures_tab = MeasuresPanel(self._notebook)
+        self._project_notes_tab = ProjectNotesPanel(self._notebook)
         self._checklist_tab = ChecklistPanel(
             self._notebook,
             self._template or TemplateData({}, [], {}, [], {}, {}),
@@ -102,6 +104,7 @@ class RetScreenApp:
         self._notebook.add(self._dashboard_tab, text="🏠 Dashboard")
         self._notebook.add(self._inputs_tab, text="📝 Inputs")
         self._notebook.add(self._measures_tab, text="🧰 Measures")
+        self._notebook.add(self._project_notes_tab, text="🗒️ Project Notes")
         self._notebook.add(self._checklist_tab, text="✅ Checklist")
         self._notebook.add(self._report_tab, text="📄 Report")
         self._notebook.add(self._diagnostics_tab, text="🩺 Diagnostics")
@@ -224,6 +227,7 @@ class RetScreenApp:
             "measure_overrides": {},
             "checklist_selections": {},
             "notes": {"general_site_notes": ""},
+            "project_notes": "",
         }
         self._project_path = None
         self._load_project_into_tabs()
@@ -258,6 +262,7 @@ class RetScreenApp:
             self._inputs_tab.load_project(self._project_data)
         if self._template:
             self._measures_tab.load_project(self._project_data)
+            self._project_notes_tab.load_project(self._project_data)
             self._checklist_tab.load_project(self._project_data)
 
     def save_project(self) -> None:
@@ -380,6 +385,7 @@ class RetScreenApp:
             return
         self._inputs_tab.update_project(self._project_data)
         self._measures_tab.update_project(self._project_data)
+        self._project_notes_tab.update_project(self._project_data)
         self._checklist_tab.update_project(self._project_data)
 
     def _default_project_filename(self) -> str:
