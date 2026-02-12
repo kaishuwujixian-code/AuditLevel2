@@ -108,6 +108,16 @@ _seed_file_if_missing(
     os.path.join(RESOURCE_ROOT, "catalogs", "misc_catalog.json"),
     DEFAULT_MISC_CATALOG,
 )
+for _catalog_name in (
+    "heating_catalog.json",
+    "cooling_catalog.json",
+    "dhw_catalog.json",
+    "ventilation_catalog.json",
+):
+    _seed_file_if_missing(
+        os.path.join(RESOURCE_ROOT, "catalogs", _catalog_name),
+        os.path.join(CATALOGS_DIR, _catalog_name),
+    )
 _seed_dir_if_missing(
     os.path.join(RESOURCE_ROOT, "reporting", "rulesets"),
     RULESETS_DIR,

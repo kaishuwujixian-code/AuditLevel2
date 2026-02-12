@@ -17,7 +17,7 @@ from reporting.narratives import (
     uncertainty_sentence,
 )
 from reporting.narratives.checklists import render_block_appendix
-from reporting.rulesets.engine import render_ruleset_block
+from reporting.narratives.library_items import collect_items, render_items
 
 BLOCK_PLACEHOLDERS = ["{DHW System Block}"]
 EXPECTED_INPUTS = {
@@ -144,7 +144,8 @@ class DHWContext:
         )
         storage_notes_value = get_answer_value(
             project,
-            ["dhw_storage_notes", "dhw_distribution_notes", "dhw_notes", "notes", "dhw_block"],
+            ["dhw_storage_notes", "dhw_distribution_notes", "dhw_notes",
+            "dhw_items", "notes", "dhw_block"],
             section="dhw",
         )
         location_text = stringify_value(
@@ -348,17 +349,22 @@ def render_block(
     project: Dict[str, Any], *, schema: Dict[str, Any] | None = None, mapping: Dict[str, Any] | None = None
 ) -> str:
     context = DHWContext.from_project(project, mapping=mapping)
-    if context.override_text:
-        return context.override_text
+    library_items = collect_items(project, "dhw_items")
 
-    ruleset_text = render_ruleset_block(
-        project,
-        ruleset_filename="dhw.rules.json",
-        target_block="dhw",
-        block_ref="{DHW System Block}",
-    )
-    if ruleset_text:
-        paragraphs: list[str] = [ruleset_text]
+    if context.override_text and library_items:
+        paragraphs: list[str] = [render_items(library_items), context.override_text]
+        checklist_text = render_block_appendix(project, target_block="dhw")
+        if checklist_text:
+            paragraphs.append(checklist_text)
+        return "\n\n".join(paragraphs)
+    if context.override_text:
+        paragraphs = [context.override_text]
+        checklist_text = render_block_appendix(project, target_block="dhw")
+        if checklist_text:
+            paragraphs.append(checklist_text)
+        return "\n\n".join(paragraphs)
+    if library_items:
+        paragraphs = [render_items(library_items)]
         checklist_text = render_block_appendix(project, target_block="dhw")
         if checklist_text:
             paragraphs.append(checklist_text)
