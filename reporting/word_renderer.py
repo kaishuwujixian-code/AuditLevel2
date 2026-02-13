@@ -19,6 +19,7 @@ from reporting.narratives.registry import KNOWN_BLOCK_PLACEHOLDERS, get_block_re
 
 
 PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
+UNDERLINE_TAG_PATTERN = re.compile(r"<u>(.*?)</u>")
 DEFAULT_MAPPING_PATH = os.path.join("schemas", "level1_placeholders.map.json")
 DEFAULT_EMPTY_BLOCK_TEXT = ""
 MEASURE_CATEGORY_LABELS = {
@@ -273,8 +274,23 @@ def _add_paragraph_after(paragraph: Paragraph, text: str = "", style=None) -> Pa
     if style is not None:
         new_p.style = style
     if text:
-        new_p.add_run(text)
+        _set_paragraph_text_with_markup(new_p, text)
     return new_p
+
+
+def _set_paragraph_text_with_markup(paragraph: Paragraph, text: str) -> None:
+    paragraph.text = ""
+    if not text:
+        return
+    cursor = 0
+    for match in UNDERLINE_TAG_PATTERN.finditer(text):
+        if match.start() > cursor:
+            paragraph.add_run(text[cursor:match.start()])
+        run = paragraph.add_run(match.group(1))
+        run.underline = True
+        cursor = match.end()
+    if cursor < len(text):
+        paragraph.add_run(text[cursor:])
 
 
 def _ensure_paragraph_style(
@@ -723,7 +739,7 @@ def render_word(
                     paragraphs = block_paragraphs.get(placeholder, [])
                     if len(paragraphs) > 1:
                         if text.strip() == placeholder:
-                            paragraph.text = paragraphs[0]
+                            _set_paragraph_text_with_markup(paragraph, paragraphs[0])
                             current_para = paragraph
                             for block_text in paragraphs[1:]:
                                 current_para = _add_paragraph_after(
@@ -732,7 +748,10 @@ def render_word(
                             expanded_block = True
                             continue
                         prefix, suffix = text.split(placeholder, 1)
-                        paragraph.text = f"{prefix}{paragraphs[0]}{suffix}"
+                        _set_paragraph_text_with_markup(
+                            paragraph,
+                            f"{prefix}{paragraphs[0]}{suffix}",
+                        )
                         current_para = paragraph
                         for block_text in paragraphs[1:]:
                             current_para = _add_paragraph_after(
@@ -752,7 +771,10 @@ def render_word(
         if expanded_block:
             continue
         if replaced_text != text:
-            paragraph.text = replaced_text
+            if "<u>" in replaced_text:
+                _set_paragraph_text_with_markup(paragraph, replaced_text)
+            else:
+                paragraph.text = replaced_text
 
     _apply_autofit_to_content(doc)
 

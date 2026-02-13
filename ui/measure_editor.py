@@ -259,7 +259,7 @@ class _MeasureCard:
     def update_index(self, index: int, total: int, *, active: bool) -> None:
         label = f"Measure {index}"
         if active:
-            label = f"{label} (selected)"
+            label = f"▶ {label} [SELECTED]"
         self.frame.configure(text=label)
         self._up_button.configure(state="normal" if index > 1 else "disabled")
         self._down_button.configure(state="normal" if index < total else "disabled")
