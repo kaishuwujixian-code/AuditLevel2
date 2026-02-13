@@ -38,4 +38,4 @@ def render_items(items: List[Dict[str, Any]]) -> str:
 
 
 def underline_text(text: str) -> str:
-    return "".join(f"{char}\u0332" if not char.isspace() else char for char in text)
+    return f"<u>{text}</u>"
