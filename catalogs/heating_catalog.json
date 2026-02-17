@@ -1,8 +1,25 @@
 {
   "categories": [
-    {"code": "plant", "title": "Plant"},
-    {"code": "distribution", "title": "Distribution"},
-    {"code": "controls", "title": "Controls"}
+    {
+      "code": "plant",
+      "title": "Plant"
+    },
+    {
+      "code": "distribution",
+      "title": "Distribution"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "condition",
+      "title": "Condition"
+    },
+    {
+      "code": "heating_system",
+      "title": "Heating System"
+    }
   ],
   "items": [
     {
@@ -22,6 +39,24 @@
       "title": "Heating controls via BAS",
       "category": "controls",
       "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements."
+    },
+    {
+      "id": "good_condition_working_normally",
+      "title": "Good condition + Working normally",
+      "category": "condition",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough"
+    },
+    {
+      "id": "magic_pak",
+      "title": "Magic Pak",
+      "category": "heating_system",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in suite MagicPak units, which consist of a gas fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\nWhile this decentralized configuration provides basic temperature control, gas fired furnace and conventional DX cooling systems are generally less efficient than heat pump solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high efficiency air source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\nIn addition to moderate energy performance, the distributed nature of MagicPak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to mini-split heat pump systems.\nGiven the age and inherent efficiency limitations of gas fired packaged units, replacement with a mini-split heat pump system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs"
+    },
+    {
+      "id": "ptac_packaged_terminal_air_conditioner",
+      "title": "PTAC (Packaged Terminal Air Conditioner)",
+      "category": "heating_system",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which operate independently in each suite.\n\nWhile PTAC systems provide basic decentralized temperature control, they are generally less efficient than heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of 2.5–3.2, and electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces only one unit of heat. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable operating conditions.\n\nIn addition to reduced energy efficiency, PTAC systems typically require higher maintenance costs due to the large number of distributed units, frequent filter cleaning, condensate management issues, and periodic compressor or fan motor replacement. Performance and reliability may vary significantly between suites depending on unit age and maintenance practices.\n\nGiven the relatively low efficiency and higher lifecycle maintenance burden associated with PTAC systems, replacement with a modern heat pump–based system should be considered in the short term as part of a broader mechanical system modernization strategy to improve energy performance, reduce operating costs, and enhance occupant comfort."
     }
   ]
 }
