@@ -1,15 +1,28 @@
 {
   "categories": [
-    {"code": "system", "title": "System"},
-    {"code": "equipment", "title": "Equipment"},
-    {"code": "controls", "title": "Controls"}
+    {
+      "code": "system",
+      "title": "System"
+    },
+    {
+      "code": "equipment",
+      "title": "Equipment"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "ventilation_equipment_facts",
+      "title": "Ventilation Equipment Facts"
+    }
   ],
   "items": [
     {
       "id": "central_ahu_ventilation",
       "title": "Central AHU ventilation",
       "category": "system",
-      "text": "Ventilation is provided through central air-handling equipment with outdoor-air intake and return/exhaust paths serving occupied areas."
+      "text": "Ventilation for the building is provided by One (1) central air handling unit(s), located in roof top, equipment with outdoor-air intake and return/exhaust paths serving corridors and other public areas."
     },
     {
       "id": "garage_exhaust_controls",
@@ -19,9 +32,33 @@
     },
     {
       "id": "ventilation_controls_bas",
-      "title": "Ventilation controls via BAS",
+      "title": "AHU units with VFD capacity, but not integrate into BAS",
       "category": "controls",
-      "text": "Ventilation schedules and operating setpoints are integrated into BAS controls. Further trend review can help confirm outdoor-air control performance under varying occupancy."
+      "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability."
+    },
+    {
+      "id": "rooftop_mua",
+      "title": "Rooftop MUA",
+      "category": "system",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas."
+    },
+    {
+      "id": "exhaust_only_system",
+      "title": "Exhaust Only System",
+      "category": "system",
+      "text": "Ventilation is provided by centralized exhaust fans without dedicated supply air units"
+    },
+    {
+      "id": "vfd_gas_fire_dx_cooling",
+      "title": "VFD+Gas Fire+DX Cooling",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections. The VFD, gas-fired heating burner, and DX Cooling coil were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
+    },
+    {
+      "id": "vfd_gas_fire_air_cooled_chiller",
+      "title": "VFD+Gas Fire+Air Cooled Chiller",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and Air Cooled Chiller provide cooling capacity. The VFD, gas-fired heating burner, and air cooled chiller were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
     }
   ]
 }
