@@ -1,8 +1,21 @@
 {
   "categories": [
-    {"code": "plant", "title": "Plant"},
-    {"code": "distribution", "title": "Distribution"},
-    {"code": "controls", "title": "Controls"}
+    {
+      "code": "plant",
+      "title": "Plant"
+    },
+    {
+      "code": "distribution",
+      "title": "Distribution"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "cooling_system",
+      "title": "Cooling System"
+    }
   ],
   "items": [
     {
@@ -22,6 +35,18 @@
       "title": "Cooling controls",
       "category": "controls",
       "text": "Cooling system control is handled through BAS schedules and setpoints. Sequence verification and trend analysis are recommended for additional optimization opportunities."
+    },
+    {
+      "id": "window_a_c_units",
+      "title": "Window A/C Units",
+      "category": "cooling_system",
+      "text": "The building is not equipped with a centralized cooling system. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.\n\nThese decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.\n\nIn addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a air source heat pump (ASHP) system could be considered in a short term to mid term."
+    },
+    {
+      "id": "magic_pak_for_cooling",
+      "title": "Magic Pak for Cooling",
+      "category": "cooling_system",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in suite MagicPak units, which consist of a gas fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\nWhile this decentralized configuration provides basic temperature control, gas fired furnace and conventional DX cooling systems are generally less efficient than heat pump solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high efficiency air source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\nIn addition to moderate energy performance, the distributed nature of MagicPak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to mini-split heat pump systems.\nGiven the age and inherent efficiency limitations of gas fired packaged units, replacement with a mini-split heat pump system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs"
     }
   ]
 }
