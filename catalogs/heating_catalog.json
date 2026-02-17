@@ -1,62 +1,64 @@
 {
   "categories": [
     {
-      "code": "plant",
-      "title": "Plant"
+      "code": "system",
+      "title": "System"
     },
     {
-      "code": "distribution",
-      "title": "Distribution"
+      "code": "equipment",
+      "title": "Equipment"
     },
     {
       "code": "controls",
       "title": "Controls"
     },
     {
-      "code": "condition",
-      "title": "Condition"
-    },
-    {
-      "code": "heating_system",
-      "title": "Heating System"
+      "code": "ventilation_equipment_facts",
+      "title": "Ventilation Equipment Facts"
     }
   ],
   "items": [
     {
-      "id": "condensing_boiler_plant",
-      "title": "Condensing boiler plant",
-      "category": "plant",
-      "text": "The building is served by a central condensing boiler plant. Boilers appeared operational at the time of the walkthrough and no immediate reliability issues were reported by operations staff."
+      "id": "central_ahu_ventilation",
+      "title": "Central AHU ventilation",
+      "category": "system",
+      "text": "Ventilation for the building is provided by One (1) central air handling unit(s), located in roof top, equipment with outdoor-air intake and return/exhaust paths serving corridors and other public areas."
     },
     {
-      "id": "heating_distribution",
-      "title": "Heating distribution observations",
-      "category": "distribution",
-      "text": "Heating is distributed through the building hydronic loop and associated terminal units. Distribution pumps and associated piping were observed in generally serviceable condition during the site visit."
+      "id": "garage_exhaust_controls",
+      "title": "Garage exhaust with demand control",
+      "category": "equipment",
+      "text": "Garage ventilation is controlled by carbon monoxide sensing with demand-based exhaust fan operation. This approach helps reduce fan runtime during low-occupancy periods."
     },
     {
-      "id": "heating_controls_bas",
-      "title": "Heating controls via BAS",
+      "id": "ventilation_controls_bas",
+      "title": "AHU units with VFD capacity, but not integrate into BAS",
       "category": "controls",
-      "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements."
+      "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability."
     },
     {
-      "id": "good_condition_working_normally",
-      "title": "Good condition + Working normally",
-      "category": "condition",
-      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough"
+      "id": "rooftop_mua",
+      "title": "Rooftop MUA",
+      "category": "system",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas."
     },
     {
-      "id": "magic_pak",
-      "title": "Magic Pak",
-      "category": "heating_system",
-      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in suite MagicPak units, which consist of a gas fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\nWhile this decentralized configuration provides basic temperature control, gas fired furnace and conventional DX cooling systems are generally less efficient than heat pump solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high efficiency air source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\nIn addition to moderate energy performance, the distributed nature of MagicPak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to mini-split heat pump systems.\nGiven the age and inherent efficiency limitations of gas fired packaged units, replacement with a mini-split heat pump system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs"
+      "id": "exhaust_only_system",
+      "title": "Exhaust Only System",
+      "category": "system",
+      "text": "Ventilation is provided by centralized exhaust fans without dedicated supply air units"
     },
     {
-      "id": "ptac_packaged_terminal_air_conditioner",
-      "title": "PTAC (Packaged Terminal Air Conditioner)",
-      "category": "heating_system",
-      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which operate independently in each suite.\n\nWhile PTAC systems provide basic decentralized temperature control, they are generally less efficient than heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of 2.5–3.2, and electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces only one unit of heat. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable operating conditions.\n\nIn addition to reduced energy efficiency, PTAC systems typically require higher maintenance costs due to the large number of distributed units, frequent filter cleaning, condensate management issues, and periodic compressor or fan motor replacement. Performance and reliability may vary significantly between suites depending on unit age and maintenance practices.\n\nGiven the relatively low efficiency and higher lifecycle maintenance burden associated with PTAC systems, replacement with a modern heat pump–based system should be considered in the short term as part of a broader mechanical system modernization strategy to improve energy performance, reduce operating costs, and enhance occupant comfort."
+      "id": "vfd_gas_fire_dx_cooling",
+      "title": "VFD+Gas Fire+DX Cooling",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections. The VFD, gas-fired heating burner, and DX Cooling coil were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
+    },
+    {
+      "id": "vfd_gas_fire_air_cooled_chiller",
+      "title": "VFD+Gas Fire+Air Cooled Chiller",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and Air Cooled Chiller provide cooling capacity. The VFD, gas-fired heating burner, and air cooled chiller were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
     }
   ]
 }
