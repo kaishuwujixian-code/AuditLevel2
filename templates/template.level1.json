@@ -131,7 +131,7 @@
           },
           {
             "label": "No thermostatic mixing valve",
-            "text": "Lack of a thermostatic mixing valve increases scalding risk and limits domestic hot water temperature stability."
+            "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank"
           }
         ],
         "target_block": "dhw"
