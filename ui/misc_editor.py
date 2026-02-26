@@ -28,9 +28,11 @@ class MiscEditor(ttk.Frame):
         self._active_card: Optional[_MiscCard] = None
         self._categories: List[MiscCategory] = []
         self._drag_card: Optional[_MiscCard] = None
+        self._drop_target_index: Optional[int] = None
         self._on_items_changed = on_items_changed
         self._text_font = tkfont.nametofont("TkTextFont")
         self._build_ui()
+        self._bind_shortcuts()
 
     def _build_ui(self) -> None:
         self.columnconfigure(0, weight=1)
@@ -41,6 +43,33 @@ class MiscEditor(ttk.Frame):
         self._scroll = _ScrollableFrame(self)
         self._scroll.grid(row=1, column=0, sticky="nsew")
         self.rowconfigure(1, weight=1)
+
+        self._drop_indicator = tk.Frame(
+            self._scroll.content,
+            height=3,
+            bg="#2563eb",
+            bd=0,
+            highlightthickness=0,
+        )
+
+    def _bind_shortcuts(self) -> None:
+        self.bind_all("<Alt-Up>", lambda event: self._on_shortcut_move(event, -1), add=True)
+        self.bind_all("<Alt-Down>", lambda event: self._on_shortcut_move(event, 1), add=True)
+        self.bind_all(
+            "<Control-Shift-Up>", lambda event: self._on_shortcut_move(event, -1), add=True
+        )
+        self.bind_all(
+            "<Control-Shift-Down>", lambda event: self._on_shortcut_move(event, 1), add=True
+        )
+
+    def _on_shortcut_move(self, event: tk.Event, offset: int) -> str | None:
+        focus = self.focus_get()
+        if not isinstance(focus, tk.Misc) or not _is_descendant(focus, self):
+            return None
+        if not self._active_card:
+            return "break"
+        self._move_card(self._active_card, offset)
+        return "break"
 
     def set_categories(self, categories: List[Dict[str, Any]]) -> None:
         self._categories = [
@@ -77,6 +106,7 @@ class MiscEditor(ttk.Frame):
         return card
 
     def set_items(self, items: List[Dict[str, Any]]) -> None:
+        self._hide_drop_indicator()
         for card in self._cards:
             card.frame.destroy()
         self._cards = []
@@ -138,6 +168,7 @@ class MiscEditor(ttk.Frame):
         self._notify_items_changed()
 
     def _repack_cards(self) -> None:
+        self._hide_drop_indicator()
         for card in self._cards:
             card.frame.pack_forget()
         for card in self._cards:
@@ -146,7 +177,12 @@ class MiscEditor(ttk.Frame):
 
     def _refresh_controls(self) -> None:
         for idx, card in enumerate(self._cards, start=1):
-            card.update_index(idx, total=len(self._cards), active=card is self._active_card)
+            card.update_index(
+                idx,
+                total=len(self._cards),
+                active=card is self._active_card,
+                dragging=card is self._drag_card,
+            )
 
     def _set_active_card(self, card: Optional["_MiscCard"]) -> None:
         if card is None or card not in self._cards:
@@ -163,29 +199,62 @@ class MiscEditor(ttk.Frame):
     def _drag_motion(self, card: "_MiscCard", y_root: int) -> None:
         if self._drag_card is not card or card not in self._cards:
             return
-        target_index: Optional[int] = None
+        self._set_drop_target_from_pointer(y_root)
+
+    def _set_drop_target_from_pointer(self, y_root: int) -> None:
+        if not self._cards:
+            self._hide_drop_indicator()
+            return
+
+        target_index = len(self._cards)
         for index, candidate in enumerate(self._cards):
             top = candidate.frame.winfo_rooty()
             center = top + candidate.frame.winfo_height() // 2
             if y_root < center:
                 target_index = index
                 break
-        if target_index is None:
-            target_index = len(self._cards) - 1
 
-        current_index = self._cards.index(card)
-        if target_index == current_index:
+        self._drop_target_index = target_index
+        self._show_drop_indicator(target_index)
+
+    def _show_drop_indicator(self, target_index: int) -> None:
+        self._drop_indicator.pack_forget()
+        if not self._cards:
             return
-        self._cards.pop(current_index)
-        if target_index > current_index:
-            target_index -= 1
-        self._cards.insert(target_index, card)
-        self._repack_cards()
+
+        if target_index <= 0:
+            self._drop_indicator.pack(in_=self._scroll.content, before=self._cards[0].frame, fill="x", pady=(0, 2))
+            return
+        if target_index >= len(self._cards):
+            self._drop_indicator.pack(in_=self._scroll.content, after=self._cards[-1].frame, fill="x", pady=(2, 0))
+            return
+        self._drop_indicator.pack(
+            in_=self._scroll.content,
+            before=self._cards[target_index].frame,
+            fill="x",
+            pady=2,
+        )
+
+    def _hide_drop_indicator(self) -> None:
+        self._drop_indicator.pack_forget()
 
     def _end_drag(self, card: "_MiscCard") -> None:
         if self._drag_card is not card:
             return
+
+        if self._drop_target_index is not None and card in self._cards:
+            current_index = self._cards.index(card)
+            target_index = self._drop_target_index
+            if target_index > current_index:
+                target_index -= 1
+            target_index = max(0, min(target_index, len(self._cards) - 1))
+            if target_index != current_index:
+                self._cards.pop(current_index)
+                self._cards.insert(target_index, card)
+
         self._drag_card = None
+        self._drop_target_index = None
+        self._repack_cards()
         self._notify_items_changed()
 
     def _notify_items_changed(self) -> None:
@@ -220,7 +289,16 @@ class _MiscCard:
         self._on_drag_motion = on_drag_motion
         self._on_drag_end = on_drag_end
         self._misc_id: Optional[str] = None
-        self.frame = ttk.Labelframe(master, text=f"{self._item_label} Item")
+
+        self.frame = tk.LabelFrame(
+            master,
+            text=f"{self._item_label} Item",
+            bd=1,
+            relief="groove",
+            padx=6,
+            pady=6,
+            bg="#f6f7fb",
+        )
         self._build_ui()
         self._bind_activate()
 
@@ -258,7 +336,15 @@ class _MiscCard:
         ttk.Button(button_frame, text="Remove", command=self._on_remove).grid(row=0, column=3)
 
         ttk.Label(self.frame, text="Notes").grid(row=1, column=0, sticky="nw", pady=(10, 0))
-        self._text = tk.Text(self.frame, height=5, wrap="word", font=self._text_font)
+        self._text = tk.Text(
+            self.frame,
+            height=5,
+            wrap="word",
+            font=self._text_font,
+            bg="#ffffff",
+            relief="solid",
+            bd=1,
+        )
         self._text.grid(row=1, column=1, columnspan=2, sticky="ew", pady=(10, 0))
 
     def _bind_activate(self) -> None:
@@ -289,11 +375,26 @@ class _MiscCard:
         self._categories = categories
         self._category_combo.configure(values=[cat.title for cat in self._categories])
 
-    def update_index(self, index: int, total: int, *, active: bool) -> None:
+    def update_index(self, index: int, total: int, *, active: bool, dragging: bool) -> None:
         label = f"{self._item_label} Item {index}"
         if active:
             label = f"▶ {label} [SELECTED]"
         self.frame.configure(text=label)
+
+        if dragging:
+            # Tk 没有对单独 frame 的真实 alpha；用浅色+raised 模拟“半透明拖拽态”。
+            self.frame.configure(relief="raised", bd=3, bg="#e9eefb")
+            self._text.configure(bg="#f8faff")
+            self._drag_handle.configure(foreground="#2563eb")
+        elif active:
+            self.frame.configure(relief="ridge", bd=2, bg="#eef4ff")
+            self._text.configure(bg="#ffffff")
+            self._drag_handle.configure(foreground="#1d4ed8")
+        else:
+            self.frame.configure(relief="groove", bd=1, bg="#f6f7fb")
+            self._text.configure(bg="#ffffff")
+            self._drag_handle.configure(foreground="#4b5563")
+
         self._up_button.configure(state="normal" if index > 1 else "disabled")
         self._down_button.configure(state="normal" if index < total else "disabled")
 
@@ -379,3 +480,15 @@ def _normalize_id(value: Any) -> Optional[str]:
         return None
     text = str(value).strip()
     return text or None
+
+
+def _is_descendant(widget: tk.Misc, ancestor: tk.Misc) -> bool:
+    current = widget
+    while current is not None:
+        if current is ancestor:
+            return True
+        parent_name = current.winfo_parent()
+        if not parent_name:
+            break
+        current = current.nametowidget(parent_name)
+    return False
