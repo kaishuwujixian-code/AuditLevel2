@@ -17,10 +17,12 @@ class LibraryPanel(ttk.Frame):
         *,
         on_checklist_saved=None,
         on_measure_catalog_saved=None,
+        on_system_catalog_changed=None,
     ) -> None:
         super().__init__(master)
         self._on_checklist_saved = on_checklist_saved
         self._on_measure_catalog_saved = on_measure_catalog_saved
+        self._on_system_catalog_changed = on_system_catalog_changed
         self._build_ui()
 
     def _build_ui(self) -> None:
@@ -47,6 +49,7 @@ class LibraryPanel(ttk.Frame):
             catalog_filename="heating_catalog.json",
             panel_title="Heating Library",
             state_key="heating_library",
+            on_catalog_changed=self._on_system_catalog_changed,
         )
         notebook.add(heating_library_panel, text="Heating Library")
 
@@ -55,6 +58,7 @@ class LibraryPanel(ttk.Frame):
             catalog_filename="cooling_catalog.json",
             panel_title="Cooling Library",
             state_key="cooling_library",
+            on_catalog_changed=self._on_system_catalog_changed,
         )
         notebook.add(cooling_library_panel, text="Cooling Library")
 
@@ -63,6 +67,7 @@ class LibraryPanel(ttk.Frame):
             catalog_filename="dhw_catalog.json",
             panel_title="DHW Library",
             state_key="dhw_library",
+            on_catalog_changed=self._on_system_catalog_changed,
         )
         notebook.add(dhw_library_panel, text="DHW Library")
 
@@ -71,6 +76,7 @@ class LibraryPanel(ttk.Frame):
             catalog_filename="ventilation_catalog.json",
             panel_title="Ventilation Library",
             state_key="ventilation_library",
+            on_catalog_changed=self._on_system_catalog_changed,
         )
         notebook.add(ventilation_library_panel, text="Ventilation Library")
 
