@@ -28,6 +28,7 @@ class LibraryItemsPanel(ttk.Frame):
         self._editor: Optional[MiscEditor] = None
         self._catalog_items: Dict[str, str] = {}
         self._search_var = tk.StringVar(value="")
+        self._selected_tree_ids: set[str] = set()
         self._build_ui(item_label=item_label)
         self._load_catalog()
 
@@ -69,12 +70,19 @@ class LibraryItemsPanel(ttk.Frame):
         catalog_xscroll.grid(row=1, column=0, sticky="ew")
         self._search_var.trace_add("write", lambda *_args: self._populate_catalog_tree())
         self._catalog_tree.bind("<<TreeviewSelect>>", self._on_catalog_select)
+        self._catalog_tree.bind("<MouseWheel>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-4>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-5>", self._on_tree_mousewheel, add=True)
         paned.add(catalog_frame, weight=1)
 
         editor_frame = ttk.Frame(paned, padding=(6, 6))
         editor_frame.columnconfigure(0, weight=1)
         editor_frame.rowconfigure(0, weight=1)
-        self._editor = MiscEditor(editor_frame, item_label=item_label)
+        self._editor = MiscEditor(
+            editor_frame,
+            item_label=item_label,
+            on_items_changed=self._sync_selected_tree_items,
+        )
         self._editor.grid(row=0, column=0, sticky="nsew")
         paned.add(editor_frame, weight=3)
 
@@ -113,6 +121,7 @@ class LibraryItemsPanel(ttk.Frame):
         if self._catalog:
             self._editor.set_categories(self._catalog.categories)
         self._populate_catalog_tree()
+        self._sync_selected_tree_items()
 
     def _sort_catalog_alphabetically(self) -> None:
         if not self._catalog:
@@ -132,6 +141,7 @@ class LibraryItemsPanel(ttk.Frame):
             return
         self._catalog_tree.delete(*self._catalog_tree.get_children())
         self._catalog_items = {}
+        self._selected_tree_ids = set()
         if not self._catalog:
             self._catalog_tree.insert("", "end", text="Catalog not available.")
             return
@@ -161,6 +171,7 @@ class LibraryItemsPanel(ttk.Frame):
                 self._catalog_tree.delete(node_id)
                 continue
             self._catalog_tree.item(node_id, open=True)
+        self._sync_selected_tree_items()
 
     def _on_catalog_select(self, _event: tk.Event) -> None:
         if not self._catalog_tree or not self._catalog or not self._editor:
@@ -174,6 +185,28 @@ class LibraryItemsPanel(ttk.Frame):
         item = self._catalog.items.get(item_id, {})
         self._editor.apply_catalog_item(item)
 
+    def _on_tree_mousewheel(self, event: tk.Event) -> str:
+        if not self._catalog_tree:
+            return "break"
+        units = _mousewheel_units(event)
+        if units:
+            self._catalog_tree.yview_scroll(units, "units")
+        return "break"
+
+    def _sync_selected_tree_items(self) -> None:
+        if not self._catalog_tree or not self._editor:
+            return
+        selected_catalog_ids = self._editor.selected_catalog_item_ids()
+        for tree_id in self._selected_tree_ids:
+            if self._catalog_tree.exists(tree_id):
+                self._catalog_tree.item(tree_id, tags=())
+        self._selected_tree_ids = set()
+        for tree_id, catalog_id in self._catalog_items.items():
+            if catalog_id in selected_catalog_ids and self._catalog_tree.exists(tree_id):
+                self._catalog_tree.item(tree_id, tags=("chosen",))
+                self._selected_tree_ids.add(tree_id)
+        self._catalog_tree.tag_configure("chosen", foreground="#1d4ed8")
+
 
 def _extract_items(project_data: Dict[str, Any], storage_key: str) -> list[Dict[str, Any]]:
     items = project_data.get(storage_key)
@@ -185,3 +218,17 @@ def _extract_items(project_data: Dict[str, Any], storage_key: str) -> list[Dict[
         if isinstance(items, list):
             return [item for item in items if isinstance(item, dict)]
     return []
+
+
+def _mousewheel_units(event: tk.Event) -> int:
+    num = getattr(event, "num", None)
+    if num == 4:
+        return -3
+    if num == 5:
+        return 3
+    delta = int(getattr(event, "delta", 0) or 0)
+    if delta == 0:
+        return 0
+    if abs(delta) >= 120:
+        return -int(delta / 120) * 3
+    return -1 if delta > 0 else 1

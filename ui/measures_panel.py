@@ -17,6 +17,7 @@ class MeasuresPanel(ttk.Frame):
         self._catalog_tree: Optional[ttk.Treeview] = None
         self._editor: Optional[MeasuresEditor] = None
         self._catalog_items: Dict[str, str] = {}
+        self._selected_tree_ids: set[str] = set()
         self._search_var = tk.StringVar(value="")
         self._build_ui()
         self._load_catalog()
@@ -66,12 +67,15 @@ class MeasuresPanel(ttk.Frame):
         catalog_xscroll.grid(row=1, column=0, sticky="ew")
         self._search_var.trace_add("write", lambda *_args: self._populate_catalog_tree())
         self._catalog_tree.bind("<<TreeviewSelect>>", self._on_catalog_select)
+        self._catalog_tree.bind("<MouseWheel>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-4>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-5>", self._on_tree_mousewheel, add=True)
         paned.add(catalog_frame, weight=1)
 
         editor_frame = ttk.Frame(paned, padding=(6, 6))
         editor_frame.columnconfigure(0, weight=1)
         editor_frame.rowconfigure(0, weight=1)
-        self._editor = MeasuresEditor(editor_frame)
+        self._editor = MeasuresEditor(editor_frame, on_items_changed=self._sync_selected_tree_items)
         self._editor.grid(row=0, column=0, sticky="nsew")
         paned.add(editor_frame, weight=3)
 
@@ -81,6 +85,7 @@ class MeasuresPanel(ttk.Frame):
         normalize_measures_data(project_data)
         measures = _extract_measures(project_data)
         self._editor.set_measures(measures)
+        self._sync_selected_tree_items()
 
     def update_project(self, project_data: Dict[str, Any]) -> None:
         if not self._editor:
@@ -103,6 +108,7 @@ class MeasuresPanel(ttk.Frame):
         if self._editor and self._catalog:
             self._editor.set_categories(self._catalog.categories)
         self._populate_catalog_tree()
+        self._sync_selected_tree_items()
 
     def reload_catalog(self, catalog: Optional[MeasureCatalog] = None) -> None:
         if catalog is not None:
@@ -110,6 +116,7 @@ class MeasuresPanel(ttk.Frame):
             if self._editor:
                 self._editor.set_categories(self._catalog.categories)
             self._populate_catalog_tree()
+            self._sync_selected_tree_items()
             return
         self._load_catalog()
 
@@ -135,6 +142,7 @@ class MeasuresPanel(ttk.Frame):
             return
         self._catalog_tree.delete(*self._catalog_tree.get_children())
         self._catalog_items = {}
+        self._selected_tree_ids = set()
         if not self._catalog:
             self._catalog_tree.insert("", "end", text="Measure catalog not available.")
             return
@@ -164,6 +172,7 @@ class MeasuresPanel(ttk.Frame):
                 self._catalog_tree.delete(node_id)
                 continue
             self._catalog_tree.item(node_id, open=True)
+        self._sync_selected_tree_items()
 
     def _on_catalog_select(self, _event: tk.Event) -> None:
         if not self._catalog_tree or not self._catalog or not self._editor:
@@ -177,6 +186,28 @@ class MeasuresPanel(ttk.Frame):
         measure = self._catalog.measures.get(measure_id, {})
         self._editor.apply_catalog_measure(measure)
 
+    def _on_tree_mousewheel(self, event: tk.Event) -> str:
+        if not self._catalog_tree:
+            return "break"
+        units = _mousewheel_units(event)
+        if units:
+            self._catalog_tree.yview_scroll(units, "units")
+        return "break"
+
+    def _sync_selected_tree_items(self) -> None:
+        if not self._catalog_tree or not self._editor:
+            return
+        selected_catalog_ids = self._editor.selected_catalog_measure_ids()
+        for tree_id in self._selected_tree_ids:
+            if self._catalog_tree.exists(tree_id):
+                self._catalog_tree.item(tree_id, tags=())
+        self._selected_tree_ids = set()
+        for tree_id, catalog_id in self._catalog_items.items():
+            if catalog_id in selected_catalog_ids and self._catalog_tree.exists(tree_id):
+                self._catalog_tree.item(tree_id, tags=("chosen",))
+                self._selected_tree_ids.add(tree_id)
+        self._catalog_tree.tag_configure("chosen", foreground="#1d4ed8")
+
 
 def _extract_measures(project_data: Dict[str, Any]) -> list[Dict[str, Any]]:
     measures = project_data.get("measures")
@@ -188,3 +219,17 @@ def _extract_measures(project_data: Dict[str, Any]) -> list[Dict[str, Any]]:
         if isinstance(measures, list):
             return [item for item in measures if isinstance(item, dict)]
     return []
+
+
+def _mousewheel_units(event: tk.Event) -> int:
+    num = getattr(event, "num", None)
+    if num == 4:
+        return -3
+    if num == 5:
+        return 3
+    delta = int(getattr(event, "delta", 0) or 0)
+    if delta == 0:
+        return 0
+    if abs(delta) >= 120:
+        return -int(delta / 120) * 3
+    return -1 if delta > 0 else 1
