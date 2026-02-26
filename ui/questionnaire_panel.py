@@ -35,6 +35,7 @@ class QuestionnairePanel(ttk.Frame):
         self._template_fields = collect_template_placeholders(schema)
         self._misc_panel: Optional[MiscPanel] = None
         self._system_library_panels: Dict[str, LibraryItemsPanel] = {}
+        self._catalog_panel_by_filename: Dict[str, LibraryItemsPanel] = {}
         toolbar = ttk.Frame(self)
         toolbar.grid(row=0, column=0, sticky="ew", padx=6, pady=(6, 0))
         ttk.Button(toolbar, text="Clear Current Tab", command=self._clear_current_tab).pack(
@@ -90,6 +91,13 @@ class QuestionnairePanel(ttk.Frame):
                 item_label="Ventilation",
             ),
         }
+        self._catalog_panel_by_filename = {
+            "heating_catalog.json": self._system_library_panels["heating"],
+            "cooling_catalog.json": self._system_library_panels["cooling"],
+            "dhw_catalog.json": self._system_library_panels["dhw"],
+            "ventilation_catalog.json": self._system_library_panels["ventilation"],
+        }
+
         self._notebook.add(self._system_library_panels["heating"], text="Heating")
         self._notebook.add(self._system_library_panels["cooling"], text="Cooling")
         self._notebook.add(self._system_library_panels["dhw"], text="DHW")
@@ -387,6 +395,11 @@ class QuestionnairePanel(ttk.Frame):
             )
 
         return None
+
+    def reload_system_catalog(self, catalog_filename: str) -> None:
+        panel = self._catalog_panel_by_filename.get(catalog_filename)
+        if panel:
+            panel.reload_catalog()
 
     def load_project(self, project_data: Dict[str, Any]) -> None:
         answers = project_data.get("answers", {})

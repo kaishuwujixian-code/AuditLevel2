@@ -78,6 +78,9 @@ class LibraryItemsPanel(ttk.Frame):
         self._editor.grid(row=0, column=0, sticky="nsew")
         paned.add(editor_frame, weight=3)
 
+    def reload_catalog(self) -> None:
+        self._load_catalog()
+
     def load_project(self, project_data: Dict[str, Any]) -> None:
         if not self._editor:
             return

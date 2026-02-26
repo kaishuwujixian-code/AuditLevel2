@@ -99,6 +99,7 @@ class RetScreenApp:
             self._notebook,
             on_checklist_saved=self._on_checklists_saved,
             on_measure_catalog_saved=self._on_catalog_saved,
+            on_system_catalog_changed=self._on_system_catalog_changed,
         )
 
         self._notebook.add(self._dashboard_tab, text="🏠 Dashboard")
@@ -416,3 +417,6 @@ class RetScreenApp:
 
     def _on_catalog_saved(self, catalog) -> None:
         self._measures_tab.reload_catalog(catalog)
+
+    def _on_system_catalog_changed(self, catalog_filename: str) -> None:
+        self._inputs_tab.reload_system_catalog(catalog_filename)

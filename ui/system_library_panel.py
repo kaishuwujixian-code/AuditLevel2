@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import tkinter as tk
 from tkinter import messagebox, simpledialog, ttk
@@ -21,11 +21,13 @@ class SystemLibraryPanel(ttk.Frame):
         catalog_filename: str,
         panel_title: str,
         state_key: str,
+        on_catalog_changed: Optional[Callable[[str], None]] = None,
     ) -> None:
         super().__init__(master)
         self._catalog_filename = catalog_filename
         self._panel_title = panel_title
         self._state_key = state_key
+        self._on_catalog_changed = on_catalog_changed
         self._categories: List[Dict[str, Any]] = []
         self._items: List[Dict[str, Any]] = []
         self._selected_index: Optional[int] = None
@@ -191,6 +193,7 @@ class SystemLibraryPanel(ttk.Frame):
             self._items = []
         self._reset_selection()
         self._refresh_ui()
+        self._notify_catalog_changed()
 
     def _validate_catalog(self) -> None:
         data = {"categories": self._categories, "items": self._items}
@@ -211,6 +214,12 @@ class SystemLibraryPanel(ttk.Frame):
             return
         messagebox.showinfo(self._panel_title, "Catalog saved.")
         self._refresh_ui()
+        self._notify_catalog_changed()
+
+    def _notify_catalog_changed(self) -> None:
+        if not self._on_catalog_changed:
+            return
+        self._on_catalog_changed(self._catalog_filename)
 
     def _refresh_ui(self) -> None:
         self._refresh_tree()
