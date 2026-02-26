@@ -519,20 +519,38 @@ class _ScrollableFrame(ttk.Frame):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
-        canvas = tk.Canvas(self, highlightthickness=0)
-        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
-        self.content = ttk.Frame(canvas)
+        self._canvas = tk.Canvas(self, highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=self._canvas.yview)
+        self.content = ttk.Frame(self._canvas)
 
-        self._canvas_frame = canvas.create_window((0, 0), window=self.content, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        canvas.grid(row=0, column=0, sticky="nsew")
+        self._canvas_frame = self._canvas.create_window((0, 0), window=self.content, anchor="nw")
+        self._canvas.configure(yscrollcommand=scrollbar.set)
+        self._canvas.grid(row=0, column=0, sticky="nsew")
         scrollbar.grid(row=0, column=1, sticky="ns")
 
         self.content.bind(
             "<Configure>",
-            lambda event: canvas.configure(scrollregion=canvas.bbox("all")),
+            lambda event: self._canvas.configure(scrollregion=self._canvas.bbox("all")),
         )
-        canvas.bind("<Configure>", lambda event: canvas.itemconfigure(self._canvas_frame, width=event.width))
+        self._canvas.bind(
+            "<Configure>",
+            lambda event: self._canvas.itemconfigure(self._canvas_frame, width=event.width),
+        )
+
+        # 在整个右侧编辑区实现“悬停即滚动”的丝滑滚轮行为（含拖拽时）。
+        self.bind_all("<MouseWheel>", self._on_mousewheel, add=True)
+        self.bind_all("<Button-4>", self._on_mousewheel, add=True)
+        self.bind_all("<Button-5>", self._on_mousewheel, add=True)
+
+    def _on_mousewheel(self, event: tk.Event) -> str | None:
+        widget = self.winfo_containing(event.x_root, event.y_root)
+        if not isinstance(widget, tk.Misc) or not _is_descendant(widget, self):
+            return None
+        units = _mousewheel_units(event)
+        if units == 0:
+            return "break"
+        self._canvas.yview_scroll(units, "units")
+        return "break"
 
 
 def _get_text(widget: tk.Text) -> str:
@@ -616,3 +634,17 @@ def _is_descendant(widget: tk.Misc, ancestor: tk.Misc) -> bool:
             break
         current = current.nametowidget(parent_name)
     return False
+
+
+def _mousewheel_units(event: tk.Event) -> int:
+    num = getattr(event, "num", None)
+    if num == 4:
+        return -3
+    if num == 5:
+        return 3
+    delta = int(getattr(event, "delta", 0) or 0)
+    if delta == 0:
+        return 0
+    if abs(delta) >= 120:
+        return -int(delta / 120) * 3
+    return -1 if delta > 0 else 1

@@ -70,6 +70,9 @@ class LibraryItemsPanel(ttk.Frame):
         catalog_xscroll.grid(row=1, column=0, sticky="ew")
         self._search_var.trace_add("write", lambda *_args: self._populate_catalog_tree())
         self._catalog_tree.bind("<<TreeviewSelect>>", self._on_catalog_select)
+        self._catalog_tree.bind("<MouseWheel>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-4>", self._on_tree_mousewheel, add=True)
+        self._catalog_tree.bind("<Button-5>", self._on_tree_mousewheel, add=True)
         paned.add(catalog_frame, weight=1)
 
         editor_frame = ttk.Frame(paned, padding=(6, 6))
@@ -182,6 +185,14 @@ class LibraryItemsPanel(ttk.Frame):
         item = self._catalog.items.get(item_id, {})
         self._editor.apply_catalog_item(item)
 
+    def _on_tree_mousewheel(self, event: tk.Event) -> str:
+        if not self._catalog_tree:
+            return "break"
+        units = _mousewheel_units(event)
+        if units:
+            self._catalog_tree.yview_scroll(units, "units")
+        return "break"
+
     def _sync_selected_tree_items(self) -> None:
         if not self._catalog_tree or not self._editor:
             return
@@ -207,3 +218,17 @@ def _extract_items(project_data: Dict[str, Any], storage_key: str) -> list[Dict[
         if isinstance(items, list):
             return [item for item in items if isinstance(item, dict)]
     return []
+
+
+def _mousewheel_units(event: tk.Event) -> int:
+    num = getattr(event, "num", None)
+    if num == 4:
+        return -3
+    if num == 5:
+        return 3
+    delta = int(getattr(event, "delta", 0) or 0)
+    if delta == 0:
+        return 0
+    if abs(delta) >= 120:
+        return -int(delta / 120) * 3
+    return -1 if delta > 0 else 1
