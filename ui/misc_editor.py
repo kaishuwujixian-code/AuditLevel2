@@ -15,12 +15,20 @@ class MiscCategory:
 
 
 class MiscEditor(ttk.Frame):
-    def __init__(self, master: tk.Misc, *, item_label: str = "Misc") -> None:
+    def __init__(
+        self,
+        master: tk.Misc,
+        *,
+        item_label: str = "Misc",
+        on_items_changed=None,
+    ) -> None:
         super().__init__(master)
         self._item_label = item_label
         self._cards: List[_MiscCard] = []
         self._active_card: Optional[_MiscCard] = None
         self._categories: List[MiscCategory] = []
+        self._drag_card: Optional[_MiscCard] = None
+        self._on_items_changed = on_items_changed
         self._text_font = tkfont.nametofont("TkTextFont")
         self._build_ui()
 
@@ -56,6 +64,9 @@ class MiscEditor(ttk.Frame):
             on_move_down=lambda: self._move_card(card, 1),
             on_remove=lambda: self._remove_card(card),
             on_activate=lambda: self._set_active_card(card),
+            on_drag_start=lambda: self._start_drag(card),
+            on_drag_motion=lambda y_root: self._drag_motion(card, y_root),
+            on_drag_end=lambda: self._end_drag(card),
         )
         self._cards.append(card)
         card.frame.pack(fill="x", pady=6)
@@ -74,6 +85,7 @@ class MiscEditor(ttk.Frame):
             self.add_item(item)
         if not items:
             self._refresh_controls()
+        self._notify_items_changed()
 
     def get_items(self) -> List[Dict[str, Any]]:
         items = []
@@ -96,6 +108,14 @@ class MiscEditor(ttk.Frame):
             }
         )
         self._set_active_card(target)
+        self._notify_items_changed()
+
+    def selected_catalog_item_ids(self) -> set[str]:
+        selected_ids: set[str] = set()
+        for card in self._cards:
+            if card.misc_id:
+                selected_ids.add(card.misc_id)
+        return selected_ids
 
     def _remove_card(self, card: "_MiscCard") -> None:
         if card in self._cards:
@@ -104,6 +124,7 @@ class MiscEditor(ttk.Frame):
             if self._active_card is card:
                 self._active_card = self._cards[-1] if self._cards else None
         self._refresh_controls()
+        self._notify_items_changed()
 
     def _move_card(self, card: "_MiscCard", offset: int) -> None:
         if card not in self._cards:
@@ -114,6 +135,7 @@ class MiscEditor(ttk.Frame):
             return
         self._cards[index], self._cards[new_index] = self._cards[new_index], self._cards[index]
         self._repack_cards()
+        self._notify_items_changed()
 
     def _repack_cards(self) -> None:
         for card in self._cards:
@@ -132,6 +154,44 @@ class MiscEditor(ttk.Frame):
         self._active_card = card
         self._refresh_controls()
 
+    def _start_drag(self, card: "_MiscCard") -> None:
+        if card not in self._cards:
+            return
+        self._drag_card = card
+        self._set_active_card(card)
+
+    def _drag_motion(self, card: "_MiscCard", y_root: int) -> None:
+        if self._drag_card is not card or card not in self._cards:
+            return
+        target_index: Optional[int] = None
+        for index, candidate in enumerate(self._cards):
+            top = candidate.frame.winfo_rooty()
+            center = top + candidate.frame.winfo_height() // 2
+            if y_root < center:
+                target_index = index
+                break
+        if target_index is None:
+            target_index = len(self._cards) - 1
+
+        current_index = self._cards.index(card)
+        if target_index == current_index:
+            return
+        self._cards.pop(current_index)
+        if target_index > current_index:
+            target_index -= 1
+        self._cards.insert(target_index, card)
+        self._repack_cards()
+
+    def _end_drag(self, card: "_MiscCard") -> None:
+        if self._drag_card is not card:
+            return
+        self._drag_card = None
+        self._notify_items_changed()
+
+    def _notify_items_changed(self) -> None:
+        if callable(self._on_items_changed):
+            self._on_items_changed()
+
 
 class _MiscCard:
     def __init__(
@@ -145,6 +205,9 @@ class _MiscCard:
         on_move_down,
         on_remove,
         on_activate,
+        on_drag_start,
+        on_drag_motion,
+        on_drag_end,
     ) -> None:
         self._text_font = text_font
         self._item_label = item_label
@@ -153,6 +216,9 @@ class _MiscCard:
         self._on_move_down = on_move_down
         self._on_remove = on_remove
         self._on_activate = on_activate
+        self._on_drag_start = on_drag_start
+        self._on_drag_motion = on_drag_motion
+        self._on_drag_end = on_drag_end
         self._misc_id: Optional[str] = None
         self.frame = ttk.Labelframe(master, text=f"{self._item_label} Item")
         self._build_ui()
@@ -183,11 +249,13 @@ class _MiscCard:
 
         button_frame = ttk.Frame(header)
         button_frame.grid(row=0, column=4, sticky="e")
+        self._drag_handle = ttk.Label(button_frame, text="☰ Drag", cursor="fleur")
+        self._drag_handle.grid(row=0, column=0, padx=(0, 8))
         self._up_button = ttk.Button(button_frame, text="Up", command=self._on_move_up)
-        self._up_button.grid(row=0, column=0, padx=(0, 4))
+        self._up_button.grid(row=0, column=1, padx=(0, 4))
         self._down_button = ttk.Button(button_frame, text="Down", command=self._on_move_down)
-        self._down_button.grid(row=0, column=1, padx=(0, 4))
-        ttk.Button(button_frame, text="Remove", command=self._on_remove).grid(row=0, column=2)
+        self._down_button.grid(row=0, column=2, padx=(0, 4))
+        ttk.Button(button_frame, text="Remove", command=self._on_remove).grid(row=0, column=3)
 
         ttk.Label(self.frame, text="Notes").grid(row=1, column=0, sticky="nw", pady=(10, 0))
         self._text = tk.Text(self.frame, height=5, wrap="word", font=self._text_font)
@@ -200,6 +268,22 @@ class _MiscCard:
                 bind_recursive(child)
 
         bind_recursive(self.frame)
+        self._drag_handle.bind("<ButtonPress-1>", self._on_drag_start_event, add=True)
+        self._drag_handle.bind("<B1-Motion>", self._on_drag_motion_event, add=True)
+        self._drag_handle.bind("<ButtonRelease-1>", self._on_drag_end_event, add=True)
+
+    def _on_drag_start_event(self, _event: tk.Event) -> None:
+        self._on_drag_start()
+
+    def _on_drag_motion_event(self, event: tk.Event) -> None:
+        self._on_drag_motion(event.y_root)
+
+    def _on_drag_end_event(self, _event: tk.Event) -> None:
+        self._on_drag_end()
+
+    @property
+    def misc_id(self) -> Optional[str]:
+        return self._misc_id
 
     def set_categories(self, categories: List[MiscCategory]) -> None:
         self._categories = categories
