@@ -223,12 +223,15 @@ def _extract_items(project_data: Dict[str, Any], storage_key: str) -> list[Dict[
 def _mousewheel_units(event: tk.Event) -> int:
     num = getattr(event, "num", None)
     if num == 4:
-        return -3
+        return -1
     if num == 5:
-        return 3
+        return 1
     delta = int(getattr(event, "delta", 0) or 0)
     if delta == 0:
         return 0
-    if abs(delta) >= 120:
-        return -int(delta / 120) * 3
-    return -1 if delta > 0 else 1
+    steps = -int(delta / 120) if abs(delta) >= 120 else (-1 if delta > 0 else 1)
+    if steps > 2:
+        return 2
+    if steps < -2:
+        return -2
+    return steps
