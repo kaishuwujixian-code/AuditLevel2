@@ -119,6 +119,11 @@ for _catalog_name in (
         os.path.join(CATALOGS_DIR, _catalog_name),
     )
 _seed_dir_if_missing(
+    os.path.join(RESOURCE_ROOT, "projects"),
+    PROJECTS_DIR,
+    suffixes=(".json",),
+)
+_seed_dir_if_missing(
     os.path.join(RESOURCE_ROOT, "reporting", "rulesets"),
     RULESETS_DIR,
     suffixes=(".json",),
