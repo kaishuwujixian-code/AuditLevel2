@@ -86,7 +86,7 @@
       "id": "over_all_good_condition_-_with_bas_integration",
       "title": "Over all Good condition - With BAS Integration",
       "category": "controls",
-      "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time"
+      "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment (including chillers, WSHP loops, fluid coolers, and associated pumps, where applicable).\n\nAt the time of the site visit, the control system appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time"
     }
   ]
 }

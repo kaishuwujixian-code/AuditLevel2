@@ -113,12 +113,6 @@
       "title": "Condensing Boiler",
       "category": "dhw_boiler_facts",
       "text": "(Number) condensing gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). The boilers are designed to operate at lower return-water temperatures to enable latent heat recovery, with peak thermal efficiencies of up to approximately (Efficiency %) under suitable operating conditions. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition."
-    },
-    {
-      "id": "over_all_fair_aging_indirect_tank_future_optimization_bas",
-      "title": "Over all fair+Aging indirect tank+Future optimization BAS:",
-      "category": "system_overall_assessment",
-      "text": "Although no immediate operational deficiencies were observed during the site visit and the DHW system appears to be meeting current building demand, the indirect storage tank was identified as original to the building and in poor mechanical condition.\n\nGiven its age, the tank is considered to have exceeded its typical service life. While the system is presently functional, replacement planning for the storage tank should be considered in the near term as part of the building’s lifecycle capital strategy.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, may also be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency."
     }
   ]
 }

@@ -113,12 +113,6 @@
       "title": "VFD + Gas Fire (heating only)",
       "category": "ventilation_equipment_facts",
       "text": "The existing make-up air (MUA) unit is equipped with a constant-speed supply fan and an integral gas-fired heating burner, providing heating-only capacity. The unit does not include variable frequency drive (VFD) control and does not provide mechanical cooling.\n\nThe absence of VFD control results in fixed airflow operation regardless of actual ventilation demand, limiting part-load efficiency and increasing electrical energy consumption. The gas-fired heating section provides basic winter heating capability; however, without cooling capacity, heat recovery, or advanced modulation control, the system offers limited seasonal optimization and indoor temperature regulation.\n\nAt the time of the site visit, the unit was observed to be in functional condition with no visible mechanical deficiencies. However, the configuration reflects an older, conventional ventilation design with limited energy efficiency and control flexibility."
-    },
-    {
-      "id": "no_vfd_gas_fire_dx_cooling",
-      "title": "No VFD+Gas Fire+DX Cooling",
-      "category": "ventilation_equipment_facts",
-      "text": "The unit is not equipped with variable frequency drives (VFDs) and operates at constant speed. Heating is provided by integral gas-fired burners, and cooling is provided by DX cooling sections. The heating and cooling components were observed to be in fair to good condition at the time of the site walkthrough.\n\nThe equipment appeared to be operating as intended, with no visible signs of immediate mechanical distress. However, based on age and system configuration, the unit may be approaching the latter portion of its typical service life."
     }
   ]
 }

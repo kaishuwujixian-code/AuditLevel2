@@ -175,12 +175,6 @@
       "title": "Dectron unit",
       "category": "maintenance",
       "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure"
-    },
-    {
-      "id": "no_sub-metering",
-      "title": "No sub-metering",
-      "category": "electric",
-      "text": "The building appears to be served by a single master interval meter, and there is currently no electrical sub-metering system in place to monitor power distribution or track electricity consumption at the individual suite or major end-use level. Based on discussions with site staff, utility costs, including hydro and domestic hot water, are incorporated into common maintenance fees, which suggests that consumption is not individually metered."
     }
   ]
 }
