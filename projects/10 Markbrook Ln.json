@@ -1,0 +1,878 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Etobicoke",
+    "client_name": "MTCC-953 & Simsons Management",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "fancoil_chiller",
+        "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {1990 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+        "title": "Fancoil + chiller"
+      },
+      {
+        "category": "controls",
+        "misc_id": "cooling_controls",
+        "text": "Cooling system control is handled through BAS schedules and setpoints. Sequence verification and trend analysis are recommended for additional optimization opportunities.",
+        "title": "Cooling controls through BAS"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "1991",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by two (2) gas-fired boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "one (1) Camus condensing DHW boilers, each rated at approximately 2,500 MBH, install in around 2004. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. and was noted turn off( not responding to BAS.",
+        "title": "Condensing DHW Boiler"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "one (1) atmospheric DHW boilers, each rated at approximately 2500 MBH, install in around 2022. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+        "title": "Atmospheric DHW Boiler"
+      },
+      {
+        "category": "boiler_mechanical_condition",
+        "misc_id": "good_condition",
+        "text": "The boilers and associated piping were observed to be in fair to good condition, with no visible leaks or major signs of corrosion.",
+        "title": "Boiler and piping Good condition"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "indirect_storage_tank",
+        "text": "One (1) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank seems to be original to the building and was observed to be in poor mechanical condition",
+        "title": "Indirect storage tank"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "no_mixing_valve",
+        "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 115 F to 120 F, which is below the recommended temperature. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+        "title": "No Mixing Valve"
+      },
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "over_all_good_future_opprotunity_bas",
+        "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, will be replace the aging storage tank and install an anti-scale mixing valve.",
+        "title": "Over all good+ Future optimization"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "plant",
+        "misc_id": "condensing_boiler_plant",
+        "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in penthouse mechanical room, consist of 4 gas-fired HTG boilers. These are separated into:",
+        "title": "One high temp loop boiler plant"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "high_temperature_loop_boiler",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "High temperature loop boiler"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "high_temperature_loop_boiler",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "High temperature loop boiler"
+      },
+      {
+        "category": "condition",
+        "misc_id": "good_condition_working_normally",
+        "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+        "title": "Good condition + Working normally"
+      },
+      {
+        "category": "controls",
+        "misc_id": "heating_controls_bas",
+        "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements.",
+        "title": "Heating controls via BAS"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "boiler",
+        "existing_conditions": "The building currently operates with a traditional two-pipe fan coil system that provides either heating or cooling depending on the season. Each suite is equipped with an original fan coil unit that receives hot water from the central boiler plant during the heating season and chilled water from the central chiller and cooling tower during the cooling season.\n\nBecause the system is two-pipe, the fan coils cannot supply heating and cooling simultaneously. A full building changeover is required in the spring and fall to shift between heating and cooling modes. This limitation often results in periods of thermal discomfort during shoulder seasons, as individual suites have no ability to select heating or cooling independently.\n\nThe fan coils are original to the building and have surpassed their expected service life. Aging components, reduced reliability, and declining performance contribute to inconsistent temperature control, elevated maintenance requirements, and reduced energy efficiency",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "fancoil_to_wshp_short_term",
+        "measure_title": "Water Source Heat Pump System Conversion",
+        "notes": "Replace seasonal fan-coil system with water-source heat pumps on a moderate-temperature loopallowing simultaneous heating and cooling and eliminating the central chiller.",
+        "retrofit_conditions": "Mann proposes the installation of a water source heat pump for winter and summer operation. The heat pump can be installed in the existing fan coil cabinet when the fan coils are scheduled for replacement. The existing piping can remain and be reused. The existing boiler plant can remain. The chiller is no longer required and only a fluid cooler can be installed in place of the existing cooling tower. This retrofit is ideal when the fan coils and chiller are scheduled for replacement as the incremental cost of the heat pump system compared to replacing the fan coils and chiller is marginal. The water source heat pump system is far more efficient than the existing fan coil system and is capable of heating or cooling operation at any time of the year. One consideration is the electrical supply in the suites as the heat pumps have a higher electrical demand compared to the fan coils since it consists of a compressor.\n\nAs opposed to a 2-pipe fan coil system which operates at a design loop temp of 140F during heating season and 45F during cooling season, a water source heat pump system operates between 70-90F year around, meaning that the piping does not need to be insulated and there is minimal heat loss from the piping. It also means that the boiler system will always be operating in condensing temperatures with an extremely high thermal efficiency 95%+. Also, the heat input from the boiler system is greatly reduced meaning that the boiler plant can be downsized.\n\n In the heating season, the heat pumps extract heat from the hydronic loop and pump it into the suite. When more heat is required than is being generated within the building and most units are operating in heating mode, supplemental heating is supplied from a central boiler plant.\n\n In the cooling season, the heat pumps extract heat from the suites and pump it into the hydronic loop. When most of the units are in cooling mode and the heat is not needed elsewhere in the building, the heat is rejected from the loop using a fluid cooler. As opposed to a chiller, a fluid cooler comes at a much lower upfront and maintenance cost.\n\n During shoulder seasons, the system is capable of heat recycling, as heat from a suite calling for cooling such as a south elevation can transfer heat directly to another suite which is calling for heating such as a north elevation. In this case, no heat is rejected or input into the system.\n\n This measure eliminates the need for a chiller. Water source heat pump systems with fan coil units represent a sustainable and efficient HVAC solution suitable for a wide range of applications. By harnessing the thermal properties of water, these systems contribute to energy savings, environmental responsibility, and occupant comfort.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "install_anti-scale_thermostatic_mixing_valve",
+        "measure_title": "Install Anti-Scale Thermostatic Mixing Valve",
+        "notes": "Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.",
+        "retrofit_conditions": "Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank were observed to be original to the building and approaching the end of their expected service life. \nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
+        "measure_title": "Replace Aging DHW Storage Tank and Piping Retrofit",
+        "notes": "Replace aging indirect DHW storage tanks with glass-lined storage tanks to reduce maintenance requirements.",
+        "retrofit_conditions": "As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system by:\n•\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \n\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "solar_pv_electricity_generation",
+        "measure_title": "Solar PV : Electricity Generation",
+        "notes": "Install net metered solar PV generated electricity to offset electricity consumption.",
+        "retrofit_conditions": "The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \n\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Garage exhaust fans are currently controlled by time schedules or manual switches, with no carbon monoxide (CO) detection system. Fans may operate even when pollutant levels are low, and at times CO concentrations can exceed recommended thresholds before fans are activated.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "garage_co_sensors",
+        "measure_title": "Garage Exhaust CO Sensor Control",
+        "notes": "Add CO sensors to control garage exhaust fans so they operate only when pollutant levels rise, maintaining air quality while reducing fan run hours and energy use.",
+        "retrofit_conditions": "It is recommended to install a CO-based control system for the garage exhaust fans. CO sensors would be strategically located throughout the garage and connected to fan starters or the BAS. Fans would operate only when CO concentrations exceed programmable setpoints and would shut off or reduce speed when levels are low. This approach maintains air quality while reducing fan run hours, electrical energy use and noise. Further engineering is required to determine sensor locations, control sequences and integration details.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "install_motorized_damper_for_garage_air_intake",
+        "measure_title": "Install Motorized Damper for Garage Air Intake",
+        "notes": "Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.",
+        "retrofit_conditions": "It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The building is served by a single interval meter and there is currently no electrical sub-metering system in place to monitor power distribution or track the electricity use of individual tenants or loads.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "sub_metering",
+        "measure_title": "Electrical Sub-metering",
+        "notes": "Install certified electrical sub-meters on main feeds to enable consumption-based billing and end-use tracking, typically driving 5–30% electricity savings per suite.",
+        "retrofit_conditions": "It is recommended to install an electrical sub-metering system to measure electricity use by tenant or by major end-use. Certified sub-meters would be installed on the main feeds in electrical closets and programmed to track usage for each unit or load. Sub-metering enables fair, consumption-based billing and encourages occupants to reduce waste, typically resulting in 5–30% electricity savings per suite. Measurement Canada certified meters ensure accuracy and tamper resistance, making this a practical solution for existing multi-unit buildings where full utility meter replacement is not feasible.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "pumps",
+        "existing_conditions": "Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "booster_pump_vfd",
+        "measure_title": "Booster Pump VFD Retrofit",
+        "notes": "Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.",
+        "retrofit_conditions": "It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "loop",
+        "existing_conditions": "The existing piping arrangement fully separates the space-heating and domestic hot water (DHW) systems. Space heating uses a primary loop with a secondary circulating loop, while the DHW system is served by an independent loop with no hydraulic or control integration. This layout limits temperature control during shoulder seasons and can lead to boiler short cycling, overheating, and reduced efficiency.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "primary_secondary_boiler_and_dhw_piping",
+        "measure_title": "Primary–Secondary Boiler and DHW Piping Reconfiguration",
+        "notes": "Reconfigure heating and DHW piping to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+        "retrofit_conditions": "It is recommended to reconfigure the heating and DHW piping into a Primary–Secondary (P-S) hydronic arrangement. In a P-S design, the boiler primary loop circulates hot water and secondary loops draw only the flow and temperature needed for each load, including space heating zones and DHW. This provides hydraulic separation, allows individualized water temperatures, improves outdoor-air reset control, and protects boilers from low-flow or low-return conditions. With this redesign, DHW storage capacity can be reduced and an instantaneous DHW system may be introduced. When combined with a condensing boiler retrofit, the number of boilers can often be reduced, lowering capital and long-term maintenance costs. Further engineering review is required to finalize the detailed design.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "window_caulking_upgrade",
+        "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+        "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+        "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "lighting",
+        "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "lighting_motion_sensor_control_retrofit",
+        "measure_title": "Lighting Motion Sensor Control Retrofit",
+        "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+        "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "ev_charging_stations",
+        "measure_title": "EV Charging Stations",
+        "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+        "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "pumps",
+        "existing_conditions": "The cooling system include one (1) fluid cooler and were observed in observed to be in generally good mechanical condition; however, the fluid cooler is equipped with constant-speed or multi-speed fan motors that operate at discrete speeds regardless of the actual cooling load. Under part-load conditions, the fans still consume close to full power, resulting in unnecessary electrical usage and increased wear on mechanical components[BE5.1].\nIn addition, the suite circulation pumps and condenser water pumps operate at constant speed, with no VFDs installed. As a result, pump output does not modulate with system demand, leading to unnecessary electrical energy consumption and increased mechanical wear during part-load operation.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "vfd_retrofit_for_fluid_cooler_fan_suite_pumps_and_condenser_water_pumps",
+        "measure_title": "VFD Retrofit for Fluid cooler fan, Suite pumps and Condenser water pumps",
+        "notes": "Install VFDs on the cooling tower fan motors, suite circulation pumps, and condenser water pumps to enable demand-based modulation, reduce electrical energy consumption during part-load operation, lower noise and mechanical wear, and improve overall system efficiency and reliability.",
+        "retrofit_conditions": "It is recommended to install variable frequency drives (VFDs) on the cooling tower fan motors. VFDs will allow fan speed to be modulated based on condenser water temperature, ambient conditions or BAS commands, so airflow more closely matches the required cooling load. Reducing fan speed yields large electrical savings due to the cubic relationship between power and speed, while also reducing noise and extending equipment life.\n\nIn addition, it is recommended to install variable frequency drives (VFDs) on the suite circulation pumps and condenser water pumps. The VFDs would allow pump speed to be modulated based on system demand, pressure, or temperature requirements, enabling flow rates to more closely match actual operating conditions. Reducing pump speed during part-load operation would result in meaningful electrical energy savings, reduced mechanical wear, and improved system reliability. Controls, sensors, and associated safeties would need to be updated and properly commissioned as part of this measure.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_aging_double_pane",
+        "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+        "title": "Window condition (Aging double pane)"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Good)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage ventilation system operating without carbon monoxide (CO) sensors. Exhaust fans operate based on local controls and fixed schedules, resulting in continuous or time-based operation regardless of actual vehicle activity. This control approach limits demand-based ventilation capability and may lead to unnecessary fan runtime and increased electrical energy consumption. No major mechanical deficiencies were observed at the time of the site visit.",
+        "title": "Garage ventilation (No CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "no_vfd_on_booster_pump",
+        "text": "The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\n\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.",
+        "title": "No VFD on Booster Pump"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.",
+        "title": "Hydronic ramp heating"
+      },
+      {
+        "category": "electric",
+        "misc_id": "diesel_generator",
+        "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+        "title": "Diesel Generator"
+      },
+      {
+        "category": "",
+        "text": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+        "title": "Garage air intake no motorized damper + cold"
+      },
+      {
+        "category": "",
+        "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure. During the site visit, the unit was observed to be out of service and may require further inspection.",
+        "title": "Dectron unit"
+      },
+      {
+        "category": "",
+        "text": "The building appears to be served by a single master interval meter, and there is currently no electrical sub-metering system in place to monitor power distribution or track electricity consumption at the individual suite or major end-use level. Based on discussions with site staff, utility costs, including hydro and domestic hot water, are incorporated into common maintenance fees, which suggests that consumption is not individually metered.",
+        "title": "No sub-metering"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "19",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "220",
+    "postal_code": "M9V 5E3",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-23-2026",
+    "rooftop_access_available": "true",
+    "site_address": "10 Markbrook Ln",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "2 Bedroom, 1 Bedroom, Amenity spaces.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "rooftop_mua",
+        "text": "Ventilation for the building is provided by Two (2) make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+        "title": "Rooftop MUA"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "vfd_gas_fire_air_cooled_chiller",
+        "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and hydronic coils provide Heating and Cooling capacity. During the site visit one MUA unit was noted not running. The VFD, Hydronic coils and gas-fired heating burner, were observed to be in fair to good condition.\n\nAll units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through plate and frame heat exchanger. \n\nAll equipments appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress.",
+        "title": "VFD+Gas Fire+hydronic coils"
+      },
+      {
+        "category": "controls",
+        "misc_id": "ventilation_controls_bas",
+        "text": "Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+        "title": "Ventilation controls via BAS"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Cooling Related": [
+        "No VFD on Cooling tower fan",
+        "No VFD on Condenser Pump"
+      ],
+      "DHW System": [
+        "Indirect DHW tank observed",
+        "No thermostatic mixing valve"
+      ],
+      "Heating Plant Issue": [
+        "Too Many Boilers in Service"
+      ]
+    }
+  },
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "fancoil_chiller",
+      "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {1990 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+      "title": "Fancoil + chiller"
+    },
+    {
+      "category": "controls",
+      "misc_id": "cooling_controls",
+      "text": "Cooling system control is handled through BAS schedules and setpoints. Sequence verification and trend analysis are recommended for additional optimization opportunities.",
+      "title": "Cooling controls through BAS"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by two (2) gas-fired boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "one (1) Camus condensing DHW boilers, each rated at approximately 2,500 MBH, install in around 2004. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. and was noted turn off( not responding to BAS.",
+      "title": "Condensing DHW Boiler"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "one (1) atmospheric DHW boilers, each rated at approximately 2500 MBH, install in around 2022. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+      "title": "Atmospheric DHW Boiler"
+    },
+    {
+      "category": "boiler_mechanical_condition",
+      "misc_id": "good_condition",
+      "text": "The boilers and associated piping were observed to be in fair to good condition, with no visible leaks or major signs of corrosion.",
+      "title": "Boiler and piping Good condition"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "indirect_storage_tank",
+      "text": "One (1) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank seems to be original to the building and was observed to be in poor mechanical condition",
+      "title": "Indirect storage tank"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "no_mixing_valve",
+      "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 115 F to 120 F, which is below the recommended temperature. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+      "title": "No Mixing Valve"
+    },
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "over_all_good_future_opprotunity_bas",
+      "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, will be replace the aging storage tank and install an anti-scale mixing valve.",
+      "title": "Over all good+ Future optimization"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "plant",
+      "misc_id": "condensing_boiler_plant",
+      "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in penthouse mechanical room, consist of 4 gas-fired HTG boilers. These are separated into:",
+      "title": "One high temp loop boiler plant"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "high_temperature_loop_boiler",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "High temperature loop boiler"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "high_temperature_loop_boiler",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "High temperature loop boiler"
+    },
+    {
+      "category": "condition",
+      "misc_id": "good_condition_working_normally",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+      "title": "Good condition + Working normally"
+    },
+    {
+      "category": "controls",
+      "misc_id": "heating_controls_bas",
+      "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements.",
+      "title": "Heating controls via BAS"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "boiler",
+      "existing_conditions": "The building currently operates with a traditional two-pipe fan coil system that provides either heating or cooling depending on the season. Each suite is equipped with an original fan coil unit that receives hot water from the central boiler plant during the heating season and chilled water from the central chiller and cooling tower during the cooling season.\n\nBecause the system is two-pipe, the fan coils cannot supply heating and cooling simultaneously. A full building changeover is required in the spring and fall to shift between heating and cooling modes. This limitation often results in periods of thermal discomfort during shoulder seasons, as individual suites have no ability to select heating or cooling independently.\n\nThe fan coils are original to the building and have surpassed their expected service life. Aging components, reduced reliability, and declining performance contribute to inconsistent temperature control, elevated maintenance requirements, and reduced energy efficiency",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "fancoil_to_wshp_short_term",
+      "measure_title": "Water Source Heat Pump System Conversion",
+      "notes": "Replace seasonal fan-coil system with water-source heat pumps on a moderate-temperature loopallowing simultaneous heating and cooling and eliminating the central chiller.",
+      "retrofit_conditions": "Mann proposes the installation of a water source heat pump for winter and summer operation. The heat pump can be installed in the existing fan coil cabinet when the fan coils are scheduled for replacement. The existing piping can remain and be reused. The existing boiler plant can remain. The chiller is no longer required and only a fluid cooler can be installed in place of the existing cooling tower. This retrofit is ideal when the fan coils and chiller are scheduled for replacement as the incremental cost of the heat pump system compared to replacing the fan coils and chiller is marginal. The water source heat pump system is far more efficient than the existing fan coil system and is capable of heating or cooling operation at any time of the year. One consideration is the electrical supply in the suites as the heat pumps have a higher electrical demand compared to the fan coils since it consists of a compressor.\n\nAs opposed to a 2-pipe fan coil system which operates at a design loop temp of 140F during heating season and 45F during cooling season, a water source heat pump system operates between 70-90F year around, meaning that the piping does not need to be insulated and there is minimal heat loss from the piping. It also means that the boiler system will always be operating in condensing temperatures with an extremely high thermal efficiency 95%+. Also, the heat input from the boiler system is greatly reduced meaning that the boiler plant can be downsized.\n\n In the heating season, the heat pumps extract heat from the hydronic loop and pump it into the suite. When more heat is required than is being generated within the building and most units are operating in heating mode, supplemental heating is supplied from a central boiler plant.\n\n In the cooling season, the heat pumps extract heat from the suites and pump it into the hydronic loop. When most of the units are in cooling mode and the heat is not needed elsewhere in the building, the heat is rejected from the loop using a fluid cooler. As opposed to a chiller, a fluid cooler comes at a much lower upfront and maintenance cost.\n\n During shoulder seasons, the system is capable of heat recycling, as heat from a suite calling for cooling such as a south elevation can transfer heat directly to another suite which is calling for heating such as a north elevation. In this case, no heat is rejected or input into the system.\n\n This measure eliminates the need for a chiller. Water source heat pump systems with fan coil units represent a sustainable and efficient HVAC solution suitable for a wide range of applications. By harnessing the thermal properties of water, these systems contribute to energy savings, environmental responsibility, and occupant comfort.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "install_anti-scale_thermostatic_mixing_valve",
+      "measure_title": "Install Anti-Scale Thermostatic Mixing Valve",
+      "notes": "Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.",
+      "retrofit_conditions": "Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank were observed to be original to the building and approaching the end of their expected service life. \nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
+      "measure_title": "Replace Aging DHW Storage Tank and Piping Retrofit",
+      "notes": "Replace aging indirect DHW storage tanks with glass-lined storage tanks to reduce maintenance requirements.",
+      "retrofit_conditions": "As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system by:\n•\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \n\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "solar_pv_electricity_generation",
+      "measure_title": "Solar PV : Electricity Generation",
+      "notes": "Install net metered solar PV generated electricity to offset electricity consumption.",
+      "retrofit_conditions": "The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \n\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Garage exhaust fans are currently controlled by time schedules or manual switches, with no carbon monoxide (CO) detection system. Fans may operate even when pollutant levels are low, and at times CO concentrations can exceed recommended thresholds before fans are activated.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "garage_co_sensors",
+      "measure_title": "Garage Exhaust CO Sensor Control",
+      "notes": "Add CO sensors to control garage exhaust fans so they operate only when pollutant levels rise, maintaining air quality while reducing fan run hours and energy use.",
+      "retrofit_conditions": "It is recommended to install a CO-based control system for the garage exhaust fans. CO sensors would be strategically located throughout the garage and connected to fan starters or the BAS. Fans would operate only when CO concentrations exceed programmable setpoints and would shut off or reduce speed when levels are low. This approach maintains air quality while reducing fan run hours, electrical energy use and noise. Further engineering is required to determine sensor locations, control sequences and integration details.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "install_motorized_damper_for_garage_air_intake",
+      "measure_title": "Install Motorized Damper for Garage Air Intake",
+      "notes": "Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.",
+      "retrofit_conditions": "It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The building is served by a single interval meter and there is currently no electrical sub-metering system in place to monitor power distribution or track the electricity use of individual tenants or loads.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "sub_metering",
+      "measure_title": "Electrical Sub-metering",
+      "notes": "Install certified electrical sub-meters on main feeds to enable consumption-based billing and end-use tracking, typically driving 5–30% electricity savings per suite.",
+      "retrofit_conditions": "It is recommended to install an electrical sub-metering system to measure electricity use by tenant or by major end-use. Certified sub-meters would be installed on the main feeds in electrical closets and programmed to track usage for each unit or load. Sub-metering enables fair, consumption-based billing and encourages occupants to reduce waste, typically resulting in 5–30% electricity savings per suite. Measurement Canada certified meters ensure accuracy and tamper resistance, making this a practical solution for existing multi-unit buildings where full utility meter replacement is not feasible.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "pumps",
+      "existing_conditions": "Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "booster_pump_vfd",
+      "measure_title": "Booster Pump VFD Retrofit",
+      "notes": "Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.",
+      "retrofit_conditions": "It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "loop",
+      "existing_conditions": "The existing piping arrangement fully separates the space-heating and domestic hot water (DHW) systems. Space heating uses a primary loop with a secondary circulating loop, while the DHW system is served by an independent loop with no hydraulic or control integration. This layout limits temperature control during shoulder seasons and can lead to boiler short cycling, overheating, and reduced efficiency.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "primary_secondary_boiler_and_dhw_piping",
+      "measure_title": "Primary–Secondary Boiler and DHW Piping Reconfiguration",
+      "notes": "Reconfigure heating and DHW piping to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+      "retrofit_conditions": "It is recommended to reconfigure the heating and DHW piping into a Primary–Secondary (P-S) hydronic arrangement. In a P-S design, the boiler primary loop circulates hot water and secondary loops draw only the flow and temperature needed for each load, including space heating zones and DHW. This provides hydraulic separation, allows individualized water temperatures, improves outdoor-air reset control, and protects boilers from low-flow or low-return conditions. With this redesign, DHW storage capacity can be reduced and an instantaneous DHW system may be introduced. When combined with a condensing boiler retrofit, the number of boilers can often be reduced, lowering capital and long-term maintenance costs. Further engineering review is required to finalize the detailed design.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "window_caulking_upgrade",
+      "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+      "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+      "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "lighting",
+      "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "lighting_motion_sensor_control_retrofit",
+      "measure_title": "Lighting Motion Sensor Control Retrofit",
+      "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+      "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "ev_charging_stations",
+      "measure_title": "EV Charging Stations",
+      "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+      "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "pumps",
+      "existing_conditions": "The cooling system include one (1) fluid cooler and were observed in observed to be in generally good mechanical condition; however, the fluid cooler is equipped with constant-speed or multi-speed fan motors that operate at discrete speeds regardless of the actual cooling load. Under part-load conditions, the fans still consume close to full power, resulting in unnecessary electrical usage and increased wear on mechanical components[BE5.1].\nIn addition, the suite circulation pumps and condenser water pumps operate at constant speed, with no VFDs installed. As a result, pump output does not modulate with system demand, leading to unnecessary electrical energy consumption and increased mechanical wear during part-load operation.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "vfd_retrofit_for_fluid_cooler_fan_suite_pumps_and_condenser_water_pumps",
+      "measure_title": "VFD Retrofit for Fluid cooler fan, Suite pumps and Condenser water pumps",
+      "notes": "Install VFDs on the cooling tower fan motors, suite circulation pumps, and condenser water pumps to enable demand-based modulation, reduce electrical energy consumption during part-load operation, lower noise and mechanical wear, and improve overall system efficiency and reliability.",
+      "retrofit_conditions": "It is recommended to install variable frequency drives (VFDs) on the cooling tower fan motors. VFDs will allow fan speed to be modulated based on condenser water temperature, ambient conditions or BAS commands, so airflow more closely matches the required cooling load. Reducing fan speed yields large electrical savings due to the cubic relationship between power and speed, while also reducing noise and extending equipment life.\n\nIn addition, it is recommended to install variable frequency drives (VFDs) on the suite circulation pumps and condenser water pumps. The VFDs would allow pump speed to be modulated based on system demand, pressure, or temperature requirements, enabling flow rates to more closely match actual operating conditions. Reducing pump speed during part-load operation would result in meaningful electrical energy savings, reduced mechanical wear, and improved system reliability. Controls, sensors, and associated safeties would need to be updated and properly commissioned as part of this measure.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_aging_double_pane",
+      "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+      "title": "Window condition (Aging double pane)"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Good)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage ventilation system operating without carbon monoxide (CO) sensors. Exhaust fans operate based on local controls and fixed schedules, resulting in continuous or time-based operation regardless of actual vehicle activity. This control approach limits demand-based ventilation capability and may lead to unnecessary fan runtime and increased electrical energy consumption. No major mechanical deficiencies were observed at the time of the site visit.",
+      "title": "Garage ventilation (No CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "no_vfd_on_booster_pump",
+      "text": "The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\n\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.",
+      "title": "No VFD on Booster Pump"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.",
+      "title": "Hydronic ramp heating"
+    },
+    {
+      "category": "electric",
+      "misc_id": "diesel_generator",
+      "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+      "title": "Diesel Generator"
+    },
+    {
+      "category": "",
+      "text": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+      "title": "Garage air intake no motorized damper + cold"
+    },
+    {
+      "category": "",
+      "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure. During the site visit, the unit was observed to be out of service and may require further inspection.",
+      "title": "Dectron unit"
+    },
+    {
+      "category": "",
+      "text": "The building appears to be served by a single master interval meter, and there is currently no electrical sub-metering system in place to monitor power distribution or track electricity consumption at the individual suite or major end-use level. Based on discussions with site staff, utility costs, including hydro and domestic hot water, are incorporated into common maintenance fees, which suggests that consumption is not individually metered.",
+      "title": "No sub-metering"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Etobicoke",
+    "{ClientName}": "MTCC-953 & Simsons Management",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "1991",
+    "{DateDocument}": "Feb-23-2026",
+    "{District}": "",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Water Source Heat Pump System Conversion', 'category': 'boiler', 'existing_conditions': 'The building currently operates with a traditional two-pipe fan coil system that provides either heating or cooling depending on the season. Each suite is equipped with an original fan coil unit that receives hot water from the central boiler plant during the heating season and chilled water from the central chiller and cooling tower during the cooling season.\\n\\nBecause the system is two-pipe, the fan coils cannot supply heating and cooling simultaneously. A full building changeover is required in the spring and fall to shift between heating and cooling modes. This limitation often results in periods of thermal discomfort during shoulder seasons, as individual suites have no ability to select heating or cooling independently.\\n\\nThe fan coils are original to the building and have surpassed their expected service life. Aging components, reduced reliability, and declining performance contribute to inconsistent temperature control, elevated maintenance requirements, and reduced energy efficiency', 'retrofit_conditions': 'Mann proposes the installation of a water source heat pump for winter and summer operation. The heat pump can be installed in the existing fan coil cabinet when the fan coils are scheduled for replacement. The existing piping can remain and be reused. The existing boiler plant can remain. The chiller is no longer required and only a fluid cooler can be installed in place of the existing cooling tower. This retrofit is ideal when the fan coils and chiller are scheduled for replacement as the incremental cost of the heat pump system compared to replacing the fan coils and chiller is marginal. The water source heat pump system is far more efficient than the existing fan coil system and is capable of heating or cooling operation at any time of the year. One consideration is the electrical supply in the suites as the heat pumps have a higher electrical demand compared to the fan coils since it consists of a compressor.\\n\\nAs opposed to a 2-pipe fan coil system which operates at a design loop temp of 140F during heating season and 45F during cooling season, a water source heat pump system operates between 70-90F year around, meaning that the piping does not need to be insulated and there is minimal heat loss from the piping. It also means that the boiler system will always be operating in condensing temperatures with an extremely high thermal efficiency 95%+. Also, the heat input from the boiler system is greatly reduced meaning that the boiler plant can be downsized.\\n\\n In the heating season, the heat pumps extract heat from the hydronic loop and pump it into the suite. When more heat is required than is being generated within the building and most units are operating in heating mode, supplemental heating is supplied from a central boiler plant.\\n\\n In the cooling season, the heat pumps extract heat from the suites and pump it into the hydronic loop. When most of the units are in cooling mode and the heat is not needed elsewhere in the building, the heat is rejected from the loop using a fluid cooler. As opposed to a chiller, a fluid cooler comes at a much lower upfront and maintenance cost.\\n\\n During shoulder seasons, the system is capable of heat recycling, as heat from a suite calling for cooling such as a south elevation can transfer heat directly to another suite which is calling for heating such as a north elevation. In this case, no heat is rejected or input into the system.\\n\\n This measure eliminates the need for a chiller. Water source heat pump systems with fan coil units represent a sustainable and efficient HVAC solution suitable for a wide range of applications. By harnessing the thermal properties of water, these systems contribute to energy savings, environmental responsibility, and occupant comfort.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace seasonal fan-coil system with water-source heat pumps on a moderate-temperature loopallowing simultaneous heating and cooling and eliminating the central chiller.', 'measure_id': 'fancoil_to_wshp_short_term', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Anti-Scale Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.', 'retrofit_conditions': 'Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.', 'notes': 'Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.', 'measure_id': 'install_anti-scale_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Aging DHW Storage Tank and Piping Retrofit', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank were observed to be original to the building and approaching the end of their expected service life. \\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.', 'retrofit_conditions': 'As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system by:\\n•\\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \\n\\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace aging indirect DHW storage tanks with glass-lined storage tanks to reduce maintenance requirements.', 'measure_id': 'dhw_retrofit_plate_and_frame_hx_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Solar PV : Electricity Generation', 'category': 'other', 'existing_conditions': 'At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.', 'retrofit_conditions': 'The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \\n\\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system', 'notes': 'Install net metered solar PV generated electricity to offset electricity consumption.', 'measure_id': 'solar_pv_electricity_generation', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Garage Exhaust CO Sensor Control', 'category': 'other', 'existing_conditions': 'Garage exhaust fans are currently controlled by time schedules or manual switches, with no carbon monoxide (CO) detection system. Fans may operate even when pollutant levels are low, and at times CO concentrations can exceed recommended thresholds before fans are activated.', 'retrofit_conditions': 'It is recommended to install a CO-based control system for the garage exhaust fans. CO sensors would be strategically located throughout the garage and connected to fan starters or the BAS. Fans would operate only when CO concentrations exceed programmable setpoints and would shut off or reduce speed when levels are low. This approach maintains air quality while reducing fan run hours, electrical energy use and noise. Further engineering is required to determine sensor locations, control sequences and integration details.', 'notes': 'Add CO sensors to control garage exhaust fans so they operate only when pollutant levels rise, maintaining air quality while reducing fan run hours and energy use.', 'measure_id': 'garage_co_sensors', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Motorized Damper for Garage Air Intake', 'category': 'other', 'existing_conditions': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.', 'retrofit_conditions': 'It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas', 'notes': 'Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.', 'measure_id': 'install_motorized_damper_for_garage_air_intake', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Electrical Sub-metering', 'category': 'other', 'existing_conditions': 'The building is served by a single interval meter and there is currently no electrical sub-metering system in place to monitor power distribution or track the electricity use of individual tenants or loads.', 'retrofit_conditions': 'It is recommended to install an electrical sub-metering system to measure electricity use by tenant or by major end-use. Certified sub-meters would be installed on the main feeds in electrical closets and programmed to track usage for each unit or load. Sub-metering enables fair, consumption-based billing and encourages occupants to reduce waste, typically resulting in 5–30% electricity savings per suite. Measurement Canada certified meters ensure accuracy and tamper resistance, making this a practical solution for existing multi-unit buildings where full utility meter replacement is not feasible.', 'notes': 'Install certified electrical sub-meters on main feeds to enable consumption-based billing and end-use tracking, typically driving 5–30% electricity savings per suite.', 'measure_id': 'sub_metering', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Booster Pump VFD Retrofit', 'category': 'pumps', 'existing_conditions': 'Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.', 'retrofit_conditions': 'It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.', 'notes': 'Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.', 'measure_id': 'booster_pump_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and DHW Piping Reconfiguration', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement fully separates the space-heating and domestic hot water (DHW) systems. Space heating uses a primary loop with a secondary circulating loop, while the DHW system is served by an independent loop with no hydraulic or control integration. This layout limits temperature control during shoulder seasons and can lead to boiler short cycling, overheating, and reduced efficiency.', 'retrofit_conditions': 'It is recommended to reconfigure the heating and DHW piping into a Primary–Secondary (P-S) hydronic arrangement. In a P-S design, the boiler primary loop circulates hot water and secondary loops draw only the flow and temperature needed for each load, including space heating zones and DHW. This provides hydraulic separation, allows individualized water temperatures, improves outdoor-air reset control, and protects boilers from low-flow or low-return conditions. With this redesign, DHW storage capacity can be reduced and an instantaneous DHW system may be introduced. When combined with a condensing boiler retrofit, the number of boilers can often be reduced, lowering capital and long-term maintenance costs. Further engineering review is required to finalize the detailed design.', 'notes': 'Reconfigure heating and DHW piping to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_dhw_piping', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'VFD Retrofit for Fluid cooler fan, Suite pumps and Condenser water pumps', 'category': 'pumps', 'existing_conditions': 'The cooling system include one (1) fluid cooler and were observed in observed to be in generally good mechanical condition; however, the fluid cooler is equipped with constant-speed or multi-speed fan motors that operate at discrete speeds regardless of the actual cooling load. Under part-load conditions, the fans still consume close to full power, resulting in unnecessary electrical usage and increased wear on mechanical components[BE5.1].\\nIn addition, the suite circulation pumps and condenser water pumps operate at constant speed, with no VFDs installed. As a result, pump output does not modulate with system demand, leading to unnecessary electrical energy consumption and increased mechanical wear during part-load operation.', 'retrofit_conditions': 'It is recommended to install variable frequency drives (VFDs) on the cooling tower fan motors. VFDs will allow fan speed to be modulated based on condenser water temperature, ambient conditions or BAS commands, so airflow more closely matches the required cooling load. Reducing fan speed yields large electrical savings due to the cubic relationship between power and speed, while also reducing noise and extending equipment life.\\n\\nIn addition, it is recommended to install variable frequency drives (VFDs) on the suite circulation pumps and condenser water pumps. The VFDs would allow pump speed to be modulated based on system demand, pressure, or temperature requirements, enabling flow rates to more closely match actual operating conditions. Reducing pump speed during part-load operation would result in meaningful electrical energy savings, reduced mechanical wear, and improved system reliability. Controls, sensors, and associated safeties would need to be updated and properly commissioned as part of this measure.', 'notes': 'Install VFDs on the cooling tower fan motors, suite circulation pumps, and condenser water pumps to enable demand-based modulation, reduce electrical energy consumption during part-load operation, lower noise and mechanical wear, and improve overall system efficiency and reliability.', 'measure_id': 'vfd_retrofit_for_fluid_cooler_fan_suite_pumps_and_condenser_water_pumps', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Water Source Heat Pump System Conversion', 'category': 'boiler', 'existing_conditions': 'The building currently operates with a traditional two-pipe fan coil system that provides either heating or cooling depending on the season. Each suite is equipped with an original fan coil unit that receives hot water from the central boiler plant during the heating season and chilled water from the central chiller and cooling tower during the cooling season.\\n\\nBecause the system is two-pipe, the fan coils cannot supply heating and cooling simultaneously. A full building changeover is required in the spring and fall to shift between heating and cooling modes. This limitation often results in periods of thermal discomfort during shoulder seasons, as individual suites have no ability to select heating or cooling independently.\\n\\nThe fan coils are original to the building and have surpassed their expected service life. Aging components, reduced reliability, and declining performance contribute to inconsistent temperature control, elevated maintenance requirements, and reduced energy efficiency', 'retrofit_conditions': 'Mann proposes the installation of a water source heat pump for winter and summer operation. The heat pump can be installed in the existing fan coil cabinet when the fan coils are scheduled for replacement. The existing piping can remain and be reused. The existing boiler plant can remain. The chiller is no longer required and only a fluid cooler can be installed in place of the existing cooling tower. This retrofit is ideal when the fan coils and chiller are scheduled for replacement as the incremental cost of the heat pump system compared to replacing the fan coils and chiller is marginal. The water source heat pump system is far more efficient than the existing fan coil system and is capable of heating or cooling operation at any time of the year. One consideration is the electrical supply in the suites as the heat pumps have a higher electrical demand compared to the fan coils since it consists of a compressor.\\n\\nAs opposed to a 2-pipe fan coil system which operates at a design loop temp of 140F during heating season and 45F during cooling season, a water source heat pump system operates between 70-90F year around, meaning that the piping does not need to be insulated and there is minimal heat loss from the piping. It also means that the boiler system will always be operating in condensing temperatures with an extremely high thermal efficiency 95%+. Also, the heat input from the boiler system is greatly reduced meaning that the boiler plant can be downsized.\\n\\n In the heating season, the heat pumps extract heat from the hydronic loop and pump it into the suite. When more heat is required than is being generated within the building and most units are operating in heating mode, supplemental heating is supplied from a central boiler plant.\\n\\n In the cooling season, the heat pumps extract heat from the suites and pump it into the hydronic loop. When most of the units are in cooling mode and the heat is not needed elsewhere in the building, the heat is rejected from the loop using a fluid cooler. As opposed to a chiller, a fluid cooler comes at a much lower upfront and maintenance cost.\\n\\n During shoulder seasons, the system is capable of heat recycling, as heat from a suite calling for cooling such as a south elevation can transfer heat directly to another suite which is calling for heating such as a north elevation. In this case, no heat is rejected or input into the system.\\n\\n This measure eliminates the need for a chiller. Water source heat pump systems with fan coil units represent a sustainable and efficient HVAC solution suitable for a wide range of applications. By harnessing the thermal properties of water, these systems contribute to energy savings, environmental responsibility, and occupant comfort.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace seasonal fan-coil system with water-source heat pumps on a moderate-temperature loopallowing simultaneous heating and cooling and eliminating the central chiller.', 'measure_id': 'fancoil_to_wshp_short_term', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Anti-Scale Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.', 'retrofit_conditions': 'Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.', 'notes': 'Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.', 'measure_id': 'install_anti-scale_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Aging DHW Storage Tank and Piping Retrofit', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank were observed to be original to the building and approaching the end of their expected service life. \\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.', 'retrofit_conditions': 'As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system by:\\n•\\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \\n\\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace aging indirect DHW storage tanks with glass-lined storage tanks to reduce maintenance requirements.', 'measure_id': 'dhw_retrofit_plate_and_frame_hx_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Solar PV : Electricity Generation', 'category': 'other', 'existing_conditions': 'At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.', 'retrofit_conditions': 'The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \\n\\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system', 'notes': 'Install net metered solar PV generated electricity to offset electricity consumption.', 'measure_id': 'solar_pv_electricity_generation', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Garage Exhaust CO Sensor Control', 'category': 'other', 'existing_conditions': 'Garage exhaust fans are currently controlled by time schedules or manual switches, with no carbon monoxide (CO) detection system. Fans may operate even when pollutant levels are low, and at times CO concentrations can exceed recommended thresholds before fans are activated.', 'retrofit_conditions': 'It is recommended to install a CO-based control system for the garage exhaust fans. CO sensors would be strategically located throughout the garage and connected to fan starters or the BAS. Fans would operate only when CO concentrations exceed programmable setpoints and would shut off or reduce speed when levels are low. This approach maintains air quality while reducing fan run hours, electrical energy use and noise. Further engineering is required to determine sensor locations, control sequences and integration details.', 'notes': 'Add CO sensors to control garage exhaust fans so they operate only when pollutant levels rise, maintaining air quality while reducing fan run hours and energy use.', 'measure_id': 'garage_co_sensors', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Motorized Damper for Garage Air Intake', 'category': 'other', 'existing_conditions': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.', 'retrofit_conditions': 'It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas', 'notes': 'Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.', 'measure_id': 'install_motorized_damper_for_garage_air_intake', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Electrical Sub-metering', 'category': 'other', 'existing_conditions': 'The building is served by a single interval meter and there is currently no electrical sub-metering system in place to monitor power distribution or track the electricity use of individual tenants or loads.', 'retrofit_conditions': 'It is recommended to install an electrical sub-metering system to measure electricity use by tenant or by major end-use. Certified sub-meters would be installed on the main feeds in electrical closets and programmed to track usage for each unit or load. Sub-metering enables fair, consumption-based billing and encourages occupants to reduce waste, typically resulting in 5–30% electricity savings per suite. Measurement Canada certified meters ensure accuracy and tamper resistance, making this a practical solution for existing multi-unit buildings where full utility meter replacement is not feasible.', 'notes': 'Install certified electrical sub-meters on main feeds to enable consumption-based billing and end-use tracking, typically driving 5–30% electricity savings per suite.', 'measure_id': 'sub_metering', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Booster Pump VFD Retrofit', 'category': 'pumps', 'existing_conditions': 'Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.', 'retrofit_conditions': 'It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.', 'notes': 'Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.', 'measure_id': 'booster_pump_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and DHW Piping Reconfiguration', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement fully separates the space-heating and domestic hot water (DHW) systems. Space heating uses a primary loop with a secondary circulating loop, while the DHW system is served by an independent loop with no hydraulic or control integration. This layout limits temperature control during shoulder seasons and can lead to boiler short cycling, overheating, and reduced efficiency.', 'retrofit_conditions': 'It is recommended to reconfigure the heating and DHW piping into a Primary–Secondary (P-S) hydronic arrangement. In a P-S design, the boiler primary loop circulates hot water and secondary loops draw only the flow and temperature needed for each load, including space heating zones and DHW. This provides hydraulic separation, allows individualized water temperatures, improves outdoor-air reset control, and protects boilers from low-flow or low-return conditions. With this redesign, DHW storage capacity can be reduced and an instantaneous DHW system may be introduced. When combined with a condensing boiler retrofit, the number of boilers can often be reduced, lowering capital and long-term maintenance costs. Further engineering review is required to finalize the detailed design.', 'notes': 'Reconfigure heating and DHW piping to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_dhw_piping', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'VFD Retrofit for Fluid cooler fan, Suite pumps and Condenser water pumps', 'category': 'pumps', 'existing_conditions': 'The cooling system include one (1) fluid cooler and were observed in observed to be in generally good mechanical condition; however, the fluid cooler is equipped with constant-speed or multi-speed fan motors that operate at discrete speeds regardless of the actual cooling load. Under part-load conditions, the fans still consume close to full power, resulting in unnecessary electrical usage and increased wear on mechanical components[BE5.1].\\nIn addition, the suite circulation pumps and condenser water pumps operate at constant speed, with no VFDs installed. As a result, pump output does not modulate with system demand, leading to unnecessary electrical energy consumption and increased mechanical wear during part-load operation.', 'retrofit_conditions': 'It is recommended to install variable frequency drives (VFDs) on the cooling tower fan motors. VFDs will allow fan speed to be modulated based on condenser water temperature, ambient conditions or BAS commands, so airflow more closely matches the required cooling load. Reducing fan speed yields large electrical savings due to the cubic relationship between power and speed, while also reducing noise and extending equipment life.\\n\\nIn addition, it is recommended to install variable frequency drives (VFDs) on the suite circulation pumps and condenser water pumps. The VFDs would allow pump speed to be modulated based on system demand, pressure, or temperature requirements, enabling flow rates to more closely match actual operating conditions. Reducing pump speed during part-load operation would result in meaningful electrical energy savings, reduced mechanical wear, and improved system reliability. Controls, sensors, and associated safeties would need to be updated and properly commissioned as part of this measure.', 'notes': 'Install VFDs on the cooling tower fan motors, suite circulation pumps, and condenser water pumps to enable demand-based modulation, reduce electrical energy consumption during part-load operation, lower noise and mechanical wear, and improve overall system efficiency and reliability.', 'measure_id': 'vfd_retrofit_for_fluid_cooler_fan_suite_pumps_and_condenser_water_pumps', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Window condition (Aging double pane)', 'category': 'window', 'text': 'In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.', 'misc_id': 'window_condition_aging_double_pane'}, {'title': 'Envelope Condition (Good)', 'category': 'window', 'text': 'The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Garage ventilation (No CO controls)', 'category': 'garage', 'text': 'The parking garage ventilation system operating without carbon monoxide (CO) sensors. Exhaust fans operate based on local controls and fixed schedules, resulting in continuous or time-based operation regardless of actual vehicle activity. This control approach limits demand-based ventilation capability and may lead to unnecessary fan runtime and increased electrical energy consumption. No major mechanical deficiencies were observed at the time of the site visit.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'No VFD on Booster Pump', 'category': 'maintenance', 'text': 'The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\\n\\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.', 'misc_id': 'no_vfd_on_booster_pump'}, {'title': 'Hydronic ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.', 'misc_id': 'ramp_heating'}, {'title': 'Diesel Generator', 'category': 'electric', 'text': 'The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.', 'misc_id': 'diesel_generator'}, {'title': 'Garage air intake no motorized damper + cold', 'category': '', 'text': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.'}, {'title': 'Dectron unit', 'category': '', 'text': 'The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure. During the site visit, the unit was observed to be out of service and may require further inspection.'}, {'title': 'No sub-metering', 'category': '', 'text': 'The building appears to be served by a single master interval meter, and there is currently no electrical sub-metering system in place to monitor power distribution or track electricity consumption at the individual suite or major end-use level. Based on discussions with site staff, utility costs, including hydro and domestic hot water, are incorporated into common maintenance fees, which suggests that consumption is not individually metered.'}",
+    "{Number of Floors}": "19",
+    "{Number of Suites}": "220",
+    "{Post Code}": "M9V 5E3",
+    "{Property Address1}": "10 Markbrook Ln",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-23-2026",
+    "{Suite Types}": "2 Bedroom, 1 Bedroom, Amenity spaces."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "MTCC-953 & Simsons Management",
+    "prepared_by": "",
+    "report_date": "Feb-23-2026",
+    "site_address": "10 Markbrook Ln"
+  },
+  "project_notes": "10 Mark book checklist \n\nHeating BOILER\n\t◦\tSuite heating provide by: fan coil\n\t◦\tBoiler fact: \nthree (3) LAARS atmospheric heating boiler , rated at 1500 MBH, efficiency 85.5, manufactured in 2022\n\nOne (1) Camus non-condensing heating boiler , rated at 3000 MBH, efficiency 85.5, manufactured in 2004 , Noted turn off\n\nBOILER #4 not responding to BAS\nNoted turn off\n\n\n\t◦\tSetting points:\n\t◦\tSupply Temp:\n\t◦\tReturn Temp:\n\nCooling System \n\t◦\tChiller\n\t◦\tSeems installed 1990, original to the buildings\n\t◦\tCondenser pump No VFD\nCooling tower\n\t◦\tGood\n\t◦\tNo VFD \n\nMUA\n\t◦\t2 hydronic MUA\n\nDHW\n\t◦\tBoiler:\nDHW#2: CAMUS condensing DHW boiler, rated at 2500MBH Manufactured 2004.\nDHW: #1 : LAARS non condensing DHW boiler, rated at 2500MBH. Manufactured 2022.\n\nDHW boiler 2 is not responding to BAS\n\n\t◦\tmixing valve: No Mixing valve\n\t◦\tOld storage tank: 1988\n\t◦\tStorage Temp: 120, low, need kill bacteria , can go up to 140 with mix valve installed \n\nGarage\n\t◦\tUnheated, no co sensor \n\nLighting\n\t◦\tAll LED\n\n\nWindow\n\n\t◦\tConditions: GOOD\n\n\nSub meter\n\t◦\tSeems still paying tenants utility bills, needed sub meter \n\nBooster pump\n\t◦\tNo vfd\n\nVFD\n\t◦\tVFD control for Suite Pumps 1 & 2, Zone 1 East Primary Pump, Zone 2 West Primary Pump, MUA 1 Fan and MUA 2 Fan\nMeans Glycol primary 1 &2 \nGive BAS a individual block\n\t◦\tBAS already Niagara 4 \n\nMisc\n\t◦\tGarage heated?unheated, no damper\n\t◦\tGarage co sensor :no sensor\n\t◦\tRamp deciding? Hydronic\n\t◦\tLighting? All LED\n\t◦\tGenerator? Diesel Generator \n\t◦\tBooster pump condition?\n\t◦\tPiping\n\t◦\tEnvelope :single panel/ double panel/ architectural condition?\n\t◦\tPool? Dytron units  not working",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "rooftop_mua",
+      "text": "Ventilation for the building is provided by Two (2) make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+      "title": "Rooftop MUA"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "vfd_gas_fire_air_cooled_chiller",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and hydronic coils provide Heating and Cooling capacity. During the site visit one MUA unit was noted not running. The VFD, Hydronic coils and gas-fired heating burner, were observed to be in fair to good condition.\n\nAll units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through plate and frame heat exchanger. \n\nAll equipments appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress.",
+      "title": "VFD+Gas Fire+hydronic coils"
+    },
+    {
+      "category": "controls",
+      "misc_id": "ventilation_controls_bas",
+      "text": "Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+      "title": "Ventilation controls via BAS"
+    }
+  ]
+}

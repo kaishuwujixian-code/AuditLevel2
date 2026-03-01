@@ -1,0 +1,312 @@
+{
+  "answers": {
+    "architectural_condition": null,
+    "city": "Bolton",
+    "client_name": "Whitehall apartment",
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "window_a_c_units",
+        "text": "The building is not equipped with a centralized cooling system. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.\n\nThese decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.\n\nIn addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a air source heat pump (ASHP) system could be considered in a short term to mid term.",
+        "title": "Window A/C Units"
+      }
+    ],
+    "date_constructed": "1970s",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in {location} by (number of DHW boiler)gas-fired boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "(Number) condensing DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+        "title": "Condensing DHW Boiler"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "glass-lined_storage_tanks",
+        "text": "One (1) A.O. Smith glass-lined storage tanks were observed, located at the main boiler room and is heated via DHW boiler, each rated at approximately 120 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+        "title": "Glass-lined storage tanks Good condition"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "no_mixing_valve",
+        "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+        "title": "No Mixing Valve"
+      },
+      {
+        "category": "boiler_mechanical_condition",
+        "misc_id": "good_condition",
+        "text": "The boilers and associated piping were observed to be in good condition, with no visible leaks or major signs of corrosion.",
+        "title": "Boiler and piping Good condition"
+      },
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "over_all_good_future_opprotunity_bas",
+        "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+        "title": "Over all good+ Future optimization BAS"
+      }
+    ],
+    "district_50b69d": "Bolton East",
+    "heating_items": [
+      {
+        "category": "heating_system",
+        "misc_id": "electric_baseboard_heater",
+        "text": "The building is not equipped with a centralized hydronic or forced-air heating system. Space heating within individual suites is provided by in-suite electric resistance baseboard heaters, which operate independently in each unit and are controlled by local thermostats.\n\nElectric resistance heating directly converts electrical energy into thermal energy and operates at an effective coefficient of performance (COP) of approximately 1.0. This means that one unit of electrical energy produces one unit of heat. While simple in design and relatively low in maintenance, electric baseboard systems are typically associated with higher operating costs compared to modern heat pump–based systems.\n\nIn comparison, high-efficiency air-source heat pump (ASHP) systems utilize a refrigeration cycle to transfer heat from the outdoor air into the building during the heating season. Modern ASHP systems can achieve seasonal heating COP values in the range of 3.0–4.0 or higher under favorable operating conditions. This represents a significant improvement in energy performance relative to electric resistance heating.\n\nIn addition to energy considerations, decentralized electric baseboard systems provide no cooling capability and offer limited opportunities for central monitoring or optimization. Temperature control and energy consumption vary between suites depending on occupant usage patterns. From a lifecycle perspective, while baseboard heaters have low mechanical complexity, the absence of centralized infrastructure limits system-level efficiency improvements.\n\nGiven the building’s age and the reliance on electric resistance heating, conversion to a heat pump–based system should be considered in the short to medium term as part of a broader modernization strategy aimed at improving energy efficiency, reducing operating costs, and providing integrated heating and cooling capability.",
+        "title": "Electric Baseboard Heater"
+      }
+    ],
+    "measures": [
+      {
+        "category": "other",
+        "existing_conditions": "Windows and exterior doors located on the front façade of the building have been previously replaced and are in generally good condition. In contrast, the rear façade window and door assemblies remain original and were observed to be in poor condition.\n\nThe rear windows exhibit signs of frame deterioration, aging seals, and reduced air-tightness. Given the age of the assemblies, the insulating glazing units are likely operating below their original thermal performance due to seal",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "window_caulking_upgrade",
+        "measure_title": "Replacement of Windows and Exterior Doors",
+        "notes": "Replacement of the original  windows and exterior doors",
+        "retrofit_conditions": "It is recommended that the rear façade windows and exterior doors be replaced with modern high-performance assemblies. New glazing systems incorporating low-emissivity (low-E) coatings, thermally improved frames, and enhanced seal technology would reduce heat loss and improve overall building envelope performance.\n\nReplacement exterior doors should include insulated cores, continuous weatherstripping, and improved air sealing to minimize infiltration.\n\nGiven that the front façade assemblies have already been upgraded, a phased approach targeting only the rear façade is appropriate and cost-effective. This targeted envelope improvement would enhance occupant comfort, reduce uncontrolled air leakage, and lower heating demand while aligning with long-term capital planning objectives.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "boiler",
+        "existing_conditions": "The building is currently served by a heating-only hydronic distribution system. Space heating is provided through copper-fin baseboard heaters and hydronic radiators supplied by a centralized boiler plant located in the main mechanical room.\n\nThe building does not have a central cooling system. No in-suite fan coil units, chillers, or centralized cooling infrastructure are present. As a result, suite-level cooling, where provided, relies on window A/C or portable air-conditioning units. These localized cooling devices typically operate independently, are relatively inefficient, and contribute to increased electrical demand during the cooling season.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "transition_baseboard_heater_to_mini-split_heat_pump_systems",
+        "measure_title": "Transition Baseboard Heater to Mini-Split Heat Pump Systems",
+        "notes": "Replace current system with air-source heat pumps, allowing simultaneous heating and cooling.",
+        "retrofit_conditions": "Mann recommends replacing the existing hydronic baseboard heating systems with mini-split air-source heat pump (ASHP) systems to provide both space heating and cooling at the suite level.\n\nThe existing hydronic baseboard system relies on centrally generated hot water distributed throughout the building. While functional for heating, this system provides heating only, operates at relatively high distribution temperatures, and does not provide cooling. In addition, system efficiency is constrained by boiler plant performance, distribution losses, and limited zone-level control.\n\nIn contrast, mini-split heat pump systems typically operate at a COP of approximately 3 to 4 under suitable operating conditions, allowing them to deliver three to four units of heat for each unit of electrical energy consumed by transferring heat from the outdoor air to the indoor space. This results in a substantial reduction in energy consumption while maintaining or improving occupant comfort.\n\nIn addition to improved heating efficiency, the proposed mini-split systems would introduce dedicated cooling capability to the suites. This would eliminate the need for separate window-mounted or portable air-conditioning units, improving overall system efficiency, reducing peak electrical demand, and simplifying long-term maintenance.\n\nThe proposed upgrade would transition the building from an aging, single-function heating system to a modern, high-efficiency heating and cooling solution, improving occupant comfort, operational performance, and long-term energy efficiency.\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "",
+        "existing_conditions": "The boiler room envelope, including portions of exposed walls, exterior door assemblies, and ventilation grilles, was observed to have limited or aging insulation. The exterior boiler room door and associated ventilation grille allow direct exposure to outdoor conditions, which may contribute to uncontrolled heat loss during the heating season.\n\nIn mechanical rooms with continuous boiler operation, insufficient envelope insulation can result in unnecessary standby heat loss, increased boiler cycling, and reduced overall plant efficiency. Air leakage through poorly sealed doors and grilles may further increase heat transfer and reduce thermal stability within the mechanical space.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_title": "Insulation Upgrade for Boiler Room and Exterior Door / Grille",
+        "notes": "Upgrading insulation and air sealing at the boiler room exterior door and grille is recommended to reduce standby heat loss and improve overall heating system efficiency",
+        "retrofit_conditions": "It is recommended to improve insulation levels at the boiler room envelope, including:\n\n• Adding or upgrading thermal insulation on exposed walls where feasible\n• Replacing or upgrading the exterior boiler room door with an insulated, weather-sealed assembly\n• Improving air sealing around ventilation grilles and door frames\n\nThese improvements would reduce uncontrolled heat loss, improve boiler room temperature stability, and enhance overall heating plant efficiency. While energy savings may be moderate, the measure is low-complexity and aligns with good building envelope practice.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "window",
+        "misc_id": "window_condition",
+        "text": "During the site visit, deteriorated or missing caulking and weatherstripping were observed at several window frames and balcony door interfaces, while localized repairs have been completed in some areas. These conditions allow air infiltration during the heating season, contributing to localized cold drafts and increased space-heating demand. Full window replacement would address both air leakage and thermal losses.",
+        "title": "Window condition (missing caulk)"
+      },
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "thermostat",
+        "misc_id": "no_insuite_thermostat",
+        "text": "Suite temperatures are regulated through boiler-room setpoints and/or manual adjustments at the central plant, resulting in limited ability to respond to variations in occupancy, solar gains, or individual comfort preferences. This centralized control approach may contribute to overheating in some suites and underheating in others, increasing overall heating energy consumption and occupant complaints.",
+        "title": "No Insuite Thermostat"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_poor",
+        "text": "The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort.",
+        "title": "Envelope Condition (Poor)"
+      }
+    ],
+    "number_of_floors": "4",
+    "number_of_suites": "22",
+    "postal_code": "L7E 1C4",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-17-2026",
+    "site_address": "49 Willow St",
+    "suite_types": "2 bedroom + 1 bedroom",
+    "ventilation_items": [
+      {
+        "category": "all-in-one_write_up",
+        "misc_id": "very_old_mua_poor_condition_fan_only",
+        "text": "The building is equipped with a rooftop supply fan that provides ventilation air to the interior corridor spaces through centralized ductwork. Based on site observations, the unit appears to be original to the building (circa 1970) and shows visible signs of aging, including surface corrosion, weather-related deterioration, and general wear due to prolonged rooftop exposure.\n\nNo visible gas-fired heating section, cooling coil, or integrated conditioning components were observed during the assessment. As such, the system likely delivers unconditioned outdoor air to the corridors. Heating of common spaces rely on electric radiators.\n\nOverall, the rooftop supply fan is considered to be in poor to fair condition due to age and exposure. While functional at the time of inspection, the equipment is approaching or exceeding its typical service life and should be evaluated for replacement in the short to medium term to ensure reliable ventilation performance.",
+        "title": "Very old supply fan/ventilation fan + poor condition + fan only"
+      }
+    ]
+  },
+  "checklist_selections": {},
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "window_a_c_units",
+      "text": "The building is not equipped with a centralized cooling system. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.\n\nThese decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.\n\nIn addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a air source heat pump (ASHP) system could be considered in a short term to mid term.",
+      "title": "Window A/C Units"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in {location} by (number of DHW boiler)gas-fired boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "(Number) condensing DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+      "title": "Condensing DHW Boiler"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "glass-lined_storage_tanks",
+      "text": "One (1) A.O. Smith glass-lined storage tanks were observed, located at the main boiler room and is heated via DHW boiler, each rated at approximately 120 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+      "title": "Glass-lined storage tanks Good condition"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "no_mixing_valve",
+      "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+      "title": "No Mixing Valve"
+    },
+    {
+      "category": "boiler_mechanical_condition",
+      "misc_id": "good_condition",
+      "text": "The boilers and associated piping were observed to be in good condition, with no visible leaks or major signs of corrosion.",
+      "title": "Boiler and piping Good condition"
+    },
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "over_all_good_future_opprotunity_bas",
+      "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+      "title": "Over all good+ Future optimization BAS"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "heating_system",
+      "misc_id": "electric_baseboard_heater",
+      "text": "The building is not equipped with a centralized hydronic or forced-air heating system. Space heating within individual suites is provided by in-suite electric resistance baseboard heaters, which operate independently in each unit and are controlled by local thermostats.\n\nElectric resistance heating directly converts electrical energy into thermal energy and operates at an effective coefficient of performance (COP) of approximately 1.0. This means that one unit of electrical energy produces one unit of heat. While simple in design and relatively low in maintenance, electric baseboard systems are typically associated with higher operating costs compared to modern heat pump–based systems.\n\nIn comparison, high-efficiency air-source heat pump (ASHP) systems utilize a refrigeration cycle to transfer heat from the outdoor air into the building during the heating season. Modern ASHP systems can achieve seasonal heating COP values in the range of 3.0–4.0 or higher under favorable operating conditions. This represents a significant improvement in energy performance relative to electric resistance heating.\n\nIn addition to energy considerations, decentralized electric baseboard systems provide no cooling capability and offer limited opportunities for central monitoring or optimization. Temperature control and energy consumption vary between suites depending on occupant usage patterns. From a lifecycle perspective, while baseboard heaters have low mechanical complexity, the absence of centralized infrastructure limits system-level efficiency improvements.\n\nGiven the building’s age and the reliance on electric resistance heating, conversion to a heat pump–based system should be considered in the short to medium term as part of a broader modernization strategy aimed at improving energy efficiency, reducing operating costs, and providing integrated heating and cooling capability.",
+      "title": "Electric Baseboard Heater"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "other",
+      "existing_conditions": "Windows and exterior doors located on the front façade of the building have been previously replaced and are in generally good condition. In contrast, the rear façade window and door assemblies remain original and were observed to be in poor condition.\n\nThe rear windows exhibit signs of frame deterioration, aging seals, and reduced air-tightness. Given the age of the assemblies, the insulating glazing units are likely operating below their original thermal performance due to seal",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "window_caulking_upgrade",
+      "measure_title": "Replacement of Windows and Exterior Doors",
+      "notes": "Replacement of the original  windows and exterior doors",
+      "retrofit_conditions": "It is recommended that the rear façade windows and exterior doors be replaced with modern high-performance assemblies. New glazing systems incorporating low-emissivity (low-E) coatings, thermally improved frames, and enhanced seal technology would reduce heat loss and improve overall building envelope performance.\n\nReplacement exterior doors should include insulated cores, continuous weatherstripping, and improved air sealing to minimize infiltration.\n\nGiven that the front façade assemblies have already been upgraded, a phased approach targeting only the rear façade is appropriate and cost-effective. This targeted envelope improvement would enhance occupant comfort, reduce uncontrolled air leakage, and lower heating demand while aligning with long-term capital planning objectives.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "boiler",
+      "existing_conditions": "The building is currently served by a heating-only hydronic distribution system. Space heating is provided through copper-fin baseboard heaters and hydronic radiators supplied by a centralized boiler plant located in the main mechanical room.\n\nThe building does not have a central cooling system. No in-suite fan coil units, chillers, or centralized cooling infrastructure are present. As a result, suite-level cooling, where provided, relies on window A/C or portable air-conditioning units. These localized cooling devices typically operate independently, are relatively inefficient, and contribute to increased electrical demand during the cooling season.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "transition_baseboard_heater_to_mini-split_heat_pump_systems",
+      "measure_title": "Transition Baseboard Heater to Mini-Split Heat Pump Systems",
+      "notes": "Replace current system with air-source heat pumps, allowing simultaneous heating and cooling.",
+      "retrofit_conditions": "Mann recommends replacing the existing hydronic baseboard heating systems with mini-split air-source heat pump (ASHP) systems to provide both space heating and cooling at the suite level.\n\nThe existing hydronic baseboard system relies on centrally generated hot water distributed throughout the building. While functional for heating, this system provides heating only, operates at relatively high distribution temperatures, and does not provide cooling. In addition, system efficiency is constrained by boiler plant performance, distribution losses, and limited zone-level control.\n\nIn contrast, mini-split heat pump systems typically operate at a COP of approximately 3 to 4 under suitable operating conditions, allowing them to deliver three to four units of heat for each unit of electrical energy consumed by transferring heat from the outdoor air to the indoor space. This results in a substantial reduction in energy consumption while maintaining or improving occupant comfort.\n\nIn addition to improved heating efficiency, the proposed mini-split systems would introduce dedicated cooling capability to the suites. This would eliminate the need for separate window-mounted or portable air-conditioning units, improving overall system efficiency, reducing peak electrical demand, and simplifying long-term maintenance.\n\nThe proposed upgrade would transition the building from an aging, single-function heating system to a modern, high-efficiency heating and cooling solution, improving occupant comfort, operational performance, and long-term energy efficiency.\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "",
+      "existing_conditions": "The boiler room envelope, including portions of exposed walls, exterior door assemblies, and ventilation grilles, was observed to have limited or aging insulation. The exterior boiler room door and associated ventilation grille allow direct exposure to outdoor conditions, which may contribute to uncontrolled heat loss during the heating season.\n\nIn mechanical rooms with continuous boiler operation, insufficient envelope insulation can result in unnecessary standby heat loss, increased boiler cycling, and reduced overall plant efficiency. Air leakage through poorly sealed doors and grilles may further increase heat transfer and reduce thermal stability within the mechanical space.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_title": "Insulation Upgrade for Boiler Room and Exterior Door / Grille",
+      "notes": "Upgrading insulation and air sealing at the boiler room exterior door and grille is recommended to reduce standby heat loss and improve overall heating system efficiency",
+      "retrofit_conditions": "It is recommended to improve insulation levels at the boiler room envelope, including:\n\n• Adding or upgrading thermal insulation on exposed walls where feasible\n• Replacing or upgrading the exterior boiler room door with an insulated, weather-sealed assembly\n• Improving air sealing around ventilation grilles and door frames\n\nThese improvements would reduce uncontrolled heat loss, improve boiler room temperature stability, and enhance overall heating plant efficiency. While energy savings may be moderate, the measure is low-complexity and aligns with good building envelope practice.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "window",
+      "misc_id": "window_condition",
+      "text": "During the site visit, deteriorated or missing caulking and weatherstripping were observed at several window frames and balcony door interfaces, while localized repairs have been completed in some areas. These conditions allow air infiltration during the heating season, contributing to localized cold drafts and increased space-heating demand. Full window replacement would address both air leakage and thermal losses.",
+      "title": "Window condition (missing caulk)"
+    },
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "thermostat",
+      "misc_id": "no_insuite_thermostat",
+      "text": "Suite temperatures are regulated through boiler-room setpoints and/or manual adjustments at the central plant, resulting in limited ability to respond to variations in occupancy, solar gains, or individual comfort preferences. This centralized control approach may contribute to overheating in some suites and underheating in others, increasing overall heating energy consumption and occupant complaints.",
+      "title": "No Insuite Thermostat"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_poor",
+      "text": "The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort.",
+      "title": "Envelope Condition (Poor)"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{City}": "Bolton",
+    "{ClientName}": "Whitehall apartment",
+    "{Date Constructed}": "1970s",
+    "{DateDocument}": "Feb-17-2026",
+    "{District}": "Bolton East",
+    "{MEASURE_BLOCK}": "{'category': 'other', 'existing_conditions': 'Windows and exterior doors located on the front façade of the building have been previously replaced and are in generally good condition. In contrast, the rear façade window and door assemblies remain original and were observed to be in poor condition.\\n\\nThe rear windows exhibit signs of frame deterioration, aging seals, and reduced air-tightness. Given the age of the assemblies, the insulating glazing units are likely operating below their original thermal performance due to seal', 'implementation_cost': None, 'incentive': None, 'measure_id': 'window_caulking_upgrade', 'measure_title': 'Replacement of Windows and Exterior Doors', 'notes': 'Replacement of the original  windows and exterior doors', 'retrofit_conditions': 'It is recommended that the rear façade windows and exterior doors be replaced with modern high-performance assemblies. New glazing systems incorporating low-emissivity (low-E) coatings, thermally improved frames, and enhanced seal technology would reduce heat loss and improve overall building envelope performance.\\n\\nReplacement exterior doors should include insulated cores, continuous weatherstripping, and improved air sealing to minimize infiltration.\\n\\nGiven that the front façade assemblies have already been upgraded, a phased approach targeting only the rear façade is appropriate and cost-effective. This targeted envelope improvement would enhance occupant comfort, reduce uncontrolled air leakage, and lower heating demand while aligning with long-term capital planning objectives.', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}, {'category': 'boiler', 'existing_conditions': 'The building is currently served by a heating-only hydronic distribution system. Space heating is provided through copper-fin baseboard heaters and hydronic radiators supplied by a centralized boiler plant located in the main mechanical room.\\n\\nThe building does not have a central cooling system. No in-suite fan coil units, chillers, or centralized cooling infrastructure are present. As a result, suite-level cooling, where provided, relies on window A/C or portable air-conditioning units. These localized cooling devices typically operate independently, are relatively inefficient, and contribute to increased electrical demand during the cooling season.', 'implementation_cost': None, 'incentive': None, 'measure_id': 'transition_baseboard_heater_to_mini-split_heat_pump_systems', 'measure_title': 'Transition Baseboard Heater to Mini-Split Heat Pump Systems', 'notes': 'Replace current system with air-source heat pumps, allowing simultaneous heating and cooling.', 'retrofit_conditions': 'Mann recommends replacing the existing hydronic baseboard heating systems with mini-split air-source heat pump (ASHP) systems to provide both space heating and cooling at the suite level.\\n\\nThe existing hydronic baseboard system relies on centrally generated hot water distributed throughout the building. While functional for heating, this system provides heating only, operates at relatively high distribution temperatures, and does not provide cooling. In addition, system efficiency is constrained by boiler plant performance, distribution losses, and limited zone-level control.\\n\\nIn contrast, mini-split heat pump systems typically operate at a COP of approximately 3 to 4 under suitable operating conditions, allowing them to deliver three to four units of heat for each unit of electrical energy consumed by transferring heat from the outdoor air to the indoor space. This results in a substantial reduction in energy consumption while maintaining or improving occupant comfort.\\n\\nIn addition to improved heating efficiency, the proposed mini-split systems would introduce dedicated cooling capability to the suites. This would eliminate the need for separate window-mounted or portable air-conditioning units, improving overall system efficiency, reducing peak electrical demand, and simplifying long-term maintenance.\\n\\nThe proposed upgrade would transition the building from an aging, single-function heating system to a modern, high-efficiency heating and cooling solution, improving occupant comfort, operational performance, and long-term energy efficiency.\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}, {'category': '', 'existing_conditions': 'The boiler room envelope, including portions of exposed walls, exterior door assemblies, and ventilation grilles, was observed to have limited or aging insulation. The exterior boiler room door and associated ventilation grille allow direct exposure to outdoor conditions, which may contribute to uncontrolled heat loss during the heating season.\\n\\nIn mechanical rooms with continuous boiler operation, insufficient envelope insulation can result in unnecessary standby heat loss, increased boiler cycling, and reduced overall plant efficiency. Air leakage through poorly sealed doors and grilles may further increase heat transfer and reduce thermal stability within the mechanical space.', 'implementation_cost': None, 'incentive': None, 'measure_title': 'Insulation Upgrade for Boiler Room and Exterior Door / Grille', 'notes': 'Upgrading insulation and air sealing at the boiler room exterior door and grille is recommended to reduce standby heat loss and improve overall heating system efficiency', 'retrofit_conditions': 'It is recommended to improve insulation levels at the boiler room envelope, including:\\n\\n• Adding or upgrading thermal insulation on exposed walls where feasible\\n• Replacing or upgrading the exterior boiler room door with an insulated, weather-sealed assembly\\n• Improving air sealing around ventilation grilles and door frames\\n\\nThese improvements would reduce uncontrolled heat loss, improve boiler room temperature stability, and enhance overall heating plant efficiency. While energy savings may be moderate, the measure is low-complexity and aligns with good building envelope practice.', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'category': 'other', 'existing_conditions': 'Windows and exterior doors located on the front façade of the building have been previously replaced and are in generally good condition. In contrast, the rear façade window and door assemblies remain original and were observed to be in poor condition.\\n\\nThe rear windows exhibit signs of frame deterioration, aging seals, and reduced air-tightness. Given the age of the assemblies, the insulating glazing units are likely operating below their original thermal performance due to seal', 'implementation_cost': None, 'incentive': None, 'measure_id': 'window_caulking_upgrade', 'measure_title': 'Replacement of Windows and Exterior Doors', 'notes': 'Replacement of the original  windows and exterior doors', 'retrofit_conditions': 'It is recommended that the rear façade windows and exterior doors be replaced with modern high-performance assemblies. New glazing systems incorporating low-emissivity (low-E) coatings, thermally improved frames, and enhanced seal technology would reduce heat loss and improve overall building envelope performance.\\n\\nReplacement exterior doors should include insulated cores, continuous weatherstripping, and improved air sealing to minimize infiltration.\\n\\nGiven that the front façade assemblies have already been upgraded, a phased approach targeting only the rear façade is appropriate and cost-effective. This targeted envelope improvement would enhance occupant comfort, reduce uncontrolled air leakage, and lower heating demand while aligning with long-term capital planning objectives.', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}, {'category': 'boiler', 'existing_conditions': 'The building is currently served by a heating-only hydronic distribution system. Space heating is provided through copper-fin baseboard heaters and hydronic radiators supplied by a centralized boiler plant located in the main mechanical room.\\n\\nThe building does not have a central cooling system. No in-suite fan coil units, chillers, or centralized cooling infrastructure are present. As a result, suite-level cooling, where provided, relies on window A/C or portable air-conditioning units. These localized cooling devices typically operate independently, are relatively inefficient, and contribute to increased electrical demand during the cooling season.', 'implementation_cost': None, 'incentive': None, 'measure_id': 'transition_baseboard_heater_to_mini-split_heat_pump_systems', 'measure_title': 'Transition Baseboard Heater to Mini-Split Heat Pump Systems', 'notes': 'Replace current system with air-source heat pumps, allowing simultaneous heating and cooling.', 'retrofit_conditions': 'Mann recommends replacing the existing hydronic baseboard heating systems with mini-split air-source heat pump (ASHP) systems to provide both space heating and cooling at the suite level.\\n\\nThe existing hydronic baseboard system relies on centrally generated hot water distributed throughout the building. While functional for heating, this system provides heating only, operates at relatively high distribution temperatures, and does not provide cooling. In addition, system efficiency is constrained by boiler plant performance, distribution losses, and limited zone-level control.\\n\\nIn contrast, mini-split heat pump systems typically operate at a COP of approximately 3 to 4 under suitable operating conditions, allowing them to deliver three to four units of heat for each unit of electrical energy consumed by transferring heat from the outdoor air to the indoor space. This results in a substantial reduction in energy consumption while maintaining or improving occupant comfort.\\n\\nIn addition to improved heating efficiency, the proposed mini-split systems would introduce dedicated cooling capability to the suites. This would eliminate the need for separate window-mounted or portable air-conditioning units, improving overall system efficiency, reducing peak electrical demand, and simplifying long-term maintenance.\\n\\nThe proposed upgrade would transition the building from an aging, single-function heating system to a modern, high-efficiency heating and cooling solution, improving occupant comfort, operational performance, and long-term energy efficiency.\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}, {'category': '', 'existing_conditions': 'The boiler room envelope, including portions of exposed walls, exterior door assemblies, and ventilation grilles, was observed to have limited or aging insulation. The exterior boiler room door and associated ventilation grille allow direct exposure to outdoor conditions, which may contribute to uncontrolled heat loss during the heating season.\\n\\nIn mechanical rooms with continuous boiler operation, insufficient envelope insulation can result in unnecessary standby heat loss, increased boiler cycling, and reduced overall plant efficiency. Air leakage through poorly sealed doors and grilles may further increase heat transfer and reduce thermal stability within the mechanical space.', 'implementation_cost': None, 'incentive': None, 'measure_title': 'Insulation Upgrade for Boiler Room and Exterior Door / Grille', 'notes': 'Upgrading insulation and air sealing at the boiler room exterior door and grille is recommended to reduce standby heat loss and improve overall heating system efficiency', 'retrofit_conditions': 'It is recommended to improve insulation levels at the boiler room envelope, including:\\n\\n• Adding or upgrading thermal insulation on exposed walls where feasible\\n• Replacing or upgrading the exterior boiler room door with an insulated, weather-sealed assembly\\n• Improving air sealing around ventilation grilles and door frames\\n\\nThese improvements would reduce uncontrolled heat loss, improve boiler room temperature stability, and enhance overall heating plant efficiency. While energy savings may be moderate, the measure is low-complexity and aligns with good building envelope practice.', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'category': 'window', 'misc_id': 'window_condition', 'text': 'During the site visit, deteriorated or missing caulking and weatherstripping were observed at several window frames and balcony door interfaces, while localized repairs have been completed in some areas. These conditions allow air infiltration during the heating season, contributing to localized cold drafts and increased space-heating demand. Full window replacement would address both air leakage and thermal losses.', 'title': 'Window condition (missing caulk)'}, {'category': 'lighting', 'misc_id': 'lighting_condition', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'title': 'Lighting condition and controls'}, {'category': 'thermostat', 'misc_id': 'no_insuite_thermostat', 'text': 'Suite temperatures are regulated through boiler-room setpoints and/or manual adjustments at the central plant, resulting in limited ability to respond to variations in occupancy, solar gains, or individual comfort preferences. This centralized control approach may contribute to overheating in some suites and underheating in others, increasing overall heating energy consumption and occupant complaints.', 'title': 'No Insuite Thermostat'}, {'category': 'window', 'misc_id': 'envelope_condition_poor', 'text': 'The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort.', 'title': 'Envelope Condition (Poor)'}",
+    "{Number of Floors}": "4",
+    "{Number of Suites}": "22",
+    "{Post Code}": "L7E 1C4",
+    "{Property Address1}": "49 Willow St",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-17-2026",
+    "{Suite Types}": "2 bedroom + 1 bedroom"
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "Whitehall apartment",
+    "prepared_by": "",
+    "report_date": "Feb-17-2026",
+    "site_address": "49 Willow St"
+  },
+  "project_notes": "49 Willow St, Bolton – Check List\n\nHeating\n\nBOILER\n◦ Suite heating provided by: Electric baseboard heaters (in-suite)\n◦ Boiler fact:\nNo central space-heating boiler observed for suite heating. Suites are heated by electric baseboards.\nDomestic hot water provided by one (1) new boiler with storage tank, replaced in 2023.\n◦ Setting points: N/A (electric baseboard system)\n◦ Supply Temp: N/A\n◦ Return Temp: N/A\n◦ VFD for suite pump: Not applicable\n◦ VFD for circulation pump: Not observed\n\nCooling System\n◦ Chiller: None\n◦ Cooling Tower: None\n◦ In-suite cooling: None observed\n◦ VFD for condenser pump: Not applicable\n◦ VFD for cooling tower fan: Not applicable\n\nMUA / Ventilation\n◦ MUA fact: Very old supply fan on roof. Equipment appears original to building (circa 1970s).\n◦ Heating and cooling capacity: Likely no cooling; heating source unclear (possibly electric or gas-fired, to be confirmed).\n◦ Heating and cooling source: Unclear\n◦ VFD for MUA: Not present\n◦ General condition: Aging equipment\n\nDHW\n\n◦ DHW source: Central boiler with storage tank\n◦ DHW boiler fact:\nOne (1) new boiler with storage tank, replaced in 2023. Serves domestic hot water.\nSupply and return temperatures not recorded at time of visit.\n◦ Mixing valve type and condition: Not confirmed on site\n◦ Storage tank type and condition: One storage tank associated with new boiler, appears in good/new condition\n\nGarage\n\n◦ Heated or not: No garage indicated\n◦ Ramp de-icing: Not applicable\n◦ CO sensor: Not applicable\n\nLighting\n\n◦ All LED or MIX: Not fully confirmed; likely mixed lighting due to age of building\n\nWindow\n\n◦ Window caulking condition: Exterior windows and doors deteriorated (noted poor condition at rear)\n◦ Single panel / double panel: Double pane (original)\n◦ General window condition: Very old; front-side windows replaced, rear windows original and aging\n\nSub Meter\n\n◦ Existing condition: No sub-metering observed\n\nBooster Pump\n\n◦ VFD for booster pump: Not observed\n\nBAS\n\n◦ BAS type: No BAS system observed\n\nMisc\n\n◦ Generator?: None observed\n◦ Piping: Not fully assessed; no major visible issues noted\n◦ Envelope architectural condition: Very old building, no major renovations\n◦ Pool / Dytron units: No pool\n\nGeneral Notes\n\n• Building type: Residential\n• Number of floors: 4\n• Number of suites: 22\n• Year constructed: 1970\n• Overall condition: Very old building, limited renovation history\n• Recommended measures :\n\nAir-source heat pump for heating and cooling\n\nReplace windows and exterior doors\n\nUpgrade exterior insulation",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "all-in-one_write_up",
+      "misc_id": "very_old_mua_poor_condition_fan_only",
+      "text": "The building is equipped with a rooftop supply fan that provides ventilation air to the interior corridor spaces through centralized ductwork. Based on site observations, the unit appears to be original to the building (circa 1970) and shows visible signs of aging, including surface corrosion, weather-related deterioration, and general wear due to prolonged rooftop exposure.\n\nNo visible gas-fired heating section, cooling coil, or integrated conditioning components were observed during the assessment. As such, the system likely delivers unconditioned outdoor air to the corridors. Heating of common spaces rely on electric radiators.\n\nOverall, the rooftop supply fan is considered to be in poor to fair condition due to age and exposure. While functional at the time of inspection, the equipment is approaching or exceeding its typical service life and should be evaluated for replacement in the short to medium term to ensure reliable ventilation performance.",
+      "title": "Very old supply fan/ventilation fan + poor condition + fan only"
+    }
+  ]
+}

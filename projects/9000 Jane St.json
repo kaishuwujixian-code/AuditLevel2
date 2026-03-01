@@ -1,0 +1,625 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Vaughan",
+    "client_name": "Charisma 1 & 2 & FS Property Management",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "fancoil_chiller",
+        "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2002 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+        "title": "Fancoil + chiller"
+      },
+      {
+        "category": "controls",
+        "misc_id": "over_all_good_condition_-_with_bas_integration",
+        "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time",
+        "title": "Over all Good condition - With BAS Integration"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "2023",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "(Number) atmospheric DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+        "title": "Atmospheric DHW Boiler"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "indirect_storage_tank",
+        "text": "Two (2) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank was observed to be in good mechanical condition.",
+        "title": "Indirect storage tank"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "mechanical_mixing_valves",
+        "text": "Thermostatic mixing valves set to approximately 120°F were observed and appeared to be in good mechanical condition.",
+        "title": "Mechanical Mixing valves"
+      },
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "over_all_good_future_opprotunity_bas",
+        "text": "Domestic hot water complaints were reported in the West Tower during peak demand periods (approximately 8:00 AM and 6:00 PM), particularly in the mid and upper zones. Lower zone performance was reported to be stable during these periods.\n\nSite review confirmed that DHW boiler capacity is adequate and that storage tank and mixing valve setpoints are operating within normal ranges. Based on these observations, the issue is not related to insufficient boiler capacity or control setpoints.\n\nThe temperature drop during peak demand may be associated with storage tank sizing relative to peak draw, zoning distribution imbalance, or recirculation performance in upper zones \n\nFurther review of storage volume, recirculation flow rates, and zoning configuration is recommended to confirm root cause.",
+        "title": "DHW balancing issue+ Future optimization BAS"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "Concord",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "plant",
+        "misc_id": "condensing_boiler_plant",
+        "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:",
+        "title": "One high temp loop boiler plant"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "high_temperature_loop_boiler",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "High temperature loop boiler"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "miscellaneous_load_boiler",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing} boilers rated at {boiler capacity} MBH each, with a nominal thermal efficiency of {efficiency %}. Manufactured in {year of manufacture}, these boilers serve miscellaneous hydronic loads within the building, including {misc loads – e.g., snow-melt system, pool heating, garage heating coil, reheat coils, perimeter radiation, heat exchanger circuits}.\nHot water generated by the boilers is distributed through dedicated piping loops serving the identified auxiliary loads. The system operates at a supply temperature of approximately {supply temp}°F with a return temperature of {return temp}°F under design conditions.",
+        "title": "Miscellaneous Load Boiler"
+      },
+      {
+        "category": "condition",
+        "misc_id": "good_condition_working_normally",
+        "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+        "title": "Good condition + Working normally"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "bas",
+        "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "bas_install",
+        "measure_title": "Install New Building Automation System (BAS)",
+        "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+        "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "boiler",
+        "existing_conditions": "The central heating plant consists of eight (8) condensing boilers installed circa 2014. Although the boilers are designed for high-efficiency condensing operation, the system is currently operated with elevated supply-water temperatures, with observed setpoints typically in the range of approximately 140°F to 150°F. Based on operator feedback, these aggressive setpoints are maintained to satisfy the heating demands of the Make-Up Air (MUA) units, which share the primary heating loop, and to compensate for localized flow restrictions within the distribution piping.\n\nUnder these operating conditions, return-water temperatures are likely elevated for much of the heating season, limiting the boilers’ ability to operate in condensing mode and effectively reducing efficiency to non-condensing levels. The existing hydronic configuration does not provide sufficient separation between the higher-temperature MUAloads and the lower-temperature building heating loop, restricting the ability to reset supply temperatures independently.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "enbridge_gas_boiler_optimization_pilot_program",
+        "measure_title": "Boiler Plant Optimization & Hydronic Balancing",
+        "notes": "Optimize the existing boiler plant through hydronic and control improvements to restore condensing performance without replacing major equipment. Qualified for Enbridge incentives.",
+        "retrofit_conditions": "Mann recommends pursuing boiler plant optimization through the Enbridge Gas Boiler Optimization Pilot Program. This program supports optimization of existing boiler plants through a phased approach rather than equipment replacement. The initial phase includes a detailed engineering assessment, funded by the program, to evaluate system flow characteristics, control limitations, and hydronic configuration.\n\nBased on the assessment findings, the retrofit scope may include hydronic separation between the MUA and building heating loops, corrective system balancing to address flow restrictions, and optimization of BAS control strategies. These measures would allow the boiler outdoor-air reset curve to be lowered while maintaining adequate MUA heating, enabling return-water temperatures to drop into the condensing range.\n\nThis approach restores the boiler plant closer to its intended design performance, increases seasonal efficiency, and maximizes the value of the existing assets without the capital cost of boiler replacement.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "loop",
+        "existing_conditions": "The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop",
+        "measure_title": "Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)",
+        "notes": "Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+        "retrofit_conditions": "It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The swimming pool area is currently served by a conventional air-handling unit and separate exhaust fan. Humidity control is limited, and there is no integrated heat recovery between exhaust and supply air. This can lead to higher space heating loads, condensation issues and comfort complaints in the pool area.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "dry_o_tron_pool_unit",
+        "measure_title": "Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit",
+        "notes": "Replace the pool AHU and exhaust fan with a Dry-O-Tron-type dehumidification unit that recovers heat while tightly controlling pool humidity and temperature.",
+        "retrofit_conditions": "It is recommended to replace the existing pool AHU and exhaust fan with a packaged dehumidification unit such as a Dry-O-Tron. This type of system combines dehumidification, space heating and exhaust heat recovery in a single unit, controlling humidity and pool water temperature to defined setpoints. Recovered heat can be used to warm supply air or pool water, reducing overall energy consumption. Detailed engineering is required to size the unit and confirm ductwork and structural requirements.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "ev_charging_stations",
+        "measure_title": "EV Charging Stations",
+        "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+        "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Good)"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_good",
+        "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+        "title": "Window condition (good)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation (Has CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "has_vfd_on_booster_pump",
+        "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+        "title": "Has VFD on Booster Pump"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "electric_ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+        "title": "Electric ramp heating"
+      },
+      {
+        "category": "electric",
+        "misc_id": "natural_gas_generator",
+        "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+        "title": "Natural Gas Generator"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "dectron_unit",
+        "text": "The indoor pool area is served by a hydronic MUA located in M floor, providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure",
+        "title": "No Dectron unit for swimming pool"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "29 & 28 floor",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "345 & 306 units",
+    "postal_code": "L4K 0M6",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-26-2026",
+    "rooftop_access_available": "true",
+    "site_address": "9000 Jane St",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "3 Bedroom, 2 Bedroom, 1 Bedroom.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "rooftop_mua",
+        "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+        "title": "Rooftop MUA"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "1_central_mua_w_vfd_3_mua_w_o_vfd_shell-and-tube_heat_exchangers",
+        "text": "The building is equipped with one (1) central MUA unit located in the penthouse serving most residential floors, and three (3) fresh-air MUA units located in the ground-floor mechanical room serving common areas.\n\nThe penthouse central MUA is equipped with a VFD, during the site visit it was observed operating at approximately 48 Hz (80%). The ground-floor MUA units include two units with VFDs;\n\nNo occupancy-based scheduling or demand control was observed, three (3) fresh-air MUA units appear to operate at or near constant speed regardless of actual ventilation demand.\n\nAll units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through shell-and-tube heat exchangers. These heat exchangers are difficult to service, limiting maintainability and increasing long-term operational risk.\n\nThe MUA systems were observed to be functionalwere originally installed circa 2004. Based on typical service life expectations for commercial ventilation equipment, the units are approaching the end of service life.\nWhile no immediate deficiencies were identified, the current configuration presents opportunities for improved control, energy efficiency, and future lifecycle upgrades.",
+        "title": "1 central MUA w\\ VFD + 2 MUA w VFD + Plate and frame heat exchangers"
+      },
+      {
+        "category": "heat_exchanger",
+        "misc_id": "plate_and_frame_heat_exchanger",
+        "text": "All units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through plate and frame heat exchanger. These heat exchangers are in general good conditions.",
+        "title": "Plate and frame heat exchanger"
+      },
+      {
+        "category": "controls",
+        "misc_id": "ventilation_controls_bas",
+        "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+        "title": "AHU units with VFD capacity, but not integrate into BAS"
+      },
+      {
+        "category": "mechanical_conditions",
+        "misc_id": "hydronic_mua_good_conditions",
+        "text": "Supply-air temperatures and airflow patterns were generally consistent with normal operation. Hydronic heating coils are served from the building’s high-temperature heating loop. Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+        "title": "Hydronic MUA + good conditions"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Cooling Related": [
+        "No Centralized BAS for Cooling System"
+      ],
+      "Heating Plant Issue": [
+        "Too Many Boilers in Service",
+        "Condensing Boiler Operation without Condensing Capability(High return-water temperatures)",
+        "High Supply and Return Water Temperatures (Limited Outdoor Reset)",
+        "No BAS On Heating Boiler"
+      ],
+      "MUA Related": [
+        "MUA has VFD but No connect with BAS"
+      ]
+    }
+  },
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "fancoil_chiller",
+      "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2002 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+      "title": "Fancoil + chiller"
+    },
+    {
+      "category": "controls",
+      "misc_id": "over_all_good_condition_-_with_bas_integration",
+      "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time",
+      "title": "Over all Good condition - With BAS Integration"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "(Number) atmospheric DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+      "title": "Atmospheric DHW Boiler"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "indirect_storage_tank",
+      "text": "Two (2) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank was observed to be in good mechanical condition.",
+      "title": "Indirect storage tank"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "mechanical_mixing_valves",
+      "text": "Thermostatic mixing valves set to approximately 120°F were observed and appeared to be in good mechanical condition.",
+      "title": "Mechanical Mixing valves"
+    },
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "over_all_good_future_opprotunity_bas",
+      "text": "Domestic hot water complaints were reported in the West Tower during peak demand periods (approximately 8:00 AM and 6:00 PM), particularly in the mid and upper zones. Lower zone performance was reported to be stable during these periods.\n\nSite review confirmed that DHW boiler capacity is adequate and that storage tank and mixing valve setpoints are operating within normal ranges. Based on these observations, the issue is not related to insufficient boiler capacity or control setpoints.\n\nThe temperature drop during peak demand may be associated with storage tank sizing relative to peak draw, zoning distribution imbalance, or recirculation performance in upper zones \n\nFurther review of storage volume, recirculation flow rates, and zoning configuration is recommended to confirm root cause.",
+      "title": "DHW balancing issue+ Future optimization BAS"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "plant",
+      "misc_id": "condensing_boiler_plant",
+      "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:",
+      "title": "One high temp loop boiler plant"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "high_temperature_loop_boiler",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "High temperature loop boiler"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "miscellaneous_load_boiler",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing} boilers rated at {boiler capacity} MBH each, with a nominal thermal efficiency of {efficiency %}. Manufactured in {year of manufacture}, these boilers serve miscellaneous hydronic loads within the building, including {misc loads – e.g., snow-melt system, pool heating, garage heating coil, reheat coils, perimeter radiation, heat exchanger circuits}.\nHot water generated by the boilers is distributed through dedicated piping loops serving the identified auxiliary loads. The system operates at a supply temperature of approximately {supply temp}°F with a return temperature of {return temp}°F under design conditions.",
+      "title": "Miscellaneous Load Boiler"
+    },
+    {
+      "category": "condition",
+      "misc_id": "good_condition_working_normally",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+      "title": "Good condition + Working normally"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "bas",
+      "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "bas_install",
+      "measure_title": "Install New Building Automation System (BAS)",
+      "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+      "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "boiler",
+      "existing_conditions": "The central heating plant consists of eight (8) condensing boilers installed circa 2014. Although the boilers are designed for high-efficiency condensing operation, the system is currently operated with elevated supply-water temperatures, with observed setpoints typically in the range of approximately 140°F to 150°F. Based on operator feedback, these aggressive setpoints are maintained to satisfy the heating demands of the Make-Up Air (MUA) units, which share the primary heating loop, and to compensate for localized flow restrictions within the distribution piping.\n\nUnder these operating conditions, return-water temperatures are likely elevated for much of the heating season, limiting the boilers’ ability to operate in condensing mode and effectively reducing efficiency to non-condensing levels. The existing hydronic configuration does not provide sufficient separation between the higher-temperature MUAloads and the lower-temperature building heating loop, restricting the ability to reset supply temperatures independently.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "enbridge_gas_boiler_optimization_pilot_program",
+      "measure_title": "Boiler Plant Optimization & Hydronic Balancing",
+      "notes": "Optimize the existing boiler plant through hydronic and control improvements to restore condensing performance without replacing major equipment. Qualified for Enbridge incentives.",
+      "retrofit_conditions": "Mann recommends pursuing boiler plant optimization through the Enbridge Gas Boiler Optimization Pilot Program. This program supports optimization of existing boiler plants through a phased approach rather than equipment replacement. The initial phase includes a detailed engineering assessment, funded by the program, to evaluate system flow characteristics, control limitations, and hydronic configuration.\n\nBased on the assessment findings, the retrofit scope may include hydronic separation between the MUA and building heating loops, corrective system balancing to address flow restrictions, and optimization of BAS control strategies. These measures would allow the boiler outdoor-air reset curve to be lowered while maintaining adequate MUA heating, enabling return-water temperatures to drop into the condensing range.\n\nThis approach restores the boiler plant closer to its intended design performance, increases seasonal efficiency, and maximizes the value of the existing assets without the capital cost of boiler replacement.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "loop",
+      "existing_conditions": "The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop",
+      "measure_title": "Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)",
+      "notes": "Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+      "retrofit_conditions": "It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The swimming pool area is currently served by a conventional air-handling unit and separate exhaust fan. Humidity control is limited, and there is no integrated heat recovery between exhaust and supply air. This can lead to higher space heating loads, condensation issues and comfort complaints in the pool area.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "dry_o_tron_pool_unit",
+      "measure_title": "Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit",
+      "notes": "Replace the pool AHU and exhaust fan with a Dry-O-Tron-type dehumidification unit that recovers heat while tightly controlling pool humidity and temperature.",
+      "retrofit_conditions": "It is recommended to replace the existing pool AHU and exhaust fan with a packaged dehumidification unit such as a Dry-O-Tron. This type of system combines dehumidification, space heating and exhaust heat recovery in a single unit, controlling humidity and pool water temperature to defined setpoints. Recovered heat can be used to warm supply air or pool water, reducing overall energy consumption. Detailed engineering is required to size the unit and confirm ductwork and structural requirements.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "ev_charging_stations",
+      "measure_title": "EV Charging Stations",
+      "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+      "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Good)"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_good",
+      "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+      "title": "Window condition (good)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation (Has CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "has_vfd_on_booster_pump",
+      "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+      "title": "Has VFD on Booster Pump"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "electric_ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+      "title": "Electric ramp heating"
+    },
+    {
+      "category": "electric",
+      "misc_id": "natural_gas_generator",
+      "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+      "title": "Natural Gas Generator"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "dectron_unit",
+      "text": "The indoor pool area is served by a hydronic MUA located in M floor, providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure",
+      "title": "No Dectron unit for swimming pool"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Vaughan",
+    "{ClientName}": "Charisma 1 & 2 & FS Property Management",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "2023",
+    "{DateDocument}": "Feb-26-2026",
+    "{District}": "Concord",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Boiler Plant Optimization & Hydronic Balancing', 'category': 'boiler', 'existing_conditions': 'The central heating plant consists of eight (8) condensing boilers installed circa 2014. Although the boilers are designed for high-efficiency condensing operation, the system is currently operated with elevated supply-water temperatures, with observed setpoints typically in the range of approximately 140°F to 150°F. Based on operator feedback, these aggressive setpoints are maintained to satisfy the heating demands of the Make-Up Air (MUA) units, which share the primary heating loop, and to compensate for localized flow restrictions within the distribution piping.\\n\\nUnder these operating conditions, return-water temperatures are likely elevated for much of the heating season, limiting the boilers’ ability to operate in condensing mode and effectively reducing efficiency to non-condensing levels. The existing hydronic configuration does not provide sufficient separation between the higher-temperature MUAloads and the lower-temperature building heating loop, restricting the ability to reset supply temperatures independently.', 'retrofit_conditions': 'Mann recommends pursuing boiler plant optimization through the Enbridge Gas Boiler Optimization Pilot Program. This program supports optimization of existing boiler plants through a phased approach rather than equipment replacement. The initial phase includes a detailed engineering assessment, funded by the program, to evaluate system flow characteristics, control limitations, and hydronic configuration.\\n\\nBased on the assessment findings, the retrofit scope may include hydronic separation between the MUA and building heating loops, corrective system balancing to address flow restrictions, and optimization of BAS control strategies. These measures would allow the boiler outdoor-air reset curve to be lowered while maintaining adequate MUA heating, enabling return-water temperatures to drop into the condensing range.\\n\\nThis approach restores the boiler plant closer to its intended design performance, increases seasonal efficiency, and maximizes the value of the existing assets without the capital cost of boiler replacement.', 'notes': 'Optimize the existing boiler plant through hydronic and control improvements to restore condensing performance without replacing major equipment. Qualified for Enbridge incentives.', 'measure_id': 'enbridge_gas_boiler_optimization_pilot_program', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.', 'retrofit_conditions': 'It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit', 'category': 'other', 'existing_conditions': 'The swimming pool area is currently served by a conventional air-handling unit and separate exhaust fan. Humidity control is limited, and there is no integrated heat recovery between exhaust and supply air. This can lead to higher space heating loads, condensation issues and comfort complaints in the pool area.', 'retrofit_conditions': 'It is recommended to replace the existing pool AHU and exhaust fan with a packaged dehumidification unit such as a Dry-O-Tron. This type of system combines dehumidification, space heating and exhaust heat recovery in a single unit, controlling humidity and pool water temperature to defined setpoints. Recovered heat can be used to warm supply air or pool water, reducing overall energy consumption. Detailed engineering is required to size the unit and confirm ductwork and structural requirements.', 'notes': 'Replace the pool AHU and exhaust fan with a Dry-O-Tron-type dehumidification unit that recovers heat while tightly controlling pool humidity and temperature.', 'measure_id': 'dry_o_tron_pool_unit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Boiler Plant Optimization & Hydronic Balancing', 'category': 'boiler', 'existing_conditions': 'The central heating plant consists of eight (8) condensing boilers installed circa 2014. Although the boilers are designed for high-efficiency condensing operation, the system is currently operated with elevated supply-water temperatures, with observed setpoints typically in the range of approximately 140°F to 150°F. Based on operator feedback, these aggressive setpoints are maintained to satisfy the heating demands of the Make-Up Air (MUA) units, which share the primary heating loop, and to compensate for localized flow restrictions within the distribution piping.\\n\\nUnder these operating conditions, return-water temperatures are likely elevated for much of the heating season, limiting the boilers’ ability to operate in condensing mode and effectively reducing efficiency to non-condensing levels. The existing hydronic configuration does not provide sufficient separation between the higher-temperature MUAloads and the lower-temperature building heating loop, restricting the ability to reset supply temperatures independently.', 'retrofit_conditions': 'Mann recommends pursuing boiler plant optimization through the Enbridge Gas Boiler Optimization Pilot Program. This program supports optimization of existing boiler plants through a phased approach rather than equipment replacement. The initial phase includes a detailed engineering assessment, funded by the program, to evaluate system flow characteristics, control limitations, and hydronic configuration.\\n\\nBased on the assessment findings, the retrofit scope may include hydronic separation between the MUA and building heating loops, corrective system balancing to address flow restrictions, and optimization of BAS control strategies. These measures would allow the boiler outdoor-air reset curve to be lowered while maintaining adequate MUA heating, enabling return-water temperatures to drop into the condensing range.\\n\\nThis approach restores the boiler plant closer to its intended design performance, increases seasonal efficiency, and maximizes the value of the existing assets without the capital cost of boiler replacement.', 'notes': 'Optimize the existing boiler plant through hydronic and control improvements to restore condensing performance without replacing major equipment. Qualified for Enbridge incentives.', 'measure_id': 'enbridge_gas_boiler_optimization_pilot_program', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.', 'retrofit_conditions': 'It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Pool AHU and Exhaust Fan with Dry-O-Tron Unit', 'category': 'other', 'existing_conditions': 'The swimming pool area is currently served by a conventional air-handling unit and separate exhaust fan. Humidity control is limited, and there is no integrated heat recovery between exhaust and supply air. This can lead to higher space heating loads, condensation issues and comfort complaints in the pool area.', 'retrofit_conditions': 'It is recommended to replace the existing pool AHU and exhaust fan with a packaged dehumidification unit such as a Dry-O-Tron. This type of system combines dehumidification, space heating and exhaust heat recovery in a single unit, controlling humidity and pool water temperature to defined setpoints. Recovered heat can be used to warm supply air or pool water, reducing overall energy consumption. Detailed engineering is required to size the unit and confirm ductwork and structural requirements.', 'notes': 'Replace the pool AHU and exhaust fan with a Dry-O-Tron-type dehumidification unit that recovers heat while tightly controlling pool humidity and temperature.', 'measure_id': 'dry_o_tron_pool_unit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Envelope Condition (Good)', 'category': 'window', 'text': 'The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Window condition (good)', 'category': 'window', 'text': 'The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit', 'misc_id': 'window_condition_good'}, {'title': 'Garage ventilation (Has CO controls)', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'Has VFD on Booster Pump', 'category': 'maintenance', 'text': 'The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted', 'misc_id': 'has_vfd_on_booster_pump'}, {'title': 'Electric ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance', 'misc_id': 'electric_ramp_heating'}, {'title': 'Natural Gas Generator', 'category': 'electric', 'text': 'The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.', 'misc_id': 'natural_gas_generator'}, {'title': 'No Dectron unit for swimming pool', 'category': 'maintenance', 'text': 'The indoor pool area is served by a hydronic MUA located in M floor, providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure', 'misc_id': 'dectron_unit'}",
+    "{Number of Floors}": "29 & 28 floor",
+    "{Number of Suites}": "345 & 306 units",
+    "{Post Code}": "L4K 0M6",
+    "{Property Address1}": "9000 Jane St",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-26-2026",
+    "{Suite Types}": "3 Bedroom, 2 Bedroom, 1 Bedroom."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "Charisma 1 & 2 & FS Property Management",
+    "prepared_by": "",
+    "report_date": "Feb-26-2026",
+    "site_address": "9000 Jane St"
+  },
+  "project_notes": "9000 Jane St.  East Tower Site visit check list\n\nHeating BOILER\n\t◦\tSuite heating provide by: Fancoil \n\t◦\tBoiler fact: 3 condensing boiler\n\nNumber:3\nCapacity:4000MBH\nLocation:roof top 25 floor\nCondensing or not: yes \nGood condition\n\nCondensing 2misc heating boiler 156 supply . 150 return\n\t◦\tSetting points:145\n\t◦\tSupply Temp:146\n\t◦\tReturn Temp:138\n\t◦\tVFD for suite pump:yes\n\t◦\tVFD for circulation Pump:no \n* M floor has a heat exchanger for fancoil heat exchange. and misc boiler for mua heat exchange\n* glycol loop for whole buildings ，heating supply + glycol supply for mua. has infloor glycol feed tank and was noted very low level glycol contain.\nCooling System \n\t◦\tCooling equipment fact:\nSpec\nLocation rooftop\nYear2022\n\t◦\tChiller:York\n\t◦\tCooling Tower:bac\n\t◦\tVFD for condenser pump:yes\n\t◦\tVFD for cooling tower fan:yes\n\nMUA\n\t◦\tMUA fact:good condition\n\t◦\t2 Mua in east side.  Glycol plus exchanger\n\t◦\tFlocon pump no VFD \n\t◦\tHeating and cooling capacity:hydronic\n\t◦\tHeating and cooling source: chiller glycol\n\t◦\tVFD for MUA:yes\n*The primary boiler loop operates with water, while secondary heating distribution loops serving the MUA and in-suite fan coil systems contain glycol solution for freeze protection. The systems are hydraulically separated through a heat exchanger\nDHW\n\t◦\tDHW source: boiler\n\t◦\tDHW boiler fact:2 condensing\nSupply temp153\nReturn temp145\n\t◦\tmixing valve type and condition:good\n\t◦\tstorage tank type and condition:good \n\t◦\tTemperature reading : storage 150, mixing valve temperature 125\n\nGarage\n\t◦\theated or not: not\n\t◦\t6 level parkings\n\t◦\tRamp de icing:\n\t◦\tCo sensor:yes \n\nLighting\n\t◦\tAll LED or MIX: All LED already \n\nWindow\n\t◦\tWindow caulking condition :\n\t◦\tsingle panel/ double panel/ :\n\nSub meter\n\t◦\tExisting condition:\n\nBooster pump\n\t◦\tVFD for Booster pump\n\nBAS a individual block\n\t◦\tBAS type :\n\nMisc\n\t◦\tGenerator Natural Gas/ Diesel :\n\t◦\tPiping equipment conditions: \n\t◦\tEnvelop architectural condition: \n\t◦\tPool/ Dytron units : \n\t◦\tIn suite ERV:\n\t◦\tWater leakage history: \n\t◦\tMisc: drain issue break easily p1 to p3 , green park on working. \n\t◦\tDraft/Stack effects.for some top floor at West site tower(we are currently in East tower):\n\t◦\tElectric Ev, already have 8 Users. \n\t◦\tWater leakage sensor(new installed)\n\t◦\tRoof top mua serve PH to LEVEL 8 ,Freshair ventilation\n\t◦\tOne (1) MUA on M floor,serving Level 7 to parking 6\n\t◦\tGarbage fan need to cover that in the report plz, Mfloor fresh air intake right above the garbage loading area, can we do re ducting for them? every time on garbage collecting day, the building will smell like garbage. \n\t◦\tP6 ground water bit pump issue(what is bit pump)\n\t◦\tStorm water pump another issue(alot of issue,need PM describe in meeting, after we provide first report) \n\t◦\tM floor\n\t◦\tYear \n\t◦\tEast tower and West tower are physicically connect to each other , thru level 7 to p6, Level 8 is a big partio.",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "rooftop_mua",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+      "title": "Rooftop MUA"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "1_central_mua_w_vfd_3_mua_w_o_vfd_shell-and-tube_heat_exchangers",
+      "text": "The building is equipped with one (1) central MUA unit located in the penthouse serving most residential floors, and three (3) fresh-air MUA units located in the ground-floor mechanical room serving common areas.\n\nThe penthouse central MUA is equipped with a VFD, during the site visit it was observed operating at approximately 48 Hz (80%). The ground-floor MUA units include two units with VFDs;\n\nNo occupancy-based scheduling or demand control was observed, three (3) fresh-air MUA units appear to operate at or near constant speed regardless of actual ventilation demand.\n\nAll units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through shell-and-tube heat exchangers. These heat exchangers are difficult to service, limiting maintainability and increasing long-term operational risk.\n\nThe MUA systems were observed to be functionalwere originally installed circa 2004. Based on typical service life expectations for commercial ventilation equipment, the units are approaching the end of service life.\nWhile no immediate deficiencies were identified, the current configuration presents opportunities for improved control, energy efficiency, and future lifecycle upgrades.",
+      "title": "1 central MUA w\\ VFD + 2 MUA w VFD + Plate and frame heat exchangers"
+    },
+    {
+      "category": "heat_exchanger",
+      "misc_id": "plate_and_frame_heat_exchanger",
+      "text": "All units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through plate and frame heat exchanger. These heat exchangers are in general good conditions.",
+      "title": "Plate and frame heat exchanger"
+    },
+    {
+      "category": "controls",
+      "misc_id": "ventilation_controls_bas",
+      "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+      "title": "AHU units with VFD capacity, but not integrate into BAS"
+    },
+    {
+      "category": "mechanical_conditions",
+      "misc_id": "hydronic_mua_good_conditions",
+      "text": "Supply-air temperatures and airflow patterns were generally consistent with normal operation. Hydronic heating coils are served from the building’s high-temperature heating loop. Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+      "title": "Hydronic MUA + good conditions"
+    }
+  ]
+}

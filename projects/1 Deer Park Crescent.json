@@ -1,0 +1,657 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Toronto",
+    "client_name": "MTCC-1219 & Del Property Management",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "wshp_for_cooling",
+        "text": "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on the low-temperature hydronic loop. Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season. At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system.\nThe WSHP equipment, fluid cooler, and associated hydronic loop were observed to be functioning as intended, and no performance issues were identified at the time of inspection.",
+        "title": "WSHP for cooling"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "1998",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "(Number) atmospheric DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+        "title": "Atmospheric DHW Boiler"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "glass-lined_storage_tanks",
+        "text": "Two (2) A.O. Smith glass-lined storage tanks were observed, located at the main boiler room and is heated via DHW boiler, each rated at approximately 180 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+        "title": "Glass-lined storage tanks Good condition"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "flowmix_mixing_valve",
+        "text": "A Flowmix electric thermostatic mixing valve is installed to temper the domestic hot water supply to approximately 120°F. At the time of the walkthrough, supply temperatures were within acceptable range and appeared stable.",
+        "title": "Flowmix mixing valve"
+      },
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "over_all_good_future_opprotunity_bas",
+        "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+        "title": "Over all good+ Future optimization BAS"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "Downtown Toronto",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "plant",
+        "misc_id": "low_temperature_loop_high_temperature_loop_dedicate_dhw_loop",
+        "text": "The building operates with a mixed hydronic configuration consisting of a high-temperature boiler loop , dedicate DHW loop and a separate low-temperature water-source heat pump (WSHP) loop. \nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:",
+        "title": "Low Temp WSHP loop+High Temperature loop+Dedicate DHW loop"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "wshp_loop_boilers_facts",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured}, which operate as WSHP loop boilers, maintaining loop temperature for the in-suite heat pumps and providing supplemental heat during cold weather.Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "WSHP loop boilers facts"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "primary_heating_loop_boiler_fact",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve as the primary heating loop, supplying hot water to building heating loads and feeding a heat-exchanger that heats the secondary domestic hot water (DHW) system storage tanks. Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "Primary heating\nloop boiler feed DHW loop"
+      },
+      {
+        "category": "condition",
+        "misc_id": "good_condition_working_normally",
+        "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough.",
+        "title": "Good condition + Working normally"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "bas",
+        "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "bas_install",
+        "measure_title": "Install New Building Automation System (BAS)",
+        "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+        "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "loop",
+        "existing_conditions": "The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop",
+        "measure_title": "Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)",
+        "notes": "Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+        "retrofit_conditions": "It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "boiler",
+        "existing_conditions": "The existing heating boilers in the mechanical room are non-condensing, gas-fired Raypak units installed in 2006, with an estimated thermal efficiency of approximately 78%. These boilers are approaching the end of their expected service life. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\nThe boilers also lack advanced control features such as outdoor temperature reset and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\nWhile the boilers remain operational, their age and outdated design increase the likelihood of performance issues and rising maintenance requirements. Continued operation represents a missed opportunity for improved energy efficiency, lower operating costs, and enhanced reliability achievable through upgraded condensing boiler systems.\nRetrofit Conditions",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "upgrade_condensing_boiler_for_wshp",
+        "measure_title": "Upgrade Condensing Boiler for WSHP",
+        "notes": "Replace existing non-condensing boiler to condensing boiler. Improves thermal efficiency, reduces natural gas consumption and lowers greenhouse gas emissions.",
+        "retrofit_conditions": "It is recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "mua",
+        "existing_conditions": "Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas. During the site visit it was unable to access to roof top, report by on site staff the units are original to the building, installed in 1998, and have exceeded their expected service life",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "mua_retrofit_two_2_option_hydronic_mua_with_vfd_wshp_mua_with_vfd",
+        "measure_title": "MUA Retrofit Two (2) Option: Hydronic MUA with VFD / WSHP MUA with VFD",
+        "notes": "Upgrade the existing MUA system by adding VFD control and converting to either a hydronic or water-source heat pump configuration to improve energy efficiency. Qualify for Enbridge incentives.",
+        "retrofit_conditions": "Option 1 – Install VFDs and Convert existing MUA to Hydronic MUA\nMann recommends installing a new hydronic heating coil in the existing make-up air (MUA) unit, to be served by the central boiler plant. A modulating control valve would regulate heating-water flow to maintain corridor supply-air temperature.\nAs the existing MUA unit is currently operating without VFD control, new variable-frequency drives (VFDs) should be installed on the supply fan to enable proper airflow modulation. Once installed, the VFDs will be fully integrated into the BAS to provide optimized fan control, scheduling, and occupancy-based ventilation reduction.\nHydronic conversion also reduces maintenance requirements and qualifies for Enbridge incentives, improving overall project payback.\n\nOption 2 – Install VFDs and Convert existing MUA to Water-Source Heat Pump (WSHP) MUA\nMann recommends converting the existing make-up air (MUA) unit to a water-source heat pump (WSHP) MUA unit. The new WSHP heating coil can be installed within the existing MUA cabinet, allowing the building to retain most of the original ventilation infrastructure. \nThe existing WSHP loop piping can remain and be reused, and the boiler plant would continue to provide supplemental heat only when required. A WSHP-based heating coil is significantly more efficient than a gas-fired burner because it uses the thermal energy already present within the building—rather than generating heat through combustion. The WSHP coil is capable of providing heating whenever the ventilation system operates and can take advantage of heat already present in the hydronic loop, reducing boiler runtime and improving overall system efficiency. One consideration is that the MUA electrical load may increase slightly depending on the WSHP coil configuration; however, the improved efficiency and reduced gas usage often outweigh these impacts. \nDuring the heating season, the WSHP coil extracts heat from the hydronic loop and transfers it into the ventilation air stream. When more heat is required than is being generated within the building, the central boiler plant provides supplemental heat to maintain loop temperature. \nDuring warmer weather, suites operating in cooling mode can reject heat into the WSHP loop, supplying “free heat” to the MUA heating coil during mild outdoor conditions. During shoulder seasons, the system can recycle heat internally: heat removed from south-facing suites in cooling mode can offset ventilation heating demands from north-facing corridors, reducing the need for gas-fired heating entirely.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "window_caulking_upgrade",
+        "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+        "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+        "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "lighting",
+        "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "lighting_motion_sensor_control_retrofit",
+        "measure_title": "Lighting Motion Sensor Control Retrofit",
+        "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+        "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "The domestic hot water (DHW) system is currently equipped with a FlowMix electronic thermostatic mixing valve to regulate DHW delivery temperature. While the valve provides temperature control functionality, electronic mixing valves typically require specialized troubleshooting, proprietary components, and manufacturer-specific service support.\n\nOn-site staff indicated that maintenance and repair costs for the existing electronic mixing valve are high, and servicing often requires calling specialized contractors rather than in-house maintenance personnel. This increases ongoing maintenance costs and can result in longer downtime when issues occur.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "replace_electronic_mixing_valve_with_mechanical_thermostatic_mixing_valve",
+        "measure_title": "Replace Electronic Mixing Valve with Mechanical Thermostatic Mixing Valve",
+        "notes": "Replace existing Flowmix electric mixging valve with mechanical mixing valve when the unit end of its life. The proposed valve would maintain consistent and safe DHW delivery temperatures while improving system robustness and long-term maintainability.",
+        "retrofit_conditions": "Mann recommends replacing the existing electronic mixing valve with a standard mechanical thermostatic mixing valve when existing electric mixing valve end of its service life. A mechanical mixing valve provides reliable temperature control using a passive thermostatic element, without the need for electronic controls, sensors, or external power.\n\nThis retrofit would simplify DHW system operation, reduce long-term maintenance costs, and improve serviceability. Mechanical mixing valves can typically be adjusted, repaired, or replaced by building maintenance staff, reducing reliance on specialized service providers. \n\n*Further engineering review would be required to confirm valve sizing, temperature setpoints, and compatibility with the existing DHW storage and distribution system.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "ev_charging_stations",
+        "measure_title": "EV Charging Stations",
+        "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+        "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_aging_double_pane",
+        "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+        "title": "Window condition (Aging double pane)"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Good)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation (Has CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "has_vfd_on_booster_pump",
+        "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+        "title": "Has VFD on Booster Pump"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.",
+        "title": "Hydronic ramp heating"
+      },
+      {
+        "category": "electric",
+        "misc_id": "diesel_generator",
+        "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+        "title": "Diesel Generator"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "10",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "58",
+    "postal_code": "M4V 3C4",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-17-2026",
+    "rooftop_access_available": "true",
+    "site_address": "1 Deer Park Crescent",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "2 Bedroom, 1 Bedroom.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "rooftop_mua",
+        "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.\n\t◦\tMUA fact: unable to access to roof top . Report by on site staff . The units are origin to the building. Installed in 1998 \n\t◦\tHeating and cooling capacity: unclear, seems gas fired heating coil only and doesn’t have VFD connection \n\t◦\tHeating and cooling source: gas \n\t◦\tVFD for MUA: no present",
+        "title": "Rooftop MUA"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "vfd_gas_fire_dx_cooling",
+        "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections. The VFD, gas-fired heating burner, and DX Cooling coil were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress.",
+        "title": "VFD+Gas Fire+DX Cooling"
+      },
+      {
+        "category": "controls",
+        "misc_id": "ventilation_controls_bas",
+        "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+        "title": "AHU units with VFD capacity, but not integrate into BAS"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Heating Plant Issue": [
+        "Aging atmospheric boilers",
+        "Too Many Boilers in Service",
+        "Condensing Boiler Operation without Condensing Capability(High return-water temperatures)",
+        "Atmospheric Boilers Serving Low-Temperature WSHP Loop",
+        "High Supply and Return Water Temperatures (Limited Outdoor Reset)",
+        "No VFD on Suite Circulation Pumps"
+      ]
+    }
+  },
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "wshp_for_cooling",
+      "text": "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on the low-temperature hydronic loop. Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season. At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system.\nThe WSHP equipment, fluid cooler, and associated hydronic loop were observed to be functioning as intended, and no performance issues were identified at the time of inspection.",
+      "title": "WSHP for cooling"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "(Number) atmospheric DHW boilers, each rated at approximately (Capacity) MBH, install in around (Year). Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F.",
+      "title": "Atmospheric DHW Boiler"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "glass-lined_storage_tanks",
+      "text": "Two (2) A.O. Smith glass-lined storage tanks were observed, located at the main boiler room and is heated via DHW boiler, each rated at approximately 180 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+      "title": "Glass-lined storage tanks Good condition"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "flowmix_mixing_valve",
+      "text": "A Flowmix electric thermostatic mixing valve is installed to temper the domestic hot water supply to approximately 120°F. At the time of the walkthrough, supply temperatures were within acceptable range and appeared stable.",
+      "title": "Flowmix mixing valve"
+    },
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "over_all_good_future_opprotunity_bas",
+      "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+      "title": "Over all good+ Future optimization BAS"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "plant",
+      "misc_id": "low_temperature_loop_high_temperature_loop_dedicate_dhw_loop",
+      "text": "The building operates with a mixed hydronic configuration consisting of a high-temperature boiler loop , dedicate DHW loop and a separate low-temperature water-source heat pump (WSHP) loop. \nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:",
+      "title": "Low Temp WSHP loop+High Temperature loop+Dedicate DHW loop"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "wshp_loop_boilers_facts",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured}, which operate as WSHP loop boilers, maintaining loop temperature for the in-suite heat pumps and providing supplemental heat during cold weather.Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "WSHP loop boilers facts"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "primary_heating_loop_boiler_fact",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve as the primary heating loop, supplying hot water to building heating loads and feeding a heat-exchanger that heats the secondary domestic hot water (DHW) system storage tanks. Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "Primary heating\nloop boiler feed DHW loop"
+    },
+    {
+      "category": "condition",
+      "misc_id": "good_condition_working_normally",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough.",
+      "title": "Good condition + Working normally"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "bas",
+      "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "bas_install",
+      "measure_title": "Install New Building Automation System (BAS)",
+      "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+      "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "loop",
+      "existing_conditions": "The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "primary_secondary_boiler_and_hydronic_loop_reconfiguration_primary_loop_wshp_loop_dhw_loop",
+      "measure_title": "Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)",
+      "notes": "Reconfigure Primary heating loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.",
+      "retrofit_conditions": "It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "boiler",
+      "existing_conditions": "The existing heating boilers in the mechanical room are non-condensing, gas-fired Raypak units installed in 2006, with an estimated thermal efficiency of approximately 78%. These boilers are approaching the end of their expected service life. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\nThe boilers also lack advanced control features such as outdoor temperature reset and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\nWhile the boilers remain operational, their age and outdated design increase the likelihood of performance issues and rising maintenance requirements. Continued operation represents a missed opportunity for improved energy efficiency, lower operating costs, and enhanced reliability achievable through upgraded condensing boiler systems.\nRetrofit Conditions",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "upgrade_condensing_boiler_for_wshp",
+      "measure_title": "Upgrade Condensing Boiler for WSHP",
+      "notes": "Replace existing non-condensing boiler to condensing boiler. Improves thermal efficiency, reduces natural gas consumption and lowers greenhouse gas emissions.",
+      "retrofit_conditions": "It is recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "mua",
+      "existing_conditions": "Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas. During the site visit it was unable to access to roof top, report by on site staff the units are original to the building, installed in 1998, and have exceeded their expected service life",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "mua_retrofit_two_2_option_hydronic_mua_with_vfd_wshp_mua_with_vfd",
+      "measure_title": "MUA Retrofit Two (2) Option: Hydronic MUA with VFD / WSHP MUA with VFD",
+      "notes": "Upgrade the existing MUA system by adding VFD control and converting to either a hydronic or water-source heat pump configuration to improve energy efficiency. Qualify for Enbridge incentives.",
+      "retrofit_conditions": "Option 1 – Install VFDs and Convert existing MUA to Hydronic MUA\nMann recommends installing a new hydronic heating coil in the existing make-up air (MUA) unit, to be served by the central boiler plant. A modulating control valve would regulate heating-water flow to maintain corridor supply-air temperature.\nAs the existing MUA unit is currently operating without VFD control, new variable-frequency drives (VFDs) should be installed on the supply fan to enable proper airflow modulation. Once installed, the VFDs will be fully integrated into the BAS to provide optimized fan control, scheduling, and occupancy-based ventilation reduction.\nHydronic conversion also reduces maintenance requirements and qualifies for Enbridge incentives, improving overall project payback.\n\nOption 2 – Install VFDs and Convert existing MUA to Water-Source Heat Pump (WSHP) MUA\nMann recommends converting the existing make-up air (MUA) unit to a water-source heat pump (WSHP) MUA unit. The new WSHP heating coil can be installed within the existing MUA cabinet, allowing the building to retain most of the original ventilation infrastructure. \nThe existing WSHP loop piping can remain and be reused, and the boiler plant would continue to provide supplemental heat only when required. A WSHP-based heating coil is significantly more efficient than a gas-fired burner because it uses the thermal energy already present within the building—rather than generating heat through combustion. The WSHP coil is capable of providing heating whenever the ventilation system operates and can take advantage of heat already present in the hydronic loop, reducing boiler runtime and improving overall system efficiency. One consideration is that the MUA electrical load may increase slightly depending on the WSHP coil configuration; however, the improved efficiency and reduced gas usage often outweigh these impacts. \nDuring the heating season, the WSHP coil extracts heat from the hydronic loop and transfers it into the ventilation air stream. When more heat is required than is being generated within the building, the central boiler plant provides supplemental heat to maintain loop temperature. \nDuring warmer weather, suites operating in cooling mode can reject heat into the WSHP loop, supplying “free heat” to the MUA heating coil during mild outdoor conditions. During shoulder seasons, the system can recycle heat internally: heat removed from south-facing suites in cooling mode can offset ventilation heating demands from north-facing corridors, reducing the need for gas-fired heating entirely.\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "window_caulking_upgrade",
+      "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+      "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+      "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "lighting",
+      "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "lighting_motion_sensor_control_retrofit",
+      "measure_title": "Lighting Motion Sensor Control Retrofit",
+      "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+      "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "The domestic hot water (DHW) system is currently equipped with a FlowMix electronic thermostatic mixing valve to regulate DHW delivery temperature. While the valve provides temperature control functionality, electronic mixing valves typically require specialized troubleshooting, proprietary components, and manufacturer-specific service support.\n\nOn-site staff indicated that maintenance and repair costs for the existing electronic mixing valve are high, and servicing often requires calling specialized contractors rather than in-house maintenance personnel. This increases ongoing maintenance costs and can result in longer downtime when issues occur.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "replace_electronic_mixing_valve_with_mechanical_thermostatic_mixing_valve",
+      "measure_title": "Replace Electronic Mixing Valve with Mechanical Thermostatic Mixing Valve",
+      "notes": "Replace existing Flowmix electric mixging valve with mechanical mixing valve when the unit end of its life. The proposed valve would maintain consistent and safe DHW delivery temperatures while improving system robustness and long-term maintainability.",
+      "retrofit_conditions": "Mann recommends replacing the existing electronic mixing valve with a standard mechanical thermostatic mixing valve when existing electric mixing valve end of its service life. A mechanical mixing valve provides reliable temperature control using a passive thermostatic element, without the need for electronic controls, sensors, or external power.\n\nThis retrofit would simplify DHW system operation, reduce long-term maintenance costs, and improve serviceability. Mechanical mixing valves can typically be adjusted, repaired, or replaced by building maintenance staff, reducing reliance on specialized service providers. \n\n*Further engineering review would be required to confirm valve sizing, temperature setpoints, and compatibility with the existing DHW storage and distribution system.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "ev_charging_stations",
+      "measure_title": "EV Charging Stations",
+      "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+      "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_aging_double_pane",
+      "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+      "title": "Window condition (Aging double pane)"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Good)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation (Has CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "has_vfd_on_booster_pump",
+      "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+      "title": "Has VFD on Booster Pump"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.",
+      "title": "Hydronic ramp heating"
+    },
+    {
+      "category": "electric",
+      "misc_id": "diesel_generator",
+      "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+      "title": "Diesel Generator"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Toronto",
+    "{ClientName}": "MTCC-1219 & Del Property Management",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "1998",
+    "{DateDocument}": "Feb-17-2026",
+    "{District}": "Downtown Toronto",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.', 'retrofit_conditions': 'It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Reconfigure primary loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_dhw_piping', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Upgrade Condensing Boiler for WSHP', 'category': 'boiler', 'existing_conditions': 'The existing heating boilers in the mechanical room are non-condensing, gas-fired Raypak units installed in 2006, with an estimated thermal efficiency of approximately 78%. These boilers are approaching the end of their expected service life. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\\nThe boilers also lack advanced control features such as outdoor temperature reset and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\\nWhile the boilers remain operational, their age and outdated design increase the likelihood of performance issues and rising maintenance requirements. Continued operation represents a missed opportunity for improved energy efficiency, lower operating costs, and enhanced reliability achievable through upgraded condensing boiler systems.\\nRetrofit Conditions', 'retrofit_conditions': 'It is recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions.', 'notes': 'Replace existing non-condensing boiler to condensing boiler. Improves thermal efficiency, reduces natural gas consumption and lowers greenhouse gas emissions.', 'measure_id': 'upgrade_condensing_boiler_for_wshp', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'MUA Retrofit Two (2) Option: Hydronic MUA with VFD / WSHP MUA with VFD', 'category': 'mua', 'existing_conditions': 'Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas. During the site visit it was unable to access to roof top, report by on site staff the units are original to the building, installed in 1998, and have exceeded their expected service life', 'retrofit_conditions': 'Option 1 – Install VFDs and Convert existing MUA to Hydronic MUA\\nMann recommends installing a new hydronic heating coil in the existing make-up air (MUA) unit, to be served by the central boiler plant. A modulating control valve would regulate heating-water flow to maintain corridor supply-air temperature.\\nAs the existing MUA unit is currently operating without VFD control, new variable-frequency drives (VFDs) should be installed on the supply fan to enable proper airflow modulation. Once installed, the VFDs will be fully integrated into the BAS to provide optimized fan control, scheduling, and occupancy-based ventilation reduction.\\nHydronic conversion also reduces maintenance requirements and qualifies for Enbridge incentives, improving overall project payback.\\n\\nOption 2 – Install VFDs and Convert existing MUA to Water-Source Heat Pump (WSHP) MUA\\nMann recommends converting the existing make-up air (MUA) unit to a water-source heat pump (WSHP) MUA unit. The new WSHP heating coil can be installed within the existing MUA cabinet, allowing the building to retain most of the original ventilation infrastructure. \\nThe existing WSHP loop piping can remain and be reused, and the boiler plant would continue to provide supplemental heat only when required. A WSHP-based heating coil is significantly more efficient than a gas-fired burner because it uses the thermal energy already present within the building—rather than generating heat through combustion. The WSHP coil is capable of providing heating whenever the ventilation system operates and can take advantage of heat already present in the hydronic loop, reducing boiler runtime and improving overall system efficiency. One consideration is that the MUA electrical load may increase slightly depending on the WSHP coil configuration; however, the improved efficiency and reduced gas usage often outweigh these impacts. \\nDuring the heating season, the WSHP coil extracts heat from the hydronic loop and transfers it into the ventilation air stream. When more heat is required than is being generated within the building, the central boiler plant provides supplemental heat to maintain loop temperature. \\nDuring warmer weather, suites operating in cooling mode can reject heat into the WSHP loop, supplying “free heat” to the MUA heating coil during mild outdoor conditions. During shoulder seasons, the system can recycle heat internally: heat removed from south-facing suites in cooling mode can offset ventilation heating demands from north-facing corridors, reducing the need for gas-fired heating entirely.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Upgrade the existing MUA system by adding VFD control and converting to either a hydronic or water-source heat pump configuration to improve energy efficiency. Qualify for Enbridge incentives.', 'measure_id': 'mua_retrofit_two_2_option_hydronic_mua_with_vfd_wshp_mua_with_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Electronic Mixing Valve with Mechanical Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is currently equipped with a FlowMix electronic thermostatic mixing valve to regulate DHW delivery temperature. While the valve provides temperature control functionality, electronic mixing valves typically require specialized troubleshooting, proprietary components, and manufacturer-specific service support.\\n\\nOn-site staff indicated that maintenance and repair costs for the existing electronic mixing valve are high, and servicing often requires calling specialized contractors rather than in-house maintenance personnel. This increases ongoing maintenance costs and can result in longer downtime when issues occur.', 'retrofit_conditions': 'Mann recommends replacing the existing electronic mixing valve with a standard mechanical thermostatic mixing valve when existing electric mixing valve end of its service life. A mechanical mixing valve provides reliable temperature control using a passive thermostatic element, without the need for electronic controls, sensors, or external power.\\n\\nThis retrofit would simplify DHW system operation, reduce long-term maintenance costs, and improve serviceability. Mechanical mixing valves can typically be adjusted, repaired, or replaced by building maintenance staff, reducing reliance on specialized service providers. \\n\\n*Further engineering review would be required to confirm valve sizing, temperature setpoints, and compatibility with the existing DHW storage and distribution system.', 'notes': 'Replace existing Flowmix electric mixging valve with mechanical mixing valve when the unit end of its life. The proposed valve would maintain consistent and safe DHW delivery temperatures while improving system robustness and long-term maintainability.', 'measure_id': 'replace_electronic_mixing_valve_with_mechanical_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Primary–Secondary Boiler and Hydronic Loop Reconfiguration (Primary loop + WSHP loop + DHW loop)', 'category': 'loop', 'existing_conditions': 'The existing piping arrangement separates the WSHP loop, primary heating loop, and domestic hot water (DHW) loop into independent hydronic systems, each served by dedicated boilers and pumping configurations. The primary heating loop operates at higher temperatures for space heating, the WSHP loop operates at lower temperatures, and the DHW system functions on a separate loop without hydraulic or control integration. This configuration increases system complexity and limits opportunities for load diversity, heat recovery, and coordinated temperature optimization. During shoulder seasons, independent loop operation can contribute to boiler short cycling, elevated supply temperatures, and reduced overall plant efficiency.', 'retrofit_conditions': 'It is recommended to evaluate reconfiguring the WSHP loop, primary heating loop, and DHW piping into a coordinated Primary–Secondary (P-S) hydronic arrangement. Under a P-S configuration, a central boiler primary loop would maintain controlled supply temperatures while secondary loops draw only the required flow and temperature for each load. This arrangement provides hydraulic separation, allows differentiated temperature control for high- and low-temperature systems, improves outdoor-air reset effectiveness, and reduces short cycling. Improved integration may also enhance return-water temperature control, supporting more efficient boiler operation. When implemented in conjunction with condensing boiler upgrades, this redesign may allow optimization of boiler staging and potential reduction in total boiler count, thereby lowering long-term maintenance complexity and operating costs. Further engineering review is required to confirm detailed hydraulic configuration, load diversity assumptions, and control sequencing strategy.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics.\\nAdditional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Reconfigure primary loop, WSHP loop and DHW loop to a primary–secondary layout, hydraulically separating loops to improve temperature control, boiler protection and plant efficiency.', 'measure_id': 'primary_secondary_boiler_and_dhw_piping', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Upgrade Condensing Boiler for WSHP', 'category': 'boiler', 'existing_conditions': 'The existing heating boilers in the mechanical room are non-condensing, gas-fired Raypak units installed in 2006, with an estimated thermal efficiency of approximately 78%. These boilers are approaching the end of their expected service life. As non-condensing equipment, they operate with higher flue-gas temperatures and cannot recover latent heat from combustion, resulting in reduced overall efficiency compared to modern condensing boiler technologies.\\nThe boilers also lack advanced control features such as outdoor temperature reset and real-time modulation optimization. This limited control capability contributes to frequent short cycling and increased natural gas consumption. As a result, the system experiences elevated utility costs and higher greenhouse gas emissions.\\nWhile the boilers remain operational, their age and outdated design increase the likelihood of performance issues and rising maintenance requirements. Continued operation represents a missed opportunity for improved energy efficiency, lower operating costs, and enhanced reliability achievable through upgraded condensing boiler systems.\\nRetrofit Conditions', 'retrofit_conditions': 'It is recommended that the existing non-condensing boilers be replaced with high-efficiency condensing boilers. Condensing boilers are designed to extract additional heat from the flue gases by recovering latent heat through a secondary heat exchanger, allowing them to achieve thermal efficiencies of up to 98%. This upgrade would substantially reduce natural gas consumption, lower utility costs, and improve overall system performance.\\nModern condensing boilers also provide advanced control capabilities, including high-turndown modulation, integrated sequencing, and seamless compatibility with Building Automation Systems (BAS). These features improve load matching, reduce equipment cycling, and enhance operational reliability.\\nUpgrading to condensing boiler technology not only increases energy efficiency and reduces ongoing operating costs but also supports long-term sustainability objectives and contributes to meaningful reductions in greenhouse gas emissions.', 'notes': 'Replace existing non-condensing boiler to condensing boiler. Improves thermal efficiency, reduces natural gas consumption and lowers greenhouse gas emissions.', 'measure_id': 'upgrade_condensing_boiler_for_wshp', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'MUA Retrofit Two (2) Option: Hydronic MUA with VFD / WSHP MUA with VFD', 'category': 'mua', 'existing_conditions': 'Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas. During the site visit it was unable to access to roof top, report by on site staff the units are original to the building, installed in 1998, and have exceeded their expected service life', 'retrofit_conditions': 'Option 1 – Install VFDs and Convert existing MUA to Hydronic MUA\\nMann recommends installing a new hydronic heating coil in the existing make-up air (MUA) unit, to be served by the central boiler plant. A modulating control valve would regulate heating-water flow to maintain corridor supply-air temperature.\\nAs the existing MUA unit is currently operating without VFD control, new variable-frequency drives (VFDs) should be installed on the supply fan to enable proper airflow modulation. Once installed, the VFDs will be fully integrated into the BAS to provide optimized fan control, scheduling, and occupancy-based ventilation reduction.\\nHydronic conversion also reduces maintenance requirements and qualifies for Enbridge incentives, improving overall project payback.\\n\\nOption 2 – Install VFDs and Convert existing MUA to Water-Source Heat Pump (WSHP) MUA\\nMann recommends converting the existing make-up air (MUA) unit to a water-source heat pump (WSHP) MUA unit. The new WSHP heating coil can be installed within the existing MUA cabinet, allowing the building to retain most of the original ventilation infrastructure. \\nThe existing WSHP loop piping can remain and be reused, and the boiler plant would continue to provide supplemental heat only when required. A WSHP-based heating coil is significantly more efficient than a gas-fired burner because it uses the thermal energy already present within the building—rather than generating heat through combustion. The WSHP coil is capable of providing heating whenever the ventilation system operates and can take advantage of heat already present in the hydronic loop, reducing boiler runtime and improving overall system efficiency. One consideration is that the MUA electrical load may increase slightly depending on the WSHP coil configuration; however, the improved efficiency and reduced gas usage often outweigh these impacts. \\nDuring the heating season, the WSHP coil extracts heat from the hydronic loop and transfers it into the ventilation air stream. When more heat is required than is being generated within the building, the central boiler plant provides supplemental heat to maintain loop temperature. \\nDuring warmer weather, suites operating in cooling mode can reject heat into the WSHP loop, supplying “free heat” to the MUA heating coil during mild outdoor conditions. During shoulder seasons, the system can recycle heat internally: heat removed from south-facing suites in cooling mode can offset ventilation heating demands from north-facing corridors, reducing the need for gas-fired heating entirely.\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Upgrade the existing MUA system by adding VFD control and converting to either a hydronic or water-source heat pump configuration to improve energy efficiency. Qualify for Enbridge incentives.', 'measure_id': 'mua_retrofit_two_2_option_hydronic_mua_with_vfd_wshp_mua_with_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Electronic Mixing Valve with Mechanical Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is currently equipped with a FlowMix electronic thermostatic mixing valve to regulate DHW delivery temperature. While the valve provides temperature control functionality, electronic mixing valves typically require specialized troubleshooting, proprietary components, and manufacturer-specific service support.\\n\\nOn-site staff indicated that maintenance and repair costs for the existing electronic mixing valve are high, and servicing often requires calling specialized contractors rather than in-house maintenance personnel. This increases ongoing maintenance costs and can result in longer downtime when issues occur.', 'retrofit_conditions': 'Mann recommends replacing the existing electronic mixing valve with a standard mechanical thermostatic mixing valve when existing electric mixing valve end of its service life. A mechanical mixing valve provides reliable temperature control using a passive thermostatic element, without the need for electronic controls, sensors, or external power.\\n\\nThis retrofit would simplify DHW system operation, reduce long-term maintenance costs, and improve serviceability. Mechanical mixing valves can typically be adjusted, repaired, or replaced by building maintenance staff, reducing reliance on specialized service providers. \\n\\n*Further engineering review would be required to confirm valve sizing, temperature setpoints, and compatibility with the existing DHW storage and distribution system.', 'notes': 'Replace existing Flowmix electric mixging valve with mechanical mixing valve when the unit end of its life. The proposed valve would maintain consistent and safe DHW delivery temperatures while improving system robustness and long-term maintainability.', 'measure_id': 'replace_electronic_mixing_valve_with_mechanical_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Window condition (Aging double pane)', 'category': 'window', 'text': 'In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.', 'misc_id': 'window_condition_aging_double_pane'}, {'title': 'Envelope Condition (Good)', 'category': 'window', 'text': 'The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Garage ventilation (Has CO controls)', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'Has VFD on Booster Pump', 'category': 'maintenance', 'text': 'The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted', 'misc_id': 'has_vfd_on_booster_pump'}, {'title': 'Hydronic ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy.', 'misc_id': 'ramp_heating'}, {'title': 'Diesel Generator', 'category': 'electric', 'text': 'The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.', 'misc_id': 'diesel_generator'}",
+    "{Number of Floors}": "10",
+    "{Number of Suites}": "58",
+    "{Post Code}": "M4V 3C4",
+    "{Property Address1}": "1 Deer Park Crescent",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-17-2026",
+    "{Suite Types}": "2 Bedroom, 1 Bedroom."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "MTCC-1219 & Del Property Management",
+    "prepared_by": "",
+    "report_date": "Feb-17-2026",
+    "site_address": "1 Deer Park Crescent"
+  },
+  "project_notes": "1 Deer Park Crescent check list\n\ngeneral: 10 floor/58 units\nmid-rise multi residential\nbuild in 1998\nMTCC-1219 & Del Property Management\n2b+1b no amennity\n\nHeating BOILER\n\t◦\tSuite heating provide by: Heat Pump\n\t◦\tBoiler fact: \nOne (1 ) LAARS atmospheric boiler rated at 850 MBH, efficiency 80%.Manufactured in 1997 . Serve insuite heat pump loop. Supply temp 80 return temp 70\n\nOne (1) NTI Trinity Condensing boiler, rated at 285 MBH , efficiency 93%. \nManufactured in 2013. Serve primary heating loop, serve hot water to hydronic unit heater for common area space heating.  Supply temp 166 return temp 154 not in condensing temp\n\n\t◦\tSetting points:154\n\t◦\tSupply Temp:166\n\t◦\tReturn Temp:154\n\t◦\tVFD for suite pump:no present\n\t◦\tVFD for circulation Pump: no present \n\nCooling System \n\t◦\tChiller: Heat pump, no chiller\n\t◦\tCooling Tower: BAC fluid cooler\n\t◦\tVFD for condenser pump:\n\t◦\tVFD for cooling tower fan: Yes\n\nMUA\n\t◦\tMUA fact: unable to access to roof top . Report by on site staff . The units are origin to the building. Installed in 1998 \n\t◦\tHeating and cooling capacity: unclear, seems gas fired heating coil only and doesn’t have VFD connection \n\t◦\tHeating and cooling source: gas \n\t◦\tVFD for MUA: no present\n\nDHW\n\t◦\tDHW source: DHW boiler\n\t◦\tDHW boiler fact: \nTwo (2) Trinity condensing boiler rated at 400 MBH.Manufactured in 2020 . Serve DHW loop. Supply temp 151 return temp 146. One boiler noted stand by; Return temperature too high , condensing boiler not in condensing range\n\t◦\tmixing valve type and condition: flow mix electric mixing valve. Good condition.  Temperature stable. 120\n\t◦\tstorage tank type and condition: two(2) vertical 180gal glass line storage tanks. Good condition\n\nGarage\n\t◦\theated or not: Unheated\n\t◦\tRamp de icing: Unclear. Seems to be hydronic\n\t◦\tCo sensor: present \n\nLighting\n\t◦\tAll LED or MIX: MIX, mechanical room and stairwell and garage \n\nWindow\n\t◦\tWindow caulking condition : good \n\t◦\tsingle panel/ double panel/ : double \n\nSub meter\n\t◦\tExisting condition: yes sub-meter\n\nBooster pump\n\t◦\tVFD for Booster pump: yes,ok\n\nBAS a individual block\n\t◦\tBAS type : local control\n\nMisc\n\t◦\tGenerator?: oil gen\n\t◦\tPiping: good condition\n\t◦\tEnvelop architectural condition: good condition\n\t◦\tPool/ Dytron units : no pool",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "rooftop_mua",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.\n\t◦\tMUA fact: unable to access to roof top . Report by on site staff . The units are origin to the building. Installed in 1998 \n\t◦\tHeating and cooling capacity: unclear, seems gas fired heating coil only and doesn’t have VFD connection \n\t◦\tHeating and cooling source: gas \n\t◦\tVFD for MUA: no present",
+      "title": "Rooftop MUA"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "vfd_gas_fire_dx_cooling",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections. The VFD, gas-fired heating burner, and DX Cooling coil were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress.",
+      "title": "VFD+Gas Fire+DX Cooling"
+    },
+    {
+      "category": "controls",
+      "misc_id": "ventilation_controls_bas",
+      "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+      "title": "AHU units with VFD capacity, but not integrate into BAS"
+    }
+  ]
+}
