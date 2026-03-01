@@ -9,7 +9,8 @@ from docx.enum.style import WD_STYLE_TYPE
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_BREAK, WD_PARAGRAPH_ALIGNMENT
 from docx.oxml import OxmlElement
-from docx.shared import Inches
+from docx.oxml.ns import qn
+from docx.shared import Inches, RGBColor
 from docx.text.paragraph import Paragraph
 
 from core.measure_catalog import load_measure_catalog
@@ -20,6 +21,8 @@ from reporting.narratives.registry import KNOWN_BLOCK_PLACEHOLDERS, get_block_re
 
 PLACEHOLDER_PATTERN = re.compile(r"\{[^{}]+\}")
 UNDERLINE_TAG_PATTERN = re.compile(r"<u>(.*?)</u>")
+URL_PATTERN = re.compile(r"https?://[^\s<>()]+")
+PLACEHOLDER_INLINE_PATTERN = re.compile(r"\{[^{}]+\}")
 DEFAULT_MAPPING_PATH = os.path.join("schemas", "level1_placeholders.map.json")
 DEFAULT_EMPTY_BLOCK_TEXT = ""
 MEASURE_CATEGORY_LABELS = {
@@ -282,15 +285,88 @@ def _set_paragraph_text_with_markup(paragraph: Paragraph, text: str) -> None:
     paragraph.text = ""
     if not text:
         return
-    cursor = 0
-    for match in UNDERLINE_TAG_PATTERN.finditer(text):
-        if match.start() > cursor:
-            paragraph.add_run(text[cursor:match.start()])
-        run = paragraph.add_run(match.group(1))
-        run.underline = True
-        cursor = match.end()
-    if cursor < len(text):
-        paragraph.add_run(text[cursor:])
+
+    def add_hyperlink(url: str) -> None:
+        relation_id = paragraph.part.relate_to(
+            url,
+            "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+            is_external=True,
+        )
+        hyperlink = OxmlElement("w:hyperlink")
+        hyperlink.set(qn("r:id"), relation_id)
+        run = OxmlElement("w:r")
+        run_props = OxmlElement("w:rPr")
+        run_style = OxmlElement("w:rStyle")
+        run_style.set(qn("w:val"), "Hyperlink")
+        run_props.append(run_style)
+        run.append(run_props)
+        text_node = OxmlElement("w:t")
+        text_node.text = url
+        run.append(text_node)
+        hyperlink.append(run)
+        paragraph._p.append(hyperlink)
+
+    def add_text_runs(segment: str, *, italic: bool = False, underline: bool = False) -> None:
+        if not segment:
+            return
+        cursor = 0
+        for match in PLACEHOLDER_INLINE_PATTERN.finditer(segment):
+            if match.start() > cursor:
+                run = paragraph.add_run(segment[cursor:match.start()])
+                run.italic = italic
+                run.underline = underline
+            placeholder_run = paragraph.add_run(match.group(0))
+            placeholder_run.italic = italic
+            placeholder_run.underline = underline
+            placeholder_run.font.color.rgb = RGBColor(0xFF, 0x00, 0x00)
+            cursor = match.end()
+        if cursor < len(segment):
+            run = paragraph.add_run(segment[cursor:])
+            run.italic = italic
+            run.underline = underline
+
+    def add_segment(segment: str, *, italic: bool = False, underline: bool = False) -> None:
+        if not segment:
+            return
+        cursor = 0
+        for url_match in URL_PATTERN.finditer(segment):
+            if url_match.start() > cursor:
+                add_text_runs(segment[cursor:url_match.start()], italic=italic, underline=underline)
+            add_hyperlink(url_match.group(0))
+            cursor = url_match.end()
+        if cursor < len(segment):
+            add_text_runs(segment[cursor:], italic=italic, underline=underline)
+
+    lines = text.splitlines()
+    for idx, line in enumerate(lines):
+        line_text = line
+        italic_line = line_text.startswith("*")
+        if italic_line:
+            line_text = line_text[1:]
+
+        cursor = 0
+        for match in UNDERLINE_TAG_PATTERN.finditer(line_text):
+            if match.start() > cursor:
+                add_segment(line_text[cursor:match.start()], italic=italic_line)
+            add_segment(match.group(1), italic=italic_line, underline=True)
+            cursor = match.end()
+        if cursor < len(line_text):
+            add_segment(line_text[cursor:], italic=italic_line)
+
+        if idx < len(lines) - 1:
+            paragraph.add_run().add_break()
+
+
+def _contains_special_markup(text: str) -> bool:
+    if not text:
+        return False
+    return (
+        text.startswith("*")
+        or "\n*" in text
+        or "<u>" in text
+        or bool(URL_PATTERN.search(text))
+        or bool(PLACEHOLDER_INLINE_PATTERN.search(text))
+    )
 
 
 def _ensure_paragraph_style(
@@ -771,10 +847,14 @@ def render_word(
         if expanded_block:
             continue
         if replaced_text != text:
-            if "<u>" in replaced_text:
+            if _contains_special_markup(replaced_text):
                 _set_paragraph_text_with_markup(paragraph, replaced_text)
             else:
                 paragraph.text = replaced_text
+
+    for paragraph in _iter_all_paragraphs(doc):
+        if _contains_special_markup(paragraph.text):
+            _set_paragraph_text_with_markup(paragraph, paragraph.text)
 
     _apply_autofit_to_content(doc)
 
