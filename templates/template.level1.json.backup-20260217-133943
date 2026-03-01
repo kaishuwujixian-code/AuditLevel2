@@ -48,7 +48,7 @@
           },
           {
             "label": "Condensing Boiler Operation without Condensing Capability(High return-water temperatures)",
-            "text": "While the existing boilers are high-efficiency condensing units; however, they are currently operating without effective condensing due to elevated return-water temperatures, at {154F}. Condensing boilers only achieve high efficiency 90+% at return water temperatures below 130F. This operating condition limits achievable efficiency gains and restricts the ability to operate the heating system at lower supply and return water temperatures. As a result, opportunities for system optimization are constrained, and compatibility with low-temperature, high-efficiency heating strategies is reduced."
+            "text": "The boilers are high-efficiency condensing units; however, they are currently operating without effective condensing due to elevated return-water temperatures. This operating condition limits achievable efficiency gains and restricts the ability to operate the heating system at lower supply and return water temperatures. As a result, opportunities for system optimization are constrained, and compatibility with low-temperature, high-efficiency heating strategies is reduced."
           },
           {
             "label": "Atmospheric Boilers Serving Low-Temperature WSHP Loop",
