@@ -1,0 +1,1586 @@
+{
+  "rulesets": [
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILER + NO CENTRAL COOLING",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_system_intro_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 10
+            },
+            {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_summary_bullet",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_distribution_pumps_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
+                ]
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "heating"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WSHP LOOP WITH ATMOSPHERIC BOILERS",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_wshp_loop_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "in_suite_heat_pump_wshp"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building operates with a low-temperature water-source heat pump (WSHP) loop serving the in-suite heat pumps and supporting year-round operation."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_summary_bullet",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "common_area_electric_heating",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.common_area_heating_type",
+                    "op": "in",
+                    "value": [
+                      "electric_fan_heater",
+                      "electric_radiator",
+                      "mixed_electric"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "During the walkthrough, common areas were observed to be heated by a combination of electric fan-forced heaters and electric radiators."
+                ]
+              }
+            },
+            {
+              "rule_id": "dhw_separate_from_wshp",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.dhw_separate_from_wshp",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A dedicated domestic hot water (DHW) system is present.",
+                  "The DHW system operates independently from the WSHP loop."
+                ]
+              }
+            },
+            {
+              "rule_id": "wshp_loop_boiler_maintenance",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_loop_temp_f",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop temperature is maintained by {number_of_boilers} atmospheric boilers.",
+                  "Each boiler is rated at approximately {boiler_capacity_mbh} MBH and assigned to the heating loop.",
+                  "The WSHP loop operates at approximately {wshp_loop_temp_f}\u00b0F.",
+                  "The loop remains hydraulically isolated from the DHW system."
+                ]
+              }
+            },
+            {
+              "rule_id": "atmospheric_boiler_low_temp_mismatch",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "eq",
+                    "value": "atmospheric"
+                  },
+                  {
+                    "field": "answers.wshp_loop_low_temp",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "These atmospheric boilers are designed for higher-temperature operation, while the WSHP loop typically runs at lower temperatures.",
+                  "A bypass valve is installed between the boiler outlet and inlet to maintain boiler return temperatures above the minimum threshold required to prevent condensation and internal damage.",
+                  "This operating configuration is inefficient and limits overall system performance."
+                ]
+              }
+            },
+            {
+              "rule_id": "recommend_condensing_boilers_for_wshp",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.condensing_boiler_recommended",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Replacing the existing atmospheric boilers with condensing boilers designed for low-temperature operation is recommended.",
+                  "This upgrade would allow the system to benefit from the low-temperature WSHP loop and increase heating efficiency."
+                ]
+              }
+            },
+            {
+              "rule_id": "wshp_full_glycol_loop",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_loop_contains_glycol",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP system was observed to operate as a full glycol loop.",
+                  "A glycol feed tank was present and appeared to be functioning normally."
+                ]
+              }
+            },
+            {
+              "rule_id": "no_glycol_isolation_heat_exchanger",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.glycol_heat_exchanger_present",
+                    "op": "is_false"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No heat exchanger was observed to hydraulically isolate the glycol loop from the building heating loop.",
+                  "As a result, glycol is circulated throughout the entire WSHP system."
+                ]
+              }
+            },
+            {
+              "rule_id": "recommend_glycol_isolation_hx",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.glycol_isolation_recommended",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Mann recommends installing a heat exchanger to hydraulically isolate the glycol loop from the building heating loop.",
+                  "This configuration would reduce overall glycol volume, lower ongoing glycol maintenance costs, and improve long-term system serviceability."
+                ]
+              }
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "heating"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILERS + FAN COIL + CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_intro_central_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building\u2019s heating system is served by a central hydronic boiler plant.",
+                  "The boiler plant is located in the main mechanical room."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_summary_bullet",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_serves_multiple_buildings",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_serves_multiple_buildings",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boiler plant provides space heating to multiple connected buildings."
+                ]
+              },
+              "priority": 25,
+              "exclusive_group": "heating_loads_fan_coil"
+            },
+            {
+              "rule_id": "heating_pumps_piping_normal",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
+                ]
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_high_return_temperature",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boiler_supply_temp_f",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_return_temp_f",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "During the site visit, boiler supply and return temperatures were observed to be approximately {boiler_supply_temp_f}\u00b0F and {boiler_return_temp_f}\u00b0F, respectively."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "heating"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 NEAR-CONDENSING BOILERS + FAN COIL + CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_heating_existing",
+          "block_ref": "{Central Heating Systems block}",
+          "target_block": "heating",
+          "rules": [
+            {
+              "rule_id": "heating_electric_resistance_header",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "electric_resistance_central"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heating is provided by electric resistance equipment."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_electric_baseboard_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "electric_baseboard"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Space heating is delivered through electric baseboard heaters."
+                ]
+              },
+              "priority": 15,
+              "exclusive_group": "heating_distribution_summary"
+            },
+            {
+              "rule_id": "heating_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "eq",
+                    "value": "packaged_in_suite_unit_magicpak"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 20
+            },
+            {
+              "rule_id": "heating_intro_hydronic_boiler",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building\u2019s heating system is served by a central hydronic boiler plant.",
+                  "The boiler plant is located in the main mechanical room."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "heating_system_header",
+              "priority": 30
+            },
+            {
+              "rule_id": "heating_boiler_group_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {boilers_total} boilers are installed, including:",
+                  "{boiler_group_details}"
+                ]
+              },
+              "priority": 25,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_summary_bullet",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers",
+                    "op": "not_exists"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_type",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ],
+                "any": [
+                  {
+                    "field": "answers.heating_terminal_type",
+                    "op": "contains",
+                    "value": "fan_coil_hydronic"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_mua"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_radiant"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_ahu"
+                  },
+                  {
+                    "field": "answers.heating_serves",
+                    "op": "contains",
+                    "value": "serves_dhw_loop"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "A total of {number_of_boilers} {boiler_type} boilers are installed in the main mechanical room. These are separated into:",
+                  "\u2022 {number_of_boilers} boilers rated at approximately {boiler_capacity_mbh} MBH each, manufactured in {boiler_install_year}, which serve as the primary heating boilers, supplying hot water to {boiler_serves_summary}."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_boiler_original",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.boilers_original",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "in",
+                    "value": [
+                      "central_hydronic_boiler_plant",
+                      "wshp_loop"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers were observed to be original to the building."
+                ]
+              },
+              "priority": 20,
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "heating_distribution_pumps_normal",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.distribution_pumps_operating_normally",
+                    "op": "is_true"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No circulation issues were reported by on-site staff during the walkthrough.",
+                  "Distribution pumps and associated hydronic piping were observed to be operating normally."
+                ]
+              },
+              "role": "operation_notes",
+              "exclusive_group": "heating_pumps_normal",
+              "priority": 5
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_support",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The WSHP loop is supported by a central heating boiler plant, which provides heat input to the loop during the heating season."
+                ]
+              },
+              "role": "plant_support",
+              "priority": 15,
+              "exclusive_group": "wshp_loop_boiler_support"
+            },
+            {
+              "rule_id": "heating_wshp_loop_boiler_details",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "wshp_loop"
+                  },
+                  {
+                    "field": "answers.number_of_boilers",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.boiler_capacity_mbh",
+                    "op": "exists"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The heating boiler plant consists of {number_of_boilers} {boiler_type} boilers assigned to support the WSHP loop, each rated at approximately {boiler_capacity_mbh} MBH."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 50,
+              "exclusive_group": "boiler_equipment_summary"
+            },
+            {
+              "rule_id": "heating_central_boiler_plant_condition",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.heating_heat_source",
+                    "op": "eq",
+                    "value": "central_hydronic_boiler_plant"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The boilers, pumps, and associated piping were observed to be in {mechanical_condition} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 19
+            },
+            {
+              "rule_id": "heating_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing heating system equipment was observed to be in {heating_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "heating"
+        }
+      ]
+    }
+  ]
+}

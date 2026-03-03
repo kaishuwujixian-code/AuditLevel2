@@ -8,11 +8,12 @@ from tkinter import filedialog, messagebox, ttk
 from typing import Dict, Optional
 
 from core.paths import (
+    AUDIT_PROFILE,
+    DEFAULT_SCHEMA_JSON,
     DEFAULT_TEMPLATE_DOCX,
     DEFAULT_TEMPLATE_JSON,
     OUTPUT_DIR,
     PROJECTS_DIR,
-    SCHEMAS_DIR,
 )
 from core.project_store import load_project, save_project
 from core.questionnaire import load_questionnaire_schema
@@ -30,12 +31,22 @@ from ui.report_panel import ReportPanel
 
 
 class RetScreenApp:
-    def __init__(self, root: tk.Tk) -> None:
+    def __init__(
+        self,
+        root: tk.Tk,
+        *,
+        template_docx_path: str = DEFAULT_TEMPLATE_DOCX,
+        audit_label: str = "Level 1",
+    ) -> None:
         self.root = root
-        self.root.title("Audit Studio")
+        self.root.title(f"Audit Studio ({audit_label})")
         self.root.geometry("1280x720")
         self._apply_theme()
         self._template: Optional[TemplateData] = None
+        self._template_docx_path = template_docx_path
+        if audit_label == "Level 1" and AUDIT_PROFILE == "level2":
+            audit_label = "Level 2"
+        self._audit_label = audit_label
         self._schema: Optional[Dict] = None
         self._project_data: Optional[Dict] = None
         self._project_path: Optional[str] = None
@@ -93,7 +104,7 @@ class RetScreenApp:
             self._template or TemplateData({}, [], {}, [], {}, {}),
             on_saved=self._on_checklists_saved,
         )
-        self._report_tab = ReportPanel(self._notebook, self.generate_report)
+        self._report_tab = ReportPanel(self._notebook, self.generate_report, audit_label=self._audit_label)
         self._diagnostics_tab = DiagnosticsPanel(self._notebook)
         self._library_tab = LibraryPanel(
             self._notebook,
@@ -195,9 +206,7 @@ class RetScreenApp:
 
     def _load_schema(self) -> None:
         try:
-            self._schema = load_questionnaire_schema(
-                os.path.join(SCHEMAS_DIR, "level1_questionnaire.schema.json")
-            )
+            self._schema = load_questionnaire_schema(DEFAULT_SCHEMA_JSON)
         except Exception as exc:
             self._set_status(f"Schema error: {exc}")
 
@@ -311,7 +320,7 @@ class RetScreenApp:
                 self._set_status("Report generation cancelled.")
                 return
             render_word(
-                template_path=DEFAULT_TEMPLATE_DOCX,
+                template_path=self._template_docx_path,
                 project_json_path=self._project_path,
                 out_path=out_path,
             )
@@ -337,7 +346,7 @@ class RetScreenApp:
                 self._sync_project_data()
                 save_project(self._project_path, self._project_data)
                 _validate_inputs(
-                    self._project_path, DEFAULT_TEMPLATE_JSON, DEFAULT_TEMPLATE_DOCX
+                    self._project_path, DEFAULT_TEMPLATE_JSON, self._template_docx_path
                 )
             finally:
                 sys.stdout = original_stdout
@@ -376,8 +385,8 @@ class RetScreenApp:
         if not os.path.isfile(DEFAULT_TEMPLATE_JSON):
             self._set_status(f"Template JSON missing: {DEFAULT_TEMPLATE_JSON}")
             return False
-        if not os.path.isfile(DEFAULT_TEMPLATE_DOCX):
-            self._set_status(f"Template DOCX missing: {DEFAULT_TEMPLATE_DOCX}")
+        if not os.path.isfile(self._template_docx_path):
+            self._set_status(f"Template DOCX missing: {self._template_docx_path}")
             return False
         return True
 

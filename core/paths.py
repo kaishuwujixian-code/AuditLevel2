@@ -36,8 +36,6 @@ def _get_app_root() -> str:
     if portable_mode in {"1", "true", "yes", "on"}:
         return resource_root
 
-    # Prefer a "portable" data folder beside the packaged executable when writable,
-    # and fall back to %APPDATA% for installed/locked-down locations.
     if _is_writable_dir(resource_root):
         return resource_root
 
@@ -71,55 +69,81 @@ def _seed_dir_if_missing(src_dir: str, dst_dir: str, *, suffixes: tuple[str, ...
         _seed_file_if_missing(src_path, dst_path)
 
 
+def _get_audit_profile() -> str:
+    profile = os.environ.get("AUDITSTUDIO_AUDIT_PROFILE", "level1").strip().lower()
+    if profile in {"level2", "2", "l2"}:
+        return "level2"
+    return "level1"
+
+
 RESOURCE_ROOT = _get_resource_root()
 APP_ROOT = _get_app_root()
 REPO_ROOT = RESOURCE_ROOT
+AUDIT_PROFILE = _get_audit_profile()
 
 PROJECTS_DIR = os.path.join(APP_ROOT, "projects")
 TEMPLATES_DIR = os.path.join(APP_ROOT, "templates")
-CATALOGS_DIR = os.path.join(APP_ROOT, "catalogs")
 SCHEMAS_DIR = os.path.join(RESOURCE_ROOT, "schemas")
 OUTPUT_DIR = os.path.join(APP_ROOT, "output")
-RULESETS_DIR = os.path.join(APP_ROOT, "reporting", "rulesets")
 
-DEFAULT_TEMPLATE_JSON = os.path.join(TEMPLATES_DIR, "template.level1.json")
-DEFAULT_TEMPLATE_DOCX = os.path.join(TEMPLATES_DIR, "level1.docx")
+if AUDIT_PROFILE == "level2":
+    CATALOGS_DIR = os.path.join(APP_ROOT, "catalogs", "level2")
+    RULESETS_DIR = os.path.join(APP_ROOT, "reporting", "rulesets", "level2")
+    DEFAULT_TEMPLATE_JSON = os.path.join(TEMPLATES_DIR, "template.level2.json")
+    DEFAULT_TEMPLATE_DOCX = os.path.join(TEMPLATES_DIR, "level2.docx")
+    DEFAULT_SCHEMA_JSON = os.path.join(SCHEMAS_DIR, "level2_questionnaire.schema.json")
+    DEFAULT_MAPPING_JSON = os.path.join(SCHEMAS_DIR, "level2_questionnaire.mapping.json")
+else:
+    CATALOGS_DIR = os.path.join(APP_ROOT, "catalogs")
+    RULESETS_DIR = os.path.join(APP_ROOT, "reporting", "rulesets")
+    DEFAULT_TEMPLATE_JSON = os.path.join(TEMPLATES_DIR, "template.level1.json")
+    DEFAULT_TEMPLATE_DOCX = os.path.join(TEMPLATES_DIR, "level1.docx")
+    DEFAULT_SCHEMA_JSON = os.path.join(SCHEMAS_DIR, "level1_questionnaire.schema.json")
+    DEFAULT_MAPPING_JSON = os.path.join(SCHEMAS_DIR, "level1_questionnaire.mapping.json")
+
 DEFAULT_MEASURE_CATALOG = os.path.join(CATALOGS_DIR, "measure_catalog.json")
 DEFAULT_MISC_CATALOG = os.path.join(CATALOGS_DIR, "misc_catalog.json")
 
-# Ensure writable folders exist.
 for _dir in (PROJECTS_DIR, TEMPLATES_DIR, CATALOGS_DIR, OUTPUT_DIR, RULESETS_DIR):
     _ensure_directory(_dir)
 
-# Seed user-writable working files from packaged resources on first run.
-_seed_file_if_missing(
-    os.path.join(RESOURCE_ROOT, "templates", "template.level1.json"),
-    DEFAULT_TEMPLATE_JSON,
-)
 _seed_file_if_missing(
     os.path.join(RESOURCE_ROOT, "templates", "level1.docx"),
-    DEFAULT_TEMPLATE_DOCX,
+    os.path.join(TEMPLATES_DIR, "level1.docx"),
 )
 _seed_file_if_missing(
-    os.path.join(RESOURCE_ROOT, "catalogs", "measure_catalog.json"),
-    DEFAULT_MEASURE_CATALOG,
+    os.path.join(RESOURCE_ROOT, "templates", "level2.docx"),
+    os.path.join(TEMPLATES_DIR, "level2.docx"),
 )
 _seed_file_if_missing(
-    os.path.join(RESOURCE_ROOT, "catalogs", "misc_catalog.json"),
-    DEFAULT_MISC_CATALOG,
+    os.path.join(RESOURCE_ROOT, "templates", "template.level1.json"),
+    os.path.join(TEMPLATES_DIR, "template.level1.json"),
+)
+_seed_file_if_missing(
+    os.path.join(RESOURCE_ROOT, "templates", "template.level2.json"),
+    os.path.join(TEMPLATES_DIR, "template.level2.json"),
+)
+
+_catalog_source_dir = os.path.join(
+    RESOURCE_ROOT,
+    "catalogs" if AUDIT_PROFILE == "level1" else "catalogs",  # explicit for clarity
 )
 for _catalog_name in (
+    "measure_catalog.json",
+    "misc_catalog.json",
     "heating_catalog.json",
     "cooling_catalog.json",
     "dhw_catalog.json",
     "ventilation_catalog.json",
 ):
     _seed_file_if_missing(
-        os.path.join(RESOURCE_ROOT, "catalogs", _catalog_name),
+        os.path.join(_catalog_source_dir, _catalog_name),
         os.path.join(CATALOGS_DIR, _catalog_name),
     )
-_seed_dir_if_missing(
-    os.path.join(RESOURCE_ROOT, "reporting", "rulesets"),
-    RULESETS_DIR,
-    suffixes=(".json",),
+
+_ruleset_source = (
+    os.path.join(RESOURCE_ROOT, "reporting", "rulesets")
+    if AUDIT_PROFILE == "level1"
+    else os.path.join(RESOURCE_ROOT, "reporting", "rulesets", "level2")
 )
+_seed_dir_if_missing(_ruleset_source, RULESETS_DIR, suffixes=(".json",))
