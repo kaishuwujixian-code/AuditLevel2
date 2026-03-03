@@ -60,26 +60,49 @@ class RetScreenApp:
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(1, weight=1)
 
-        toolbar = ttk.Frame(self.root, padding=(8, 6))
+        toolbar = ttk.Frame(self.root, style="Toolbar.TFrame", padding=(12, 10))
         toolbar.grid(row=0, column=0, sticky="ew")
         toolbar.columnconfigure(0, weight=1)
 
-        button_frame = ttk.Frame(toolbar)
+        button_frame = ttk.Frame(toolbar, style="Toolbar.TFrame")
         button_frame.grid(row=0, column=0, sticky="w")
-        ttk.Button(button_frame, text="📂 Open", command=self.open_project_dialog).grid(
+        ttk.Button(
+            button_frame,
+            text="📂 Open",
+            style="Toolbar.TButton",
+            command=self.open_project_dialog,
+        ).grid(
             row=0, column=0, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="💾 Save", command=self.save_project).grid(
+        ttk.Button(
+            button_frame,
+            text="💾 Save",
+            style="Toolbar.TButton",
+            command=self.save_project,
+        ).grid(
             row=0, column=1, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="✅ Validate", command=self.validate_project).grid(
+        ttk.Button(
+            button_frame,
+            text="✅ Validate",
+            style="Toolbar.TButton",
+            command=self.validate_project,
+        ).grid(
             row=0, column=2, padx=(0, 6)
         )
-        ttk.Button(button_frame, text="📄 Generate Report", command=self.generate_report).grid(
+        ttk.Button(
+            button_frame,
+            text="📄 Generate Report",
+            style="Primary.TButton",
+            command=self.generate_report,
+        ).grid(
             row=0, column=3, padx=(0, 6)
         )
         ttk.Button(
-            button_frame, text="📁 Output Folder", command=self.open_output_folder
+            button_frame,
+            text="📁 Output Folder",
+            style="Toolbar.TButton",
+            command=self.open_output_folder,
         ).grid(row=0, column=4, padx=(0, 6))
 
         content = ttk.Frame(self.root)
@@ -124,45 +147,88 @@ class RetScreenApp:
 
         status_bar = ttk.Label(
             self.root,
+            style="Status.TLabel",
             textvariable=self._status_var,
             anchor="w",
-            relief="sunken",
-            padding=(8, 4),
+            padding=(12, 8),
         )
         status_bar.grid(row=2, column=0, sticky="ew")
 
     def _apply_theme(self) -> None:
         palette = {
-            "bg": "#F4F7FB",
+            "bg": "#F3F6FB",
             "surface": "#FFFFFF",
-            "accent": "#4C6FFF",
-            "accent_light": "#E8ECFF",
+            "surface_soft": "#FAFCFF",
+            "accent": "#3B82F6",
+            "accent_light": "#E6F0FF",
+            "accent_pressed": "#2563EB",
             "text": "#1F2937",
             "muted": "#6B7280",
+            "border": "#D9E2F2",
         }
         self.root.configure(bg=palette["bg"])
+        self.root.option_add("*Font", ("Segoe UI", 10))
         style = ttk.Style(self.root)
         try:
             style.theme_use("clam")
         except tk.TclError:
             pass
+
         style.configure("TFrame", background=palette["bg"])
-        style.configure("TLabel", background=palette["bg"], foreground=palette["text"])
-        style.configure("TButton", padding=(10, 4))
+        style.configure("Toolbar.TFrame", background=palette["bg"])
+        style.configure("TLabel", background=palette["bg"], foreground=palette["text"], font=("Segoe UI", 10))
+
+        style.configure(
+            "TButton",
+            font=("Segoe UI", 10),
+            padding=(10, 6),
+            borderwidth=1,
+            relief="flat",
+        )
         style.map(
             "TButton",
             background=[("active", palette["accent_light"]), ("pressed", palette["accent"])]
         )
+        style.configure(
+            "Toolbar.TButton",
+            background=palette["surface"],
+            foreground=palette["text"],
+            bordercolor=palette["border"],
+            padding=(12, 7),
+        )
+        style.map(
+            "Toolbar.TButton",
+            background=[("active", palette["accent_light"]), ("pressed", "#D8E8FF")],
+            bordercolor=[("active", palette["accent"]), ("pressed", palette["accent"])],
+        )
+
+        style.configure(
+            "Primary.TButton",
+            font=("Segoe UI", 10, "bold"),
+            background=palette["accent"],
+            foreground="#FFFFFF",
+            bordercolor=palette["accent"],
+            padding=(14, 8),
+        )
+        style.map(
+            "Primary.TButton",
+            background=[("active", "#4B93FF"), ("pressed", palette["accent_pressed"])],
+            bordercolor=[("active", "#4B93FF"), ("pressed", palette["accent_pressed"])],
+            foreground=[("disabled", "#E5E7EB")],
+        )
+
         style.configure("TNotebook", background=palette["bg"], borderwidth=0)
         style.configure(
             "TNotebook.Tab",
-            background=palette["accent_light"],
+            background=palette["surface_soft"],
             foreground=palette["text"],
-            padding=(12, 6),
+            font=("Segoe UI", 10),
+            padding=(16, 9),
+            borderwidth=0,
         )
         style.map(
             "TNotebook.Tab",
-            background=[("selected", palette["surface"]), ("active", "#DCE3FF")],
+            background=[("selected", palette["surface"]), ("active", palette["accent_light"])],
             foreground=[("selected", palette["accent"]), ("active", palette["text"])],
         )
         style.configure(
@@ -171,14 +237,23 @@ class RetScreenApp:
             fieldbackground=palette["surface"],
             foreground=palette["text"],
             borderwidth=0,
+            rowheight=30,
+            font=("Segoe UI", 10),
         )
         style.configure(
             "Treeview.Heading",
             background=palette["accent_light"],
             foreground=palette["text"],
             relief="flat",
+            font=("Segoe UI", 10, "bold"),
+            padding=(10, 8),
         )
-        style.map("Treeview", background=[("selected", palette["accent_light"])])
+        style.map(
+            "Treeview",
+            background=[("selected", "#DDEBFF")],
+            foreground=[("selected", palette["text"])],
+        )
+        style.map("Treeview.Heading", background=[("active", "#D8E8FF")])
         style.configure(
             "TLabelframe",
             background=palette["bg"],
@@ -190,6 +265,15 @@ class RetScreenApp:
             "TLabelframe.Label",
             background=palette["bg"],
             foreground=palette["muted"],
+            font=("Segoe UI", 10, "bold"),
+        )
+        style.configure(
+            "Status.TLabel",
+            background=palette["surface"],
+            foreground=palette["muted"],
+            borderwidth=1,
+            relief="flat",
+            font=("Segoe UI", 9),
         )
 
     def _set_status(self, message: str) -> None:
@@ -430,4 +514,3 @@ class RetScreenApp:
 
     def _on_system_catalog_changed(self, catalog_filename: str) -> None:
         self._inputs_tab.reload_system_catalog(catalog_filename)
-
