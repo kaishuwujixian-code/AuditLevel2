@@ -1,0 +1,124 @@
+{
+  "categories": [
+    {
+      "code": "system",
+      "title": "System"
+    },
+    {
+      "code": "equipment",
+      "title": "Equipment"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "ventilation_equipment_facts",
+      "title": "Ventilation Equipment Facts"
+    },
+    {
+      "code": "all-in-one_write_up",
+      "title": "All-in-one write up"
+    },
+    {
+      "code": "mechanical_conditions",
+      "title": "Mechanical conditions"
+    },
+    {
+      "code": "heat_exchanger",
+      "title": "Heat Exchanger"
+    }
+  ],
+  "items": [
+    {
+      "id": "central_ahu_ventilation",
+      "title": "Central AHU ventilation",
+      "category": "system",
+      "text": "Ventilation for the building is provided by One (1) central air handling unit(s), located in roof top, equipment with outdoor-air intake and return/exhaust paths serving corridors and other public areas."
+    },
+    {
+      "id": "garage_exhaust_controls",
+      "title": "Garage exhaust with demand control",
+      "category": "equipment",
+      "text": "Garage ventilation is controlled by carbon monoxide sensing with demand-based exhaust fan operation. This approach helps reduce fan runtime during low-occupancy periods."
+    },
+    {
+      "id": "ventilation_controls_bas",
+      "title": "AHU units with VFD capacity, but not integrate into BAS",
+      "category": "controls",
+      "text": "Although the AHU units are in generally good mechanical condition, the building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the existing VFD-controlled AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability."
+    },
+    {
+      "id": "rooftop_mua",
+      "title": "Rooftop MUA",
+      "category": "system",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas."
+    },
+    {
+      "id": "exhaust_only_system",
+      "title": "Exhaust Only System",
+      "category": "system",
+      "text": "Ventilation is provided by centralized exhaust fans without dedicated supply air units"
+    },
+    {
+      "id": "vfd_gas_fire_dx_cooling",
+      "title": "VFD+Gas Fire+DX Cooling",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and DX cooling sections. The VFD, gas-fired heating burner, and DX Cooling coil were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
+    },
+    {
+      "id": "vfd_gas_fire_air_cooled_chiller",
+      "title": "VFD+Gas Fire+Air Cooled Chiller",
+      "category": "ventilation_equipment_facts",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and Air Cooled Chiller provide cooling capacity. The VFD, gas-fired heating burner, and air cooled chiller were observed to be in fair to good condition.\n\nEquipment appeared to be functioning as intended during the site walkthrough, with no visible signs of mechanical distress."
+    },
+    {
+      "id": "very_old_mua_poor_condition_fan_only",
+      "title": "Very old supply fan/ventilation fan + poor condition + fan only",
+      "category": "all-in-one_write_up",
+      "text": "The building is equipped with a rooftop supply fan that provides ventilation air to the interior corridor spaces through centralized ductwork. Based on site observations, the unit appears to be original to the building (circa 1970) and shows visible signs of aging, including surface corrosion, weather-related deterioration, and general wear due to prolonged rooftop exposure.\n\nNo visible gas-fired heating section, cooling coil, or integrated conditioning components were observed during the assessment. As such, the system likely delivers unconditioned outdoor air to the corridors. Heating of common spaces rely on electric radiators.\n\nOverall, the rooftop supply fan is considered to be in poor to fair condition due to age and exposure. While functional at the time of inspection, the equipment is approaching or exceeding its typical service life and should be evaluated for replacement in the short to medium term to ensure reliable ventilation performance."
+    },
+    {
+      "id": "hydronic_mua_units_vfds",
+      "title": "Hydronic MUA units + VFDs",
+      "category": "ventilation_equipment_facts",
+      "text": "The building is equipped with {Number of MUA} Hydronic MUA units, during the site visit, no issue was reported by on site staff. These MUA units are equipped with variable frequency drives (VFDs) and provide heating-only capacity. The units were observed to be generally fair mechanical condition."
+    },
+    {
+      "id": "hydronic_mua_good_conditions",
+      "title": "Hydronic MUA + good conditions",
+      "category": "mechanical_conditions",
+      "text": "Supply-air temperatures and airflow patterns were generally consistent with normal operation. Hydronic heating coils are served from the building’s high-temperature heating loop. Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency."
+    },
+    {
+      "id": "1_central_mua_w_vfd_3_mua_w_o_vfd_shell-and-tube_heat_exchangers",
+      "title": "1 central MUA w\\ VFD + 3 MUA w\\o VFD + shell-and-tube heat exchangers",
+      "category": "ventilation_equipment_facts",
+      "text": "The building is equipped with one (1) central MUA unit located in the penthouse serving most residential floors, and three (3) fresh-air MUA units located in the ground-floor mechanical room serving common areas.\n\nThe penthouse central MUA is equipped with a VFD, during the site visit it was observed operating at approximately 48 Hz (80%). The ground-floor MUA units include two units with VFDs;\n\nNo occupancy-based scheduling or demand control was observed, three (3) fresh-air MUA units appear to operate at or near constant speed regardless of actual ventilation demand.\n\nAll units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through shell-and-tube heat exchangers. These heat exchangers are difficult to service, limiting maintainability and increasing long-term operational risk.\n\nThe MUA systems were observed to be functionalwere originally installed circa 2004. Based on typical service life expectations for commercial ventilation equipment, the units are approaching the end of service life.\nWhile no immediate deficiencies were identified, the current configuration presents opportunities for improved control, energy efficiency, and future lifecycle upgrades."
+    },
+    {
+      "id": "shell-and-tube_heat_exchangers",
+      "title": "Shell-and-tube heat exchangers",
+      "category": "heat_exchanger",
+      "text": "All units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through shell-and-tube heat exchangers. These heat exchangers are difficult to service, limiting maintainability and increasing long-term operational risk."
+    },
+    {
+      "id": "plate_and_frame_heat_exchanger",
+      "title": "Plate and frame heat exchanger",
+      "category": "heat_exchanger",
+      "text": "All units are equipped with heating and cooling coils served by glycol loops connected to the primary heating and cooling systems through plate and frame heat exchanger. These heat exchangers are in general good conditions."
+    },
+    {
+      "id": "vfd_gas_fire_heating_only",
+      "title": "VFD + Gas Fire (heating only)",
+      "category": "ventilation_equipment_facts",
+      "text": "The existing make-up air (MUA) unit is equipped with a constant-speed supply fan and an integral gas-fired heating burner, providing heating-only capacity. The unit does not include variable frequency drive (VFD) control and does not provide mechanical cooling.\n\nThe absence of VFD control results in fixed airflow operation regardless of actual ventilation demand, limiting part-load efficiency and increasing electrical energy consumption. The gas-fired heating section provides basic winter heating capability; however, without cooling capacity, heat recovery, or advanced modulation control, the system offers limited seasonal optimization and indoor temperature regulation.\n\nAt the time of the site visit, the unit was observed to be in functional condition with no visible mechanical deficiencies. However, the configuration reflects an older, conventional ventilation design with limited energy efficiency and control flexibility."
+    },
+    {
+      "id": "no_vfd_gas_fire_dx_cooling",
+      "title": "No VFD+Gas Fire+DX Cooling",
+      "category": "ventilation_equipment_facts",
+      "text": "The unit is not equipped with variable frequency drives (VFDs) and operates at constant speed. Heating is provided by integral gas-fired burners, and cooling is provided by DX cooling sections. The heating and cooling components were observed to be in fair to good condition at the time of the site walkthrough.\n\nThe equipment appeared to be operating as intended, with no visible signs of immediate mechanical distress. However, based on age and system configuration, the unit may be approaching the latter portion of its typical service life."
+    }
+  ]
+}

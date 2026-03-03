@@ -1,0 +1,909 @@
+{
+  "rulesets": [
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILER + NO CENTRAL COOLING",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "no_central_cooling_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_central_system_present",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "ne",
+                    "value": "window_and_portable_ac"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_no_central_header",
+              "priority": 10
+            },
+            {
+              "rule_id": "suite_window_portable_ac_summary",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "window_and_portable_ac"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The building is not equipped with a centralized cooling system such as a chiller or water-source heat pump. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.",
+                  "These decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5\u20135.0 under favorable conditions.",
+                  "In addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a centralized air-source heat pump (ASHP) system could be considered in a short term to mid term."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WSHP LOOP WITH ATMOSPHERIC BOILERS",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "cooling_wshp_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on a low-temperature hydronic loop."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_wshp_header",
+              "priority": 20
+            },
+            {
+              "rule_id": "fluid_cooler_heat_rejection",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.fluid_cooler_present",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "fluid_cooler_seasonal_shutdown",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.site_visit_season",
+                    "op": "eq",
+                    "value": "heating_season"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "wshp_install_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "On-site staff reported that the WSHP system was installed in {wshp_install_year}."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "no_wshp_deficiencies",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_deficiencies_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No visible leakage or vibration issues were observed during the walkthrough."
+                ]
+              },
+              "role": "condition"
+            },
+            {
+              "rule_id": "wshp_performance_reliable",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.wshp_deficiencies_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "wshp_cooling",
+                      "fluid_cooler"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No major mechanical deficiencies or performance issues were reported by on-site staff at the time of the site visit."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 HYDRONIC BOILERS + FAN COIL + CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "cooling_central_chiller_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_cooling_tower"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by a central water-cooled chiller located in the main mechanical room."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_chiller_tower_header",
+              "priority": 30
+            },
+            {
+              "rule_id": "cooling_chiller_install_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.chiller_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Chiller installation is dated to {chiller_install_year}."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_tower_present",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_tower_present",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heat rejection is provided via a roof-mounted cooling tower."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_tower_no_vfd",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_tower_present",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_tower_has_vfd",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The cooling tower fan is not equipped with variable frequency drives (VFDs)."
+                ]
+              },
+              "role": "finding"
+            },
+            {
+              "rule_id": "cooling_fancoil_distribution",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_distribution",
+                    "op": "eq",
+                    "value": "fan_coil"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Suite-level cooling is provided by in-suite fan coil units operating under local thermostatic control."
+                ]
+              },
+              "role": "loads"
+            },
+            {
+              "rule_id": "cooling_seasonal_shutdown",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.site_visit_season",
+                    "op": "eq",
+                    "value": "heating_season"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "in",
+                    "value": [
+                      "chiller_cooling_tower",
+                      "chiller_water"
+                    ]
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "At the time of the site visit, the chiller and cooling tower were seasonally shut down.",
+                  "This is typical for the time of year."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_no_physical_deficiencies",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_issues_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_cooling_tower"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "No major physical deficiencies were identified during the walkthrough."
+                ]
+              },
+              "role": "condition"
+            },
+            {
+              "rule_id": "cooling_reliable_operation",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_issues_reported",
+                    "op": "is_false"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_cooling_tower"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Building staff reported generally reliable operation during the most recent cooling season."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL HEATING & COOLING RULESET \u2013 WATER-COOLED CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "cooling_chiller_water_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by a central water-cooled chiller served by a condenser water loop."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_chiller_water_header",
+              "priority": 40
+            },
+            {
+              "rule_id": "cooling_chiller_year",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.chiller_install_year",
+                    "op": "exists"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The chiller was installed in {chiller_install_year}."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_condenser_vfd",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.condenser_pump_has_vfd",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "The condenser pump is equipped with a variable frequency drive (VFD)."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_tower_vfd",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_tower_present",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_tower_has_vfd",
+                    "op": "is_true"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Heat is rejected to a cooling tower, which is equipped with variable frequency drives (VFDs)."
+                ]
+              },
+              "role": "equipment_detail"
+            },
+            {
+              "rule_id": "cooling_equipment_performance_ok",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_equipment_condition",
+                    "op": "eq",
+                    "value": "good"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Overall cooling performance is acceptable."
+                ]
+              },
+              "role": "performance"
+            },
+            {
+              "rule_id": "cooling_equipment_testing_recommendation",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_equipment_condition",
+                    "op": "eq",
+                    "value": "good"
+                  },
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_water"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Detailed testing should be completed during the cooling season."
+                ]
+              },
+              "role": "finding"
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL COOLING RULESET \u2013 AIR-COOLED CHILLER",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "cooling_chiller_air_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "chiller_air"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by a central air-cooled chiller."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_chiller_air_header",
+              "priority": 50
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    },
+    {
+      "ruleset_version": "1.0",
+      "ruleset_name": "CENTRAL COOLING RULESET \u2013 DX AND PTAC",
+      "blocks": [
+        {
+          "block_id": "central_cooling_existing",
+          "block_ref": "{Central Cooling Systems block}",
+          "target_block": "cooling",
+          "rules": [
+            {
+              "rule_id": "cooling_magic_pak_unit",
+              "if": {
+                "any": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "in_suite_magic_pak_unit"
+                  },
+                  {
+                    "field": "answers.suite_cooling_type",
+                    "op": "eq",
+                    "value": "magic_pak_unit"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Each suite is equipped with a Magic-Pak unit installed within a dedicated mechanical closet. The Magic-Pak unit consists of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Combustion air intake, exhaust, and condenser airflow are routed through the building exterior.",
+                  "The Magic-Pak unit operates as a self-contained heating and cooling system serving the individual suite and is controlled by a local in-suite thermostat. Supply air is delivered directly to the suite through internal ductwork, with return air drawn from the suite space.",
+                  "While this configuration provides decentralized heating and cooling, Magic-Pak units rely on individual gas combustion appliances and conventional DX cooling, which are generally less efficient than modern heat pump\u2013based systems. Over the long term, this results in higher maintenance and inspection requirements, variable performance between suites, and limited opportunities for centralized control, energy optimization, or emissions reduction."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 100
+            },
+            {
+              "rule_id": "cooling_packaged_dx_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "packaged_rooftop_dx"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by packaged rooftop DX units."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_dx_packaged_header",
+              "priority": 60
+            },
+            {
+              "rule_id": "cooling_split_dx_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "split_dx"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by split DX systems."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_dx_split_header",
+              "priority": 61
+            },
+            {
+              "rule_id": "cooling_ptac_intro",
+              "if": {
+                "all": [
+                  {
+                    "field": "answers.cooling_system_type",
+                    "op": "eq",
+                    "value": "ptac"
+                  }
+                ]
+              },
+              "then": {
+                "paragraphs": [
+                  "Cooling is provided by packaged terminal air conditioners (PTACs)."
+                ]
+              },
+              "role": "system_header",
+              "exclusive_group": "cooling_ptac_header",
+              "priority": 62
+            },
+            {
+              "rule_id": "cooling_system_mechanical_condition",
+              "then": {
+                "paragraphs": [
+                  "The existing cooling system equipment was observed to be in {cooling_system_condition_text} condition."
+                ]
+              },
+              "role": "equipment_detail",
+              "priority": 1
+            }
+          ],
+          "target_section": "cooling"
+        }
+      ]
+    }
+  ]
+}
