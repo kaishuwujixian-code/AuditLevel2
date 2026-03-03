@@ -15,7 +15,7 @@ from core.paths import (
     OUTPUT_DIR,
     PROJECTS_DIR,
 )
-from core.project_store import load_project, save_project
+from core.project_store import load_project, report_filename_prefix_for_profile, save_project
 from core.questionnaire import load_questionnaire_schema
 from core.template_store import TemplateData, load_template
 from main import _validate_inputs
@@ -409,7 +409,8 @@ class RetScreenApp:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M")
         if not name:
             name = "report"
-        return f"{name}_{timestamp}.docx"
+        prefix = report_filename_prefix_for_profile(AUDIT_PROFILE)
+        return f"{prefix}_{name}_{timestamp}.docx"
 
     def _project_display_name(self) -> str:
         if not self._project_data:
@@ -429,3 +430,4 @@ class RetScreenApp:
 
     def _on_system_catalog_changed(self, catalog_filename: str) -> None:
         self._inputs_tab.reload_system_catalog(catalog_filename)
+
