@@ -6,6 +6,7 @@ from typing import Any, Dict, Optional
 import tkinter as tk
 from tkinter import ttk
 
+from core.paths import AUDIT_PROFILE
 from core.questionnaire import apply_answers_to_project, collect_template_placeholders
 from reporting.narratives import load_option_sets
 from ui.library_items_panel import LibraryItemsPanel
@@ -91,17 +92,29 @@ class QuestionnairePanel(ttk.Frame):
                 item_label="Ventilation",
             ),
         }
+        if AUDIT_PROFILE == "level2":
+            self._system_library_panels["executive_summary"] = LibraryItemsPanel(
+                self._notebook,
+                storage_key="executive_summary_items",
+                catalog_filename="executive_summary_catalog.json",
+                title="Executive Summary Library",
+                item_label="Executive Summary",
+            )
         self._catalog_panel_by_filename = {
             "heating_catalog.json": self._system_library_panels["heating"],
             "cooling_catalog.json": self._system_library_panels["cooling"],
             "dhw_catalog.json": self._system_library_panels["dhw"],
             "ventilation_catalog.json": self._system_library_panels["ventilation"],
         }
+        if "executive_summary" in self._system_library_panels:
+            self._catalog_panel_by_filename["executive_summary_catalog.json"] = self._system_library_panels["executive_summary"]
 
         self._notebook.add(self._system_library_panels["heating"], text="Heating")
         self._notebook.add(self._system_library_panels["cooling"], text="Cooling")
         self._notebook.add(self._system_library_panels["dhw"], text="DHW")
         self._notebook.add(self._system_library_panels["ventilation"], text="Ventilation")
+        if "executive_summary" in self._system_library_panels:
+            self._notebook.add(self._system_library_panels["executive_summary"], text="Executive Summary")
         self._misc_panel = MiscPanel(self._notebook)
         self._notebook.add(self._misc_panel, text="Misc")
 

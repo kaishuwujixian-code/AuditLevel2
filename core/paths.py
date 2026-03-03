@@ -126,7 +126,7 @@ _seed_file_if_missing(
 
 _catalog_source_dir = os.path.join(
     RESOURCE_ROOT,
-    "catalogs" if AUDIT_PROFILE == "level1" else "catalogs",  # explicit for clarity
+    "catalogs" if AUDIT_PROFILE == "level1" else os.path.join("catalogs", "level2")
 )
 for _catalog_name in (
     "measure_catalog.json",
@@ -135,6 +135,7 @@ for _catalog_name in (
     "cooling_catalog.json",
     "dhw_catalog.json",
     "ventilation_catalog.json",
+    "executive_summary_catalog.json",
 ):
     _seed_file_if_missing(
         os.path.join(_catalog_source_dir, _catalog_name),
