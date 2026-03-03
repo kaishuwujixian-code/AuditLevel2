@@ -6,88 +6,104 @@ from pathlib import Path
 
 import tkinter as tk
 from PIL import Image, ImageTk
-from tkinter import ttk
 
 
 class AuditEntryApp:
-    def __init__(self, root: tk.Tk, script_path: Path) -> None:
+    def __init__(self, root: tk.Tk, script_path: Path, splash_path: Path) -> None:
         self.root = root
         self._script_path = script_path
+        self._splash_path = splash_path
+        self._background_image = None
+        self._background_photo = None
         self.root.title("Mann Engineering - Energy Audit Report Generator")
-        self.root.geometry("640x360")
-        self.root.minsize(560, 320)
+        self.root.geometry("1100x700")
+        self.root.minsize(860, 540)
         self._build_ui()
 
     def _build_ui(self) -> None:
-        container = ttk.Frame(self.root, padding=24)
-        container.pack(fill="both", expand=True)
+        self._canvas = tk.Canvas(self.root, highlightthickness=0, bd=0)
+        self._canvas.pack(fill="both", expand=True)
 
-        ttk.Label(
-            container,
+        try:
+            self._background_image = Image.open(self._splash_path)
+        except Exception:
+            self._background_image = None
+
+        panel = tk.Frame(self.root, bg="#0c2f68", padx=28, pady=24)
+        title = tk.Label(
+            panel,
             text="Welcome to Energy Audit Report Generator",
-            font=("Arial", 16, "bold"),
-        ).pack(pady=(12, 10))
-        ttk.Label(
-            container,
+            font=("Arial", 20, "bold"),
+            fg="white",
+            bg="#0c2f68",
+        )
+        title.pack(pady=(0, 8))
+        subtitle = tk.Label(
+            panel,
             text="Please select the audit level to continue",
-            font=("Arial", 11),
-        ).pack(pady=(0, 22))
+            font=("Arial", 12),
+            fg="#d4e6ff",
+            bg="#0c2f68",
+        )
+        subtitle.pack(pady=(0, 18))
 
-        button_row = ttk.Frame(container)
+        button_row = tk.Frame(panel, bg="#0c2f68")
         button_row.pack()
 
-        ttk.Button(
+        tk.Button(
             button_row,
             text="Level 1",
             command=lambda: self._launch_profile("level1"),
-            width=20,
-        ).grid(row=0, column=0, padx=8)
-        ttk.Button(
+            width=16,
+            bg="#f28b24",
+            fg="white",
+            font=("Arial", 12, "bold"),
+            activebackground="#ef7f11",
+            activeforeground="white",
+            relief="flat",
+            cursor="hand2",
+        ).grid(row=0, column=0, padx=10)
+        tk.Button(
             button_row,
             text="Level 2",
             command=lambda: self._launch_profile("level2"),
-            width=20,
-        ).grid(row=0, column=1, padx=8)
+            width=16,
+            bg="#2f70ce",
+            fg="white",
+            font=("Arial", 12, "bold"),
+            activebackground="#285fb0",
+            activeforeground="white",
+            relief="flat",
+            cursor="hand2",
+        ).grid(row=0, column=1, padx=10)
+
+        self._panel_window = self._canvas.create_window(0, 0, window=panel)
+        self.root.bind("<Configure>", self._on_resize)
+        self.root.after_idle(self._redraw)
+
+    def _on_resize(self, _event: tk.Event) -> None:
+        self._redraw()
+
+    def _redraw(self) -> None:
+        width = max(self.root.winfo_width(), 1)
+        height = max(self.root.winfo_height(), 1)
+        self._canvas.config(width=width, height=height)
+        self._canvas.delete("bg")
+
+        if self._background_image is not None:
+            resized = self._background_image.resize((width, height), Image.Resampling.LANCZOS)
+            self._background_photo = ImageTk.PhotoImage(resized)
+            self._canvas.create_image(0, 0, image=self._background_photo, anchor="nw", tags="bg")
+        else:
+            self._canvas.create_rectangle(0, 0, width, height, fill="#1e64c8", outline="", tags="bg")
+
+        self._canvas.coords(self._panel_window, width // 2, int(height * 0.7))
 
     def _launch_profile(self, profile: str) -> None:
         env = os.environ.copy()
         env["AUDITSTUDIO_AUDIT_PROFILE"] = profile
         subprocess.Popen([sys.executable, str(self._script_path), "--profile", profile], env=env)
         self.root.destroy()
-
-
-def _create_splash(root: tk.Tk, image_path: Path) -> tk.Toplevel:
-    splash = tk.Toplevel(root)
-    splash.overrideredirect(True)
-    splash.attributes("-topmost", True)
-
-    try:
-        image = Image.open(image_path)
-        photo = ImageTk.PhotoImage(image)
-        splash._photo_ref = photo
-        label = tk.Label(splash, image=photo, borderwidth=0, highlightthickness=0)
-        label.pack()
-        width, height = image.size
-    except Exception:
-        width, height = 700, 420
-        label = tk.Label(
-            splash,
-            text="Energy Audit Report Generator",
-            font=("Arial", 26, "bold"),
-            bg="#1e64c8",
-            fg="white",
-            padx=40,
-            pady=40,
-        )
-        label.pack(fill="both", expand=True)
-
-    splash.update_idletasks()
-    screen_w = splash.winfo_screenwidth()
-    screen_h = splash.winfo_screenheight()
-    x = (screen_w - width) // 2
-    y = (screen_h - height) // 2
-    splash.geometry(f"{width}x{height}+{x}+{y}")
-    return splash
 
 
 def _run_profile(profile: str) -> None:
@@ -109,26 +125,9 @@ def main() -> None:
         _run_profile(args.profile)
         return
 
-    root = tk.Tk()
-    root.withdraw()
-
     assets_path = Path(__file__).resolve().parent / "assets" / "mann_splash.png"
-    splash = _create_splash(root, assets_path)
-
-    AuditEntryApp(root, Path(__file__).resolve())
-
-    state = {"shown": False}
-
-    def _show_main_window() -> None:
-        if state["shown"]:
-            return
-        state["shown"] = True
-        if splash.winfo_exists():
-            splash.destroy()
-        root.deiconify()
-
-    root.after_idle(_show_main_window)
-    root.after(1500, _show_main_window)
+    root = tk.Tk()
+    AuditEntryApp(root, Path(__file__).resolve(), assets_path)
     root.mainloop()
 
 
