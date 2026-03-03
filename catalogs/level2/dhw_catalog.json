@@ -1,0 +1,124 @@
+{
+  "categories": [
+    {
+      "code": "generation",
+      "title": "Generation"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "dhw_boiler_facts",
+      "title": "DHW Boiler Facts"
+    },
+    {
+      "code": "boiler_mechanical_condition",
+      "title": "Boiler Mechanical Condition"
+    },
+    {
+      "code": "storage_tank",
+      "title": "Storage Tank"
+    },
+    {
+      "code": "mixing_valve",
+      "title": "Mixing Valve"
+    },
+    {
+      "code": "system_overall_assessment",
+      "title": "System Overall Assessment"
+    }
+  ],
+  "items": [
+    {
+      "id": "central_dhw_boilers",
+      "title": "Central DHW boilers plant",
+      "category": "generation",
+      "text": "Domestic hot water is generated in the central mechanical room, located in {location} by (number of DHW boiler)gas-fired boiler."
+    },
+    {
+      "id": "dhw_controls",
+      "title": "DHW controls",
+      "category": "controls",
+      "text": "DHW temperature control and plant operation are managed using local control logic with BAS visibility. Further tuning may be possible to balance comfort and efficiency."
+    },
+    {
+      "id": "atmospheric_dhw_boiler",
+      "title": "Atmospheric DHW Boiler",
+      "category": "dhw_boiler_facts",
+      "text": "(Number) atmospheric gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). Nominal thermal efficiency is approximately (Efficiency %) under standard operating conditions. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition at the time of the site visit."
+    },
+    {
+      "id": "good_condition",
+      "title": "Boiler and piping Good condition",
+      "category": "boiler_mechanical_condition",
+      "text": "The boilers and associated piping were observed to be in good condition, with no visible leaks or major signs of corrosion."
+    },
+    {
+      "id": "indirect_storage_tank",
+      "title": "Indirect storage tank",
+      "category": "storage_tank",
+      "text": "One (1) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank was observed to be in fair mechanical condition.\n\nAging indirect tanks typically require periodic internal relining and ongoing maintenance to maintain performance and water quality. As these components continue to age, maintenance requirements and the risk of unplanned service interruptions are expected to increase."
+    },
+    {
+      "id": "mechanical_mixing_valves",
+      "title": "Mechanical Mixing valves",
+      "category": "mixing_valve",
+      "text": "Thermostatic mixing valves set to approximately 120°F were observed and appeared to be in good mechanical condition."
+    },
+    {
+      "id": "no_mixing_valve",
+      "title": "No Mixing Valve",
+      "category": "mixing_valve",
+      "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank."
+    },
+    {
+      "id": "non-condensing_no_bas",
+      "title": "Non-condensing + no BAS",
+      "category": "system_overall_assessment",
+      "text": "Overall, the DHW system is functional and capable of meeting current demand; however, it relies on non-condensing DHW boiler and rely on local control srategy, which limits achievable energy efficiency. Additional integration would improve system scheduling, monitoring, and overall energy performance."
+    },
+    {
+      "id": "glass-lined_storage_tanks",
+      "title": "Glass-lined storage tanks Good condition",
+      "category": "storage_tank",
+      "text": "Two (2) A.O. Smith glass-lined storage tanks were observed, located at the main boiler room and is heated via DHW boiler, each rated at approximately 180 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F."
+    },
+    {
+      "id": "flowmix_mixing_valve",
+      "title": "Flowmix mixing valve",
+      "category": "mixing_valve",
+      "text": "A Flowmix electric thermostatic mixing valve is installed to temper the domestic hot water supply to approximately 120°F. At the time of the walkthrough, supply temperatures were within acceptable range and appeared stable."
+    },
+    {
+      "id": "over_all_good_future_opprotunity_bas",
+      "title": "Over all good+ Future optimization BAS",
+      "category": "system_overall_assessment",
+      "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency."
+    },
+    {
+      "id": "insuite_water_heater_electric",
+      "title": "Insuite water heater (electric)",
+      "category": "system_overall_assessment",
+      "text": "DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\n\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\n\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\n\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution."
+    },
+    {
+      "id": "non-condensing_boiler",
+      "title": "Non-Condensing Boiler",
+      "category": "dhw_boiler_facts",
+      "text": "(Number) non-condensing gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). Nominal thermal efficiency is approximately (Efficiency %) and the units operate above flue-gas dew point temperatures to prevent condensation. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition."
+    },
+    {
+      "id": "condensing_boiler",
+      "title": "Condensing Boiler",
+      "category": "dhw_boiler_facts",
+      "text": "(Number) condensing gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). The boilers are designed to operate at lower return-water temperatures to enable latent heat recovery, with peak thermal efficiencies of up to approximately (Efficiency %) under suitable operating conditions. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition."
+    },
+    {
+      "id": "over_all_fair_aging_indirect_tank_future_optimization_bas",
+      "title": "Over all fair+Aging indirect tank+Future optimization BAS:",
+      "category": "system_overall_assessment",
+      "text": "Although no immediate operational deficiencies were observed during the site visit and the DHW system appears to be meeting current building demand, the indirect storage tank was identified as original to the building and in poor mechanical condition.\n\nGiven its age, the tank is considered to have exceeded its typical service life. While the system is presently functional, replacement planning for the storage tank should be considered in the near term as part of the building’s lifecycle capital strategy.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, may also be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency."
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "categories": [
+    {
+      "code": "plant",
+      "title": "Plant"
+    },
+    {
+      "code": "distribution",
+      "title": "Distribution"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "condition",
+      "title": "Condition"
+    },
+    {
+      "code": "heating_system",
+      "title": "Heating System"
+    },
+    {
+      "code": "htg_boiler_facts",
+      "title": "HTG boiler facts"
+    },
+    {
+      "code": "heating_equipments",
+      "title": "Heating equipments"
+    }
+  ],
+  "items": [
+    {
+      "id": "condensing_boiler_plant",
+      "title": "One high temp loop boiler plant",
+      "category": "plant",
+      "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:"
+    },
+    {
+      "id": "heating_distribution",
+      "title": "Heating distribution - WSHP",
+      "category": "distribution",
+      "text": "The WSHP loop operates at significantly lower temperatures than the primary heating loop and remains fully hydraulically isolated from buildings high temperature loop."
+    },
+    {
+      "id": "heating_controls_bas",
+      "title": "Heating controls via BAS",
+      "category": "controls",
+      "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements."
+    },
+    {
+      "id": "good_condition_working_normally",
+      "title": "Good condition + Working normally",
+      "category": "condition",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough"
+    },
+    {
+      "id": "magic_pak",
+      "title": "Magic Pak",
+      "category": "heating_system",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in suite MagicPak units, which consist of a gas fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\nWhile this decentralized configuration provides basic temperature control, gas fired furnace and conventional DX cooling systems are generally less efficient than heat pump solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high efficiency air source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\nIn addition to moderate energy performance, the distributed nature of MagicPak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to mini-split heat pump systems.\nGiven the age and inherent efficiency limitations of gas fired packaged units, replacement with a mini-split heat pump system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs"
+    },
+    {
+      "id": "ptac_packaged_terminal_air_conditioner",
+      "title": "PTAC (Packaged Terminal Air Conditioner)",
+      "category": "heating_system",
+      "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability."
+    },
+    {
+      "id": "low_temperature_loop_high_temperature_loop_dedicate_dhw_loop",
+      "title": "Low Temp WSHP loop+High Temperature loop+Dedicate DHW loop",
+      "category": "plant",
+      "text": "The building operates with a mixed hydronic configuration consisting of a high-temperature boiler loop , dedicate DHW loop and a separate low-temperature water-source heat pump (WSHP) loop. \nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:"
+    },
+    {
+      "id": "primary_high_temp_loop_secondary_dhw_loop_low_temp_wshp_loop",
+      "title": "Primary High temp loop+Secondary DHW loop+ low temp WSHP loop",
+      "category": "plant",
+      "text": "The building operates with a mixed hydronic configuration consisting of a primary high-temperature boiler loop, a secondary DHW heating loop, and a separate low-temperature water-source heat pump (WSHP) loop. \nThe boiler plant is located in {location} consist (number of HTG boiler)gas-fired boiler. These are separated into:"
+    },
+    {
+      "id": "wshp_loop_boilers_facts",
+      "title": "WSHP loop boilers facts",
+      "category": "htg_boiler_facts",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured}, which operate as WSHP loop boilers, maintaining loop temperature for the in-suite heat pumps and providing supplemental heat during cold weather.Supply temperature at {supply temp} with return temperature at {return temp}"
+    },
+    {
+      "id": "primary_heating_loop_boiler_fact",
+      "title": "Primary heating\nloop boiler feed DHW loop",
+      "category": "htg_boiler_facts",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve as the primary heating loop, supplying hot water to building heating loads and feeding a heat-exchanger that heats the secondary domestic hot water (DHW) system storage tanks. Supply temperature at {supply temp} with return temperature at {return temp}"
+    },
+    {
+      "id": "high_temperature_loop_boiler",
+      "title": "High temperature loop boiler",
+      "category": "htg_boiler_facts",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}"
+    },
+    {
+      "id": "electric_baseboard_heater",
+      "title": "Electric Baseboard Heater",
+      "category": "heating_system",
+      "text": "The building is not equipped with a centralized hydronic or forced-air heating system. Space heating within individual suites is provided by in-suite electric resistance baseboard heaters, which operate independently in each unit and are controlled by local thermostats.\n\nElectric resistance heating directly converts electrical energy into thermal energy and operates at an effective coefficient of performance (COP) of approximately 1.0. This means that one unit of electrical energy produces one unit of heat. While simple in design and relatively low in maintenance, electric baseboard systems are typically associated with higher operating costs compared to modern heat pump–based systems.\n\nIn comparison, high-efficiency air-source heat pump (ASHP) systems utilize a refrigeration cycle to transfer heat from the outdoor air into the building during the heating season. Modern ASHP systems can achieve seasonal heating COP values in the range of 3.0–4.0 or higher under favorable operating conditions. This represents a significant improvement in energy performance relative to electric resistance heating.\n\nIn addition to energy considerations, decentralized electric baseboard systems provide no cooling capability and offer limited opportunities for central monitoring or optimization. Temperature control and energy consumption vary between suites depending on occupant usage patterns. From a lifecycle perspective, while baseboard heaters have low mechanical complexity, the absence of centralized infrastructure limits system-level efficiency improvements.\n\nGiven the building’s age and the reliance on electric resistance heating, conversion to a heat pump–based system should be considered in the short to medium term as part of a broader modernization strategy aimed at improving energy efficiency, reducing operating costs, and providing integrated heating and cooling capability."
+    },
+    {
+      "id": "electric_radiator_for_common_are_heating",
+      "title": "Electric radiator for common are heating",
+      "category": "heating_equipments",
+      "text": "Common areas are heated by electric resistance radiators, which provide simple localized heating but operate at a COP of approximately 1.0 and result in relatively high electrical energy consumption during the heating season."
+    },
+    {
+      "id": "miscellaneous_load_boiler",
+      "title": "Miscellaneous Load Boiler",
+      "category": "htg_boiler_facts",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing} boilers rated at {boiler capacity} MBH each, with a nominal thermal efficiency of {efficiency %}. Manufactured in {year of manufacture}, these boilers serve miscellaneous hydronic loads within the building, including {misc loads – e.g., snow-melt system, pool heating, garage heating coil, reheat coils, perimeter radiation, heat exchanger circuits}.\n\nHot water generated by the boilers is distributed through dedicated piping loops serving the identified auxiliary loads. The system operates at a supply temperature of approximately {supply temp}°F with a return temperature of {return temp}°F under design conditions."
+    },
+    {
+      "id": "no_fully_bas_integrate",
+      "title": "No fully BAS integrate",
+      "category": "controls",
+      "text": "Reported by onsite-staff, current control strategy rely on a mix of locally controlled equipment and BAS-integrated systems.\nFuture optimization opportunities should be upgrading to a Niagara 4–based BAS to enable full-building system integration, improved cybersecurity, and enhanced long-term operational efficiency."
+    }
+  ]
+}

@@ -4,9 +4,9 @@ import re
 from functools import lru_cache
 from typing import Any, Dict, Iterable, List, Optional
 
-from core.paths import SCHEMAS_DIR
+from core.paths import DEFAULT_MAPPING_JSON
 
-DEFAULT_OPTION_SETS_PATH = os.path.join(SCHEMAS_DIR, "level1_questionnaire.mapping.json")
+DEFAULT_OPTION_SETS_PATH = DEFAULT_MAPPING_JSON
 
 DISTRIBUTION_OVERRIDES = {
     "serves_wshp": "water-source heat pump units",

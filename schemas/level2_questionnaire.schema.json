@@ -1,0 +1,1744 @@
+{
+  "version": "1.0",
+  "source_placeholders": "schemas/placeholders.level1.json",
+  "generated_at": "2026-01-14T20:02:22+00:00",
+  "placeholders": [
+    "{Architectural Condition}",
+    "{Central Heating Systems block}",
+    "{Central Cooling Systems block}",
+    "{Central Ventilation System Block}",
+    "{City}",
+    "{ClientName}",
+    "{DHW System Block}",
+    "{Date Constructed}",
+    "{DateDocument}",
+    "{District}",
+    "{MEASURE_BLOCK}",
+    "{MEASURE_SUMMARY_ROW}",
+    "{Miscellaneous Block}",
+    "{Number of Floors}",
+    "{Number of Suites}",
+    "{Post Code}",
+    "{Property Address1}",
+    "{Province Abbreviation}",
+    "{Province}",
+    "{Report Date}",
+    "{Suite Types}"
+  ],
+  "sections": [
+    {
+      "id": "dhw",
+      "title": "Domestic Hot Water",
+      "questions": [
+        {
+          "id": "dhw_system_type",
+          "title": "DHW system type",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "dhw.system_type",
+          "placeholder_targets": [],
+          "help": "Primary domestic hot water system type.",
+          "required": false
+        },
+        {
+          "id": "dhw_generation_type",
+          "title": "DHW generation type",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "dhw.generation_type",
+          "placeholder_targets": [],
+          "help": "Primary DHW generation configuration.",
+          "required": false
+        },
+        {
+          "id": "dhw_boiler_type",
+          "title": "DHW boiler type",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "dhw.boiler_type",
+          "placeholder_targets": [],
+          "help": "DHW boiler combustion/condensing classification.",
+          "required": false
+        },
+        {
+          "id": "dhw_boiler_install_year",
+          "title": "DHW boiler install year",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Approximate installation year for DHW boilers.",
+          "required": false
+        },
+        {
+          "id": "dhw_supply_temp_f",
+          "title": "DHW supply temperature (°F)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed DHW supply temperature.",
+          "required": false
+        },
+        {
+          "id": "dhw_mixing_valve_present",
+          "title": "DHW mixing valve present",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a DHW mixing valve is present.",
+          "required": false
+        },
+        {
+          "id": "dhw_storage_temp_gauge_functional",
+          "title": "DHW storage temperature gauge functional",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether the DHW storage temperature gauge is functional.",
+          "required": false
+        },
+        {
+          "id": "dhw_boilers_original",
+          "title": "DHW boilers original",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether DHW boilers are original to the building.",
+          "required": false
+        },
+        {
+          "id": "dhw_storage_temp_variation_observed",
+          "title": "DHW storage temperature variation observed",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether storage temperature variation was observed.",
+          "required": false
+        },
+        {
+          "id": "dhw_functional",
+          "title": "DHW system functional",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Overall DHW system functionality.",
+          "required": false
+        },
+        {
+          "id": "dhw_storage_temp_f",
+          "title": "DHW storage temperature (°F)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Storage tank temperature setpoint, if known.",
+          "required": false
+        },
+        {
+          "id": "dhw_mixed_temp_f",
+          "title": "Mixed water temperature (°F)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Mixed water delivery temperature, if known.",
+          "required": false
+        },
+        {
+          "id": "dhw_mixing_valve_type",
+          "title": "Mixing valve type",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "dhw.mixing_valve_type",
+          "placeholder_targets": [],
+          "help": "Type of DHW mixing valve installed.",
+          "required": false
+        },
+        {
+          "id": "dhw_equipment_condition",
+          "title": "DHW equipment condition",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "dhw.equipment_condition",
+          "placeholder_targets": [],
+          "help": "Observed condition of DHW equipment.",
+          "required": false
+        },
+        {
+          "id": "dhw_recirculation_pumps_operating",
+          "title": "Recirculation pumps operating",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether DHW recirculation pumps were operating.",
+          "required": false
+        },
+        {
+          "id": "bas_future_integration_feasible",
+          "title": "Future BAS integration feasible",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether future BAS integration appears feasible for DHW.",
+          "required": false
+        },
+        {
+          "id": "dhw_location",
+          "title": "DHW location",
+          "type": "text",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of DHW plant equipment.",
+          "required": false
+        },
+        {
+          "id": "dhw_notes",
+          "title": "DHW notes",
+          "type": "notes",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the domestic hot water system.",
+          "required": false
+        },
+        {
+          "id": "dhw_block_override",
+          "title": "DHW system (manual override)",
+          "type": "notes",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{DHW System Block}"
+          ],
+          "help": "Optional manual override for the domestic hot water narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_dhw_boilers",
+          "title": "Number of DHW boilers",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central DHW boilers or water heaters.",
+          "required": false
+        },
+        {
+          "id": "dhw_boiler_capacity_mbh",
+          "title": "DHW boiler capacity (MBH each)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per DHW boiler in MBH.",
+          "required": false
+        },
+        {
+          "id": "number_of_dhw_tanks",
+          "title": "Number of DHW tanks",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of domestic hot water storage tanks.",
+          "required": false
+        },
+        {
+          "id": "dhw_tank_capacity_gal",
+          "title": "DHW tank capacity (gallons each)",
+          "type": "number",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal storage volume per tank in gallons.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "facility",
+      "title": "Facility Information",
+      "questions": [
+        {
+          "id": "architectural_condition",
+          "title": "Architectural condition",
+          "type": "single_select",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": "building.arch_condition",
+          "placeholder_targets": [
+            "{Architectural Condition}"
+          ],
+          "help": "Overall architectural condition assessment.",
+          "required": false
+        },
+        {
+          "id": "city",
+          "title": "City",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{City}"
+          ],
+          "help": "City of the audited facility.",
+          "required": false
+        },
+        {
+          "id": "client_name",
+          "title": "Client name",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{ClientName}"
+          ],
+          "help": "Client or ownership name.",
+          "required": false
+        },
+        {
+          "id": "date_constructed",
+          "title": "Date constructed",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Date Constructed}"
+          ],
+          "help": "Year or date constructed.",
+          "required": false
+        },
+        {
+          "id": "number_of_floors",
+          "title": "Number of floors",
+          "type": "number",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Number of Floors}"
+          ],
+          "help": "Total above-grade floors.",
+          "required": false
+        },
+        {
+          "id": "number_of_suites",
+          "title": "Number of suites",
+          "type": "number",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Number of Suites}"
+          ],
+          "help": "Count of residential suites.",
+          "required": false
+        },
+        {
+          "id": "postal_code",
+          "title": "Postal code",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Post Code}"
+          ],
+          "help": "Postal or ZIP code.",
+          "required": false
+        },
+        {
+          "id": "province",
+          "title": "Province",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Province}"
+          ],
+          "help": "Province or state.",
+          "required": false
+        },
+        {
+          "id": "report_date",
+          "title": "Report date",
+          "type": "date",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{DateDocument}",
+            "{Report Date}"
+          ],
+          "help": "Document issue date.",
+          "required": false
+        },
+        {
+          "id": "site_address",
+          "title": "Site address",
+          "type": "text",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Property Address1}"
+          ],
+          "help": "Street address for the audited facility.",
+          "required": false
+        },
+        {
+          "id": "suite_types",
+          "title": "Suite types",
+          "type": "notes",
+          "section_id": "facility",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Suite Types}"
+          ],
+          "help": "Describe suite mix (studio, 1BR, 2BR, etc.).",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "findings",
+      "title": "Findings",
+      "questions": [
+        {
+          "id": "misc_block",
+          "title": "Miscellaneous notes",
+          "type": "notes",
+          "section_id": "findings",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Miscellaneous Block}"
+          ],
+          "help": "Additional notes for miscellaneous content.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "misc",
+      "title": "Miscellaneous",
+      "questions": [
+        {
+          "id": "misc_items",
+          "title": "Miscellaneous items",
+          "type": "misc_list",
+          "section_id": "misc",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Miscellaneous Block}"
+          ],
+          "help": "Select or edit miscellaneous narratives from the library.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating Terminal Type",
+      "questions": [
+        {
+          "id": "heating_terminal_type",
+          "title": "Heating terminal type",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [
+            {
+              "label": "Fan coil (hydronic)",
+              "value": "fan_coil_hydronic"
+            },
+            {
+              "label": "In-suite hydronic baseboard",
+              "value": "in_suite_hydronic_baseboard"
+            },
+            {
+              "label": "Electric baseboard",
+              "value": "electric_baseboard"
+            },
+            {
+              "label": "Electric fan-forced heater",
+              "value": "electric_fan_forced"
+            },
+            {
+              "label": "In-suite heat pump (WSHP)",
+              "value": "in_suite_heat_pump_wshp"
+            },
+            {
+              "label": "Packaged in-suite unit (e.g. MagicPak)",
+              "value": "packaged_in_suite_unit_magicpak"
+            },
+            {
+              "label": "Radiant floor / panel",
+              "value": "radiant"
+            },
+            {
+              "label": "Mixed / unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed in-suite/common-area heating terminals.",
+          "required": false,
+          "value_aliases": {
+            "hydronic_baseboard": "in_suite_hydronic_baseboard",
+            "in_suite_wshp": "in_suite_heat_pump_wshp",
+            "packaged_in_suite_unit": "packaged_in_suite_unit_magicpak",
+            "radiant_floor_panel": "radiant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating Heat Source",
+      "questions": [
+        {
+          "id": "heating_heat_source",
+          "title": "Heating heat source",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "heating.heat_source",
+          "placeholder_targets": [],
+          "help": "Primary central heating heat source.",
+          "required": false,
+          "value_aliases": {
+            "magin_pak_unit": "in_suite_magic_pak_unit",
+            "magic_pak_unit": "in_suite_magic_pak_unit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Central Boiler Plant Details",
+      "questions": [
+        {
+          "id": "boiler_type",
+          "title": "Boiler type",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "heating.boiler_type",
+          "placeholder_targets": [],
+          "help": "Boiler combustion/condensing classification.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boilers",
+          "title": "Boiler groups (for mixed capacities/types)",
+          "type": "boiler_groups",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Add one row per boiler group when capacities/types differ.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "number_of_boilers",
+          "title": "Number of boilers",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central heating boilers.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_capacity_mbh",
+          "title": "Boiler capacity (MBH each)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per boiler in MBH.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_install_year",
+          "title": "Boiler install year",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Approximate boiler installation year.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boilers_original",
+          "title": "Boilers original to building",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether boilers appear original to the building.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_condition",
+          "title": "Boiler condition",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boiler.condition",
+          "placeholder_targets": [],
+          "help": "Observed boiler condition.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_pumps_have_vfd",
+          "title": "Boiler pumps with VFD",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether boiler pumps have VFDs.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_supply_temp_f",
+          "title": "Boiler supply temperature (°F)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed boiler supply temperature during the walkthrough.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "boiler_return_temp_f",
+          "title": "Boiler return temperature (°F)",
+          "type": "number",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Observed boiler return temperature during the walkthrough.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        },
+        {
+          "id": "heating_location",
+          "title": "Heating location",
+          "type": "text",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of the heating plant equipment.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Loads Served by Heating Plant",
+      "questions": [
+        {
+          "id": "heating_serves",
+          "title": "Heating serves",
+          "type": "multi_select",
+          "section_id": "heating",
+          "options": [
+            {
+              "label": "Serves fan coil",
+              "value": "serves_fan_coil"
+            },
+            {
+              "label": "Serves radiation",
+              "value": "serves_radiation"
+            },
+            {
+              "label": "Serves MUA heating coils",
+              "value": "serves_mua_heating_coils"
+            },
+            {
+              "label": "Serves heat exchanger circuits",
+              "value": "serves_heat_exchanger_circuits"
+            },
+            {
+              "label": "Serves DHW secondary loop",
+              "value": "serves_dhw_secondary_loop"
+            },
+            {
+              "label": "Serves miscellaneous loops",
+              "value": "serves_misc_loops"
+            },
+            {
+              "label": "Mixed / unknown",
+              "value": "mixed_unknown"
+            }
+          ],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Loads and distribution systems served by the heating plant.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          },
+          "value_aliases": {
+            "serves_fancoil": "serves_fan_coil",
+            "serves_baseboard": "serves_radiation",
+            "serves_radiant": "serves_radiation",
+            "serves_mua": "serves_mua_heating_coils",
+            "serves_ahu": "serves_heat_exchanger_circuits",
+            "serves_dhw_loop": "serves_dhw_secondary_loop"
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Distribution / Pumps",
+      "questions": [
+        {
+          "id": "distribution_pumps_operating_normally",
+          "title": "Distribution pumps operating normally",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Operational status of distribution pumps.",
+          "required": false,
+          "show_if": {
+            "field": "heating_heat_source",
+            "op": "in",
+            "value": [
+              "central_hydronic_boiler_plant",
+              "wshp_loop"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Notes (Facts Only)",
+      "questions": [
+        {
+          "id": "heating_notes_facts",
+          "title": "Heating notes (facts only)",
+          "type": "notes",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Facts-only observations about heating system composition and operation.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling",
+      "questions": [
+        {
+          "id": "cooling_system_type",
+          "title": "Cooling system type",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "cooling.system_type",
+          "placeholder_targets": [],
+          "help": "Primary cooling system type.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          },
+          "value_aliases": {
+            "magin_pak_unit": "in_suite_magic_pak_unit",
+            "magic_pak_unit": "in_suite_magic_pak_unit"
+          }
+        },
+        {
+          "id": "cooling_central_system_present",
+          "title": "Central cooling present",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a central cooling plant is present.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_serves",
+          "title": "Cooling serves",
+          "type": "multi_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "hvac.heating_serves",
+          "placeholder_targets": [],
+          "help": "Distribution systems served by the cooling plant.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_distribution",
+          "title": "Cooling distribution",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "cooling.distribution",
+          "placeholder_targets": [],
+          "help": "Primary cooling distribution approach.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "suite_cooling_type",
+          "title": "Suite cooling type",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "suite.cooling_type",
+          "placeholder_targets": [],
+          "help": "Typical in-suite cooling equipment type.",
+          "required": false
+        },
+        {
+          "id": "fluid_cooler_present",
+          "title": "Fluid cooler present",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a fluid cooler is present for heat rejection.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "wshp_install_year",
+          "title": "WSHP install year",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Approximate installation year for WSHP equipment.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "wshp_deficiencies_reported",
+          "title": "WSHP deficiencies reported",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether deficiencies were reported for the WSHP system.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_issues_reported",
+          "title": "Cooling issues reported",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether cooling issues were reported.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "site_visit_season",
+          "title": "Site visit season",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "site.visit_season",
+          "placeholder_targets": [],
+          "help": "Season during the site visit.",
+          "required": false
+        },
+        {
+          "id": "cooling_location",
+          "title": "Cooling location",
+          "type": "text",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of the cooling plant equipment.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "chiller_manufacturer",
+          "title": "Chiller manufacturer",
+          "type": "text",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Primary chiller manufacturer, if known.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "chiller_install_year",
+          "title": "Chiller install year",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Approximate installation year for chillers.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_equipment_condition",
+          "title": "Cooling equipment condition",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "cooling.equipment_condition",
+          "placeholder_targets": [],
+          "help": "Observed condition of central cooling equipment.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "condenser_pump_has_vfd",
+          "title": "Condenser pump has VFD",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether condenser pumps are equipped with VFDs.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_tower_present",
+          "title": "Cooling tower present",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether a cooling tower is present.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_tower_has_vfd",
+          "title": "Cooling tower has VFD",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether cooling tower fans are equipped with VFDs.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_controls_notes",
+          "title": "Cooling controls notes",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Notes about cooling controls and sequencing.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "cooling_notes",
+          "title": "Cooling notes",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the cooling system.",
+          "required": false
+        },
+        {
+          "id": "cooling_block_override",
+          "title": "Central cooling systems (manual override)",
+          "type": "notes",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Central Cooling Systems block}"
+          ],
+          "help": "Optional manual override for the cooling systems narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_chillers",
+          "title": "Number of chillers",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of central chillers.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "chiller_tonnage",
+          "title": "Chiller tonnage (tons each)",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Nominal capacity per chiller in tons.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "number_of_fluid_coolers",
+          "title": "Number of fluid coolers",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of fluid coolers serving the WSHP or condenser loop.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        },
+        {
+          "id": "number_of_rooftop_units",
+          "title": "Number of rooftop DX units",
+          "type": "number",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of packaged rooftop DX units, if applicable.",
+          "required": false,
+          "show_if": {
+            "field": "suite_cooling_type",
+            "op": "not_in",
+            "value": [
+              "window_and_portable_ac",
+              "magic_pak_unit"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "measures",
+      "title": "Measures",
+      "questions": [
+        {
+          "id": "measures",
+          "title": "Measures",
+          "type": "measure_list",
+          "section_id": "measures",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{MEASURE_BLOCK}",
+            "{MEASURE_SUMMARY_ROW}"
+          ],
+          "help": "Add structured measures; numbering and formatting are handled in the Word report.",
+          "required": false,
+          "item_fields": [
+            {
+              "id": "measure_title",
+              "title": "Measure title",
+              "type": "text",
+              "required": true
+            },
+            {
+              "id": "category",
+              "title": "Category",
+              "type": "single_select",
+              "required": false,
+              "options": [
+                {
+                  "label": "BAS",
+                  "value": "bas"
+                },
+                {
+                  "label": "Boilers",
+                  "value": "boilers"
+                },
+                {
+                  "label": "DHW",
+                  "value": "dhw"
+                },
+                {
+                  "label": "Lighting",
+                  "value": "lighting"
+                },
+                {
+                  "label": "Ventilation",
+                  "value": "ventilation"
+                },
+                {
+                  "label": "Controls",
+                  "value": "controls"
+                },
+                {
+                  "label": "Envelope",
+                  "value": "envelope"
+                },
+                {
+                  "label": "Other",
+                  "value": "other"
+                }
+              ]
+            },
+            {
+              "id": "existing_conditions",
+              "title": "Existing conditions",
+              "type": "notes",
+              "required": false
+            },
+            {
+              "id": "retrofit_conditions",
+              "title": "Retrofit conditions",
+              "type": "notes",
+              "required": false
+            },
+            {
+              "id": "savings_electric_kwh",
+              "title": "Savings electric (kWh)",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "savings_gas_m3",
+              "title": "Savings gas (m³)",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "savings_water_m3",
+              "title": "Savings water (m³)",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "implementation_cost",
+              "title": "Implementation cost",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "incentive",
+              "title": "Incentive",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "simple_payback_years",
+              "title": "Simple payback (years)",
+              "type": "number",
+              "required": false
+            },
+            {
+              "id": "notes",
+              "title": "Notes",
+              "type": "notes",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unmapped",
+      "title": "Unmapped placeholders",
+      "questions": [
+        {
+          "id": "district_50b69d",
+          "title": "District",
+          "type": "text",
+          "section_id": "unmapped",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{District}"
+          ],
+          "help": "Unmapped placeholder.",
+          "required": false
+        },
+        {
+          "id": "province_abbreviation_ff26b8",
+          "title": "Province Abbreviation",
+          "type": "text",
+          "section_id": "unmapped",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Province Abbreviation}"
+          ],
+          "help": "Unmapped placeholder.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ventilation",
+      "title": "Ventilation",
+      "questions": [
+        {
+          "id": "ventilation_system_type",
+          "title": "Ventilation system type",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "ventilation.system_type",
+          "placeholder_targets": [],
+          "help": "Primary ventilation system type.",
+          "required": false
+        },
+        {
+          "id": "rooftop_access_available",
+          "title": "Rooftop access available",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether rooftop access was available during the site visit.",
+          "required": false
+        },
+        {
+          "id": "heat_recovery_observed",
+          "title": "Heat recovery observed",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether heat recovery equipment was observed.",
+          "required": false
+        },
+        {
+          "id": "erv_hrv_present",
+          "title": "ERV/HRV present",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no_unknown",
+          "placeholder_targets": [],
+          "help": "Whether ERV/HRV units are present.",
+          "required": false
+        },
+        {
+          "id": "mua_has_dx_cooling",
+          "title": "MUA DX cooling present",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether MUA units include DX cooling sections.",
+          "required": false
+        },
+        {
+          "id": "mua_count",
+          "title": "MUA count",
+          "type": "number",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of MUA units (alternate input).",
+          "required": false
+        },
+        {
+          "id": "mua_has_vfd",
+          "title": "MUA fans with VFD",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether MUA fans are equipped with VFDs.",
+          "required": false
+        },
+        {
+          "id": "mua_has_gas_heat",
+          "title": "MUA gas-fired heating",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether MUA units include gas-fired heating sections.",
+          "required": false
+        },
+        {
+          "id": "mua_has_cooling_coil",
+          "title": "MUA cooling coil present",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether MUA units include cooling coils.",
+          "required": false
+        },
+        {
+          "id": "mua_heating_type",
+          "title": "MUA heating type",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "mua.heating_type",
+          "placeholder_targets": [],
+          "help": "Heating source for MUA units.",
+          "required": false
+        },
+        {
+          "id": "mua_partial_replacement",
+          "title": "Partial unit replacement",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Whether MUA units have been partially replaced or retrofitted.",
+          "required": false
+        },
+        {
+          "id": "mua_operating_normally",
+          "title": "MUA units operating normally",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Operational status of MUA units during walkthrough.",
+          "required": false
+        },
+        {
+          "id": "mua_functional",
+          "title": "MUA system functional",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "boolean.yes_no",
+          "placeholder_targets": [],
+          "help": "Overall functional status of the MUA system.",
+          "required": false
+        },
+        {
+          "id": "ventilation_location",
+          "title": "Ventilation location",
+          "type": "text",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Location of ventilation equipment.",
+          "required": false
+        },
+        {
+          "id": "ventilation_notes",
+          "title": "Ventilation notes",
+          "type": "notes",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Additional notes for the ventilation system.",
+          "required": false
+        },
+        {
+          "id": "ventilation_block_override",
+          "title": "Central ventilation system (manual override)",
+          "type": "notes",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [
+            "{Central Ventilation System Block}"
+          ],
+          "help": "Optional manual override for the ventilation systems narrative.",
+          "required": false
+        },
+        {
+          "id": "number_of_mua_units",
+          "title": "Number of MUA units",
+          "type": "number",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Count of make-up air units serving the building.",
+          "required": false
+        },
+        {
+          "id": "ventilation_airflow_cfm",
+          "title": "Ventilation airflow (CFM)",
+          "type": "number",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": null,
+          "placeholder_targets": [],
+          "help": "Design supply or exhaust airflow in CFM, if known.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "heating",
+      "title": "Heating Mechanical Condition",
+      "questions": [
+        {
+          "id": "heating_system_condition",
+          "title": "Heating Mechanical Condition",
+          "type": "single_select",
+          "section_id": "heating",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing heating equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "cooling",
+      "title": "Cooling Mechanical Condition",
+      "questions": [
+        {
+          "id": "cooling_system_condition",
+          "title": "Cooling Mechanical Condition",
+          "type": "single_select",
+          "section_id": "cooling",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing cooling equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ventilation",
+      "title": "Ventilation Mechanical Condition",
+      "questions": [
+        {
+          "id": "ventilation_system_condition",
+          "title": "Ventilation Mechanical Condition",
+          "type": "single_select",
+          "section_id": "ventilation",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing central ventilation equipment.",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "dhw",
+      "title": "DHW Mechanical Condition",
+      "questions": [
+        {
+          "id": "dhw_system_condition",
+          "title": "DHW Mechanical Condition",
+          "type": "single_select",
+          "section_id": "dhw",
+          "options": [],
+          "options_ref": "system.mechanical_condition",
+          "placeholder_targets": [],
+          "help": "Observed overall mechanical condition of existing domestic hot water equipment.",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "total_placeholders": 20,
+    "mapped": 18,
+    "unmapped": 2
+  }
+}
