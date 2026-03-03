@@ -95,7 +95,7 @@ class ProjectNotesPanel(ttk.Frame):
             self._project_note_window.attributes("-topmost", True)
             self._project_note_window.deiconify()
             self._project_note_window.lift()
-            self._project_note_window.focus_force()
+            self._project_note_window.focus_set()
             if self._project_note_text is not None:
                 self._project_note_text.focus_set()
             return
@@ -107,7 +107,9 @@ class ProjectNotesPanel(ttk.Frame):
         window.attributes("-topmost", True)
         window.columnconfigure(0, weight=1)
         window.rowconfigure(1, weight=1)
-        window.transient(self.winfo_toplevel())
+        # Do not mark this window as transient to the main window.
+        # This keeps Project Notes independent so it stays visible/focusable
+        # even when the main app is minimized.
 
         ttk.Label(
             window,

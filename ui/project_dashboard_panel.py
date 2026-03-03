@@ -41,14 +41,18 @@ class ProjectDashboardPanel(ttk.Frame):
 
         header = ttk.Frame(self, padding=(10, 8))
         header.grid(row=0, column=0, sticky="ew")
-        header.columnconfigure(1, weight=1)
+        header.columnconfigure(0, weight=1)
 
         ttk.Label(header, text="Project Dashboard", font=("TkDefaultFont", 12, "bold")).grid(
-            row=0, column=0, sticky="w"
+            row=0, column=0, sticky="w", pady=(0, 8)
         )
 
-        search_frame = ttk.Frame(header)
-        search_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        controls = ttk.Frame(header)
+        controls.grid(row=1, column=0, sticky="ew")
+        controls.columnconfigure(0, weight=1)
+
+        search_frame = ttk.Frame(controls)
+        search_frame.grid(row=0, column=0, sticky="ew", padx=(0, 10))
         search_frame.columnconfigure(0, weight=1)
         self._search_var = tk.StringVar()
         search_entry = ttk.Entry(search_frame, textvariable=self._search_var)
@@ -58,8 +62,8 @@ class ProjectDashboardPanel(ttk.Frame):
         )
         self._search_var.trace_add("write", lambda *_args: self._apply_filter())
 
-        actions = ttk.Frame(header)
-        actions.grid(row=0, column=1, rowspan=2, sticky="e")
+        actions = ttk.Frame(controls)
+        actions.grid(row=0, column=1, sticky="e")
         ttk.Button(actions, text="New Project", command=self._on_new).grid(
             row=0, column=0, padx=(0, 6)
         )
