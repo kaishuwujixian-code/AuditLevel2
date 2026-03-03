@@ -4,7 +4,7 @@ import subprocess
 import sys
 from datetime import datetime
 import tkinter as tk
-from tkinter import filedialog, font as tkfont, messagebox, ttk
+from tkinter import filedialog, messagebox, ttk
 from typing import Dict, Optional
 
 from core.paths import (
@@ -66,36 +66,21 @@ class RetScreenApp:
 
         button_frame = ttk.Frame(toolbar)
         button_frame.grid(row=0, column=0, sticky="w")
+        ttk.Button(button_frame, text="📂 Open", command=self.open_project_dialog).grid(
+            row=0, column=0, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="💾 Save", command=self.save_project).grid(
+            row=0, column=1, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="✅ Validate", command=self.validate_project).grid(
+            row=0, column=2, padx=(0, 6)
+        )
+        ttk.Button(button_frame, text="📄 Generate Report", command=self.generate_report).grid(
+            row=0, column=3, padx=(0, 6)
+        )
         ttk.Button(
-            button_frame,
-            text="📂 Open",
-            style="Toolbar.TButton",
-            command=self.open_project_dialog,
-        ).grid(row=0, column=0, padx=(0, 8))
-        ttk.Button(
-            button_frame,
-            text="💾 Save",
-            style="Toolbar.TButton",
-            command=self.save_project,
-        ).grid(row=0, column=1, padx=(0, 8))
-        ttk.Button(
-            button_frame,
-            text="✅ Validate",
-            style="Toolbar.TButton",
-            command=self.validate_project,
-        ).grid(row=0, column=2, padx=(0, 8))
-        ttk.Button(
-            button_frame,
-            text="📄 Generate Report",
-            style="Primary.TButton",
-            command=self.generate_report,
-        ).grid(row=0, column=3, padx=(0, 8))
-        ttk.Button(
-            button_frame,
-            text="📁 Output Folder",
-            style="Toolbar.TButton",
-            command=self.open_output_folder,
-        ).grid(row=0, column=4, padx=(0, 8))
+            button_frame, text="📁 Output Folder", command=self.open_output_folder
+        ).grid(row=0, column=4, padx=(0, 6))
 
         content = ttk.Frame(self.root)
         content.grid(row=1, column=0, sticky="nsew")
@@ -141,22 +126,19 @@ class RetScreenApp:
             self.root,
             textvariable=self._status_var,
             anchor="w",
-            style="Status.TLabel",
-            padding=(10, 6),
+            relief="sunken",
+            padding=(8, 4),
         )
         status_bar.grid(row=2, column=0, sticky="ew")
 
     def _apply_theme(self) -> None:
         palette = {
-            "bg": "#EEF3FA",
+            "bg": "#F4F7FB",
             "surface": "#FFFFFF",
-            "accent": "#1F5EA8",
-            "accent_hover": "#2A6CB9",
-            "accent_light": "#E3EEFC",
+            "accent": "#4C6FFF",
+            "accent_light": "#E8ECFF",
             "text": "#1F2937",
-            "muted": "#5B6472",
-            "border": "#CBD5E1",
-            "status": "#F8FAFC",
+            "muted": "#6B7280",
         }
         self.root.configure(bg=palette["bg"])
         style = ttk.Style(self.root)
@@ -164,76 +146,30 @@ class RetScreenApp:
             style.theme_use("clam")
         except tk.TclError:
             pass
-
-        default_font = tkfont.nametofont("TkDefaultFont")
-        default_font.configure(family="Segoe UI", size=10)
-        heading_font = tkfont.nametofont("TkHeadingFont")
-        heading_font.configure(family="Segoe UI", size=10, weight="bold")
-
-        self.root.option_add("*Font", "Segoe UI 10")
-        self.root.option_add("*Text.background", palette["surface"])
-        self.root.option_add("*Text.foreground", palette["text"])
-        self.root.option_add("*Listbox.background", palette["surface"])
-        self.root.option_add("*Listbox.foreground", palette["text"])
-        self.root.option_add("*Listbox.selectBackground", palette["accent_light"])
-        self.root.option_add("*Listbox.selectForeground", palette["text"])
-
         style.configure("TFrame", background=palette["bg"])
         style.configure("TLabel", background=palette["bg"], foreground=palette["text"])
-
-        style.configure(
-            "TButton",
-            padding=(12, 7),
-            background=palette["surface"],
-            foreground=palette["text"],
-            bordercolor=palette["border"],
-            lightcolor=palette["surface"],
-            darkcolor=palette["surface"],
-            relief="flat",
-        )
+        style.configure("TButton", padding=(10, 4))
         style.map(
             "TButton",
-            background=[("active", "#F3F6FC"), ("pressed", "#E8EEF8")],
+            background=[("active", palette["accent_light"]), ("pressed", palette["accent"])]
         )
-        style.configure("Toolbar.TButton", padding=(14, 8))
-        style.configure(
-            "Primary.TButton",
-            background=palette["accent"],
-            foreground="#FFFFFF",
-            bordercolor=palette["accent"],
-            lightcolor=palette["accent"],
-            darkcolor=palette["accent"],
-        )
-        style.map(
-            "Primary.TButton",
-            background=[("active", palette["accent_hover"]), ("pressed", palette["accent"])],
-            foreground=[("disabled", "#D1D5DB")],
-        )
-
-        style.configure("TEntry", fieldbackground=palette["surface"], padding=(8, 6))
-        style.configure("TCombobox", fieldbackground=palette["surface"], padding=(6, 5))
-        style.map("TCombobox", fieldbackground=[("readonly", palette["surface"])])
-
         style.configure("TNotebook", background=palette["bg"], borderwidth=0)
         style.configure(
             "TNotebook.Tab",
             background=palette["accent_light"],
             foreground=palette["text"],
-            padding=(14, 8),
-            borderwidth=0,
+            padding=(12, 6),
         )
         style.map(
             "TNotebook.Tab",
-            background=[("selected", palette["surface"]), ("active", "#D5E6FB")],
+            background=[("selected", palette["surface"]), ("active", "#DCE3FF")],
             foreground=[("selected", palette["accent"]), ("active", palette["text"])],
         )
-
         style.configure(
             "Treeview",
             background=palette["surface"],
             fieldbackground=palette["surface"],
             foreground=palette["text"],
-            rowheight=28,
             borderwidth=0,
         )
         style.configure(
@@ -241,29 +177,19 @@ class RetScreenApp:
             background=palette["accent_light"],
             foreground=palette["text"],
             relief="flat",
-            padding=(8, 6),
-            font=("Segoe UI", 10, "bold"),
         )
-        style.map("Treeview", background=[("selected", "#D9E8FF")])
-
+        style.map("Treeview", background=[("selected", palette["accent_light"])])
         style.configure(
             "TLabelframe",
             background=palette["bg"],
             foreground=palette["muted"],
             borderwidth=1,
-            relief="solid",
+            relief="groove",
         )
         style.configure(
             "TLabelframe.Label",
             background=palette["bg"],
             foreground=palette["muted"],
-        )
-        style.configure(
-            "Status.TLabel",
-            background=palette["status"],
-            foreground=palette["muted"],
-            borderwidth=1,
-            relief="solid",
         )
 
     def _set_status(self, message: str) -> None:
