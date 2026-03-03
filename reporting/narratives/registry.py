@@ -1,11 +1,29 @@
 from typing import Any, Callable, Dict, Optional
 
-from reporting.narratives import cooling, dhw, findings, heating, measures, misc, ventilation
+from reporting.narratives import (
+    cooling,
+    dhw,
+    executive_summary,
+    findings,
+    heating,
+    measures,
+    misc,
+    ventilation,
+)
 
 _BLOCK_RENDERERS: Dict[str, Callable[..., str]] = {}
 _BLOCK_EXPECTATIONS: Dict[str, Dict[str, Any]] = {}
 
-for module in (heating, cooling, dhw, ventilation, measures, misc, findings):
+for module in (
+    heating,
+    cooling,
+    dhw,
+    ventilation,
+    executive_summary,
+    measures,
+    misc,
+    findings,
+):
     for placeholder in module.BLOCK_PLACEHOLDERS:
         _BLOCK_RENDERERS.setdefault(placeholder, module.render_block)
     module_expectations = getattr(module, "EXPECTED_INPUTS", {})

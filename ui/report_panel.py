@@ -9,9 +9,10 @@ ReportHandler = Callable[[], None]
 
 
 class ReportPanel(ttk.Frame):
-    def __init__(self, master: tk.Misc, on_generate: ReportHandler) -> None:
+    def __init__(self, master: tk.Misc, on_generate: ReportHandler, audit_label: str = "Level 1") -> None:
         super().__init__(master, padding=12)
         self._on_generate = on_generate
+        self._audit_label = audit_label
         self._output_var = tk.StringVar(value="No report generated yet.")
         self._build_ui()
 
@@ -19,10 +20,10 @@ class ReportPanel(ttk.Frame):
         self.columnconfigure(0, weight=1)
         ttk.Label(
             self,
-            text="Generate the Level 1 report using the selected project data.",
+            text=f"Generate the {self._audit_label} report using the selected project data.",
             wraplength=640,
         ).grid(row=0, column=0, sticky="w")
-        ttk.Button(self, text="Generate Level 1 Report", command=self._on_generate).grid(
+        ttk.Button(self, text=f"Generate {self._audit_label} Report", command=self._on_generate).grid(
             row=1, column=0, sticky="w", pady=(8, 12)
         )
         ttk.Label(self, text="Latest output:").grid(row=2, column=0, sticky="w")

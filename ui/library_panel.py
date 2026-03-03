@@ -3,6 +3,7 @@ from __future__ import annotations
 import tkinter as tk
 from tkinter import ttk
 
+from core.paths import AUDIT_PROFILE
 from ui.checklist_library_panel import ChecklistLibraryPanel
 from ui.measure_library_panel import MeasureLibraryPanel
 from ui.misc_library_panel import MiscLibraryPanel
@@ -79,6 +80,16 @@ class LibraryPanel(ttk.Frame):
             on_catalog_changed=self._on_system_catalog_changed,
         )
         notebook.add(ventilation_library_panel, text="Ventilation Library")
+
+        if AUDIT_PROFILE == "level2":
+            executive_summary_library_panel = SystemLibraryPanel(
+                notebook,
+                catalog_filename="executive_summary_catalog.json",
+                panel_title="Executive Summary Library",
+                state_key="executive_summary_library",
+                on_catalog_changed=self._on_system_catalog_changed,
+            )
+            notebook.add(executive_summary_library_panel, text="Executive Summary Library")
 
         ruleset_panel = RulesetLibraryPanel(notebook)
         notebook.add(ruleset_panel, text="Ruleset Library")
