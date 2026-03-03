@@ -2,14 +2,6 @@
 
 ## Quick Start
 
-### Prerequisites
-```bash
-pip install pillow
-```
-
-Place splash image at `assets/mann_splash.png` for startup splash branding.
-
-
 ### Run the unified desktop app (supported)
 ```bash
 python app_retscreen.py
