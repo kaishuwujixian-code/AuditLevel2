@@ -1,0 +1,775 @@
+{
+  "option_sets": {
+    "heating.terminal_type": [
+      {
+        "label": "Fan coil (hydronic)",
+        "value": "fan_coil_hydronic"
+      },
+      {
+        "label": "In-suite hydronic baseboard",
+        "value": "hydronic_baseboard"
+      },
+      {
+        "label": "Electric baseboard",
+        "value": "electric_baseboard"
+      },
+      {
+        "label": "Electric fan-forced heater",
+        "value": "electric_fan_forced"
+      },
+      {
+        "label": "In-suite heat pump (WSHP)",
+        "value": "in_suite_wshp"
+      },
+      {
+        "label": "Packaged in-suite unit (e.g. MagicPak)",
+        "value": "packaged_in_suite_unit"
+      },
+      {
+        "label": "Radiant floor / panel",
+        "value": "radiant_floor_panel"
+      },
+      {
+        "label": "Mixed / unknown",
+        "value": "mixed_unknown"
+      }
+    ],
+    "heating.heat_source": [
+      {
+        "label": "In-suite Magic-Pak unit",
+        "value": "in_suite_magic_pak_unit"
+      },
+      {
+        "label": "Central hydronic boiler plant",
+        "value": "central_hydronic_boiler_plant"
+      },
+      {
+        "label": "Water-source heat pump (WSHP loop)",
+        "value": "wshp_loop"
+      },
+      {
+        "label": "Air-source heat pump (ASHP)",
+        "value": "ashp"
+      },
+      {
+        "label": "Electric resistance (central)",
+        "value": "electric_resistance_central"
+      },
+      {
+        "label": "None / Unknown",
+        "value": "none_unknown"
+      }
+    ],
+    "heating.loop_type": [
+      {
+        "label": "High-temperature hydronic loop",
+        "value": "high_temp_hydronic_loop"
+      },
+      {
+        "label": "Low-temperature WSHP loop",
+        "value": "low_temp_wshp_loop"
+      }
+    ],
+    "hvac.heating_serves": [
+      {
+        "label": "Serves fan coil",
+        "value": "serves_fancoil"
+      },
+      {
+        "label": "Serves baseboard",
+        "value": "serves_baseboard"
+      },
+      {
+        "label": "Serves radiant",
+        "value": "serves_radiant"
+      },
+      {
+        "label": "Serves AHU",
+        "value": "serves_ahu"
+      },
+      {
+        "label": "Serves MUA",
+        "value": "serves_mua"
+      },
+      {
+        "label": "Serves DHW loop",
+        "value": "serves_dhw_loop"
+      },
+      {
+        "label": "Serves miscellaneous loops",
+        "value": "serves_misc_loops"
+      }
+    ],
+    "dhw.system_type": [
+      {
+        "label": "Heat exchanger from heating plant",
+        "value": "hx_from_heating_ps"
+      },
+      {
+        "label": "Central boiler plant (generic)",
+        "value": "dhw_boilers"
+      },
+      {
+        "label": "Central boiler (condensing)",
+        "value": "dhw_boiler_condensing"
+      },
+      {
+        "label": "Central boiler (atmospheric)",
+        "value": "dhw_boiler_atmospheric"
+      },
+      {
+        "label": "Electric water heater",
+        "value": "dhw_electric"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "dhw_other_unknown"
+      }
+    ],
+    "cooling.system_type": [
+      {
+        "label": "In-suite Magic-Pak unit",
+        "value": "in_suite_magic_pak_unit"
+      },
+      {
+        "label": "Chiller & cooling tower",
+        "value": "chiller_cooling_tower"
+      },
+      {
+        "label": "Air-cooled chiller",
+        "value": "chiller_air"
+      },
+      {
+        "label": "Water-cooled chiller",
+        "value": "chiller_water"
+      },
+      {
+        "label": "Fluid cooler (WSHP loop)",
+        "value": "fluid_cooler"
+      },
+      {
+        "label": "Packaged rooftop DX",
+        "value": "packaged_rooftop_dx"
+      },
+      {
+        "label": "Split DX",
+        "value": "split_dx"
+      },
+      {
+        "label": "PTAC",
+        "value": "ptac"
+      },
+      {
+        "label": "WSHP cooling",
+        "value": "wshp_cooling"
+      },
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "other_unknown"
+      }
+    ],
+    "ventilation.system_type": [
+      {
+        "label": "Gas-fired rooftop MUA",
+        "value": "mua_gas_rooftop"
+      },
+      {
+        "label": "Hydronic coil MUA",
+        "value": "mua_hydronic_coil"
+      },
+      {
+        "label": "Heat recovery ventilator",
+        "value": "heat_recovery_ventilator"
+      },
+      {
+        "label": "MUA corridor",
+        "value": "mua_corridor"
+      },
+      {
+        "label": "DOAS",
+        "value": "doas"
+      },
+      {
+        "label": "Suite ERV/HRV",
+        "value": "suite_erv_hrv"
+      },
+      {
+        "label": "Suite exhaust only",
+        "value": "suite_exhaust_only"
+      },
+      {
+        "label": "Exhaust only",
+        "value": "exhaust_only"
+      },
+      {
+        "label": "Mixed / Unknown",
+        "value": "mixed_unknown"
+      }
+    ],
+    "bas.integration_level": [
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Partial",
+        "value": "partial"
+      },
+      {
+        "label": "Full",
+        "value": "full"
+      }
+    ],
+    "heating.boiler_type": [
+      {
+        "label": "Atmospheric",
+        "value": "atmospheric"
+      },
+      {
+        "label": "Non-condensing",
+        "value": "non_condensing"
+      },
+      {
+        "label": "Near-condensing",
+        "value": "near_condensing"
+      },
+      {
+        "label": "Condensing",
+        "value": "condensing"
+      }
+    ],
+    "boiler.condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair to Good",
+        "value": "fair_to_good"
+      },
+      {
+        "label": "Good to Fair",
+        "value": "good_to_fair"
+      }
+    ],
+    "cooling.distribution": [
+      {
+        "label": "Fan coil",
+        "value": "fan_coil"
+      },
+      {
+        "label": "Air handler",
+        "value": "air_handler"
+      }
+    ],
+    "suite.cooling_type": [
+      {
+        "label": "Fan coil",
+        "value": "fan_coil"
+      },
+      {
+        "label": "In-Suite Magic-Pak Unit",
+        "value": "magic_pak_unit"
+      },
+      {
+        "label": "Window and portable AC",
+        "value": "window_and_portable_ac"
+      }
+    ],
+    "cooling.equipment_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      }
+    ],
+    "dhw.generation_type": [
+      {
+        "label": "Central DHW boilers",
+        "value": "central_dhw_boilers"
+      },
+      {
+        "label": "Boiler-fed via heat exchanger",
+        "value": "boiler_fed_via_hx"
+      }
+    ],
+    "dhw.boiler_type": [
+      {
+        "label": "Atmospheric",
+        "value": "atmospheric"
+      },
+      {
+        "label": "Non-condensing",
+        "value": "non_condensing"
+      },
+      {
+        "label": "Condensing",
+        "value": "condensing"
+      }
+    ],
+    "dhw.mixing_valve_type": [
+      {
+        "label": "None",
+        "value": "none"
+      },
+      {
+        "label": "Mechanical",
+        "value": "mechanical"
+      },
+      {
+        "label": "Flowmix electronic",
+        "value": "flowmix_electronic"
+      }
+    ],
+    "dhw.equipment_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      }
+    ],
+    "mua.heating_type": [
+      {
+        "label": "Gas burner",
+        "value": "gas_burner"
+      },
+      {
+        "label": "Hydronic heating only",
+        "value": "hydronic_heating_only"
+      }
+    ],
+    "boolean.yes_no": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ],
+    "boolean.yes_no_unknown": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      },
+      {
+        "label": "Unknown",
+        "value": "unknown"
+      }
+    ],
+    "bas.platform": [
+      {
+        "label": "Niagara AX",
+        "value": "niagara_ax"
+      },
+      {
+        "label": "Niagara 4",
+        "value": "niagara_4"
+      },
+      {
+        "label": "Proprietary",
+        "value": "proprietary"
+      },
+      {
+        "label": "Other / Unknown",
+        "value": "other_unknown"
+      }
+    ],
+    "common_area.heating_type": [
+      {
+        "label": "Electric fan heater",
+        "value": "electric_fan_heater"
+      },
+      {
+        "label": "Electric radiator",
+        "value": "electric_radiator"
+      },
+      {
+        "label": "Mixed electric",
+        "value": "mixed_electric"
+      }
+    ],
+    "site.visit_season": [
+      {
+        "label": "Heating season",
+        "value": "heating_season"
+      },
+      {
+        "label": "Cooling season",
+        "value": "cooling_season"
+      },
+      {
+        "label": "Shoulder season",
+        "value": "shoulder_season"
+      }
+    ],
+    "exhaust.fan_condition": [
+      {
+        "label": "Aging but functional",
+        "value": "aging_but_functional"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
+      }
+    ],
+    "dhw.piping_condition": [
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
+      }
+    ],
+    "building.arch_condition": [
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Unknown",
+        "value": "unknown"
+      }
+    ],
+    "system.mechanical_condition": [
+      {
+        "label": "Poor",
+        "value": "poor"
+      },
+      {
+        "label": "Fair",
+        "value": "fair"
+      },
+      {
+        "label": "Good",
+        "value": "good"
+      },
+      {
+        "label": "Fair to Good",
+        "value": "fair_to_good"
+      },
+      {
+        "label": "Good to Fair",
+        "value": "good_to_fair"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "match": {
+        "type": "exact",
+        "value": "{ClientName}"
+      },
+      "question": {
+        "id": "client_name",
+        "title": "Client name",
+        "type": "text",
+        "section_id": "facility",
+        "help": "Client or ownership name.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Property Address1}"
+      },
+      "question": {
+        "id": "site_address",
+        "title": "Site address",
+        "type": "text",
+        "section_id": "facility",
+        "help": "Street address for the audited facility.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{City}"
+      },
+      "question": {
+        "id": "city",
+        "title": "City",
+        "type": "text",
+        "section_id": "facility",
+        "help": "City of the audited facility.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Province}"
+      },
+      "question": {
+        "id": "province",
+        "title": "Province",
+        "type": "text",
+        "section_id": "facility",
+        "help": "Province or state.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Post Code}"
+      },
+      "question": {
+        "id": "postal_code",
+        "title": "Postal code",
+        "type": "text",
+        "section_id": "facility",
+        "help": "Postal or ZIP code.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Number of Floors}"
+      },
+      "question": {
+        "id": "number_of_floors",
+        "title": "Number of floors",
+        "type": "number",
+        "section_id": "facility",
+        "help": "Total above-grade floors.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Number of Suites}"
+      },
+      "question": {
+        "id": "number_of_suites",
+        "title": "Number of suites",
+        "type": "number",
+        "section_id": "facility",
+        "help": "Count of residential suites.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Suite Types}"
+      },
+      "question": {
+        "id": "suite_types",
+        "title": "Suite types",
+        "type": "notes",
+        "section_id": "facility",
+        "help": "Describe suite mix (studio, 1BR, 2BR, etc.).",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Date Constructed}"
+      },
+      "question": {
+        "id": "date_constructed",
+        "title": "Date constructed",
+        "type": "text",
+        "section_id": "facility",
+        "help": "Year or date constructed.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{DateDocument}"
+      },
+      "question": {
+        "id": "report_date",
+        "title": "Report date",
+        "type": "date",
+        "section_id": "facility",
+        "help": "Document issue date.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Report Date}"
+      },
+      "question": {
+        "id": "report_date",
+        "title": "Report date",
+        "type": "date",
+        "section_id": "facility",
+        "help": "Report date used on the template.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Architectural Condition}"
+      },
+      "question": {
+        "id": "architectural_condition",
+        "title": "Architectural condition",
+        "type": "single_select",
+        "section_id": "facility",
+        "options_ref": "building.arch_condition",
+        "help": "Overall architectural condition assessment.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Central Heating Systems block}"
+      },
+      "question": {
+        "id": "heating_block_override",
+        "title": "Central heating systems (manual override)",
+        "type": "notes",
+        "section_id": "heating",
+        "help": "Optional manual override for the heating systems narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Central Cooling Systems block}"
+      },
+      "question": {
+        "id": "cooling_block_override",
+        "title": "Central cooling systems (manual override)",
+        "type": "notes",
+        "section_id": "cooling",
+        "help": "Optional manual override for the cooling systems narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Central Ventilation System Block}"
+      },
+      "question": {
+        "id": "ventilation_block_override",
+        "title": "Central ventilation system (manual override)",
+        "type": "notes",
+        "section_id": "ventilation",
+        "help": "Optional manual override for the ventilation systems narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{DHW System Block}"
+      },
+      "question": {
+        "id": "dhw_block_override",
+        "title": "DHW system (manual override)",
+        "type": "notes",
+        "section_id": "dhw",
+        "help": "Optional manual override for the domestic hot water narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{Miscellaneous Block}"
+      },
+      "question": {
+        "id": "misc_block",
+        "title": "Miscellaneous notes",
+        "type": "notes",
+        "section_id": "findings",
+        "help": "Additional notes for miscellaneous content.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{MEASURE_BLOCK}"
+      },
+      "question": {
+        "id": "measures_block_override",
+        "title": "Measures block (manual override)",
+        "type": "notes",
+        "section_id": "measures",
+        "help": "Optional manual override for the measures block narrative.",
+        "required": false
+      }
+    },
+    {
+      "match": {
+        "type": "exact",
+        "value": "{MEASURE_SUMMARY_ROW}"
+      },
+      "question": {
+        "id": "measures_block_override",
+        "title": "Measures block (manual override)",
+        "type": "notes",
+        "section_id": "measures",
+        "help": "Optional manual override for the measures summary row narrative.",
+        "required": false
+      }
+    }
+  ]
+}
