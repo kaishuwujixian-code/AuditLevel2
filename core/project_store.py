@@ -98,6 +98,13 @@ def _fallback_slug(record: ProjectRecord) -> str:
     return os.path.basename(record.project_dir)
 
 
+
+
+def report_filename_prefix_for_profile(audit_profile: str) -> str:
+    if str(audit_profile).strip().lower() == "level2":
+        return "Level 2 energy audit"
+    return "Level 1 energy audit"
+
 def default_output_path(record: ProjectRecord, output_dir: str) -> str:
     slug_source = _fallback_slug(record)
     slug = _slugify(slug_source)
