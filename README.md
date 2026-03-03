@@ -2,6 +2,25 @@
 
 ## Quick Start
 
+### Start the app (launcher + splash)
+```bash
+python app_retscreen.py
+```
+
+### Start directly in a specific audit level
+```bash
+python app_level1.py
+python app_level2.py
+```
+
+### Prerequisites
+```bash
+pip install pillow
+```
+
+Optional branding asset:
+- Put your splash image at `assets/mann_splash.png` (the app still starts with a fallback splash if missing).
+
 ### Run the unified desktop app (supported)
 ```bash
 python app_retscreen.py
