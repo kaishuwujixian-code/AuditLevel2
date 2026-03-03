@@ -39,14 +39,14 @@ class RetScreenApp:
         audit_label: str = "Level 1",
     ) -> None:
         self.root = root
-        self.root.title(f"Audit Studio ({audit_label})")
+        if audit_label == "Level 1" and AUDIT_PROFILE == "level2":
+            audit_label = "Level 2"
+        self._audit_label = audit_label
+        self.root.title(f"Audit Studio ({self._audit_label})")
         self.root.geometry("1280x720")
         self._apply_theme()
         self._template: Optional[TemplateData] = None
         self._template_docx_path = template_docx_path
-        if audit_label == "Level 1" and AUDIT_PROFILE == "level2":
-            audit_label = "Level 2"
-        self._audit_label = audit_label
         self._schema: Optional[Dict] = None
         self._project_data: Optional[Dict] = None
         self._project_path: Optional[str] = None
