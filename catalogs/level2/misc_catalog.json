@@ -1,0 +1,186 @@
+{
+  "categories": [
+    {
+      "code": "lighting",
+      "title": "Lighting"
+    },
+    {
+      "code": "window",
+      "title": "Window Condition"
+    },
+    {
+      "code": "electric",
+      "title": "Electric Panel"
+    },
+    {
+      "code": "water",
+      "title": "Toilet Flush"
+    },
+    {
+      "code": "thermostat",
+      "title": "No Insuite Thermostat"
+    },
+    {
+      "code": "garage",
+      "title": "Garage Ventilation"
+    },
+    {
+      "code": "ramp",
+      "title": "Ramp Heating"
+    },
+    {
+      "code": "bas",
+      "title": "BAS / Controls"
+    },
+    {
+      "code": "maintenance",
+      "title": "Leakage / Maintenance"
+    }
+  ],
+  "items": [
+    {
+      "id": "lighting_condition",
+      "title": "Lighting condition and controls",
+      "category": "lighting",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area."
+    },
+    {
+      "id": "window_condition",
+      "title": "Window condition (missing caulk)",
+      "category": "window",
+      "text": "During the site visit, deteriorated or missing caulking and weatherstripping were observed at several window frames and balcony door interfaces, while localized repairs have been completed in some areas. These conditions allow air infiltration during the heating season, contributing to localized cold drafts and increased space-heating demand. Full window replacement would address both air leakage and thermal losses."
+    },
+    {
+      "id": "electric_panel",
+      "title": "Electric Panel (fuse panels)",
+      "category": "electric",
+      "text": "The building is served by aging in suite fuse panels consistent with the original construction era. While the panel appeared to be functional and no immediate safety deficiencies were observed during the site visit, its configuration and capacity reflect outdated electrical standards and may offer limited flexibility to support future electrical loads, energy-efficiency upgrades, or electrification initiatives. Further detailed electrical assessment is recommended prior to implementing major electrical or energy-related retrofits to confirm available capacity, code compliance, and long-term suitability"
+    },
+    {
+      "id": "toilet_condition",
+      "title": "Toilet Flush (4.8 LPF)",
+      "category": "water",
+      "text": "The existing toilets are estimated to operate at approximately 4.8 liters per flush (LPF). Upgrading to modern dual-flush, low-flow toilet fixtures, typically rated at approximately 3.0–3.5 LPF for full flush with reduced volumes for liquid waste, would reduce domestic water consumption and associated sewer charges while maintaining acceptable fixture performance and occupant comfort."
+    },
+    {
+      "id": "no_insuite_thermostat",
+      "title": "No Insuite Thermostat",
+      "category": "thermostat",
+      "text": "Suite temperatures are regulated through boiler-room setpoints and/or manual adjustments at the central plant, resulting in limited ability to respond to variations in occupancy, solar gains, or individual comfort preferences. This centralized control approach may contribute to overheating in some suites and underheating in others, increasing overall heating energy consumption and occupant complaints."
+    },
+    {
+      "id": "garage_co_control",
+      "title": "Garage ventilation (Has CO controls)",
+      "category": "garage",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported."
+    },
+    {
+      "id": "ramp_heating",
+      "title": "Hydronic ramp heating",
+      "category": "ramp",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible through tighter integration with BAS control strategy."
+    },
+    {
+      "id": "bas_misc",
+      "title": "BAS miscellaneous observations",
+      "category": "bas",
+      "text": "Additional BAS-related observations include minor gaps in trend logging and limited visibility into select end-use loads. Integrating remaining standalone controllers into the BAS would improve reporting, enable more consistent scheduling, and simplify ongoing monitoring."
+    },
+    {
+      "id": "leakage_maintenance",
+      "title": "Leakage and maintenance notes",
+      "category": "maintenance",
+      "text": "General maintenance observations include isolated leakage at mechanical fittings and signs of aging insulation in select areas. Continued preventive maintenance and timely repair of minor leaks will help preserve system performance and avoid escalation into larger service issues."
+    },
+    {
+      "id": "window_condition_good",
+      "title": "Window condition (good)",
+      "category": "window",
+      "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit"
+    },
+    {
+      "id": "electric_ramp_heating",
+      "title": "Electric ramp heating",
+      "category": "ramp",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance"
+    },
+    {
+      "id": "has_vfd_on_booster_pump",
+      "title": "Has VFD on Booster Pump",
+      "category": "maintenance",
+      "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted"
+    },
+    {
+      "id": "no_vfd_on_booster_pump",
+      "title": "No VFD on Booster Pump",
+      "category": "maintenance",
+      "text": "The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\n\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted."
+    },
+    {
+      "id": "unheated_garage",
+      "title": "Unheated garage",
+      "category": "garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions."
+    },
+    {
+      "id": "heated_garage",
+      "title": "Heated Garage",
+      "category": "garage",
+      "text": "The parking garage is heated by unit heaters to maintain temperatures above freezing during winter operation. The unit heaters were observed to be in serviceable condition at the time of the site visit and provide localized space heating to the garage area."
+    },
+    {
+      "id": "envelope_condition_good",
+      "title": "Envelope Condition (Good)",
+      "category": "window",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended."
+    },
+    {
+      "id": "envelope_condition_poor",
+      "title": "Envelope Condition (Poor)",
+      "category": "window",
+      "text": "The building envelope appears to be in poor condition, with visible signs of air leakage and material deterioration observed at the time of the site visit. These conditions are likely contributing to increased heating demand and reduced occupant comfort."
+    },
+    {
+      "id": "window_condition_aging_double_pane",
+      "title": "Window condition (Aging double pane)",
+      "category": "window",
+      "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy."
+    },
+    {
+      "id": "diesel_generator",
+      "title": "Diesel Generator",
+      "category": "electric",
+      "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes."
+    },
+    {
+      "id": "natural_gas_generator",
+      "title": "Natural Gas Generator",
+      "category": "electric",
+      "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations."
+    },
+    {
+      "id": "garage_no_cosensor_garage_fan_manual_control",
+      "title": "Garage no cosensor, + Garage fan manual control",
+      "category": "garage",
+      "text": "The parking garage ventilation system operating without carbon monoxide (CO) sensors. Exhaust fans operate based on local controls and fixed schedules, resulting in continuous or time-based operation regardless of actual vehicle activity. This control approach limits demand-based ventilation capability and may lead to unnecessary fan runtime and increased electrical energy consumption. No major mechanical deficiencies were observed at the time of the site visit."
+    },
+    {
+      "id": "garage_air_intake_no_motorized_damper_cold",
+      "title": "Garage air intake no motorized damper + cold",
+      "category": "garage",
+      "text": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions."
+    },
+    {
+      "id": "dectron_unit",
+      "title": "Dectron unit",
+      "category": "maintenance",
+      "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure"
+    },
+    {
+      "id": "no_sub-metering",
+      "title": "No sub-metering",
+      "category": "electric",
+      "text": "The building appears to be served by a single master interval meter, and there is currently no electrical sub-metering system in place to monitor power distribution or track electricity consumption at the individual suite or major end-use level. Based on discussions with site staff, utility costs, including hydro and domestic hot water, are incorporated into common maintenance fees, which suggests that consumption is not individually metered."
+    }
+  ]
+}

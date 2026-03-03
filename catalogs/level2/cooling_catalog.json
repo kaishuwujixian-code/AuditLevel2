@@ -1,0 +1,92 @@
+{
+  "categories": [
+    {
+      "code": "plant",
+      "title": "Plant"
+    },
+    {
+      "code": "distribution",
+      "title": "Distribution"
+    },
+    {
+      "code": "controls",
+      "title": "Controls"
+    },
+    {
+      "code": "cooling_system",
+      "title": "Cooling System"
+    },
+    {
+      "code": "cooling_equipment",
+      "title": "Cooling Equipment"
+    }
+  ],
+  "items": [
+    {
+      "id": "air_cooled_chiller",
+      "title": "Air-cooled chiller",
+      "category": "plant",
+      "text": "Cooling is provided by a central air-cooled chiller system. Equipment appeared to be operating as intended based on available site observations."
+    },
+    {
+      "id": "cooling_distribution",
+      "title": "Cooling distribution observations",
+      "category": "distribution",
+      "text": "Chilled water is distributed to major cooling loads throughout the building. Piping, valves, and pumps were observed in generally serviceable condition during the walkthrough."
+    },
+    {
+      "id": "cooling_controls",
+      "title": "Cooling controls",
+      "category": "controls",
+      "text": "Cooling system control is handled through BAS schedules and setpoints. Sequence verification and trend analysis are recommended for additional optimization opportunities."
+    },
+    {
+      "id": "window_a_c_units",
+      "title": "Window A/C Units",
+      "category": "cooling_system",
+      "text": "The building is not equipped with a centralized cooling system. Cooling within individual suites is provided by a combination of window-mounted air conditioners and portable indoor air-conditioning units.\n\nThese decentralized cooling devices are generally less efficient than modern centralized or heat-pump-based systems. Typical window and portable air-conditioning units operate with relatively low coefficients of performance (COP), often below 3.0, compared to high-efficiency heat pump systems which can achieve COP values exceeding 4.5–5.0 under favorable conditions.\n\nIn addition to reduced cooling efficiency, window-mounted air-conditioning units can negatively impact building envelope performance. Improper sealing around window installations may allow uncontrolled air infiltration during the heating season, increasing heat loss, draft complaints, and overall space-heating energy consumption. Installation of a air source heat pump (ASHP) system could be considered in a short term to mid term."
+    },
+    {
+      "id": "magic_pak_for_cooling",
+      "title": "Magic Pak for Cooling",
+      "category": "cooling_system",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in suite MagicPak units, which consist of a gas fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\nWhile this decentralized configuration provides basic temperature control, gas fired furnace and conventional DX cooling systems are generally less efficient than heat pump solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high efficiency air source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\nIn addition to moderate energy performance, the distributed nature of MagicPak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to mini-split heat pump systems.\nGiven the age and inherent efficiency limitations of gas fired packaged units, replacement with a mini-split heat pump system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs"
+    },
+    {
+      "id": "fluid_cooler",
+      "title": "Fluid Cooler",
+      "category": "cooling_equipment",
+      "text": "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on the low-temperature hydronic loop. Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season. At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system.\nThe WSHP equipment, fluid cooler, and associated hydronic loop were observed to be functioning as intended, and no performance issues were identified at the time of inspection."
+    },
+    {
+      "id": "wshp_for_cooling",
+      "title": "WSHP for cooling",
+      "category": "cooling_system",
+      "text": "Cooling for the building is provided through a water-source heat pump (WSHP) system operating on the low-temperature hydronic loop. Heat extracted from suites is transferred into the loop and rejected outdoors through a fluid cooler during the cooling season. At the time of the site visit, the fluid cooler was seasonally shut down, which is typical for this type of system.\nThe WSHP equipment, fluid cooler, and associated hydronic loop were observed to be functioning as intended, and no performance issues were identified at the time of inspection."
+    },
+    {
+      "id": "fancoil_chiller",
+      "title": "Fancoil + chiller",
+      "category": "cooling_system",
+      "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2002 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season."
+    },
+    {
+      "id": "ptac_for_cooling",
+      "title": "PTAC for cooling",
+      "category": "cooling_system",
+      "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability."
+    },
+    {
+      "id": "over_all_good_condition_no_bas_integration",
+      "title": "Over all Good condition – No BAS Integration",
+      "category": "controls",
+      "text": "Cooling control is currently provided through standalone controllers operates based on fixed setpoints and manual seasonal scheduling, with no centralized Building Automation System (BAS) integration observed.\n\nOverall, the Cooling System appear to be in generally good condition at the time of the site visit. However, without BAS coordination, opportunities for optimized chiller staging, condenser water temperature reset, chilled-water temperature reset, and demand-based scheduling remain limited.\n\nFuture optimization could include BAS integration to enable centralized monitoring, automated seasonal changeover, temperature reset strategies, and improved fault detection. Such enhancements would improve system efficiency, reduce unnecessary runtime, and support long-term operational reliability."
+    },
+    {
+      "id": "over_all_good_condition_-_with_bas_integration",
+      "title": "Over all Good condition - With BAS Integration",
+      "category": "controls",
+      "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time"
+    }
+  ]
+}
