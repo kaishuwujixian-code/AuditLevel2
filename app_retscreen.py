@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import tkinter as tk
+from tkinter import ttk
 from PIL import Image, ImageTk
 
 
@@ -18,7 +19,59 @@ class AuditEntryApp:
         self.root.title("Mann Engineering - Energy Audit Report Generator")
         self.root.geometry("1100x700")
         self.root.minsize(860, 540)
+        self._apply_theme()
         self._build_ui()
+
+    def _apply_theme(self) -> None:
+        style = ttk.Style(self.root)
+        try:
+            style.theme_use("clam")
+        except tk.TclError:
+            pass
+
+        palette = {
+            "panel": "#0c2f68",
+            "title": "#FFFFFF",
+            "subtitle": "#D4E6FF",
+            "primary": "#F28B24",
+            "primary_active": "#EF7F11",
+            "secondary": "#2F70CE",
+            "secondary_active": "#285FB0",
+        }
+
+        style.configure("EntryPanel.TFrame", background=palette["panel"])
+        style.configure(
+            "EntryTitle.TLabel",
+            background=palette["panel"],
+            foreground=palette["title"],
+            font=("Arial", 20, "bold"),
+        )
+        style.configure(
+            "EntrySubtitle.TLabel",
+            background=palette["panel"],
+            foreground=palette["subtitle"],
+            font=("Arial", 12),
+        )
+
+        style.configure(
+            "Level1.TButton",
+            font=("Arial", 12, "bold"),
+            foreground="white",
+            background=palette["primary"],
+            borderwidth=0,
+            padding=(24, 10),
+        )
+        style.map("Level1.TButton", background=[("active", palette["primary_active"])])
+
+        style.configure(
+            "Level2.TButton",
+            font=("Arial", 12, "bold"),
+            foreground="white",
+            background=palette["secondary"],
+            borderwidth=0,
+            padding=(24, 10),
+        )
+        style.map("Level2.TButton", background=[("active", palette["secondary_active"])])
 
     def _build_ui(self) -> None:
         self._canvas = tk.Canvas(self.root, highlightthickness=0, bd=0)
@@ -29,52 +82,34 @@ class AuditEntryApp:
         except Exception:
             self._background_image = None
 
-        panel = tk.Frame(self.root, bg="#0c2f68", padx=28, pady=24)
-        title = tk.Label(
+        panel = ttk.Frame(self.root, style="EntryPanel.TFrame", padding=(28, 24))
+        title = ttk.Label(
             panel,
             text="Welcome to Energy Audit Report Generator",
-            font=("Arial", 20, "bold"),
-            fg="white",
-            bg="#0c2f68",
+            style="EntryTitle.TLabel",
         )
         title.pack(pady=(0, 8))
-        subtitle = tk.Label(
+        subtitle = ttk.Label(
             panel,
             text="Please select the audit level to continue",
-            font=("Arial", 12),
-            fg="#d4e6ff",
-            bg="#0c2f68",
+            style="EntrySubtitle.TLabel",
         )
         subtitle.pack(pady=(0, 18))
 
-        button_row = tk.Frame(panel, bg="#0c2f68")
+        button_row = ttk.Frame(panel, style="EntryPanel.TFrame")
         button_row.pack()
 
-        tk.Button(
+        ttk.Button(
             button_row,
             text="Level 1",
             command=lambda: self._launch_profile("level1"),
-            width=16,
-            bg="#f28b24",
-            fg="white",
-            font=("Arial", 12, "bold"),
-            activebackground="#ef7f11",
-            activeforeground="white",
-            relief="flat",
-            cursor="hand2",
+            style="Level1.TButton",
         ).grid(row=0, column=0, padx=10)
-        tk.Button(
+        ttk.Button(
             button_row,
             text="Level 2",
             command=lambda: self._launch_profile("level2"),
-            width=16,
-            bg="#2f70ce",
-            fg="white",
-            font=("Arial", 12, "bold"),
-            activebackground="#285fb0",
-            activeforeground="white",
-            relief="flat",
-            cursor="hand2",
+            style="Level2.TButton",
         ).grid(row=0, column=1, padx=10)
 
         self._panel_window = self._canvas.create_window(0, 0, window=panel)
