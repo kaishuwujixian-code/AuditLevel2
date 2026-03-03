@@ -454,9 +454,16 @@ class _ScrollableFrame(ttk.Frame):
         widget = self.winfo_containing(event.x_root, event.y_root)
         if not isinstance(widget, tk.Misc) or not _is_descendant(widget, self):
             return None
+
         units = _mousewheel_units(event)
         if units == 0:
             return "break"
+
+        text_widget = _nearest_text_widget(widget, self)
+        if text_widget is not None:
+            text_widget.yview_scroll(units, "units")
+            return "break"
+
         self._canvas.yview_scroll(units, "units")
         return "break"
 
@@ -504,6 +511,18 @@ def _normalize_id(value: Any) -> Optional[str]:
     text = str(value).strip()
     return text or None
 
+
+
+def _nearest_text_widget(widget: tk.Misc, ancestor: tk.Misc) -> Optional[tk.Text]:
+    current: Optional[tk.Misc] = widget
+    while current is not None and _is_descendant(current, ancestor):
+        if isinstance(current, tk.Text):
+            return current
+        parent_name = current.winfo_parent()
+        if not parent_name:
+            break
+        current = current.nametowidget(parent_name)
+    return None
 
 def _is_descendant(widget: tk.Misc, ancestor: tk.Misc) -> bool:
     current = widget
