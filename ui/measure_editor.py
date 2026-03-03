@@ -405,25 +405,9 @@ class _MeasureCard:
         )
         self._retrofit_text.grid(row=2, column=1, columnspan=2, sticky="ew", pady=(10, 0))
 
-        numeric_frame = ttk.LabelFrame(self.frame, text="Key Inputs")
-        numeric_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=(10, 0))
-        for col in range(3):
-            numeric_frame.columnconfigure(col * 2 + 1, weight=1)
-
         self._numeric_vars: Dict[str, tk.StringVar] = {}
-        for idx, field in enumerate(NUMERIC_FIELDS):
-            row = idx // 3
-            col = idx % 3
-            ttk.Label(numeric_frame, text=field.label).grid(
-                row=row, column=col * 2, sticky="w", padx=(6, 4), pady=4
-            )
-            var = tk.StringVar()
-            self._numeric_vars[field.key] = var
-            ttk.Entry(numeric_frame, textvariable=var, width=field.width).grid(
-                row=row, column=col * 2 + 1, sticky="ew", padx=(0, 8), pady=4
-            )
 
-        ttk.Label(self.frame, text="Notes").grid(row=4, column=0, sticky="nw", pady=(10, 0))
+        ttk.Label(self.frame, text="Notes").grid(row=3, column=0, sticky="nw", pady=(10, 0))
         self._notes_text = tk.Text(
             self.frame,
             height=3,
@@ -438,7 +422,7 @@ class _MeasureCard:
             spacing3=2,
             undo=True,
         )
-        self._notes_text.grid(row=4, column=1, columnspan=2, sticky="ew", pady=(10, 0))
+        self._notes_text.grid(row=3, column=1, columnspan=2, sticky="ew", pady=(10, 0))
 
     def _bind_activate(self) -> None:
         def bind_recursive(widget: tk.Misc) -> None:
