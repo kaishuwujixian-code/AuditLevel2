@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joyce Road Rooftop Solar PV Installation</title>
+  <style>
+    :root {
+      --navy: #18364a;
+      --teal: #2d7d86;
+      --green: #5b8f3d;
+      --gold: #c9952f;
+      --bg: #eef4f6;
+      --card: #ffffff;
+      --line: #d9e3e8;
+      --text: #24323d;
+      --muted: #61707b;
+      --soft: #f5f8fa;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg) 0%, #ffffff 260px);
+      line-height: 1.58;
+    }
+
+    .page {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy {
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      color: #fff;
+      border-radius: 30px;
+      padding: 34px 36px 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      opacity: 0.85;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+      max-width: 720px;
+    }
+
+    .subtitle {
+      margin-top: 14px;
+      font-size: 17px;
+      color: rgba(255,255,255,0.92);
+      max-width: 760px;
+    }
+
+    .hero-image {
+      min-height: 380px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(24,54,74,0.28), rgba(24,54,74,0.12)),
+        linear-gradient(145deg, #90b57d 0%, #6f9a5a 35%, #547892 100%);
+      display: flex;
+      align-items: end;
+      padding: 22px;
+    }
+
+    .hero-image::before,
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      height: 6px;
+      background: rgba(255,255,255,0.18);
+      transform: skew(-28deg);
+      border-radius: 2px;
+    }
+
+    .hero-image::before {
+      width: 240px;
+      left: 85px;
+      top: 120px;
+      box-shadow: 30px 18px 0 rgba(255,255,255,0.12), 60px 36px 0 rgba(255,255,255,0.10), 90px 54px 0 rgba(255,255,255,0.08);
+    }
+
+    .hero-image::after {
+      width: 270px;
+      right: 55px;
+      top: 155px;
+      box-shadow: 28px 18px 0 rgba(255,255,255,0.12), 56px 36px 0 rgba(255,255,255,0.10), 84px 54px 0 rgba(255,255,255,0.08);
+    }
+
+    .image-caption {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.93);
+      color: var(--navy);
+      border-radius: 16px;
+      padding: 14px 16px;
+      max-width: 340px;
+      font-size: 13px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .kpi {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .kpi .value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .kpi .label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      color: var(--navy);
+      font-size: 24px;
+    }
+
+    .section h3 {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-size: 18px;
+    }
+
+    .grid-2, .grid-3, .grid-side, .grid-4 {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-side { grid-template-columns: 1.04fr 0.96fr; }
+
+    .card, .soft-card, .highlight, .stat-card, .chart-card {
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+    }
+
+    .card { background: var(--soft); }
+    .soft-card { background: #fafcfd; }
+
+    .highlight {
+      background: linear-gradient(180deg, #edf7ea 0%, #f9fcf8 100%);
+      border-left: 6px solid var(--green);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e9f4f0;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .info-table, .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .info-table td, .result-table td, .result-table th {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .info-table tr:last-child td,
+    .result-table tr:last-child td { border-bottom: none; }
+
+    .info-table td:first-child {
+      width: 42%;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .list li { margin: 8px 0; }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .stat-card .title, .chart-card .title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-card .big {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .chart-card {
+      background: #fbfcfd;
+    }
+
+    .chart-box {
+      margin-top: 16px;
+      padding: 14px 14px 10px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(238,244,246,0.45) 0%, rgba(255,255,255,0.8) 100%);
+    }
+
+    .line-chart {
+      width: 100%;
+      height: 280px;
+      display: block;
+    }
+
+    .axis-label {
+      font-size: 11px;
+      fill: var(--muted);
+    }
+
+    .chart-grid {
+      stroke: #dfe8ec;
+      stroke-width: 1;
+    }
+
+    .chart-axis {
+      stroke: #bfcfd8;
+      stroke-width: 1.2;
+    }
+
+    .line-gen {
+      fill: none;
+      stroke: #2d7d86;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .line-rev {
+      fill: none;
+      stroke: #c9952f;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .dot-gen {
+      fill: #2d7d86;
+    }
+
+    .dot-rev {
+      fill: #c9952f;
+    }
+
+    .point-value {
+      font-size: 11px;
+      fill: var(--navy);
+      font-weight: 700;
+    }
+
+    .legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 3px;
+      border-radius: 999px;
+      margin-right: 8px;
+      vertical-align: 4px;
+    }
+
+    .legend .l1::before { background: #2d7d86; }
+    .legend .l2::before { background: #c9952f; }
+
+    .callout {
+      margin-top: 16px;
+      background: #fffaf0;
+      border: 1px solid #f0dfbc;
+      border-left: 6px solid var(--gold);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+
+    .small { font-size: 13px; color: var(--muted); }
+
+    .footnote {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .kpis,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .grid-side {
+        grid-template-columns: 1fr;
+      }
+
+      h1 { font-size: 34px; }
+      .hero-copy, .hero-image { min-height: 290px; }
+      .chart-box { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Case Study – Stone Mills, Ontario</div>
+        <h1>Joyce Road Rooftop Solar PV Installation</h1>
+        <div class="subtitle">
+          A Mann Engineering solar project delivered with design, project management, and ongoing operating oversight, demonstrating how a well-positioned rural site can produce stable clean energy, measurable operating revenue, and strong long-term website storytelling value.
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="value">111 kWp</div>
+            <div class="label">Installed DC Capacity</div>
+          </div>
+          <div class="kpi">
+            <div class="value">90 kW</div>
+            <div class="label">Maximum AC Output</div>
+          </div>
+          <div class="kpi">
+            <div class="value">119.6 MWh</div>
+            <div class="label">Actual Generation, Jul 2023–Jun 2024</div>
+          </div>
+          <div class="kpi">
+            <div class="value">$75,969</div>
+            <div class="label">Actual Gross Revenue, Jul 2023–Jun 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="image-caption">
+          <strong><img src="joyce-solar-farm.jpg" alt="Joyce Farm Solar Installation" style="width:100%; border-radius:10px; object-fit:cover;" /></strong><br />
+          Replace with site photo, drone view, or rooftop panel image from Joyce Road.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Client / Service / Project Outcome</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Client</h3>
+          <table class="info-table">
+            <tr><td>Site Name</td><td>Joyce Solar Farm</td></tr>
+            <tr><td>Location</td><td>576 Joyce Rd, Stone Mills, Ontario</td></tr>
+            <tr><td>Site Type</td><td>Rural roof-mounted solar project</td></tr>
+            <tr><td>Program</td><td>Ontario FIT</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Service Provided</h3>
+          <ul class="list">
+            <li>Mann Engineering design and project management support</li>
+            <li>Solar PV system configuration and technical coordination</li>
+            <li>Measured generation and revenue review</li>
+            <li>Ongoing asset-performance and O&amp;M narrative development</li>
+          </ul>
+        </div>
+        <div class="highlight">
+          <h3>Project Outcome</h3>
+          <p>
+            A grid-connected rooftop solar asset delivering recorded annual generation of <strong>119,635 kWh</strong> and actual annual gross revenue of <strong>$75,969</strong>, supported by monthly site-level operating data.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Project Overview</h2>
+      <div class="grid-side">
+        <div>
+          <p>
+            The Joyce Road solar installation is located at <strong>576 Joyce Rd, Stone Mills, Ontario</strong>. The site receives approximately <strong>1290 peak-sun-hours per year</strong> and was developed under Ontario’s Feed-in-Tariff program as a grid-connected photovoltaic asset. Mann Engineering was engaged on the project for design and project management, and the site later appears within the operating and O&amp;M records you provided. The project summary identifies a total system size of <strong>111 kWp DC</strong> with a maximum output of approximately <strong>90 kW AC</strong>. Based on the updated Joyce Farm operating workbook, the site produced <strong>119,635 kWh</strong> over the July 2023 to June 2024 period.
+          </p>
+          <p>
+            The system consists of <strong>396 Suntech 280 W modules</strong>, <strong>18 KACO 5002xi inverters</strong>, and <strong>9 Eaton combiner boxes</strong>. These components create a distributed inverter architecture that supports practical maintenance and limits single-point operational risk.
+          </p>
+          <div>
+            <span class="badge">Grid-Tied System</span>
+            <span class="badge">Ontario FIT</span>
+            <span class="badge">Rooftop Solar</span>
+            <span class="badge">Distributed Generation</span>
+          </div>
+        </div>
+        <div class="card">
+          <table class="info-table">
+            <tr><td>Project Name</td><td>Joyce Rd Solar PV Installation</td></tr>
+            <tr><td>OPA Project File</td><td>F-000073-SPV-130-503</td></tr>
+            <tr><td>Building Permit</td><td>2011-142</td></tr>
+            <tr><td>ESA Authorization</td><td>13819598 (June 22, 2012)</td></tr>
+            <tr><td>Installed Capacity</td><td>111 kWp DC / 90 kW AC</td></tr>
+            <tr><td>Solar Resource</td><td>~1290 PSH / year</td></tr>
+            <tr><td>FIT Rate</td><td>$0.635 / kWh</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why This Project Works as a Strong Website Case Study</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Technical Fit</h3>
+          <p>
+            Joyce Road combines strong solar availability, usable roof area, and a practical interconnection path. That makes it an ideal medium-scale rooftop solar story: the design is clear, the equipment is easy to explain, and the system performance can be supported by operating data rather than theory alone.
+          </p>
+          <p>
+            For website promotion, the most valuable aspect is that the project is not only a completed installation. It is an operating asset with real monthly generation and revenue records, which makes the case study much more credible for owners, investors, and property managers.
+          </p>
+        </div>
+        <div class="highlight">
+          <h3>Primary Objectives</h3>
+          <ul class="list">
+            <li>Capture available rooftop solar resource for electricity production</li>
+            <li>Create a compliant long-term grid-connected renewable asset</li>
+            <li>Generate stable FIT-backed export revenue</li>
+            <li>Provide a clean-energy project with measurable operating results</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>System Configuration</h2>
+      <div class="grid-3">
+        <div class="soft-card">
+          <h3>Solar Modules</h3>
+          <ul class="list">
+            <li>396 × Suntech 280 W modules</li>
+            <li>Operating voltage (Vmp): 35.2 V</li>
+            <li>Operating current (Imp): 7.95 A</li>
+            <li>Module efficiency: 14.4%</li>
+          </ul>
+        </div>
+        <div class="soft-card">
+          <h3>Inverters</h3>
+          <ul class="list">
+            <li>18 × KACO 5002xi string inverters</li>
+            <li>5 kW AC each</li>
+            <li>Input range: 200–510 Vdc</li>
+            <li>Integrated AC/DC disconnect switching</li>
+          </ul>
+        </div>
+        <div class="soft-card">
+          <h3>Balance of System</h3>
+          <ul class="list">
+            <li>9 × Eaton SSCD604NR combiner boxes</li>
+            <li>Grid-tied export configuration</li>
+            <li>Generation metering infrastructure</li>
+            <li>Distributed conversion for improved serviceability</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Monthly Generation Performance</h2>
+      <div class="grid-side">
+        <div class="chart-card">
+          <div class="title">Monthly Generation Chart (kWh)</div>
+          <div class="chart-box">
+            <svg class="line-chart" viewBox="0 0 620 280" role="img" aria-label="Monthly generation line chart">
+              <line class="chart-grid" x1="52" y1="40" x2="600" y2="40" />
+              <line class="chart-grid" x1="52" y1="95" x2="600" y2="95" />
+              <line class="chart-grid" x1="52" y1="150" x2="600" y2="150" />
+              <line class="chart-grid" x1="52" y1="205" x2="600" y2="205" />
+              <line class="chart-axis" x1="52" y1="235" x2="600" y2="235" />
+              <line class="chart-axis" x1="52" y1="30" x2="52" y2="235" />
+              <polyline class="line-gen" points="52,40 102,61 152,60 202,136 252,159 302,199 352,191 402,126 452,94 502,102 552,67 600,81" />
+              <circle class="dot-gen" cx="52" cy="40" r="4.5" />
+              <circle class="dot-gen" cx="102" cy="61" r="4.5" />
+              <circle class="dot-gen" cx="152" cy="60" r="4.5" />
+              <circle class="dot-gen" cx="202" cy="136" r="4.5" />
+              <circle class="dot-gen" cx="252" cy="159" r="4.5" />
+              <circle class="dot-gen" cx="302" cy="199" r="4.5" />
+              <circle class="dot-gen" cx="352" cy="191" r="4.5" />
+              <circle class="dot-gen" cx="402" cy="126" r="4.5" />
+              <circle class="dot-gen" cx="452" cy="94" r="4.5" />
+              <circle class="dot-gen" cx="502" cy="102" r="4.5" />
+              <circle class="dot-gen" cx="552" cy="67" r="4.5" />
+              <circle class="dot-gen" cx="600" cy="81" r="4.5" />
+              <text class="point-value" x="52" y="28" text-anchor="middle">15,368</text>
+              <text class="point-value" x="102" y="49" text-anchor="middle">13,753</text>
+              <text class="point-value" x="152" y="48" text-anchor="middle">13,837</text>
+              <text class="point-value" x="202" y="124" text-anchor="middle">7,926</text>
+              <text class="point-value" x="252" y="147" text-anchor="middle">6,155</text>
+              <text class="point-value" x="302" y="187" text-anchor="middle">3,068</text>
+              <text class="point-value" x="352" y="179" text-anchor="middle">3,685</text>
+              <text class="point-value" x="402" y="114" text-anchor="middle">8,678</text>
+              <text class="point-value" x="452" y="82" text-anchor="middle">11,130</text>
+              <text class="point-value" x="502" y="90" text-anchor="middle">10,526</text>
+              <text class="point-value" x="552" y="55" text-anchor="middle">13,306</text>
+              <text class="point-value" x="600" y="69" text-anchor="middle">12,203</text>
+              <text class="axis-label" x="52" y="255" text-anchor="middle">Jul</text>
+              <text class="axis-label" x="102" y="255" text-anchor="middle">Aug</text>
+              <text class="axis-label" x="152" y="255" text-anchor="middle">Sep</text>
+              <text class="axis-label" x="202" y="255" text-anchor="middle">Oct</text>
+              <text class="axis-label" x="252" y="255" text-anchor="middle">Nov</text>
+              <text class="axis-label" x="302" y="255" text-anchor="middle">Dec</text>
+              <text class="axis-label" x="352" y="255" text-anchor="middle">Jan</text>
+              <text class="axis-label" x="402" y="255" text-anchor="middle">Feb</text>
+              <text class="axis-label" x="452" y="255" text-anchor="middle">Mar</text>
+              <text class="axis-label" x="502" y="255" text-anchor="middle">Apr</text>
+              <text class="axis-label" x="552" y="255" text-anchor="middle">May</text>
+              <text class="axis-label" x="600" y="255" text-anchor="middle">Jun</text>
+            </svg>
+          </div>
+          <div class="legend"><span class="l1">Monthly generation based on Joyce Farm data.xlsx</span></div>
+        </div>
+
+        <div class="card">
+          <h3>Generation Summary</h3>
+          <table class="result-table">
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Annual Generation</td><td>119,635 kWh</td></tr>
+            <tr><td>Average Monthly Generation</td><td>9,970 kWh</td></tr>
+            <tr><td>Peak Month</td><td>July 2023 – 15,368 kWh</td></tr>
+            <tr><td>Lowest Month</td><td>December 2023 – 3,068 kWh</td></tr>
+            <tr><td>Winter Trough</td><td>Dec–Jan</td></tr>
+            <tr><td>Spring Recovery</td><td>Feb–May</td></tr>
+          </table>
+          <div class="footnote">
+            Annual total calculated from monthly generation values for July 2023 through June 2024.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Monthly Revenue Performance</h2>
+      <div class="grid-side">
+        <div class="chart-card">
+          <div class="title">Monthly Revenue Chart (Gross FIT Revenue)</div>
+          <div class="chart-box">
+            <svg class="line-chart" viewBox="0 0 620 280" role="img" aria-label="Monthly revenue line chart">
+              <line class="chart-grid" x1="52" y1="40" x2="600" y2="40" />
+              <line class="chart-grid" x1="52" y1="95" x2="600" y2="95" />
+              <line class="chart-grid" x1="52" y1="150" x2="600" y2="150" />
+              <line class="chart-grid" x1="52" y1="205" x2="600" y2="205" />
+              <line class="chart-axis" x1="52" y1="235" x2="600" y2="235" />
+              <line class="chart-axis" x1="52" y1="30" x2="52" y2="235" />
+              <polyline class="line-rev" points="52,40 102,61 152,60 202,136 252,159 302,199 352,191 402,126 452,94 502,102 552,67 600,81" />
+              <circle class="dot-rev" cx="52" cy="40" r="4.5" />
+              <circle class="dot-rev" cx="102" cy="61" r="4.5" />
+              <circle class="dot-rev" cx="152" cy="60" r="4.5" />
+              <circle class="dot-rev" cx="202" cy="136" r="4.5" />
+              <circle class="dot-rev" cx="252" cy="159" r="4.5" />
+              <circle class="dot-rev" cx="302" cy="199" r="4.5" />
+              <circle class="dot-rev" cx="352" cy="191" r="4.5" />
+              <circle class="dot-rev" cx="402" cy="126" r="4.5" />
+              <circle class="dot-rev" cx="452" cy="94" r="4.5" />
+              <circle class="dot-rev" cx="502" cy="102" r="4.5" />
+              <circle class="dot-rev" cx="552" cy="67" r="4.5" />
+              <circle class="dot-rev" cx="600" cy="81" r="4.5" />
+              <text class="point-value" x="52" y="28" text-anchor="middle">$9,759</text>
+              <text class="point-value" x="102" y="49" text-anchor="middle">$8,733</text>
+              <text class="point-value" x="152" y="48" text-anchor="middle">$8,786</text>
+              <text class="point-value" x="202" y="124" text-anchor="middle">$5,033</text>
+              <text class="point-value" x="252" y="147" text-anchor="middle">$3,908</text>
+              <text class="point-value" x="302" y="187" text-anchor="middle">$1,948</text>
+              <text class="point-value" x="352" y="179" text-anchor="middle">$2,340</text>
+              <text class="point-value" x="402" y="114" text-anchor="middle">$5,511</text>
+              <text class="point-value" x="452" y="82" text-anchor="middle">$7,068</text>
+              <text class="point-value" x="502" y="90" text-anchor="middle">$6,684</text>
+              <text class="point-value" x="552" y="55" text-anchor="middle">$8,449</text>
+              <text class="point-value" x="600" y="69" text-anchor="middle">$7,749</text>
+              <text class="axis-label" x="52" y="255" text-anchor="middle">Jul</text>
+              <text class="axis-label" x="102" y="255" text-anchor="middle">Aug</text>
+              <text class="axis-label" x="152" y="255" text-anchor="middle">Sep</text>
+              <text class="axis-label" x="202" y="255" text-anchor="middle">Oct</text>
+              <text class="axis-label" x="252" y="255" text-anchor="middle">Nov</text>
+              <text class="axis-label" x="302" y="255" text-anchor="middle">Dec</text>
+              <text class="axis-label" x="352" y="255" text-anchor="middle">Jan</text>
+              <text class="axis-label" x="402" y="255" text-anchor="middle">Feb</text>
+              <text class="axis-label" x="452" y="255" text-anchor="middle">Mar</text>
+              <text class="axis-label" x="502" y="255" text-anchor="middle">Apr</text>
+              <text class="axis-label" x="552" y="255" text-anchor="middle">May</text>
+              <text class="axis-label" x="600" y="255" text-anchor="middle">Jun</text>
+            </svg>
+          </div>
+          <div class="legend"><span class="l2">Monthly gross FIT revenue based on Joyce Farm data.xlsx</span></div>
+        </div>
+
+        <div class="card">
+          <h3>Revenue Summary</h3>
+          <table class="result-table">
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>FIT Rate</td><td>$0.635 / kWh</td></tr>
+            <tr><td>Actual Gross Revenue</td><td>$75,968.53</td></tr>
+            <tr><td>Less Utility / Also Charges</td><td>$9,371.58</td></tr>
+            <tr><td>Actual Net Revenue</td><td>$66,596.95</td></tr>
+            <tr><td>Average Gross Revenue / Month</td><td>$6,330.71</td></tr>
+            <tr><td>Highest Revenue Month</td><td>July 2023 – $9,758.68</td></tr>
+          </table>
+          <div class="footnote">
+            Revenue totals shown here follow the values in Joyce Farm data.xlsx, including gross and net revenue lines.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Performance Metrics</h2>
+      <div class="grid-4">
+        <div class="stat-card soft-card">
+          <div class="icon">⚡</div>
+          <div class="title">Actual Annual Generation</div>
+          <div class="big">119,635 kWh</div>
+          <div>Measured monthly production total from July 2023 to June 2024.</div>
+        </div>
+        <div class="stat-card soft-card">
+          <div class="icon">📈</div>
+          <div class="title">Capacity Factor</div>
+          <div class="big">15.2%</div>
+          <div>Based on 90 kW AC output and annual measured generation.</div>
+        </div>
+        <div class="stat-card soft-card">
+          <div class="icon">☀</div>
+          <div class="title">Performance Ratio</div>
+          <div class="big">83.6%</div>
+          <div>Calculated from actual generation divided by 111 kWp × 1290 PSH.</div>
+        </div>
+        <div class="stat-card soft-card">
+          <div class="icon">$</div>
+          <div class="title">Actual Net Revenue</div>
+          <div class="big">$66.6k</div>
+          <div>Gross FIT revenue less utility and related charges for the same 12-month period.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Interpretation.</strong> The measured performance trend follows a normal Ontario seasonal solar pattern, with strong summer production, reduced winter output, and a noticeable spring recovery. With 119,635 kWh generated over the 12-month period, the site achieved an actual capacity factor of approximately 15.2% based on 90 kW AC output, and an estimated performance ratio of about 83.6% when compared against 111 kWp and 1290 peak-sun-hours. For a website case study, this is valuable because it demonstrates that the project behaves like a real operating solar asset rather than a simplified modeled example.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Commercial and Environmental Value</h2>
+      <div class="grid-2">
+        <div>
+          <p>
+            Joyce Road is a particularly strong promotional case because the project can be supported with actual generation and revenue records, while also reflecting Mann Engineering’s role in design, project management, and the longer operating story captured in the O&amp;M materials you provided. Over the July 2023 to June 2024 period, the system generated <strong>119,635 kWh</strong> and produced <strong>$75,968.53</strong> in gross revenue, or <strong>$66,596.95</strong> net after listed charges. This allows the project to be described as a real producing asset rather than only a completed installation.
+          </p>
+          <p>
+            On the environmental side, this level of annual solar generation represents roughly <strong>10.8 tonnes of CO₂e avoided per year</strong> when using a 90 gCO₂e/kWh Ontario-era grid factor. That strengthens the case study for clients who care about both carbon reduction and long-term operating economics.
+          </p>
+        </div>
+        <div class="highlight">
+          <h3>Website Takeaway</h3>
+          <ul class="list">
+            <li>Clear project scale: 111 kWp DC / 90 kW AC</li>
+            <li>Documented generation and revenue history</li>
+            <li>Credible solar seasonality shown through charts</li>
+            <li>Strong fit for Mann-style engineering and asset-performance storytelling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Project Outcome</h2>
+      <div class="grid-side">
+        <div>
+          <p>
+            The Joyce Road rooftop solar installation demonstrates how a medium-scale photovoltaic project can function as both a clean-energy system and a durable commercial asset. For Mann Engineering, it also works as a strong public-facing example of design delivery, project management, and the long-tail value of a solar asset that continues to perform in operation. Its value is reinforced by actual site-level monthly generation and revenue records, making it especially suitable for website promotion and proposal use.
+          </p>
+          <p>
+            In practical terms, this project combines a straightforward technical story, a clear FIT-based revenue model, and measured operating performance. That combination makes it one of the strongest candidates in your solar portfolio for a polished public-facing case study.
+          </p>
+        </div>
+        <div class="card">
+          <table class="result-table">
+            <tr><th>Category</th><th>Outcome</th></tr>
+            <tr><td>Generation Type</td><td>Grid-connected rooftop solar PV</td></tr>
+            <tr><td>Installed Capacity</td><td>111 kWp DC / 90 kW AC</td></tr>
+            <tr><td>Actual Generation</td><td>119,635 kWh / year</td></tr>
+            <tr><td>Capacity Factor</td><td>15.2%</td></tr>
+            <tr><td>Actual Gross Revenue</td><td>$75,968.53 / year</td></tr>
+            <tr><td>Actual Net Revenue</td><td>$66,596.95 / year</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="footnote">
+        Technical system details are based on the Joyce Road PV summary. Gate code reference also confirms the Joyce site in your uploaded solar portfolio materials.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
