@@ -110,7 +110,7 @@
     },
     {
       "id": "vfd_gas_fire_heating_only",
-      "title": "VFD + Gas Fire (heating only)",
+      "title": "No VFD + Gas Fire (heating only)",
       "category": "ventilation_equipment_facts",
       "text": "The existing make-up air (MUA) unit is equipped with a constant-speed supply fan and an integral gas-fired heating burner, providing heating-only capacity. The unit does not include variable frequency drive (VFD) control and does not provide mechanical cooling.\n\nThe absence of VFD control results in fixed airflow operation regardless of actual ventilation demand, limiting part-load efficiency and increasing electrical energy consumption. The gas-fired heating section provides basic winter heating capability; however, without cooling capacity, heat recovery, or advanced modulation control, the system offers limited seasonal optimization and indoor temperature regulation.\n\nAt the time of the site visit, the unit was observed to be in functional condition with no visible mechanical deficiencies. However, the configuration reflects an older, conventional ventilation design with limited energy efficiency and control flexibility."
     },
@@ -118,7 +118,19 @@
       "id": "no_vfd_gas_fire_dx_cooling",
       "title": "No VFD+Gas Fire+DX Cooling",
       "category": "ventilation_equipment_facts",
-      "text": "The unit is not equipped with variable frequency drives (VFDs) and operates at constant speed. Heating is provided by integral gas-fired burners, and cooling is provided by DX cooling sections. The heating and cooling components were observed to be in fair to good condition at the time of the site walkthrough.\n\nThe equipment appeared to be operating as intended, with no visible signs of immediate mechanical distress. However, based on age and system configuration, the unit may be approaching the latter portion of its typical service life."
+      "text": "The unit is not equipped with variable frequency drives (VFDs) and operates at constant speed. Heating is provided by integral gas-fired burners, and cooling is provided by DX cooling sections. The heating and cooling components were observed to be in fair to good condition at the time of the site walkthrough.\n\nThe equipment appeared to be operating as intended, with no visible signs of immediate mechanical distress. {However, based on age and system configuration, the unit may be approaching the latter portion of its typical service life.}"
+    },
+    {
+      "id": "aging_but_funtional_mua",
+      "title": "Aging but funtional MUA",
+      "category": "mechanical_conditions",
+      "text": "Supply-air temperatures and airflow patterns were observed to be consistent with normal operation. The gas-fired heating burner was reported by building staff to have been replaced recently. While the MUA units remain operational, the equipment appears to be approaching the latter portion of its service life. Replacement or upgrade to a high-efficiency MUA unit may be considered in the near term."
+    },
+    {
+      "id": "vfd_but_no_bas_heating_only_mua_gas_fired",
+      "title": "VFD but no BAS+ Heating only MUA (Gas fired)",
+      "category": "ventilation_equipment_facts",
+      "text": "Ventilation for the building is provided by rooftop make-up air (MUA) units serving the corridors and other shared spaces. The building is equipped with {three (3)} gas-fired MUA units. Each existing make-up air unit is equipped with a VFD and an integral gas-fired heating burner, with no cooling capacity. \n\nAlthough VFDs are installed, no occupancy-based scheduling or demand-controlled ventilation strategy was observed. During the site visit, the {three (3)} MUA units appeared to operate at or near constant speed regardless of actual ventilation demand.\n\nIntegration of the existing VFD-controlled MUA units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation control, and alarm monitoring. These enhancements would improve overall energy performance, operational visibility, and long-term system reliability. However, without cooling capacity, heat recovery, or advanced modulation control, the system provides limited seasonal optimization and indoor temperature regulation."
     }
   ]
 }

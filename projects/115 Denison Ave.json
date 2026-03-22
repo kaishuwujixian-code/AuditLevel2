@@ -1,0 +1,459 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Toronto",
+    "client_name": "MRKT Alexandra Park",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "fancoil_chiller",
+        "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2012 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2012}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+        "title": "Fancoil + chiller"
+      },
+      {
+        "category": "controls",
+        "misc_id": "over_all_good_condition_-_with_bas_integration",
+        "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time",
+        "title": "Over all Good condition - With BAS Integration"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "2025",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "condensing_boiler",
+        "text": "(Number) condensing gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). The boilers are designed to operate at lower return-water temperatures to enable latent heat recovery, with peak thermal efficiencies of up to approximately (Efficiency %) under suitable operating conditions. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition.",
+        "title": "Condensing Boiler"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "glass-lined_storage_tanks",
+        "text": "Four (4) TurboMax water heater were observed, located at the main boiler room and is heated via DHW boiler, each capacity at approximately 120 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+        "title": "TurboMax Water Heater Good condition"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "flowmix_mixing_valve",
+        "text": "A Flowmix electric thermostatic mixing valve is installed to temper the domestic hot water supply to approximately 120°F. At the time of the walkthrough, supply temperatures were within acceptable range and appeared stable.",
+        "title": "Flowmix mixing valve"
+      },
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "over_all_good_future_opprotunity_bas",
+        "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+        "title": "Over all good+ Future optimization BAS"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "downtown toronto",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "plant",
+        "misc_id": "condensing_boiler_plant",
+        "text": "The boiler plant is located in the {penthouse mechanical room} and consists of {four (4)}  boilers serving the domestic hot water (DHW) system and {three (3)} boilers serving the space heating (HTG) system.\n\nThe space-heating boilers are configured as follows:",
+        "title": "One high temp loop boiler plant"
+      },
+      {
+        "category": "htg_boiler_facts",
+        "misc_id": "high_temperature_loop_boiler",
+        "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+        "title": "High temperature loop boiler"
+      },
+      {
+        "category": "condition",
+        "misc_id": "good_condition_working_normally",
+        "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+        "title": "Good condition + Working normally"
+      },
+      {
+        "category": "controls",
+        "misc_id": "heating_controls_bas",
+        "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements.",
+        "title": "Heating controls via BAS"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "bas",
+        "existing_conditions": "BAS trends and boiler plant operation indicate that the heating system is currently operating with elevated return-water temperatures, limiting the ability of the boilers to operate in condensing mode. The system appears to be controlled with fixed supply temperature setpoints and limited or no return-temperature monitoring or reset strategy.\n\nAs a result, the boilers frequently operate outside of optimal condensing conditions, reducing overall thermal efficiency and increasing natural gas consumption.\n\nA proprietary control system was identified at the building. Such systems typically increase reliance on vendor-specific support, which may result in higher long-term maintenance costs and reduced flexibility for future system upgrades or integration.",
+        "measure_id": "bas_recommissioning_return_water_temperature_optimization",
+        "measure_title": "BAS Recommissioning – Return Water Temperature Optimization",
+        "notes": "Recommission BAS control sequences to reduce return-water temperature through supply reset, improved valve control, and system ΔT optimization, enabling condensing boiler operation and reducing energy waste.",
+        "retrofit_conditions": "A BAS recommissioning effort is recommended to optimize hot water supply and return temperature control. The work would include implementation of outdoor-air-based supply temperature reset, monitoring and control of return-water temperature, and adjustment of control sequences to maintain return temperatures within the condensing range where feasible.\n\nAdditional optimization may include coordination of pump operation, valve modulation, and load control to maximize temperature differential (ΔT) across the system. Restoring proper temperature relationships will enable sustained condensing operation, improve boiler efficiency, and reduce overall energy consumption."
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Good)"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_good",
+        "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+        "title": "Window condition (good)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation (Has CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "has_vfd_on_booster_pump",
+        "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+        "title": "Has VFD on Booster Pump"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "electric_ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+        "title": "Electric ramp heating"
+      },
+      {
+        "category": "electric",
+        "misc_id": "natural_gas_generator",
+        "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+        "title": "Natural Gas Generator"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "14 floor",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "188 units",
+    "postal_code": "M5T 0E6",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Mar-19-2026",
+    "rooftop_access_available": "true",
+    "site_address": "115 Denison Ave",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "3 Bedroom, 2 Bedroom, 1 Bedroom.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "rooftop_mua",
+        "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+        "title": "Rooftop MUA"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "hydronic_mua_units_vfds",
+        "text": "The building is equipped with {Number of MUA} Hydronic MUA units, during the site visit, no issue was reported by on site staff. These MUA units are equipped with variable frequency drives (VFDs) and provide heating-only capacity. The units were observed to be generally fair mechanical condition.",
+        "title": "Hydronic MUA units + VFDs"
+      },
+      {
+        "category": "mechanical_conditions",
+        "misc_id": "hydronic_mua_good_conditions",
+        "text": "Supply-air temperatures and airflow patterns were generally consistent with normal operation. Hydronic heating coils are served from the building’s high-temperature heating loop. Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+        "title": "Hydronic MUA + good conditions"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "Heating Plant Issue": [
+        "Condensing Boiler Operation without Condensing Capability(High return-water temperatures)"
+      ],
+      "Operations & Maintenance": [
+        "Proprietary BAS system"
+      ]
+    }
+  },
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "fancoil_chiller",
+      "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2012 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2012}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season.",
+      "title": "Fancoil + chiller"
+    },
+    {
+      "category": "controls",
+      "misc_id": "over_all_good_condition_-_with_bas_integration",
+      "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time",
+      "title": "Over all Good condition - With BAS Integration"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by (number of DHW boiler)gas-fired boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "condensing_boiler",
+      "text": "(Number) condensing gas-fired boilers, each rated at approximately (Capacity) MBH, installed in or around (Year). The boilers are designed to operate at lower return-water temperatures to enable latent heat recovery, with peak thermal efficiencies of up to approximately (Efficiency %) under suitable operating conditions. Supply temperature was approximately {supply_temp}°F with return at {return_temp}°F. The boilers were observed to be in (good / fair / poor) condition.",
+      "title": "Condensing Boiler"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "glass-lined_storage_tanks",
+      "text": "Four (4) TurboMax water heater were observed, located at the main boiler room and is heated via DHW boiler, each capacity at approximately 120 gallons. The tanks appear to be in good overall mechanical condition at the time of the site visit, with no visible signs of leakage, corrosion, or insulation deterioration. Associated piping and fittings were observed to be intact and adequately insulated. The storage temperature is maintained at approximately 140°F.",
+      "title": "TurboMax Water Heater Good condition"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "flowmix_mixing_valve",
+      "text": "A Flowmix electric thermostatic mixing valve is installed to temper the domestic hot water supply to approximately 120°F. At the time of the walkthrough, supply temperatures were within acceptable range and appeared stable.",
+      "title": "Flowmix mixing valve"
+    },
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "over_all_good_future_opprotunity_bas",
+      "text": "No immediate operational deficiencies were observed. The DHW system appears to be functioning as intended and is appropriately configured for current building demand. Overall, the DHW plant is considered to be in good condition and operating within normal performance parameters based on site observations.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, could be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency.",
+      "title": "Over all good+ Future optimization BAS"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "plant",
+      "misc_id": "condensing_boiler_plant",
+      "text": "The boiler plant is located in the {penthouse mechanical room} and consists of {four (4)}  boilers serving the domestic hot water (DHW) system and {three (3)} boilers serving the space heating (HTG) system.\n\nThe space-heating boilers are configured as follows:",
+      "title": "One high temp loop boiler plant"
+    },
+    {
+      "category": "htg_boiler_facts",
+      "misc_id": "high_temperature_loop_boiler",
+      "text": "{number of boiler} {atmospheric/non-condensing/condensing}  boilers rated at {HTG boiler capacity} MBH each,efficiency xx %.Manufactured in {year of manufactured} which serve building's primary hot water loop. Hot water generated by the boilers is distributed to {in-suite fan coil units/ in-suite radiator} and also serves additional hydronic loads, including radiation, and heat exchanger circuits. Supply temperature at {supply temp} with return temperature at {return temp}",
+      "title": "High temperature loop boiler"
+    },
+    {
+      "category": "condition",
+      "misc_id": "good_condition_working_normally",
+      "text": "The boilers were observed to be in good condition, with no visible leakage or abnormal noise noted around the boiler plant at the time of the site visit. Distribution pumps and associated hydronic piping were observed to be operating normally, and no circulation issues were reported by on-site staff during the walkthrough",
+      "title": "Good condition + Working normally"
+    },
+    {
+      "category": "controls",
+      "misc_id": "heating_controls_bas",
+      "text": "Heating plant operation is integrated with the BAS for scheduling and control. Additional trend review and optimization may provide further operating improvements.",
+      "title": "Heating controls via BAS"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "bas",
+      "existing_conditions": "BAS trends and boiler plant operation indicate that the heating system is currently operating with elevated return-water temperatures, limiting the ability of the boilers to operate in condensing mode. The system appears to be controlled with fixed supply temperature setpoints and limited or no return-temperature monitoring or reset strategy.\n\nAs a result, the boilers frequently operate outside of optimal condensing conditions, reducing overall thermal efficiency and increasing natural gas consumption.\n\nA proprietary control system was identified at the building. Such systems typically increase reliance on vendor-specific support, which may result in higher long-term maintenance costs and reduced flexibility for future system upgrades or integration.",
+      "measure_id": "bas_recommissioning_return_water_temperature_optimization",
+      "measure_title": "BAS Recommissioning – Return Water Temperature Optimization",
+      "notes": "Recommission BAS control sequences to reduce return-water temperature through supply reset, improved valve control, and system ΔT optimization, enabling condensing boiler operation and reducing energy waste.",
+      "retrofit_conditions": "A BAS recommissioning effort is recommended to optimize hot water supply and return temperature control. The work would include implementation of outdoor-air-based supply temperature reset, monitoring and control of return-water temperature, and adjustment of control sequences to maintain return temperatures within the condensing range where feasible.\n\nAdditional optimization may include coordination of pump operation, valve modulation, and load control to maximize temperature differential (ΔT) across the system. Restoring proper temperature relationships will enable sustained condensing operation, improve boiler efficiency, and reduce overall energy consumption."
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Good)"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_good",
+      "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+      "title": "Window condition (good)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation (Has CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "has_vfd_on_booster_pump",
+      "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+      "title": "Has VFD on Booster Pump"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "electric_ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+      "title": "Electric ramp heating"
+    },
+    {
+      "category": "electric",
+      "misc_id": "natural_gas_generator",
+      "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+      "title": "Natural Gas Generator"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Toronto",
+    "{ClientName}": "MRKT Alexandra Park",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "2025",
+    "{DateDocument}": "Mar-19-2026",
+    "{District}": "downtown toronto",
+    "{MEASURE_BLOCK}": "{'measure_title': 'BAS Recommissioning – Return Water Temperature Optimization', 'category': 'bas', 'existing_conditions': 'BAS trends and boiler plant operation indicate that the heating system is currently operating with elevated return-water temperatures, limiting the ability of the boilers to operate in condensing mode. The system appears to be controlled with fixed supply temperature setpoints and limited or no return-temperature monitoring or reset strategy.\\n\\nAs a result, the boilers frequently operate outside of optimal condensing conditions, reducing overall thermal efficiency and increasing natural gas consumption.\\n\\nA proprietary control system was identified at the building. Such systems typically increase reliance on vendor-specific support, which may result in higher long-term maintenance costs and reduced flexibility for future system upgrades or integration.', 'retrofit_conditions': 'A BAS recommissioning effort is recommended to optimize hot water supply and return temperature control. The work would include implementation of outdoor-air-based supply temperature reset, monitoring and control of return-water temperature, and adjustment of control sequences to maintain return temperatures within the condensing range where feasible.\\n\\nAdditional optimization may include coordination of pump operation, valve modulation, and load control to maximize temperature differential (ΔT) across the system. Restoring proper temperature relationships will enable sustained condensing operation, improve boiler efficiency, and reduce overall energy consumption.', 'notes': 'Recommission BAS control sequences to reduce return-water temperature through supply reset, improved valve control, and system ΔT optimization, enabling condensing boiler operation and reducing energy waste.', 'measure_id': 'bas_recommissioning_return_water_temperature_optimization'}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'BAS Recommissioning – Return Water Temperature Optimization', 'category': 'bas', 'existing_conditions': 'BAS trends and boiler plant operation indicate that the heating system is currently operating with elevated return-water temperatures, limiting the ability of the boilers to operate in condensing mode. The system appears to be controlled with fixed supply temperature setpoints and limited or no return-temperature monitoring or reset strategy.\\n\\nAs a result, the boilers frequently operate outside of optimal condensing conditions, reducing overall thermal efficiency and increasing natural gas consumption.\\n\\nA proprietary control system was identified at the building. Such systems typically increase reliance on vendor-specific support, which may result in higher long-term maintenance costs and reduced flexibility for future system upgrades or integration.', 'retrofit_conditions': 'A BAS recommissioning effort is recommended to optimize hot water supply and return temperature control. The work would include implementation of outdoor-air-based supply temperature reset, monitoring and control of return-water temperature, and adjustment of control sequences to maintain return temperatures within the condensing range where feasible.\\n\\nAdditional optimization may include coordination of pump operation, valve modulation, and load control to maximize temperature differential (ΔT) across the system. Restoring proper temperature relationships will enable sustained condensing operation, improve boiler efficiency, and reduce overall energy consumption.', 'notes': 'Recommission BAS control sequences to reduce return-water temperature through supply reset, improved valve control, and system ΔT optimization, enabling condensing boiler operation and reducing energy waste.', 'measure_id': 'bas_recommissioning_return_water_temperature_optimization'}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and mechanical rooms appear to be fully equipped with LED. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Envelope Condition (Good)', 'category': 'window', 'text': 'The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Window condition (good)', 'category': 'window', 'text': 'The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit', 'misc_id': 'window_condition_good'}, {'title': 'Garage ventilation (Has CO controls)', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'Has VFD on Booster Pump', 'category': 'maintenance', 'text': 'The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted', 'misc_id': 'has_vfd_on_booster_pump'}, {'title': 'Electric ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance', 'misc_id': 'electric_ramp_heating'}, {'title': 'Natural Gas Generator', 'category': 'electric', 'text': 'The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.', 'misc_id': 'natural_gas_generator'}",
+    "{Number of Floors}": "14 floor",
+    "{Number of Suites}": "188 units",
+    "{Post Code}": "M5T 0E6",
+    "{Property Address1}": "115 Denison Ave",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Mar-19-2026",
+    "{Suite Types}": "3 Bedroom, 2 Bedroom, 1 Bedroom."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "MRKT Alexandra Park",
+    "prepared_by": "",
+    "report_date": "Mar-19-2026",
+    "site_address": "115 Denison Ave"
+  },
+  "project_notes": "115 Denison Avenue Site visit check list\n\nbuild in 2025\n14 flr/188\n\nHeating BOILER\n\t◦\teverything perfect\nno ECM",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "rooftop_mua",
+      "text": "Ventilation for the building is provided by One (1)make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+      "title": "Rooftop MUA"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "hydronic_mua_units_vfds",
+      "text": "The building is equipped with {Number of MUA} Hydronic MUA units, during the site visit, no issue was reported by on site staff. These MUA units are equipped with variable frequency drives (VFDs) and provide heating-only capacity. The units were observed to be generally fair mechanical condition.",
+      "title": "Hydronic MUA units + VFDs"
+    },
+    {
+      "category": "mechanical_conditions",
+      "misc_id": "hydronic_mua_good_conditions",
+      "text": "Supply-air temperatures and airflow patterns were generally consistent with normal operation. Hydronic heating coils are served from the building’s high-temperature heating loop. Overall, the MUA systems appear to be functioning as intended, with minor operational and control improvements possible to enhance performance and consistency.",
+      "title": "Hydronic MUA + good conditions"
+    }
+  ]
+}

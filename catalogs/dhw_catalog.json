@@ -119,6 +119,18 @@
       "title": "Over all fair+Aging indirect tank+Future optimization BAS:",
       "category": "system_overall_assessment",
       "text": "Although no immediate operational deficiencies were observed during the site visit and the DHW system appears to be meeting current building demand, the indirect storage tank was identified as original to the building and in poor mechanical condition.\n\nGiven its age, the tank is considered to have exceeded its typical service life. While the system is presently functional, replacement planning for the storage tank should be considered in the near term as part of the building’s lifecycle capital strategy.\n\nFuture optimization opportunities, including temperature monitoring, trend logging, and setpoint optimization, may also be integrated into the Building Automation System (BAS) to enhance performance visibility and long-term operational efficiency."
+    },
+    {
+      "id": "shell_and_tube_hex_for_dhw",
+      "title": "Shell and tube HEX for DHW",
+      "category": "generation",
+      "text": "The domestic hot water (DHW) system is connected to the primary heating loop through shell-and-tube heat exchangers, which transfer heat from the building’s central heating plant to the DHW storage and distribution system.\n\nWhile the heat exchangers remain functional, shell-and-tube configurations are typically more difficult to access and service compared to modern plate-and-frame heat exchangers. This condition can limit maintainability and may increase long-term operational risk due to the additional effort required for inspection, cleaning, and servicing."
+    },
+    {
+      "id": "over_all_fair_condition_bas_integrated_with_outdoor_temperature_reset",
+      "title": "Over all fair condition – BAS integrated with outdoor temperature reset",
+      "category": "system_overall_assessment",
+      "text": "Although no immediate operational deficiencies were observed during the site visit and the DHW system appears to be meeting current building demand, the indirect storage tank was identified as original to the building and approaching the end of its typical service life.\n\nThe system is integrated with the Building Automation System (BAS), which provides centralized monitoring and outdoor temperature reset control. While the system is currently operating as intended, periodic review of control setpoints and trend data may provide additional opportunities for long-term operational optimization."
     }
   ]
 }

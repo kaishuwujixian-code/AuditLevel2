@@ -1,0 +1,628 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Etobicoke",
+    "client_name": "MTCC-928 & Ace Condominium Management",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "ptac_for_cooling",
+        "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+        "title": "PTAC for cooling"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "1990",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "system_overall_assessment",
+        "misc_id": "insuite_water_heater_electric",
+        "text": "DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\n\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\n\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\n\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.",
+        "title": "Insuite water heater (electric)"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "heating_system",
+        "misc_id": "ptac_packaged_terminal_air_conditioner",
+        "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+        "title": "PTAC (Packaged Terminal Air Conditioner)"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "boiler",
+        "existing_conditions": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "convert_in-suite_ptac_to_air-source_heat_pump_system",
+        "measure_title": "Convert In-Suite PTAC to Air-Source Heat Pump System",
+        "notes": "Replace in-suite PTAC units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.",
+        "retrofit_conditions": "Mann recommends replacing the existing electric radiator + DX PTAC units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for electric resistance heating.\n\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to electric resistance heating and conventional DX configurations. In addition, improved part-load modulation enhances occupant comfort and reduces peak electrical demand.\n\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "solar_pv_electricity_generation",
+        "measure_title": "Solar PV : Electricity Generation",
+        "notes": "Install net metered solar PV generated electricity to offset electricity consumption.",
+        "retrofit_conditions": "The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \n\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "mua",
+        "existing_conditions": "The building is served by a make-up air (MUA) unit equipped with a gas-fired heating section and fixed or limited-speed supply fan control. The unit provides ventilation air to corridors and common areas but relies primarily on natural gas combustion for winter heating. While the system is functional, gas-fired heating results in ongoing fuel consumption and limits opportunities for electrification and high-efficiency operation.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "retrofit_existing_mua_to_ashp-based_mua_with_vfd_gas_heating_as_backup",
+        "measure_title": "Retrofit Existing MUA to ASHP-Based MUA with VFD (Gas Heating as Backup)",
+        "notes": "Upgrade the MUA to a heat pump–based system with VFD control while retaining gas heating as backup to reduce gas use and improve energy performance.",
+        "retrofit_conditions": "Mann recommends retrofitting the existing MUA unit to operate as an air-source heat pump (ASHP)–based MUA system while retaining the existing gas-fired heating section as a backup for extreme cold-weather conditions. Under the proposed configuration, an ASHP heating and cooling section would be integrated into the existing MUA cabinet (subject to engineering review), allowing the unit to provide high-efficiency heating and cooling through a refrigeration cycle.\n\nNew or upgraded variable frequency drives (VFDs) would be installed on the supply fan to enable airflow modulation based on ventilation demand and discharge air temperature requirements. Integration into a Building Automation System (BAS), where available, would allow optimized scheduling, temperature reset, and coordinated system control.\n\nThe ASHP system would handle the majority of annual heating and cooling loads, significantly reducing natural gas consumption, while the existing gas-fired section would operate only as supplemental or emergency heat. This hybrid approach improves energy efficiency, supports decarbonization goals, and minimizes capital cost by retaining functional components of the existing unit.\n\n*This measure is recommended subject to a detailed feasibility study to confirm equipment sizing, electrical service capacity, structural considerations, and integration constraints. The existing gas-fired heating section is recommended to be retained as backup to ensure reliability and operational flexibility.\n\n*Where applicable, IESO and Enbridge incentives for heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "pumps",
+        "existing_conditions": "Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "booster_pump_vfd",
+        "measure_title": "Booster Pump VFD Retrofit",
+        "notes": "Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.",
+        "retrofit_conditions": "It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\n\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\n\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\n\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "replace_in-suite_electric_water_heaters_with_heat_pump_water_heaters_hpwh",
+        "measure_title": "Convert In-Suite Electric Water Heaters to Heat Pump Water Heaters (HPWH)",
+        "notes": "Replace electric water heaters with heat pump water heaters to significantly reduce electricity consumption.",
+        "retrofit_conditions": "Mann recommends replacing the existing in-suite electric resistance storage water heaters with high-efficiency heat pump water heaters (HPWH). Heat pump water heaters extract heat from ambient air and transfer it to domestic water, typically achieving COP values in the range of 2.5–4.0, significantly reducing electrical consumption compared to resistance-based systems (COP ≈ 1.0).\n\nThis approach maintains the existing decentralized configuration and avoids the substantial capital cost associated with installing a centralized DHW plant, including new boilers, distribution piping, and major mechanical room reconfiguration. Implementation would require review of available electrical capacity, ventilation and air-source requirements, condensate drainage provisions, and space constraints within each suite or mechanical area.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "install_motorized_damper_for_garage_air_intake",
+        "measure_title": "Install Motorized Damper for Garage Air Intake",
+        "notes": "Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.",
+        "retrofit_conditions": "It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "window_caulking_upgrade",
+        "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+        "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+        "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "lighting",
+        "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "lighting_motion_sensor_control_retrofit",
+        "measure_title": "Lighting Motion Sensor Control Retrofit",
+        "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+        "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "ev_charging_stations",
+        "measure_title": "EV Charging Stations",
+        "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+        "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "lighting",
+        "existing_conditions": "Common areas and the garage are illuminated primarily by 4-ft T8 fluorescent fixtures and CFL spirals controlled by manual switches. These technologies have relatively high energy use and shorter lamp life compared to modern LED lighting.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "common_area_lighting_retrofit",
+        "measure_title": "Common Area and Garage Lighting Retrofit",
+        "notes": "Retrofit T8 and CFL lighting in common areas and garages to LED with occupancy/daylight controls to cut electricity use and maintenance while improving lighting quality.",
+        "retrofit_conditions": "Mann recommends retrofitting all existing T8 fluorescent fixtures and CFL spiral lamps with high-efficiency LED fixtures or lamps. LEDs consume significantly less electricity, have a longer lifespan, and reduce maintenance. Occupancy sensors or motion detectors should be installed in garages, mechanical rooms, laundry rooms, and other intermittently used spaces so lights operate only when needed. Daylight sensors can be added where natural light is available. This combined approach can substantially reduce electricity consumption, improve lighting quality and safety, and lower maintenance costs.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_aging_double_pane",
+        "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+        "title": "Window condition (Aging double pane)"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally fair condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Fair)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation (Has CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "no_vfd_on_booster_pump",
+        "text": "The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\n\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.",
+        "title": "No VFD on Booster Pump"
+      },
+      {
+        "category": "ramp",
+        "misc_id": "electric_ramp_heating",
+        "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+        "title": "Electric ramp heating"
+      },
+      {
+        "category": "electric",
+        "misc_id": "natural_gas_generator",
+        "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+        "title": "Natural Gas Generator"
+      },
+      {
+        "category": "",
+        "text": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+        "title": "Garage air intake no motorized damper + cold"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "dectron_unit",
+        "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure",
+        "title": "Dectron unit"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "18",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "224",
+    "postal_code": "M9V 5E6",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-23-2026",
+    "rooftop_access_available": "true",
+    "site_address": "41 Markbrook Ln",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "2 Bedroom, 1 Bedroom, Amenity spaces.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "rooftop_mua",
+        "text": "Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+        "title": "Rooftop MUA"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "vfd_gas_fire_air_cooled_chiller",
+        "text": "The existing make-up air (MUA) unit is equipped with a constant-speed supply fan and an integral gas-fired heating burner, providing heating-only capacity. The unit does not include variable frequency drive (VFD) control and does not provide mechanical cooling.\n\nThe absence of VFD control results in fixed airflow operation regardless of actual ventilation demand, limiting part-load efficiency and increasing electrical energy consumption. The gas-fired heating section provides basic winter heating capability; however, without cooling capacity, heat recovery, or advanced modulation control, the system offers limited seasonal optimization and indoor temperature regulation.\n\nAt the time of the site visit, the unit was observed to be in functional condition with no visible mechanical deficiencies. However, the configuration reflects an older, conventional ventilation design with limited energy efficiency and control flexibility.",
+        "title": "VFD+Gas Fire"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {},
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "ptac_for_cooling",
+      "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+      "title": "PTAC for cooling"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "system_overall_assessment",
+      "misc_id": "insuite_water_heater_electric",
+      "text": "DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\n\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\n\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\n\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.",
+      "title": "Insuite water heater (electric)"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "heating_system",
+      "misc_id": "ptac_packaged_terminal_air_conditioner",
+      "text": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+      "title": "PTAC (Packaged Terminal Air Conditioner)"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "boiler",
+      "existing_conditions": "Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\n\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\n\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\n\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "convert_in-suite_ptac_to_air-source_heat_pump_system",
+      "measure_title": "Convert In-Suite PTAC to Air-Source Heat Pump System",
+      "notes": "Replace in-suite PTAC units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.",
+      "retrofit_conditions": "Mann recommends replacing the existing electric radiator + DX PTAC units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for electric resistance heating.\n\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to electric resistance heating and conventional DX configurations. In addition, improved part-load modulation enhances occupant comfort and reduces peak electrical demand.\n\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "solar_pv_electricity_generation",
+      "measure_title": "Solar PV : Electricity Generation",
+      "notes": "Install net metered solar PV generated electricity to offset electricity consumption.",
+      "retrofit_conditions": "The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \n\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "mua",
+      "existing_conditions": "The building is served by a make-up air (MUA) unit equipped with a gas-fired heating section and fixed or limited-speed supply fan control. The unit provides ventilation air to corridors and common areas but relies primarily on natural gas combustion for winter heating. While the system is functional, gas-fired heating results in ongoing fuel consumption and limits opportunities for electrification and high-efficiency operation.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "retrofit_existing_mua_to_ashp-based_mua_with_vfd_gas_heating_as_backup",
+      "measure_title": "Retrofit Existing MUA to ASHP-Based MUA with VFD (Gas Heating as Backup)",
+      "notes": "Upgrade the MUA to a heat pump–based system with VFD control while retaining gas heating as backup to reduce gas use and improve energy performance.",
+      "retrofit_conditions": "Mann recommends retrofitting the existing MUA unit to operate as an air-source heat pump (ASHP)–based MUA system while retaining the existing gas-fired heating section as a backup for extreme cold-weather conditions. Under the proposed configuration, an ASHP heating and cooling section would be integrated into the existing MUA cabinet (subject to engineering review), allowing the unit to provide high-efficiency heating and cooling through a refrigeration cycle.\n\nNew or upgraded variable frequency drives (VFDs) would be installed on the supply fan to enable airflow modulation based on ventilation demand and discharge air temperature requirements. Integration into a Building Automation System (BAS), where available, would allow optimized scheduling, temperature reset, and coordinated system control.\n\nThe ASHP system would handle the majority of annual heating and cooling loads, significantly reducing natural gas consumption, while the existing gas-fired section would operate only as supplemental or emergency heat. This hybrid approach improves energy efficiency, supports decarbonization goals, and minimizes capital cost by retaining functional components of the existing unit.\n\n*This measure is recommended subject to a detailed feasibility study to confirm equipment sizing, electrical service capacity, structural considerations, and integration constraints. The existing gas-fired heating section is recommended to be retained as backup to ensure reliability and operational flexibility.\n\n*Where applicable, IESO and Enbridge incentives for heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "pumps",
+      "existing_conditions": "Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "booster_pump_vfd",
+      "measure_title": "Booster Pump VFD Retrofit",
+      "notes": "Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.",
+      "retrofit_conditions": "It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\n\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\n\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\n\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "replace_in-suite_electric_water_heaters_with_heat_pump_water_heaters_hpwh",
+      "measure_title": "Convert In-Suite Electric Water Heaters to Heat Pump Water Heaters (HPWH)",
+      "notes": "Replace electric water heaters with heat pump water heaters to significantly reduce electricity consumption.",
+      "retrofit_conditions": "Mann recommends replacing the existing in-suite electric resistance storage water heaters with high-efficiency heat pump water heaters (HPWH). Heat pump water heaters extract heat from ambient air and transfer it to domestic water, typically achieving COP values in the range of 2.5–4.0, significantly reducing electrical consumption compared to resistance-based systems (COP ≈ 1.0).\n\nThis approach maintains the existing decentralized configuration and avoids the substantial capital cost associated with installing a centralized DHW plant, including new boilers, distribution piping, and major mechanical room reconfiguration. Implementation would require review of available electrical capacity, ventilation and air-source requirements, condensate drainage provisions, and space constraints within each suite or mechanical area.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "install_motorized_damper_for_garage_air_intake",
+      "measure_title": "Install Motorized Damper for Garage Air Intake",
+      "notes": "Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.",
+      "retrofit_conditions": "It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "window_caulking_upgrade",
+      "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+      "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+      "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "lighting",
+      "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "lighting_motion_sensor_control_retrofit",
+      "measure_title": "Lighting Motion Sensor Control Retrofit",
+      "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+      "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "ev_charging_stations",
+      "measure_title": "EV Charging Stations",
+      "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+      "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "lighting",
+      "existing_conditions": "Common areas and the garage are illuminated primarily by 4-ft T8 fluorescent fixtures and CFL spirals controlled by manual switches. These technologies have relatively high energy use and shorter lamp life compared to modern LED lighting.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "common_area_lighting_retrofit",
+      "measure_title": "Common Area and Garage Lighting Retrofit",
+      "notes": "Retrofit T8 and CFL lighting in common areas and garages to LED with occupancy/daylight controls to cut electricity use and maintenance while improving lighting quality.",
+      "retrofit_conditions": "Mann recommends retrofitting all existing T8 fluorescent fixtures and CFL spiral lamps with high-efficiency LED fixtures or lamps. LEDs consume significantly less electricity, have a longer lifespan, and reduce maintenance. Occupancy sensors or motion detectors should be installed in garages, mechanical rooms, laundry rooms, and other intermittently used spaces so lights operate only when needed. Daylight sensors can be added where natural light is available. This combined approach can substantially reduce electricity consumption, improve lighting quality and safety, and lower maintenance costs.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_aging_double_pane",
+      "text": "In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.",
+      "title": "Window condition (Aging double pane)"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally fair condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Fair)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation (Has CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "no_vfd_on_booster_pump",
+      "text": "The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\n\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.",
+      "title": "No VFD on Booster Pump"
+    },
+    {
+      "category": "ramp",
+      "misc_id": "electric_ramp_heating",
+      "text": "The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance",
+      "title": "Electric ramp heating"
+    },
+    {
+      "category": "electric",
+      "misc_id": "natural_gas_generator",
+      "text": "The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.",
+      "title": "Natural Gas Generator"
+    },
+    {
+      "category": "",
+      "text": "The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.",
+      "title": "Garage air intake no motorized damper + cold"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "dectron_unit",
+      "text": "The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure",
+      "title": "Dectron unit"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Etobicoke",
+    "{ClientName}": "MTCC-928 & Ace Condominium Management",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "1990",
+    "{DateDocument}": "Feb-23-2026",
+    "{District}": "",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Convert In-Suite PTAC to Air-Source Heat Pump System', 'category': 'boiler', 'existing_conditions': 'Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\\n\\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\\n\\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\\n\\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.', 'retrofit_conditions': 'Mann recommends replacing the existing electric radiator + DX PTAC units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for electric resistance heating.\\n\\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to electric resistance heating and conventional DX configurations. In addition, improved part-load modulation enhances occupant comfort and reduces peak electrical demand.\\n\\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace in-suite PTAC units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.', 'measure_id': 'convert_in-suite_ptac_to_air-source_heat_pump_system', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Solar PV : Electricity Generation', 'category': 'other', 'existing_conditions': 'At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.', 'retrofit_conditions': 'The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \\n\\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system', 'notes': 'Install net metered solar PV generated electricity to offset electricity consumption.', 'measure_id': 'solar_pv_electricity_generation', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Retrofit Existing MUA to ASHP-Based MUA with VFD (Gas Heating as Backup)', 'category': 'mua', 'existing_conditions': 'The building is served by a make-up air (MUA) unit equipped with a gas-fired heating section and fixed or limited-speed supply fan control. The unit provides ventilation air to corridors and common areas but relies primarily on natural gas combustion for winter heating. While the system is functional, gas-fired heating results in ongoing fuel consumption and limits opportunities for electrification and high-efficiency operation.', 'retrofit_conditions': 'Mann recommends retrofitting the existing MUA unit to operate as an air-source heat pump (ASHP)–based MUA system while retaining the existing gas-fired heating section as a backup for extreme cold-weather conditions. Under the proposed configuration, an ASHP heating and cooling section would be integrated into the existing MUA cabinet (subject to engineering review), allowing the unit to provide high-efficiency heating and cooling through a refrigeration cycle.\\n\\nNew or upgraded variable frequency drives (VFDs) would be installed on the supply fan to enable airflow modulation based on ventilation demand and discharge air temperature requirements. Integration into a Building Automation System (BAS), where available, would allow optimized scheduling, temperature reset, and coordinated system control.\\n\\nThe ASHP system would handle the majority of annual heating and cooling loads, significantly reducing natural gas consumption, while the existing gas-fired section would operate only as supplemental or emergency heat. This hybrid approach improves energy efficiency, supports decarbonization goals, and minimizes capital cost by retaining functional components of the existing unit.\\n\\n*This measure is recommended subject to a detailed feasibility study to confirm equipment sizing, electrical service capacity, structural considerations, and integration constraints. The existing gas-fired heating section is recommended to be retained as backup to ensure reliability and operational flexibility.\\n\\n*Where applicable, IESO and Enbridge incentives for heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Upgrade the MUA to a heat pump–based system with VFD control while retaining gas heating as backup to reduce gas use and improve energy performance.', 'measure_id': 'retrofit_existing_mua_to_ashp-based_mua_with_vfd_gas_heating_as_backup', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Booster Pump VFD Retrofit', 'category': 'pumps', 'existing_conditions': 'Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.', 'retrofit_conditions': 'It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.', 'notes': 'Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.', 'measure_id': 'booster_pump_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Convert In-Suite Electric Water Heaters to Heat Pump Water Heaters (HPWH)', 'category': 'water', 'existing_conditions': 'DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\\n\\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\\n\\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\\n\\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.', 'retrofit_conditions': 'Mann recommends replacing the existing in-suite electric resistance storage water heaters with high-efficiency heat pump water heaters (HPWH). Heat pump water heaters extract heat from ambient air and transfer it to domestic water, typically achieving COP values in the range of 2.5–4.0, significantly reducing electrical consumption compared to resistance-based systems (COP ≈ 1.0).\\n\\nThis approach maintains the existing decentralized configuration and avoids the substantial capital cost associated with installing a centralized DHW plant, including new boilers, distribution piping, and major mechanical room reconfiguration. Implementation would require review of available electrical capacity, ventilation and air-source requirements, condensate drainage provisions, and space constraints within each suite or mechanical area.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace electric water heaters with heat pump water heaters to significantly reduce electricity consumption.', 'measure_id': 'replace_in-suite_electric_water_heaters_with_heat_pump_water_heaters_hpwh', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Motorized Damper for Garage Air Intake', 'category': 'other', 'existing_conditions': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.', 'retrofit_conditions': 'It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas', 'notes': 'Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.', 'measure_id': 'install_motorized_damper_for_garage_air_intake', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Common Area and Garage Lighting Retrofit', 'category': 'lighting', 'existing_conditions': 'Common areas and the garage are illuminated primarily by 4-ft T8 fluorescent fixtures and CFL spirals controlled by manual switches. These technologies have relatively high energy use and shorter lamp life compared to modern LED lighting.', 'retrofit_conditions': 'Mann recommends retrofitting all existing T8 fluorescent fixtures and CFL spiral lamps with high-efficiency LED fixtures or lamps. LEDs consume significantly less electricity, have a longer lifespan, and reduce maintenance. Occupancy sensors or motion detectors should be installed in garages, mechanical rooms, laundry rooms, and other intermittently used spaces so lights operate only when needed. Daylight sensors can be added where natural light is available. This combined approach can substantially reduce electricity consumption, improve lighting quality and safety, and lower maintenance costs.', 'notes': 'Retrofit T8 and CFL lighting in common areas and garages to LED with occupancy/daylight controls to cut electricity use and maintenance while improving lighting quality.', 'measure_id': 'common_area_lighting_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Convert In-Suite PTAC to Air-Source Heat Pump System', 'category': 'boiler', 'existing_conditions': 'Heating and cooling within individual suites are provided by in-suite PTAC (Packaged Terminal Air Conditioner) units, which provide electric resistance heating and DX cooling.\\n\\nPTAC systems offer basic suite-level temperature control; however, they are significantly less efficient than modern heat pump–based systems. Typical PTAC units operate with cooling COP values in the range of approximately 2.5–3.2, while electric-resistance heating sections operate at a COP of approximately 1.0, meaning that one unit of electrical energy produces one unit of heat. By comparison, modern cold-climate air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0 under favorable operating conditions, delivering substantially higher efficiency and lower operating costs.\\n\\nAs PTAC units age, cooling performance may decline due to compressor wear and refrigerant-related servicing requirements, and overall electrical consumption remains high during the heating season due to resistance-based heating.\\n\\nGiven the relatively low heating efficiency and increasing lifecycle costs associated with electric-resistance-based PTAC systems, replacement with a modern air-source heat pump (ASHP) system is recommended in the short term. Transitioning to ASHP technology would significantly improve energy performance, reduce electrical consumption, lower operating costs, and enhance long-term system reliability.', 'retrofit_conditions': 'Mann recommends replacing the existing electric radiator + DX PTAC units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for electric resistance heating.\\n\\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to electric resistance heating and conventional DX configurations. In addition, improved part-load modulation enhances occupant comfort and reduces peak electrical demand.\\n\\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace in-suite PTAC units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.', 'measure_id': 'convert_in-suite_ptac_to_air-source_heat_pump_system', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Solar PV : Electricity Generation', 'category': 'other', 'existing_conditions': 'At the present, the building relies on external utilities to provide electricity to power the building which might lead to high electrical energy costs.', 'retrofit_conditions': 'The current state of the solar industry in Ontario is focused on “net metering” as power export to the grid is no longer an option. Rather than power export, net metered solar facilities use the generated electricity to offset electricity consumption within the facility. Since power export is not feasible, the system should be sized to only meet the baseload energy consumption of the building. This building has a high electrical consumption and ample roof space, which makes it a candidate for solar PV. \\n\\nA preliminary study is required to accurately estimate the system cost and savings for a Solar PV system', 'notes': 'Install net metered solar PV generated electricity to offset electricity consumption.', 'measure_id': 'solar_pv_electricity_generation', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Retrofit Existing MUA to ASHP-Based MUA with VFD (Gas Heating as Backup)', 'category': 'mua', 'existing_conditions': 'The building is served by a make-up air (MUA) unit equipped with a gas-fired heating section and fixed or limited-speed supply fan control. The unit provides ventilation air to corridors and common areas but relies primarily on natural gas combustion for winter heating. While the system is functional, gas-fired heating results in ongoing fuel consumption and limits opportunities for electrification and high-efficiency operation.', 'retrofit_conditions': 'Mann recommends retrofitting the existing MUA unit to operate as an air-source heat pump (ASHP)–based MUA system while retaining the existing gas-fired heating section as a backup for extreme cold-weather conditions. Under the proposed configuration, an ASHP heating and cooling section would be integrated into the existing MUA cabinet (subject to engineering review), allowing the unit to provide high-efficiency heating and cooling through a refrigeration cycle.\\n\\nNew or upgraded variable frequency drives (VFDs) would be installed on the supply fan to enable airflow modulation based on ventilation demand and discharge air temperature requirements. Integration into a Building Automation System (BAS), where available, would allow optimized scheduling, temperature reset, and coordinated system control.\\n\\nThe ASHP system would handle the majority of annual heating and cooling loads, significantly reducing natural gas consumption, while the existing gas-fired section would operate only as supplemental or emergency heat. This hybrid approach improves energy efficiency, supports decarbonization goals, and minimizes capital cost by retaining functional components of the existing unit.\\n\\n*This measure is recommended subject to a detailed feasibility study to confirm equipment sizing, electrical service capacity, structural considerations, and integration constraints. The existing gas-fired heating section is recommended to be retained as backup to ensure reliability and operational flexibility.\\n\\n*Where applicable, IESO and Enbridge incentives for heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Upgrade the MUA to a heat pump–based system with VFD control while retaining gas heating as backup to reduce gas use and improve energy performance.', 'measure_id': 'retrofit_existing_mua_to_ashp-based_mua_with_vfd_gas_heating_as_backup', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Booster Pump VFD Retrofit', 'category': 'pumps', 'existing_conditions': 'Domestic cold water is currently pressurized by a constant-speed booster pump with a downstream pressure-reducing or regulating valve to maintain setpoint pressure. The valve introduces unnecessary head loss and wastes pumping energy, and the pump operates at full speed even when demand is low.', 'retrofit_conditions': 'It is recommended to install a variable frequency drive (VFD) on the domestic water booster pump and remove or bypass the pressure regulating valve. The VFD will control pump speed to maintain the desired discharge pressure directly, allowing the pump to slow down during periods of low demand. This reduces energy use, pump wear and noise while maintaining adequate system pressure. Further engineering is required to confirm setpoints, sensor locations and control logic.', 'notes': 'Convert the constant-speed domestic booster pump to VFD control, eliminating throttling losses and matching pressure to demand for significant pump-energy savings.', 'measure_id': 'booster_pump_vfd', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Convert In-Suite Electric Water Heaters to Heat Pump Water Heaters (HPWH)', 'category': 'water', 'existing_conditions': 'DHW for each suite is served by an individual electric storage-type water heater, typically rated at approximately 3,000 W. These units operate independently and provide hot water directly to each dwelling unit.\\n\\nElectric resistance water heaters convert electricity directly into heat and operate with a coefficient of performance (COP) of approximately 1.0. While this decentralized configuration simplifies distribution and eliminates centralized piping losses, it results in relatively high electrical consumption compared to centralized condensing or heat pump–based systems.\\n\\nConversion to a centralized domestic hot water system or the implementation of heat pump water heaters (HPWH) may offer improved energy performance and reduced electrical consumption. However, such an upgrade would require a detailed feasibility assessment, including evaluation of available electrical capacity, spatial constraints, ventilation requirements, and capital cost implications.\\n\\nAccordingly, further review as part of an ASHRAE Level 2 Energy Audit or dedicated heat pump feasibility study is recommended to determine the technical and economic viability of transitioning to a heat pump–based DHW solution.', 'retrofit_conditions': 'Mann recommends replacing the existing in-suite electric resistance storage water heaters with high-efficiency heat pump water heaters (HPWH). Heat pump water heaters extract heat from ambient air and transfer it to domestic water, typically achieving COP values in the range of 2.5–4.0, significantly reducing electrical consumption compared to resistance-based systems (COP ≈ 1.0).\\n\\nThis approach maintains the existing decentralized configuration and avoids the substantial capital cost associated with installing a centralized DHW plant, including new boilers, distribution piping, and major mechanical room reconfiguration. Implementation would require review of available electrical capacity, ventilation and air-source requirements, condensate drainage provisions, and space constraints within each suite or mechanical area.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace electric water heaters with heat pump water heaters to significantly reduce electricity consumption.', 'measure_id': 'replace_in-suite_electric_water_heaters_with_heat_pump_water_heaters_hpwh', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Motorized Damper for Garage Air Intake', 'category': 'other', 'existing_conditions': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.', 'retrofit_conditions': 'It is recommended to install a motorized damper at the garage outdoor air intake, integrated with a temperature sensor and control logic to modulate airflow based on outdoor conditions. The damper would reduce unnecessary cold air infiltration during winter while maintaining required ventilation rates. Integration with the existing garage fan controls or BAS (where available) would allow coordinated operation and improved seasonal performance. This measure would help stabilize garage temperatures, reduce potential heating energy demand, and improve occupant comfort near entry areas', 'notes': 'Install a motorized intake damper to reduce winter cold air infiltration and improve garage temperature control while maintaining required ventilation.', 'measure_id': 'install_motorized_damper_for_garage_air_intake', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Common Area and Garage Lighting Retrofit', 'category': 'lighting', 'existing_conditions': 'Common areas and the garage are illuminated primarily by 4-ft T8 fluorescent fixtures and CFL spirals controlled by manual switches. These technologies have relatively high energy use and shorter lamp life compared to modern LED lighting.', 'retrofit_conditions': 'Mann recommends retrofitting all existing T8 fluorescent fixtures and CFL spiral lamps with high-efficiency LED fixtures or lamps. LEDs consume significantly less electricity, have a longer lifespan, and reduce maintenance. Occupancy sensors or motion detectors should be installed in garages, mechanical rooms, laundry rooms, and other intermittently used spaces so lights operate only when needed. Daylight sensors can be added where natural light is available. This combined approach can substantially reduce electricity consumption, improve lighting quality and safety, and lower maintenance costs.', 'notes': 'Retrofit T8 and CFL lighting in common areas and garages to LED with occupancy/daylight controls to cut electricity use and maintenance while improving lighting quality.', 'measure_id': 'common_area_lighting_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Window condition (Aging double pane)', 'category': 'window', 'text': 'In aging buildings, even double-pane window assemblies may experience gradual deterioration of glazing seals over time. Loss of insulating gas or degradation of the sealed air space between panes can reduce overall thermal performance. While the existing windows were observed to be in generally fair condition, it would be prudent to incorporate sealant renewal and eventual glazing upgrades into the building’s long-term capital planning strategy.', 'misc_id': 'window_condition_aging_double_pane'}, {'title': 'Envelope Condition (Fair)', 'category': 'window', 'text': 'The building envelope appears to be in generally fair condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Garage ventilation (Has CO controls)', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'No VFD on Booster Pump', 'category': 'maintenance', 'text': 'The booster pump operating at constant speed, with no variable frequency drives (VFDs) installed. As a result, the booster pump does not modulate output in response to system demand, which can lead to unnecessary energy consumption during low-demand periods and less efficient pressure control.\\n\\nAt the time of the site visit, the booster pump system was observed to be operating normally, with no abnormal noise, vibration, or visible mechanical deficiencies noted.', 'misc_id': 'no_vfd_on_booster_pump'}, {'title': 'Electric ramp heating', 'category': 'ramp', 'text': 'The exterior ramp heating system is hydronic ramp heating and is used to maintain safe, ice-free conditions during winter months. No operational issues were observed with the ramp heating system at the time of the visit. Control improvements may be possible by converting the electric ramp heating system to a hydronic system, where feasible, to reduce electrical energy consumption while maintaining winter safety performance', 'misc_id': 'electric_ramp_heating'}, {'title': 'Natural Gas Generator', 'category': 'electric', 'text': 'The building is equipped with a natural gas emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator is connected to the building’s natural gas supply, eliminating the need for on-site fuel storage. Regular inspection, operational testing, and preventive maintenance are required to ensure system reliability and compliance with applicable electrical and fire safety regulations.', 'misc_id': 'natural_gas_generator'}, {'title': 'Garage air intake no motorized damper + cold', 'category': '', 'text': 'The parking garage air intake is not equipped with a motorized damper. Outdoor air enters the space continuously, which can result in excessive cold air infiltration during winter conditions. This may contribute to lower garage temperatures, increased heating demand where applicable, and reduced occupant comfort near entry points. No active control strategy was observed to regulate intake airflow based on outdoor temperature or operating conditions.'}, {'title': 'Dectron unit', 'category': 'maintenance', 'text': 'The indoor pool area is served by a dedicated Dectron unit providing ventilation, dehumidification, and space conditioning. The unit is designed to control humidity levels, maintain indoor air quality, and prevent condensation-related deterioration within the pool enclosure', 'misc_id': 'dectron_unit'}",
+    "{Number of Floors}": "18",
+    "{Number of Suites}": "224",
+    "{Post Code}": "M9V 5E6",
+    "{Property Address1}": "41 Markbrook Ln",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-23-2026",
+    "{Suite Types}": "2 Bedroom, 1 Bedroom, Amenity spaces."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "MTCC-928 & Ace Condominium Management",
+    "prepared_by": "",
+    "report_date": "Feb-23-2026",
+    "site_address": "41 Markbrook Ln"
+  },
+  "project_notes": "41 Markbrook visit check list\n\nHeating BOILER\n\t◦\tPTAC, McQuary 1990 made\n\t◦\tCommon area and some room have electric radiator \n\n\nCooling System \n\t◦\tPTAC\n\nCooling tower\nNo\n\nMUA\n\t◦\tHas seasonal switch, gas burner but no DX cooling coil. No VFD\n\nDHW\n\n\t◦\tNo centralize system, every one has insuite water heater, electric , 3000W\n\nGarage\nUnheated\nElectric ramp\n\nLighting\n\t◦\tMix LED and T8\n\n\nWindow\n\t◦\tDouble panel \n\nSub meter\nYes\n\nBooster pump\n\t◦\t/w pressure sensor. No VFD\n\nVFD\n\t◦\tNo VFD for everything\n\nGive BAS a individual block\n\t◦\tNo bas\nMisc\n\t◦\tGarage heated? Unheated\n\t◦\tGarage co sensor ? Present but not working. Noted Garage gate open all the time.\n\t◦\tRamp deciding?electric\n\t◦\tLighting?mix\n\t◦\tGenerator? Gas gen\n\t◦\tBooster pump condition? Fair , no VFD\n\t◦\tPiping?  Fair, some leakage detected \n\t◦\tEnvelope window single panel/ double panel/ architectural condition? Double panel, no air leakage \nGeneral \n\t◦\tCirculation pump has VFD or not?",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "rooftop_mua",
+      "text": "Ventilation for the building is provided by One (1) make-up air (MUA) units, located in roof top, serving corridors and other public areas.",
+      "title": "Rooftop MUA"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "vfd_gas_fire_air_cooled_chiller",
+      "text": "The existing make-up air (MUA) unit is equipped with a constant-speed supply fan and an integral gas-fired heating burner, providing heating-only capacity. The unit does not include variable frequency drive (VFD) control and does not provide mechanical cooling.\n\nThe absence of VFD control results in fixed airflow operation regardless of actual ventilation demand, limiting part-load efficiency and increasing electrical energy consumption. The gas-fired heating section provides basic winter heating capability; however, without cooling capacity, heat recovery, or advanced modulation control, the system offers limited seasonal optimization and indoor temperature regulation.\n\nAt the time of the site visit, the unit was observed to be in functional condition with no visible mechanical deficiencies. However, the configuration reflects an older, conventional ventilation design with limited energy efficiency and control flexibility.",
+      "title": "VFD+Gas Fire"
+    }
+  ]
+}

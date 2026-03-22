@@ -34,7 +34,7 @@
       "id": "condensing_boiler_plant",
       "title": "One high temp loop boiler plant",
       "category": "plant",
-      "text": "The building is served by a high temperature loop and is generated in the central mechanical room.\n\nThe boiler plant is located in {location} consist of (number of HTG boiler)gas-fired boiler. These are separated into:"
+      "text": "The boiler plant is located in the {penthouse mechanical room} and consists of {four (4)}  boilers serving the domestic hot water (DHW) system and {three (3)} boilers serving the space heating (HTG) system.\n\nThe space-heating boilers are configured as follows:"
     },
     {
       "id": "heating_distribution",
@@ -119,6 +119,36 @@
       "title": "No fully BAS integrate",
       "category": "controls",
       "text": "Reported by onsite-staff, current control strategy rely on a mix of locally controlled equipment and BAS-integrated systems.\nFuture optimization opportunities should be upgrading to a Niagara 4–based BAS to enable full-building system integration, improved cybersecurity, and enhanced long-term operational efficiency."
+    },
+    {
+      "id": "fancoil_heating_loop_primary_heating_loop_dhw_loop",
+      "title": "FANCOIL HEATING LOOP + PRIMARY HEATING LOOP + DHW LOOP",
+      "category": "plant",
+      "text": "The building operates with a hydronic configuration consisting of a fan coil heating loop, a primary heating loop, and a dedicated domestic hot water (DHW) loop.\n\nThe boiler plant is located in {location} consist (number of HTG boiler)gas-fired boiler. These are separated into:"
+    },
+    {
+      "id": "primary_boiler_serving_lower_zone_spaceheating_and_dhw",
+      "title": "Primary boiler serving lower zone spaceheating and DHW",
+      "category": "htg_boiler_facts",
+      "text": "The primary heating loop consists of **{number of boiler} {atmospheric/non-condensing/condensing} boilers** rated at **{HTG boiler capacity} MBH each**, with an efficiency of **{efficiency} %**. The boilers were manufactured in **{year of manufactured}** and serve as the central heating plant for the building.\n\nThe primary heating loop supplies hot water to **all lower-zone heating demands**, including the **fan coil heating loop, the make-up air (MUA) heating loop, and the lower-zone domestic hot water (DHW) system** through a heat exchanger that serves the DHW storage tanks.\n\nThe system operates with a supply temperature of approximately **{supply temp}** and a return temperature of **{return temp}**, distributing thermal energy to the connected heating loads throughout the building."
+    },
+    {
+      "id": "absence_of_pipe_insulation",
+      "title": "Absence of pipe insulation:",
+      "category": "condition",
+      "text": "Heating distribution piping in the mechanical room was observed to be uninsulated, resulting in avoidable heat loss and reduced system efficiency.\n\nThis condition presents an opportunity for low-cost energy efficiency improvement through the installation of proper pipe insulation on all accessible heating distribution piping."
+    },
+    {
+      "id": "ceiling_heating",
+      "title": "Ceiling heating",
+      "category": "heating_equipments",
+      "text": "Space heating within individual suites is provided through a decentralized electric resistance heating system consisting of electric baseboard heaters and radiant ceiling heating panels.\n\nThe radiant ceiling system utilizes embedded electric heating elements within the ceiling assembly to provide heat through thermal radiation to interior spaces. Electric baseboard heaters provide supplementary convective heating as required. Each suite is equipped with wall-mounted thermostats, allowing occupants to manually control space temperature.\n\nThis configuration provides basic suite-level temperature control; however, electric resistance heating operates at a coefficient of performance (COP) of approximately 1.0, resulting in relatively high electrical energy consumption compared to modern heat pump–based systems. In addition, the absence of centralized monitoring, scheduling, or optimization limits opportunities for system-wide energy management and may contribute to inconsistent comfort conditions across suites."
+    },
+    {
+      "id": "common_area_space_heating",
+      "title": "Common area space heating",
+      "category": "heating_system",
+      "text": "In Common areas, additional heating and cooling are provided by ceiling-mounted 4-way ceiling cassette indoor unit units. These units provide localized conditioning to maintain occupant comfort in high-traffic areas and are integrated within the ceiling space."
     }
   ]
 }

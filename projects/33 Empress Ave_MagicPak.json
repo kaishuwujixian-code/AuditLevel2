@@ -1,0 +1,585 @@
+{
+  "answers": {
+    "architectural_condition": "good",
+    "bas_future_integration_feasible": "true",
+    "boiler_capacity_mbh": "",
+    "boiler_condition": null,
+    "boiler_install_year": "",
+    "boiler_pumps_have_vfd": null,
+    "boiler_return_temp_f": "",
+    "boiler_supply_temp_f": "",
+    "boiler_type": null,
+    "boilers": [],
+    "boilers_original": null,
+    "chiller_install_year": "",
+    "chiller_manufacturer": "",
+    "chiller_tonnage": "",
+    "circulation_issues_reported": "true",
+    "city": "Toronto",
+    "client_name": "MTCC-1343 & Crossbridge Condominium Services",
+    "condenser_pump_has_vfd": null,
+    "cooling_block_override": "",
+    "cooling_central_system_present": "false",
+    "cooling_controls_notes": "",
+    "cooling_distribution": null,
+    "cooling_equipment_condition": null,
+    "cooling_issues_reported": null,
+    "cooling_items": [
+      {
+        "category": "cooling_system",
+        "misc_id": "magic_pak_for_cooling",
+        "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite Magic-Pak units, which consist of a gas-fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\n\nWhile this decentralized configuration provides basic temperature control, gas-fired furnace and conventional DX cooling systems are generally less efficient than heat pump–based solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\n\nIn addition to moderate energy performance, the distributed nature of Magic-Pak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to centralized or heat pump–based systems.\n\nGiven the age and inherent efficiency limitations of gas-fired packaged units, replacement with a modern heat pump–based system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs.",
+        "title": "Magic Pak for Cooling"
+      }
+    ],
+    "cooling_location": "",
+    "cooling_notes": "",
+    "cooling_serves": [],
+    "cooling_system_condition": null,
+    "cooling_system_type": "magic_pak_unit",
+    "cooling_tower_has_vfd": null,
+    "cooling_tower_present": null,
+    "cooling_tower_vfd_present": null,
+    "date_constructed": "2000",
+    "dhw_block_override": "",
+    "dhw_boiler_capacity_mbh": "1825MBH and 1750MBH",
+    "dhw_boiler_install_year": "2001",
+    "dhw_boiler_type": "condensing",
+    "dhw_boilers_original": "true",
+    "dhw_equipment_condition": "good",
+    "dhw_functional": "true",
+    "dhw_generation_type": "central_dhw_boilers",
+    "dhw_items": [
+      {
+        "category": "generation",
+        "misc_id": "central_dhw_boilers",
+        "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by 2 gas-fired atmospheric DHW boiler.",
+        "title": "Central DHW boilers plant"
+      },
+      {
+        "category": "dhw_boiler_facts",
+        "misc_id": "atmospheric_dhw_boiler",
+        "text": "one (1) ThermalSolutions EVO atmospheric DHW boilers, rated at approximately 1,500 MBH, install in around 2008 and was observed to be in poor to fair condition. Given to it's age the unit is approaching it's end of service life. Supply temperature was approximately 155°F with return at 145°F.\n\none (1) Raytherm atmospheric boiler rated at 1,825.5 MBH installed in 2000, the unit seems original to the building, and is approaching it's end of service life.\n\none (1) electric HDW (300W) side arem heater for lower zone.",
+        "title": "Atmospheric DHW Boiler"
+      },
+      {
+        "category": "boiler_mechanical_condition",
+        "misc_id": "good_condition",
+        "text": "The boilers and associated piping were observed to be in poor to fair condition, with no visible leaks but has signs of corrosion.",
+        "title": "Boiler and piping Good condition"
+      },
+      {
+        "category": "storage_tank",
+        "misc_id": "indirect_storage_tank",
+        "text": "One (1) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank was observed to be in poor to fair mechanical condition",
+        "title": "Indirect storage tank"
+      },
+      {
+        "category": "mixing_valve",
+        "misc_id": "no_mixing_valve",
+        "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+        "title": "No Mixing Valve"
+      }
+    ],
+    "dhw_location": "Penthouse Mechanical room",
+    "dhw_mixed_temp_f": "138",
+    "dhw_mixing_valve_present": "false",
+    "dhw_mixing_valve_type": "none",
+    "dhw_notes": "",
+    "dhw_piping_condition": "good",
+    "dhw_recirculation_pumps_operating": "true",
+    "dhw_storage_temp_f": "165",
+    "dhw_storage_temp_gauge_functional": "true",
+    "dhw_storage_temp_variation_observed": "false",
+    "dhw_supply_temp_f": "115 and 165",
+    "dhw_system_condition": "fair_to_good",
+    "dhw_system_type": "dhw_boiler_condensing",
+    "dhw_tank_capacity_gal": "",
+    "distribution_pumps_operating_normally": null,
+    "district_50b69d": "North York",
+    "erv_hrv_present": "unknown",
+    "exhaust_fan_condition": "aging_but_functional",
+    "fluid_cooler_present": null,
+    "future_cooling_upgrade_considered": null,
+    "heat_recovery_observed": "false",
+    "heating_heat_source": "magic_pak_unit",
+    "heating_items": [
+      {
+        "category": "heating_system",
+        "misc_id": "magic_pak",
+        "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite Magic-Pak units, which consist of a gas-fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite (supplementray electric radiator was observed in some suite).\n\nWhile this decentralized configuration provides basic temperature control, gas-fired furnace and conventional DX cooling systems are generally less efficient than heat pump–based solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\n\nIn addition to moderate energy performance, the distributed nature of Magic-Pak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to centralized or heat pump–based systems.\n\nGiven the age and inherent efficiency limitations of gas-fired packaged units, replacement with a modern heat pump–based system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs.\n\n*Note: level G to level 2 floor heating and cooling provide by Mall. (TRANE AHU 1998 with heating and cooling capacity)",
+        "title": "Magic Pak"
+      }
+    ],
+    "heating_location": "",
+    "heating_notes_facts": "",
+    "heating_serves": [],
+    "heating_system_condition": "fair",
+    "heating_terminal_type": "packaged_in_suite_unit",
+    "measures": [
+      {
+        "category": "bas",
+        "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "bas_install",
+        "measure_title": "Install New Building Automation System (BAS)",
+        "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+        "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank, associated DHW circulation pumps, and portions of the DHW piping were observed to be original to the building and approaching the end of their expected service life. \nIn addition, two (2) atmospheric gas-fired DHW boilers, installed in 2000 and 2008, with an estimated thermal efficiency of approximately 78%, are approaching the end of their expected service life. As atmospheric boilers, these units operate without condensing capability and therefore at lower thermal efficiency compared to modern condensing DHW boiler systems.\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
+        "measure_title": "Replace Aging DHW Storage Tank and piping and Condensing DHW Boiler Retrofit",
+        "notes": "Replace aging indirect DHW storage tanks and atmospheric DHW boilers with glass-lined storage tanks and high-efficiency condensing DHW boilers to increase boiler efficiency, reduce maintenance requirements.",
+        "retrofit_conditions": "As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system through a comprehensive DHW modernization approach, including:\n•\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \n•\tReplacement of the existing atmospheric DHW boilers with high-efficiency condensing DHW boilers, capable of achieving thermal efficiencies of up to approximately 98% under suitable operating conditions.\nUnder the proposed configuration, the condensing DHW boilers would directly serve the new glass-lined storage tanks. Upgrading to condensing boiler technology allows the system to operate at lower return-water temperatures, enabling latent heat recovery and significantly improving overall thermal efficiency.\n\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\n\nTogether, these upgrades reduce long-term maintenance requirements, improve system reliability, lower natural gas consumption.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "boiler",
+        "existing_conditions": "Heating and cooling within individual suites are currently provided by in-suite Magic-Pak units, consisting of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Each unit operates independently and is controlled by a local thermostat.\n\nTypical non-condensing gas furnaces operate at thermal efficiencies of approximately 78–82%, while standard DX cooling sections typically achieve cooling COP values in the range of 2.8–3.5, depending on age and maintenance condition. The decentralized nature of these systems results in higher maintenance requirements, including annual combustion inspections, heat exchanger monitoring, filter servicing, and periodic compressor or blower motor replacement.\n\nAs these units age, energy efficiency declines and maintenance costs increase. The distributed combustion appliances also limit opportunities for centralized control, optimization, and greenhouse gas reduction.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "convert_in-suite_magic-pak_units_to_air-source_heat_pump_ashp_systems",
+        "measure_title": "Convert In-Suite MagicPak Units to Air-Source Heat Pump (ASHP) Systems",
+        "notes": "Replace in-suite Magic-Pak gas-fired furnace/DX units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.",
+        "retrofit_conditions": "Mann recommends replacing the existing Magic-Pak units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for in-suite gas combustion.\n\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to existing gas-fired furnace and DX configurations. In addition, eliminating gas combustion reduces greenhouse gas emissions and simplifies mechanical maintenance.\n\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentiveg\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "water",
+        "existing_conditions": "No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "install_anti-scale_thermostatic_mixing_valve",
+        "measure_title": "Install Anti-Scale Thermostatic Mixing Valve",
+        "notes": "Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.",
+        "retrofit_conditions": "Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "lighting",
+        "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "lighting_motion_sensor_control_retrofit",
+        "measure_title": "Lighting Motion Sensor Control Retrofit",
+        "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+        "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "window_caulking_upgrade",
+        "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+        "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+        "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      },
+      {
+        "category": "other",
+        "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+        "implementation_cost": null,
+        "incentive": null,
+        "measure_id": "ev_charging_stations",
+        "measure_title": "EV Charging Stations",
+        "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+        "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+        "savings_electric_kwh": null,
+        "savings_gas_m3": null,
+        "savings_water_m3": null,
+        "simple_payback_years": null
+      }
+    ],
+    "misc_block": "",
+    "misc_items": [
+      {
+        "category": "lighting",
+        "misc_id": "lighting_condition",
+        "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+        "title": "Lighting condition and controls"
+      },
+      {
+        "category": "window",
+        "misc_id": "window_condition_good",
+        "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+        "title": "Window condition (good)"
+      },
+      {
+        "category": "window",
+        "misc_id": "envelope_condition_good",
+        "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+        "title": "Envelope Condition (Good)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "garage_co_control",
+        "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+        "title": "Garage ventilation (Has CO controls)"
+      },
+      {
+        "category": "garage",
+        "misc_id": "unheated_garage",
+        "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+        "title": "Unheated garage"
+      },
+      {
+        "category": "maintenance",
+        "misc_id": "has_vfd_on_booster_pump",
+        "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+        "title": "Has VFD on Booster Pump"
+      },
+      {
+        "category": "electric",
+        "misc_id": "diesel_generator",
+        "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+        "title": "Diesel Generator"
+      }
+    ],
+    "mua_count": "1",
+    "mua_functional": "true",
+    "mua_has_cooling_coil": "true",
+    "mua_has_dx_cooling": "true",
+    "mua_has_gas_heat": "true",
+    "mua_has_vfd": "true",
+    "mua_heating_type": "gas_burner",
+    "mua_operating_normally": "true",
+    "mua_operational_issues_observed": "false",
+    "mua_partial_replacement": "false",
+    "number_of_boilers": "",
+    "number_of_chillers": "",
+    "number_of_dhw_boilers": "2",
+    "number_of_dhw_tanks": "1",
+    "number_of_floors": "32",
+    "number_of_fluid_coolers": "",
+    "number_of_mua_units": "1",
+    "number_of_rooftop_units": "",
+    "number_of_suites": "320",
+    "postal_code": "M2N 6Y7",
+    "province": "Ontario",
+    "province_abbreviation_ff26b8": "ON",
+    "report_date": "Feb-09-2026",
+    "rooftop_access_available": "true",
+    "site_address": "33 Empress Ave",
+    "site_visit_season": null,
+    "suite_cooling_type": null,
+    "suite_types": "2 Bedroom, 1 Bedroom, guest room, Amenity spaces.",
+    "ventilation_airflow_cfm": "",
+    "ventilation_block_override": "",
+    "ventilation_items": [
+      {
+        "category": "system",
+        "misc_id": "central_ahu_ventilation",
+        "text": "Ventilation for the building is provided by One (1) central air handling unit(s), located in roof top, equipment with outdoor-air intake and return/exhaust paths serving corridors and other public areas.",
+        "title": "Central AHU ventilation"
+      },
+      {
+        "category": "ventilation_equipment_facts",
+        "misc_id": "vfd_gas_fire_air_cooled_chiller",
+        "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and Air Cooled Chiller provide cooling capacity. The existing equipment was observed to be out of service and in the process of being replaced with new equipment.",
+        "title": "VFD+Gas Fire+Air Cooled Chiller"
+      },
+      {
+        "category": "controls",
+        "misc_id": "ventilation_controls_bas",
+        "text": "The building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the new AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+        "title": "Ventilation controls via BAS"
+      }
+    ],
+    "ventilation_location": "ROOF TOP",
+    "ventilation_notes": "1 AIR HANDLING UNIT, WITH 60 TONS COOLING CAPACITY AND 3,5620 MBH HEATING CAPACITY.",
+    "ventilation_system_condition": "fair_to_good",
+    "ventilation_system_type": "mua_gas_rooftop",
+    "window_ac_present": null,
+    "wshp_deficiencies_reported": null,
+    "wshp_install_year": ""
+  },
+  "checklist_selections": {
+    "Walkthrough Findings": {
+      "DHW System": [
+        "Indirect DHW tank observed",
+        "No thermostatic mixing valve"
+      ],
+      "Heating Plant Issue": [
+        "Aging atmospheric boilers",
+        "No BAS On Heating Boiler"
+      ],
+      "MUA Related": [
+        "MUA Unit Failed Observed",
+        "MUA has VFD but No connect with BAS"
+      ]
+    }
+  },
+  "cooling_items": [
+    {
+      "category": "cooling_system",
+      "misc_id": "magic_pak_for_cooling",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite Magic-Pak units, which consist of a gas-fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite.\n\nWhile this decentralized configuration provides basic temperature control, gas-fired furnace and conventional DX cooling systems are generally less efficient than heat pump–based solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\n\nIn addition to moderate energy performance, the distributed nature of Magic-Pak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to centralized or heat pump–based systems.\n\nGiven the age and inherent efficiency limitations of gas-fired packaged units, replacement with a modern heat pump–based system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs.",
+      "title": "Magic Pak for Cooling"
+    }
+  ],
+  "dhw_items": [
+    {
+      "category": "generation",
+      "misc_id": "central_dhw_boilers",
+      "text": "Domestic hot water is generated in the central mechanical room, located in PentHouse by 2 gas-fired atmospheric DHW boiler.",
+      "title": "Central DHW boilers plant"
+    },
+    {
+      "category": "dhw_boiler_facts",
+      "misc_id": "atmospheric_dhw_boiler",
+      "text": "one (1) ThermalSolutions EVO atmospheric DHW boilers, rated at approximately 1,500 MBH, install in around 2008 and was observed to be in poor to fair condition. Given to it's age the unit is approaching it's end of service life. Supply temperature was approximately 155°F with return at 145°F.\n\none (1) Raytherm atmospheric boiler rated at 1,825.5 MBH installed in 2000, the unit seems original to the building, and is approaching it's end of service life.\n\none (1) electric HDW (300W) side arem heater for lower zone.",
+      "title": "Atmospheric DHW Boiler"
+    },
+    {
+      "category": "boiler_mechanical_condition",
+      "misc_id": "good_condition",
+      "text": "The boilers and associated piping were observed to be in poor to fair condition, with no visible leaks but has signs of corrosion.",
+      "title": "Boiler and piping Good condition"
+    },
+    {
+      "category": "storage_tank",
+      "misc_id": "indirect_storage_tank",
+      "text": "One (1) indirect storage tank was observed, located at the main boiler room and is heated via DHW boiler. The tank was observed to be in poor to fair mechanical condition",
+      "title": "Indirect storage tank"
+    },
+    {
+      "category": "mixing_valve",
+      "misc_id": "no_mixing_valve",
+      "text": "The domestic hot water storage system does not appear to include a mixing valve, current storage tank temperature was 130F to 140 F, which is normal in this condition. A thermostatic mixing valve is recommended to ensure safe delivery temperatures, prevent scald risk, and maintain appropriate temperature control for bacterial mitigation within the storage tank.",
+      "title": "No Mixing Valve"
+    }
+  ],
+  "heating_items": [
+    {
+      "category": "heating_system",
+      "misc_id": "magic_pak",
+      "text": "The building is not equipped with a centralized heating and cooling system. Heating and cooling within individual suites are provided by in-suite Magic-Pak units, which consist of a gas-fired furnace for space heating and an integral DX cooling section for space cooling, operating independently in each suite (supplementray electric radiator was observed in some suite).\n\nWhile this decentralized configuration provides basic temperature control, gas-fired furnace and conventional DX cooling systems are generally less efficient than heat pump–based solutions. Typical non-condensing gas furnaces operate at thermal efficiencies in the range of 78–82%, while standard DX cooling sections often achieve cooling COP values of approximately 2.8–3.5, depending on equipment age and condition. In comparison, modern high-efficiency air-source heat pump (ASHP) systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions.\n\nIn addition to moderate energy performance, the distributed nature of Magic-Pak units increases overall maintenance and lifecycle costs, as each suite contains its own combustion appliance, heat exchanger, blower motor, and refrigeration components. Annual servicing, combustion inspections, heat exchanger monitoring, and potential component replacement contribute to higher long-term operating expenses compared to centralized or heat pump–based systems.\n\nGiven the age and inherent efficiency limitations of gas-fired packaged units, replacement with a modern heat pump–based system should be considered in the short term as part of a mechanical system modernization strategy to improve energy efficiency, reduce greenhouse gas emissions, and lower long-term maintenance and operating costs.\n\n*Note: level G to level 2 floor heating and cooling provide by Mall. (TRANE AHU 1998 with heating and cooling capacity)",
+      "title": "Magic Pak"
+    }
+  ],
+  "measure_overrides": {},
+  "measures": [
+    {
+      "category": "bas",
+      "existing_conditions": "The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "bas_install",
+      "measure_title": "Install New Building Automation System (BAS)",
+      "notes": "Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.",
+      "retrofit_conditions": "It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank, associated DHW circulation pumps, and portions of the DHW piping were observed to be original to the building and approaching the end of their expected service life. \nIn addition, two (2) atmospheric gas-fired DHW boilers, installed in 2000 and 2008, with an estimated thermal efficiency of approximately 78%, are approaching the end of their expected service life. As atmospheric boilers, these units operate without condensing capability and therefore at lower thermal efficiency compared to modern condensing DHW boiler systems.\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "dhw_retrofit_plate_and_frame_hx_mixing_valve",
+      "measure_title": "Replace Aging DHW Storage Tank and piping and Condensing DHW Boiler Retrofit",
+      "notes": "Replace aging indirect DHW storage tanks and atmospheric DHW boilers with glass-lined storage tanks and high-efficiency condensing DHW boilers to increase boiler efficiency, reduce maintenance requirements.",
+      "retrofit_conditions": "As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system through a comprehensive DHW modernization approach, including:\n•\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \n•\tReplacement of the existing atmospheric DHW boilers with high-efficiency condensing DHW boilers, capable of achieving thermal efficiencies of up to approximately 98% under suitable operating conditions.\nUnder the proposed configuration, the condensing DHW boilers would directly serve the new glass-lined storage tanks. Upgrading to condensing boiler technology allows the system to operate at lower return-water temperatures, enabling latent heat recovery and significantly improving overall thermal efficiency.\n\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\n\nTogether, these upgrades reduce long-term maintenance requirements, improve system reliability, lower natural gas consumption.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "boiler",
+      "existing_conditions": "Heating and cooling within individual suites are currently provided by in-suite Magic-Pak units, consisting of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Each unit operates independently and is controlled by a local thermostat.\n\nTypical non-condensing gas furnaces operate at thermal efficiencies of approximately 78–82%, while standard DX cooling sections typically achieve cooling COP values in the range of 2.8–3.5, depending on age and maintenance condition. The decentralized nature of these systems results in higher maintenance requirements, including annual combustion inspections, heat exchanger monitoring, filter servicing, and periodic compressor or blower motor replacement.\n\nAs these units age, energy efficiency declines and maintenance costs increase. The distributed combustion appliances also limit opportunities for centralized control, optimization, and greenhouse gas reduction.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "convert_in-suite_magic-pak_units_to_air-source_heat_pump_ashp_systems",
+      "measure_title": "Convert In-Suite MagicPak Units to Air-Source Heat Pump (ASHP) Systems",
+      "notes": "Replace in-suite Magic-Pak gas-fired furnace/DX units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.",
+      "retrofit_conditions": "Mann recommends replacing the existing Magic-Pak units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for in-suite gas combustion.\n\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to existing gas-fired furnace and DX configurations. In addition, eliminating gas combustion reduces greenhouse gas emissions and simplifies mechanical maintenance.\n\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentiveg\n\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "water",
+      "existing_conditions": "No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "install_anti-scale_thermostatic_mixing_valve",
+      "measure_title": "Install Anti-Scale Thermostatic Mixing Valve",
+      "notes": "Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.",
+      "retrofit_conditions": "Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "lighting",
+      "existing_conditions": "Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "lighting_motion_sensor_control_retrofit",
+      "measure_title": "Lighting Motion Sensor Control Retrofit",
+      "notes": "Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.",
+      "retrofit_conditions": "Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\n\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\n\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\n\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/100-000-enbridge-incentive\n\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "window_caulking_upgrade",
+      "measure_title": "Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)",
+      "notes": "Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.",
+      "retrofit_conditions": "As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\n\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    },
+    {
+      "category": "other",
+      "existing_conditions": "Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors",
+      "implementation_cost": null,
+      "incentive": null,
+      "measure_id": "ev_charging_stations",
+      "measure_title": "EV Charging Stations",
+      "notes": "Plan and install EV charging infrastructure for residents and staff, contact us for more detail.",
+      "retrofit_conditions": "Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\n\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\nhttps://www.mannengineering.com/",
+      "savings_electric_kwh": null,
+      "savings_gas_m3": null,
+      "savings_water_m3": null,
+      "simple_payback_years": null
+    }
+  ],
+  "misc_items": [
+    {
+      "category": "lighting",
+      "misc_id": "lighting_condition",
+      "text": "Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.",
+      "title": "Lighting condition and controls"
+    },
+    {
+      "category": "window",
+      "misc_id": "window_condition_good",
+      "text": "The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit",
+      "title": "Window condition (good)"
+    },
+    {
+      "category": "window",
+      "misc_id": "envelope_condition_good",
+      "text": "The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.",
+      "title": "Envelope Condition (Good)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "garage_co_control",
+      "text": "The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.",
+      "title": "Garage ventilation (Has CO controls)"
+    },
+    {
+      "category": "garage",
+      "misc_id": "unheated_garage",
+      "text": "The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.",
+      "title": "Unheated garage"
+    },
+    {
+      "category": "maintenance",
+      "misc_id": "has_vfd_on_booster_pump",
+      "text": "The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted",
+      "title": "Has VFD on Booster Pump"
+    },
+    {
+      "category": "electric",
+      "misc_id": "diesel_generator",
+      "text": "The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.",
+      "title": "Diesel Generator"
+    }
+  ],
+  "notes": {
+    "general_site_notes": ""
+  },
+  "placeholders": {
+    "{Architectural Condition}": "good",
+    "{Central Cooling Systems block}": "",
+    "{Central Ventilation System Block}": "",
+    "{City}": "Toronto",
+    "{ClientName}": "MTCC-1343 & Crossbridge Condominium Services",
+    "{DHW System Block}": "",
+    "{Date Constructed}": "2000",
+    "{DateDocument}": "Feb-09-2026",
+    "{District}": "North York",
+    "{MEASURE_BLOCK}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Aging DHW Storage Tank and piping and Condensing DHW Boiler Retrofit', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank, associated DHW circulation pumps, and portions of the DHW piping were observed to be original to the building and approaching the end of their expected service life. \\nIn addition, two (2) atmospheric gas-fired DHW boilers, installed in 2000 and 2008, with an estimated thermal efficiency of approximately 78%, are approaching the end of their expected service life. As atmospheric boilers, these units operate without condensing capability and therefore at lower thermal efficiency compared to modern condensing DHW boiler systems.\\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.', 'retrofit_conditions': 'As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system through a comprehensive DHW modernization approach, including:\\n•\\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \\n•\\tReplacement of the existing atmospheric DHW boilers with high-efficiency condensing DHW boilers, capable of achieving thermal efficiencies of up to approximately 98% under suitable operating conditions.\\nUnder the proposed configuration, the condensing DHW boilers would directly serve the new glass-lined storage tanks. Upgrading to condensing boiler technology allows the system to operate at lower return-water temperatures, enabling latent heat recovery and significantly improving overall thermal efficiency.\\n\\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\\n\\nTogether, these upgrades reduce long-term maintenance requirements, improve system reliability, lower natural gas consumption.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace aging indirect DHW storage tanks and atmospheric DHW boilers with glass-lined storage tanks and high-efficiency condensing DHW boilers to increase boiler efficiency, reduce maintenance requirements.', 'measure_id': 'dhw_retrofit_plate_and_frame_hx_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Convert In-Suite MagicPak Units to Air-Source Heat Pump (ASHP) Systems', 'category': 'boiler', 'existing_conditions': 'Heating and cooling within individual suites are currently provided by in-suite Magic-Pak units, consisting of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Each unit operates independently and is controlled by a local thermostat.\\n\\nTypical non-condensing gas furnaces operate at thermal efficiencies of approximately 78–82%, while standard DX cooling sections typically achieve cooling COP values in the range of 2.8–3.5, depending on age and maintenance condition. The decentralized nature of these systems results in higher maintenance requirements, including annual combustion inspections, heat exchanger monitoring, filter servicing, and periodic compressor or blower motor replacement.\\n\\nAs these units age, energy efficiency declines and maintenance costs increase. The distributed combustion appliances also limit opportunities for centralized control, optimization, and greenhouse gas reduction.', 'retrofit_conditions': 'Mann recommends replacing the existing Magic-Pak units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for in-suite gas combustion.\\n\\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to existing gas-fired furnace and DX configurations. In addition, eliminating gas combustion reduces greenhouse gas emissions and simplifies mechanical maintenance.\\n\\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentiveg\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace in-suite Magic-Pak gas-fired furnace/DX units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.', 'measure_id': 'convert_in-suite_magic-pak_units_to_air-source_heat_pump_ashp_systems', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Anti-Scale Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.', 'retrofit_conditions': 'Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.', 'notes': 'Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.', 'measure_id': 'install_anti-scale_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{MEASURE_SUMMARY_ROW}": "{'measure_title': 'Install New Building Automation System (BAS)', 'category': 'bas', 'existing_conditions': 'The existing HVAC mechanical systems—including MUAs, exhaust fans, heating boilers, DHW plant, cooling equipment, and pumps—are controlled manually or via basic local thermostats and temperature sensors. There is minimal outdoor-air reset, limited boiler sequencing, and no centralized scheduling or monitoring. Equipment often operates during unoccupied periods, leading to excessive energy use and chronic overheating.', 'retrofit_conditions': 'It is recommended to install a centralized BAS to control all major HVAC systems. The BAS would provide occupancy-based scheduling, outdoor-temperature reset for boilers, zone-level temperature modulation, real-time monitoring, remote access, and alarm notifications. Improved control will reduce unnecessary run time, lower energy consumption, and improve comfort while reducing maintenance costs through better diagnostics. Utility incentives for advanced building controls can further improve project economics, with typical paybacks on the order of 3–4 years.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive', 'notes': 'Install a new central BAS to Control boilers, DHW, MUAs, pumps and exhaust fans with scheduling, reset and remote access, reducing energy use and maintenance. Improve building operation and management.', 'measure_id': 'bas_install', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Replace Aging DHW Storage Tank and piping and Condensing DHW Boiler Retrofit', 'category': 'water', 'existing_conditions': 'The domestic hot water (DHW) system is served by an indirect storage tank connected to the central boiler plant. The storage tank, associated DHW circulation pumps, and portions of the DHW piping were observed to be original to the building and approaching the end of their expected service life. \\nIn addition, two (2) atmospheric gas-fired DHW boilers, installed in 2000 and 2008, with an estimated thermal efficiency of approximately 78%, are approaching the end of their expected service life. As atmospheric boilers, these units operate without condensing capability and therefore at lower thermal efficiency compared to modern condensing DHW boiler systems.\\nAging indirect storage tanks typically require periodic internal relining and increased maintenance effort to maintain performance and water quality. As these components continue to age, maintenance requirements, the risk of unplanned service interruptions, and lifecycle costs are expected to increase.', 'retrofit_conditions': 'As part of the boiler plant and hydronic system reconfiguration, Mann recommends upgrading the DHW system through a comprehensive DHW modernization approach, including:\\n•\\tReplacement of the existing aging indirect storage tank with new vertical glass-lined DHW storage tanks; \\n•\\tReplacement of the existing atmospheric DHW boilers with high-efficiency condensing DHW boilers, capable of achieving thermal efficiencies of up to approximately 98% under suitable operating conditions.\\nUnder the proposed configuration, the condensing DHW boilers would directly serve the new glass-lined storage tanks. Upgrading to condensing boiler technology allows the system to operate at lower return-water temperatures, enabling latent heat recovery and significantly improving overall thermal efficiency.\\n\\nThe new storage tanks provide improved durability, reduced internal maintenance requirements, and more stable domestic hot water temperature control compared to aging indirect tanks.\\n\\nTogether, these upgrades reduce long-term maintenance requirements, improve system reliability, lower natural gas consumption.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n*Further engineering review is required to confirm system configuration, equipment sizing, control strategy, and integration with existing mechanical and electrical infrastructure.', 'notes': 'Replace aging indirect DHW storage tanks and atmospheric DHW boilers with glass-lined storage tanks and high-efficiency condensing DHW boilers to increase boiler efficiency, reduce maintenance requirements.', 'measure_id': 'dhw_retrofit_plate_and_frame_hx_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Convert In-Suite MagicPak Units to Air-Source Heat Pump (ASHP) Systems', 'category': 'boiler', 'existing_conditions': 'Heating and cooling within individual suites are currently provided by in-suite Magic-Pak units, consisting of a gas-fired furnace for space heating and an integral DX cooling section for space cooling. Each unit operates independently and is controlled by a local thermostat.\\n\\nTypical non-condensing gas furnaces operate at thermal efficiencies of approximately 78–82%, while standard DX cooling sections typically achieve cooling COP values in the range of 2.8–3.5, depending on age and maintenance condition. The decentralized nature of these systems results in higher maintenance requirements, including annual combustion inspections, heat exchanger monitoring, filter servicing, and periodic compressor or blower motor replacement.\\n\\nAs these units age, energy efficiency declines and maintenance costs increase. The distributed combustion appliances also limit opportunities for centralized control, optimization, and greenhouse gas reduction.', 'retrofit_conditions': 'Mann recommends replacing the existing Magic-Pak units with modern air-source heat pump (ASHP) systems. ASHP systems provide both heating and cooling through a high-efficiency refrigeration cycle and eliminate the need for in-suite gas combustion.\\n\\nModern cold-climate ASHP systems can achieve heating and cooling COP values exceeding 4.0–5.0 under favorable conditions, significantly improving energy efficiency compared to existing gas-fired furnace and DX configurations. In addition, eliminating gas combustion reduces greenhouse gas emissions and simplifies mechanical maintenance.\\n\\nThe proposed retrofit would improve suite-level temperature control, reduce long-term maintenance costs, and align the building with electrification and decarbonization strategies. Phased implementation may be considered to align with reserve fund planning and suite turnover cycles.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentiveg\\n\\n*This measure is recommended subject to a detailed feasibility study to be carried out at the next project stage or as part of an ASHRAE Level 2 Energy Audit. The feasibility assessment should consider the available electrical service capacity, potential electrical infrastructure upgrades, and system integration constraints. It is also recommended that the existing hydronic heating system be retained as a backup system to ensure reliability and operational flexibility.', 'notes': 'Replace in-suite Magic-Pak gas-fired furnace/DX units with high-efficiency air-source heat pump systems to improve energy performance, reduce maintenance costs, and support long-term building electrification.', 'measure_id': 'convert_in-suite_magic-pak_units_to_air-source_heat_pump_ashp_systems', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Install Anti-Scale Thermostatic Mixing Valve', 'category': 'water', 'existing_conditions': 'No anti-scale thermostatic mixing valve was observed downstream of the domestic hot water storage tank during the site visit.As a result, delivery temperatures are controlled locally or through fixed settings, increasing the risk of temperature fluctuation, scalding, and scale buildup within downstream piping and fixtures.', 'retrofit_conditions': 'Install an anti-scale thermostatic mixing valve on the domestic hot water system to maintain safe and stable delivery temperatures while protecting downstream piping and fixtures from scale buildup. This measure improves temperature control, reduces scald risk, and lowers long-term maintenance requirements by minimizing mineral scaling within the DHW system.', 'notes': 'Install an anti-scale thermostatic mixing valve to improve DHW temperature control, enhance occupant safety, and reduce scaling-related maintenance.', 'measure_id': 'install_anti-scale_thermostatic_mixing_valve', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Lighting Motion Sensor Control Retrofit', 'category': 'lighting', 'existing_conditions': 'Common area lighting (e.g., corridors, stairwells, storage rooms, parking areas, and ancillary spaces) is primarily controlled through manual switches or time-based schedules, resulting in lighting operating during unoccupied periods. Limited occupancy-based control leads to unnecessary electrical energy use and increased lamp operating hours.', 'retrofit_conditions': 'Mann recommends installing occupancy / motion sensors to control common area lighting where appropriate. The motion sensors would automatically turn lighting on when spaces are occupied and off or dim when spaces are unoccupied, reducing unnecessary runtime while maintaining occupant safety and visibility.\\n\\nThis measure would reduce electrical energy consumption, extend lamp and ballast/driver life, and lower ongoing maintenance requirements. Motion control is particularly effective in intermittently occupied spaces such as stairwells, corridors, storage rooms, and parking areas.\\n\\nWhere applicable, motion sensors may be integrated with existing lighting control strategies or future centralized control systems to further enhance operational flexibility.\\n\\n*Where applicable, IESO incentives and Enbridge incentives for central heating system efficiency upgrades may be available and could help improve overall project economics. Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/100-000-enbridge-incentive\\n\\n*Further engineering review is required to finalize sensor locations, control strategy, and integration with existing lighting and electrical systems.', 'notes': 'Install occupancy-based motion sensors for common area lighting to reduce unnecessary runtime, lower electrical consumption, and extend lighting equipment life.', 'measure_id': 'lighting_motion_sensor_control_retrofit', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'Window Lifecycle Planning and Sealant Renewal (Aging Double-Glazed Units)', 'category': 'other', 'existing_conditions': 'The building is equipped with double-pane windows typical of its construction era. The windows were observed to be in generally fair condition at the time of the site visit. However, in aging buildings, the insulating glazing units (IGUs) may gradually lose performance over time due to seal deterioration and potential reduction of the insulating gas between panes. While no widespread failure was observed, long-term thermal performance may decline as glazing systems age.', 'retrofit_conditions': 'As part of ongoing building envelope maintenance and long-term capital planning, it is recommended to monitor window performance and implement periodic re-caulking and weatherstripping renewal where required. Full window replacement is not considered immediately necessary; however, future glazing upgrades should be evaluated in alignment with reserve fund studies and envelope lifecycle planning. Proactive lifecycle management will help maintain thermal performance, occupant comfort, and overall energy efficiency over time.\\n\\nNew glazing systems with improved low-E coatings, warm-edge spacers, and enhanced seal performance would significantly reduce heat loss, improve occupant comfort, and lower heating demand. Phased implementation can be considered to align with reserve fund planning and envelope lifecycle scheduling.', 'notes': 'Monitor aging double-pane windows and incorporate sealant renewal and long-term glazing upgrades into lifecycle and capital planning strategies.', 'measure_id': 'window_caulking_upgrade', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}, {'measure_title': 'EV Charging Stations', 'category': 'other', 'existing_conditions': 'Electric vehicle (EV) ownership is expected to grow substantially over the next decade, and many multi-residential and commercial buildings currently lack dedicated EV charging infrastructure for residents, staff, or visitors', 'retrofit_conditions': 'Upgrading through the Trade‑In Program is recommended to replace outdated units with OCPP‑networked TAR‑M chargers, providing managed access, usage metering, and load balancing. Early participants benefit from reduced capital cost, including no‑cost upgrades for the first two owners, along with ongoing carbon‑credit rebates of $0.03–$0.05/kWh.\\n\\n*Additional information regarding current incentive programs can be found on Mann Engineering’s website:\\nhttps://www.mannengineering.com/', 'notes': 'Plan and install EV charging infrastructure for residents and staff, contact us for more detail.', 'measure_id': 'ev_charging_stations', 'savings_electric_kwh': None, 'savings_gas_m3': None, 'savings_water_m3': None, 'implementation_cost': None, 'incentive': None, 'simple_payback_years': None}",
+    "{Miscellaneous Block}": "{'title': 'Lighting condition and controls', 'category': 'lighting', 'text': 'Lighting throughout the building is generally in good working order. Common areas, corridors, and service spaces appear to be equipped with a mix of LED and fluorescent fixtures. No widespread outages were observed during the walkthrough, and the overall lighting levels were appropriate for the building’s use. Further savings may be available through continued LED retrofit and the use of occupancy-based controls in selected low-traffic areas. Or installing light control in the parking area.', 'misc_id': 'lighting_condition'}, {'title': 'Window condition (good)', 'category': 'window', 'text': 'The building is equipped with double-pane windows with generally intact seals and caulking, providing effective air sealing and thermal performance. No significant air infiltration issues were observed during the site visit', 'misc_id': 'window_condition_good'}, {'title': 'Envelope Condition (Good)', 'category': 'window', 'text': 'The building envelope appears to be in generally good condition, with no significant signs of air leakage or deterioration observed at the time of the site visit. Envelope components appear to be performing as intended.', 'misc_id': 'envelope_condition_good'}, {'title': 'Garage ventilation (Has CO controls)', 'category': 'garage', 'text': 'The parking garage is served by a mechanical ventilation system controlled by carbon monoxide (CO) sensors. Exhaust fans start and stop in response to measured CO levels, providing demand-based operation and reducing unnecessary runtime during periods of low vehicle activity. The garage fans and control system appeared to be functioning normally, with no obvious mechanical deficiencies reported.', 'misc_id': 'garage_co_control'}, {'title': 'Unheated garage', 'category': 'garage', 'text': 'The building includes an unheated parking garage, which is typical for buildings of this age. No dedicated space-heating system was observed, and garage temperatures are allowed to fluctuate with outdoor conditions.', 'misc_id': 'unheated_garage'}, {'title': 'Has VFD on Booster Pump', 'category': 'maintenance', 'text': 'The building is served by a packaged domestic water booster pump system equipped with variable frequency drives (VFDs). The booster pack modulates pump speed in response to system demand, maintaining stable water pressure throughout the building while reducing unnecessary energy consumption during low-demand periods. The booster pump system was observed to be operating normally at the time of the site visit, with no abnormal noise, vibration, or visible mechanical deficiencies noted', 'misc_id': 'has_vfd_on_booster_pump'}, {'title': 'Diesel Generator', 'category': 'electric', 'text': 'The building is equipped with a diesel emergency generator to provide backup power to designated life-safety and essential systems during utility outages. The generator appears to be maintained in accordance with typical standby power requirements. Regular testing, fuel management, and periodic inspection are required to ensure operational readiness and compliance with applicable electrical and fire safety codes.', 'misc_id': 'diesel_generator'}",
+    "{Number of Floors}": "32",
+    "{Number of Suites}": "320",
+    "{Post Code}": "M2N 6Y7",
+    "{Property Address1}": "33 Empress Ave",
+    "{Province Abbreviation}": "ON",
+    "{Province}": "Ontario",
+    "{Report Date}": "Feb-09-2026",
+    "{Suite Types}": "2 Bedroom, 1 Bedroom, guest room, Amenity spaces."
+  },
+  "project_info": {
+    "building_name": "",
+    "client_name": "MTCC-1343 & Crossbridge Condominium Services",
+    "prepared_by": "",
+    "report_date": "Feb-09-2026",
+    "site_address": "33 Empress Ave"
+  },
+  "project_notes": "33 Empress Ave check list\n\nHeating BOILER\n\t◦\tSuite heating provide by: MagicPak unit for heating\n\t◦\tBoiler fact: No heating boiler, heating for common area are provide by roof top AHU units. \n\t◦\t*level G to level 2 floor heating and cooling provide by Mall.AHU(TRANE 1998)\n\t◦\tcome guest room has electric base board heater.\n\nCooling System \n\t◦\tspace cooling: MagicPak unit for heating\n\t◦\tCooling Tower: No chiller nor cooling tower, cooling for common area are provide by roof top AHU units.\n\t◦\t*level G to level 2 floor heating and cooling provide by Mall.\n\n\nMUA\n\t◦\tMUA fact: one (1) Central AHU, has VFD + inbuild gas burner + air cooled chiller to provide cooling, at the time of the site visit, the existing equipment was observed to be out of service and in the process of being replaced with new equipment. \n\t◦\tHeating and cooling capacity: inbuild gas burner + air cooled chiller + VFD \n\t◦\tVFD for MUA: present\n\t◦\tmechanicial condition: poor, original to the building.\n\n\nDHW\n\t◦\tDHW source: Centralized DHW boiler\n\t◦\tDHW boiler fact: \none (1) Raytherm atmospheric boiler rated at 1,825.5 MBH installed in 2000, original to the building, poor condition, end of service life.\n\none (1) ThermalSolutions EVO atmospheric boiler rated at 1,500 MBH installed in 2008. approaching their end of service life, replace in short term to mid term.\nreturn temp 145, supply temp 145.\none (1) electric HDW (300W) side arem heater for lower zone\n\n\t◦\tmixing valve type and condition: no anti scale valve。\n\t◦\tstorage tank type and condition: one(1) indirect storage tank. old, storage tank 130 F. condition: poor condition.\n\n\nGarage\n\t◦\theated or not: Unheated\n\t◦\tRamp de icing: electric \n\t◦\tCo sensor: present  \n\nLighting\n\t◦\tAll LED or MIX: All LED \n\n\nWindow\n\t◦\tWindow caulking condition : good \n\t◦\tsingle panel/ double panel/ : double \n\n\nSub meter\n\t◦\tExisting condition: sub-meter\n\nBooster pump\n\t◦\tVFD for Booster pump: seems no VFD, pressure control.\n\nBAS a individual block\n\t◦\tBAS type : local control\n\nMisc\n\t◦\tGenerator?: oil gen\n\t◦\tPiping: good condition\n\t◦\tEnvelop architectural condition: good condition\n\t◦\tPool/ Dytron units : no pool",
+  "selected_measures": [],
+  "ventilation_items": [
+    {
+      "category": "system",
+      "misc_id": "central_ahu_ventilation",
+      "text": "Ventilation for the building is provided by One (1) central air handling unit(s), located in roof top, equipment with outdoor-air intake and return/exhaust paths serving corridors and other public areas.",
+      "title": "Central AHU ventilation"
+    },
+    {
+      "category": "ventilation_equipment_facts",
+      "misc_id": "vfd_gas_fire_air_cooled_chiller",
+      "text": "The units are equipped with supply fans with variable frequency drives (VFDs), integral gas-fired heating burners, and Air Cooled Chiller provide cooling capacity. The existing equipment was observed to be out of service and in the process of being replaced with new equipment.",
+      "title": "VFD+Gas Fire+Air Cooled Chiller"
+    },
+    {
+      "category": "controls",
+      "misc_id": "ventilation_controls_bas",
+      "text": "The building is not equipped with a centralized Building Automation System (BAS) to coordinate AHU operation with the rest of the mechanical systems.\n\nIntegration of the new AHU units into a BAS would enable improved scheduling, supply air temperature reset, demand-based ventilation, and alarm monitoring. These enhancements would improve overall energy performance, operational oversight, and long-term system reliability.",
+      "title": "Ventilation controls via BAS"
+    }
+  ]
+}

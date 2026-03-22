@@ -66,7 +66,7 @@
     },
     {
       "id": "fancoil_chiller",
-      "title": "Fancoil + chiller",
+      "title": "Fancoil + chiller(site visit in winter)",
       "category": "cooling_system",
       "text": "Cooling is provided by a central York water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2002 and is original to the building}.\n\nHeat rejection is provided via a {B.A.C}. cooling tower installed in {2004}. The condenser water system, including the cooling tower fan and condenser water pumps, are {not equipped with VFDs}.\n\nThe chilled-water distribution system appears to be {functioning normally}, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates {reliably} under typical summer conditions.\n\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. {Where fan coil units are original to the building, they may be approaching the end of their typical service life and could require future replacement.}\n\nAt the time of the site visit, the chiller and cooling tower were {seasonally shut down}, which is typical for the time of year. No major physical deficiencies were identified during the walkthrough, and building staff reported generally reliable operation during the most recent cooling season."
     },
@@ -87,6 +87,18 @@
       "title": "Over all Good condition - With BAS Integration",
       "category": "controls",
       "text": "Cooling system operation is integrated into the Building Automation System (BAS), allowing centralized monitoring and coordination of plant equipment.\n\nAt the time of the site visit, the Cooling System appeared to be functioning normally, with no major deficiencies observed. The BAS provides a foundation for coordinated operation and improved scheduling.\n\nMinor refinement of scheduling and temperature reset strategies may provide incremental efficiency improvements over time"
+    },
+    {
+      "id": "fancoil_chiller_site_visit_in_spring",
+      "title": "Fancoil + Chiller{Site visit in Spring}",
+      "category": "cooling_system",
+      "text": "Cooling is provided by a central {Daikin} water-cooled chiller located in the main mechanical room. The chiller was manufactured in {2013} and is {original to the building}.\nHeat rejection is provided via a Marley cooling tower installed in {2013}. The condenser water system, including the cooling tower fan and condenser water pumps, {are not equipped with VFDs}.\nThe chilled-water distribution system appears to be functioning normally, with supply and return piping, pumps, and control valves observed to be in serviceable condition at the time of the walkthrough. According to site staff, the chiller operates reliably under typical summer conditions.\nSuite-level cooling is provided by in-suite fan coil units operating under local thermostatic control. These fan coils distribute chilled water from the central plant to provide space cooling throughout the suites. \nAt the time of the site visit, the chiller and cooling tower were undergoing seasonal maintenance in preparation for the upcoming cooling season. No major physical deficiencies were observed during the walkthrough, and building staff reported generally reliable operation during the previous cooling season."
+    },
+    {
+      "id": "over_all_good_condition_bas_integration_unclear",
+      "title": "Over all Good condition – BAS Integration unclear:",
+      "category": "controls",
+      "text": "Cooling system control appears limited or BAS integration could not be fully confirmed during the site visit; if not currently integrated, connection to a centralized BAS is recommended to enable improved monitoring, scheduling, and temperature reset control."
     }
   ]
 }
